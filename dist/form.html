@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags  -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+
+    <title>Lineone - Sign Up v1</title>
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+
+    <!-- CSS Assets -->
+
+    <link href="../dist/css/output.css" rel="stylesheet">
+    <link href="../dist/css/app.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/alpinejs@3.10.5/dist/cdn.min.js"></script>
+
+    <!-- Javascript Assets -->
+    <!-- <script src="./app.js" defer></script> -->
+    <script src="js/app.js" defer></script>
+
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
+    <!-- App preloader-->
+    <div
+      class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
+    >
+      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+    </div>
+
+    <!-- Page Wrapper -->
+    <div
+      id="root"
+      class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
+      x-cloak
+    >
+      <main class="grid w-full grow grid-cols-1 place-items-center">
+        <div class="-full max-w-[26rem] p-4 sm:px-5 relative min-h-full ">
+          <div class=" relative top-0 grid place-content-center m-auto max-[h-14] sm:h-10 md:h-10">
+            <div class="grid place-content-center">
+              <a href="#" class="flex items-center space-x-2">
+                <img class="hidden lg:h-12 lg:w-12 md:h-10 md:w-10 sm:h-8 sm:w-8 " src="images/app-logo.svg" alt="logo" />
+                <p
+                  class=" lg:text-xl md:text-lg sm:text-xs+ font-semibold uppercase text-slate-700 dark:text-navy-100"
+                >
+                  lineone
+                </p>
+              </a>
+            </div>
+          
+          </div>
+
+          <div class="relative max-h-[auto] border-blue-600 card mt-2  lg:mt-4 md:mt-3 sm:mt-2 rounded-lg p-4 sm:p-5 lg:p-7 " >
+            
+            <form  x-data="ContactForm()" @submit.prevent="submitForm">
+            <label class="relative flex">
+              <input
+                x-model="formData.businessName"
+                class="sm:py-1.5 lg:py-2 max-[770px]:py-1.5 form-input peer w-full sm:w-1/2 rounded-lg border border-slate-300 md:border-0 sm:border-0 bg-transparent pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Business Name "
+                type="text"
+              />
+              <span
+                class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+              >
+                <i class="fa fa-user"></i>
+              </span>
+            </label>
+            <label class="relative mt-2 flex">
+              <input
+                x-model="formData.workEmail"
+                class="sm:py-1.5 lg:py-2  max-[770px]:py-1.5 form-input peer w-full sm:w-full rounded-lg border border-slate-300 bg-transparent px-3 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Work Email"
+                type="text"
+              />
+              <span
+              class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5 transition-colors duration-200"
+                fill="none"
+                viewbox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
+              </svg>
+            </span>
+            </label>
+            <label class="relative mt-2 flex">
+              
+              <input
+                x-model="formData.phone"
+                class="sm:py-1.5 lg:py-2  max-[770px]:py-1.5 form-input peer w-full  rounded-lg border border-slate-300 bg-transparent px-3 pl-16 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Phone Number"
+                type="tel"
+                style="padding-left: 60px!important;"
+              />
+              <span
+                class="pointer-events-none absolute flex h-full w-14 border-r-slate-300 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+              >
+              <span class="w-8 h-3/4 grid place-content-center">
+                <img src="./css/flags/4x3/in.svg" class="h-4 w-14 relative"/>
+              </span>
+              <span class="text-slate-400">+91</span>
+              </span>
+            </label>
+            <label class="relative mt-2 flex">
+              <input
+                x-model="formData.password"
+                class="sm:py-1.5 lg:py-2  max-[770px]:py-1.5 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Password"
+                type="password"
+              />
+              <span
+                class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 transition-colors duration-200"
+                  fill="none"
+                  viewbox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </span>
+            </label>
+       
+            <label class="relative mt-2 flex">
+              <input
+                x-model="formData.passwordRepeat"
+                class="sm:py-1.5 lg:py-2 max-[770px]:py-1.5 form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                placeholder="Repeat Password"
+                type="password"
+              />
+              <span
+                class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 transition-colors duration-200"
+                  fill="none"
+                  viewbox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  />
+                </svg>
+              </span>
+            </label>
+            <span class="text-red-500 text-sm" x-text="formMessage">hi</span>
+            <div class="mt-4 flex items-center space-x-2">
+              <input
+                x-model="formData.check"
+                class="form-checkbox is-basic h-5 w-5 rounded border-slate-400/70 checked:border-primary checked:bg-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:border-accent dark:checked:bg-accent dark:hover:border-accent dark:focus:border-accent"
+                type="checkbox"
+              />
+              <p class="line-clamp-1">
+                I agree with
+                <a
+                  href="#"
+                  class="text-slate-400 hover:underline dark:text-navy-300"
+                >
+                  privacy policy
+                </a>
+              </p>
+            </div>
+            <button
+              :disabled="formLoading" 
+              x-text="buttonText"
+              class="btn mt-5 w-full bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+            >
+              Sign Up
+            </button>
+            <div class="mt-4 text-center text-xs+">
+              <p class="line-clamp-1 text-xs sm:text-lg">
+                <span>Already have an account? </span>
+                <a
+                  class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
+                  href="login.html"
+                  >Sign In</a
+                >
+              </p>
+            </div>
+            <div class="max-[600px]:my-4 sm:my-2  border flex items-center space-x-3">
+              <div class="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
+              <p class="text-tiny+ uppercase">or sign up with email</p>
+              <div class="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
+            </div>
+            <div class="hidden flex space-x-4 border max-[600px]:my-3 sm:my-2 ">
+              <button
+                class="btn w-full space-x-3  border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90  max-[600px]:h-8"
+              >
+                <img
+                  class="h-5.5 w-5.5"
+                  src="images/200x200.png"
+                  alt="logo"
+                />
+                <span>Google</span>
+              </button>
+              <button
+                class="btn w-full space-x-3  border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90  max-[770px]:h-8"
+              >
+                <img
+                  class="h-5.5 w-5.5"
+                  src="images/200x200.png"
+                  alt="logo"
+                />
+                <span>Github</span>
+              </button>
+            </div>
+          
+            </form>
+        </div>
+        </div>
+        
+      </main>
+    </div>
+
+    <!-- 
+        This is a place for Alpine.js Teleport feature 
+        @see https://alpinejs.dev/directives/teleport
+      -->
+    <div id="x-teleport-target"></div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => Alpine.start());
+    </script>
+    <script>
+      function ContactForm() {
+        return {
+          formData :{
+            businessName: '',
+            workEmail: '',
+            phone: '',
+            password: '',
+            passwordRepeat: '',
+          },
+
+        formMessage: "",
+        formLoading: false,
+        buttonText: "Submit",
+        submitForm() {
+          this.formMessage = "";
+          this.formLoading = false;
+          this.buttonText = "Submitting...";
+          fetch('/submit', {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+            body: JSON.stringify(this.formData),
+          })
+            .then(() => {
+              this.formData.businessName = "";
+              this.formData.workEmail = "";
+              this.formData.phone = "";
+              this.formData.password = "";
+              this.formData.passwordRepeat = "";
+              this.formMessage = "Form successfully submitted.";
+            })
+            .catch(() => {
+              this.formMessage = "Something went wrong.";
+            })
+            .finally(() => {
+              this.formLoading = false;
+              this.buttonText = "Submit";
+            });
+          },
+
+
+        };
+      }
+  </script>
+  </body>
+</html>
