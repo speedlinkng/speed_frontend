@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id="questions-container">
+  <!-- Initially, no questions are present -->
+</div>
+
+<button id="add-question">Add New Question</button>
+
+<script>
+$(document).ready(function() {
+  // Counter to track question IDs
+  let questionCounter = 0;
+
+  // Handle "Add New Question" button click
+  $('#add-question').click(function() {
+    // Increment the counter for unique IDs
+    questionCounter++;
+
+    // Create a new question input field and options
+    const questionHtml = `
+      <div class="question" data-question-id="${questionCounter}">
+        <input type="text" class="question-input" placeholder="Enter your question">
+        <label for="required">Required?</label>
+        <input type="checkbox" class="required-checkbox">
+        <button class="add-answer">Add</button>
+      </div>
+    `;
+    
+    $('#questions-container').append(questionHtml);
+
+    // Handle "Add" button click for the current question
+    $('.question[data-question-id="' + questionCounter + '"] .add-answer').click(function() {
+      const questionId = $(this).closest('.question').data('question-id');
+      const questionInput = $(`.question[data-question-id="${questionId}"] .question-input`);
+      const requiredCheckbox = $(`.question[data-question-id="${questionId}"] .required-checkbox`);
+      
+      const questionText = questionInput.val();
+      const isRequired = requiredCheckbox.prop('checked') ? 'Required' : 'Not Required';
+      
+      // Display the result for the current question
+      alert(`Question: ${questionText}\n${isRequired}`);
+      
+      // Remove the question from the DOM
+      $(`.question[data-question-id="${questionId}"]`).remove();
+    });
+  });
+});
+</script>
+
+</body>
+</html>

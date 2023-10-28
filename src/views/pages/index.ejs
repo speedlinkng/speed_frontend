@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta tags  -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+
+  <title>Speedlink</title>
+  <link rel="icon" type="image/png" href="images/favicon.png" />
+
+  <!-- CSS Assets -->
+  <link rel="stylesheet" href="css/output.css" />
+  <link rel="stylesheet" href="css/app.css" />
+  <link rel="stylesheet" href="css/w3.css" />
+  <link rel="stylesheet" href="css/pond.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <!-- Include FilePond CSS -->
+  <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet">
+  <!-- Javascript Assets -->
+  <script src="script/app.js" defer></script>
+  <script src="script/jquery.js"></script>
+  <script src="script/w3.js"></script>
+  <script src="script/pond.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/script/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body x-data class="is-header-blur" x-bind="$store.global.documentBody">
+  <!-- App preloader-->
+  <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+    <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+  </div>
+
+  <!-- Page Wrapper -->
+  <div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
+
+
+    <!-- App Header Wrapper-->
+    <nav class="header print:hidden bg-red-00">
+      <!-- App Header  -->
+      <div class="header-container relative flex w-full bg-white dark:bg-navy-750 print:hidden">
+        <!-- Header Items -->
+        <div class="flex w-full items-center justify-between">
+          <!-- Left: Sidebar Toggle Button -->
+          <div class="h-7 w-11">
+            <button
+              class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80">
+              lOGO
+            </button>
+          </div>
+
+
+          <div class="h-7 w-28">
+            <button
+              class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+              :class="$store.global.isSidebarExpanded && 'active'"
+              @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+
+
+
+
+
+          <!-- Right: Header buttons -->
+          <div class=" flex items-center justify- space-x-2 w-full  px-4">
+
+            <!-- Dark Mode Toggle -->
+            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+              class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+              How it works
+            </button>
+
+            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+              class="btn h-8 w-fix rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+
+              Features
+            </button>
+
+            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+              class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+
+              Pricing
+            </button>
+
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
+
+
+    <!-- Main Content Wrapper -->
+    <main class="main-content w-full place-items-center px-[var(--margin-x)] pb-12">
+
+      <div class="w-full h-fit p-4 text-center  dark:text-white relative top-4 text-3xl " id="upload_title">
+        <h2 class="up_title">TITLE</h2>
+      </div>
+      <div class="w-full h-fit p-4 text-center relative top-4 text-base hidden">
+        <h2 class="uo_desc">Description</h2>
+      </div>
+
+
+
+      <section id="main_content" style="display:block;" class="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6 mt-5">
+        <div class="col-span-12 grid lg:col-span-7 sm:col-span-8">
+          <div class="card">
+            <div class="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
+              <div class="flex items-center space-x-2">
+                <div
+                  class="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 p-1 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <h4 class="text-lg font-medium text-slate-700 dark:text-navy-100">
+                  Upload File
+                </h4>
+              </div>
+            </div>
+            <div class="space-y-4 p-4 sm:p-5">
+              <label class="block">
+                <span>Your Name</span>
+
+                <input
+                  class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  placeholder="Your FullName" id="upload_name" type="text" value="iso divine" />
+                <span id="up_name_err" class="text-red-400"></span>
+              </label>
+              <label class="block">
+                <span>Your Email</span>
+
+                <input
+                  class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                  placeholder="Your Email" id="upload_email" type="text" value="iso@gmail.com" />
+                <span id="up_email_err" class="text-red-400"></span>
+              </label>
+              <!-- include questions if they exists -->
+              <div w3-include-html="forms" class="space-y-4" id="include_questions">
+
+              </div>
+              <div class="flex justify-center space-x-2 pt-4" id="next_section" style="display: block;">
+
+                <button onclick="next()"
+                  class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  <span>Next</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z" />
+                  </svg>
+
+                </button>
+              </div>
+              <!-- IMAGE SECTION  -->
+
+
+              <div class="" id="image_section" style="display: none;">
+                <span>Images</span>
+                <div class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
+                  <input type="file" class="file" name="file" id="filepond" />
+                </div>
+              </div>
+              </form>
+              <!-- PROGRESS BAR START -->
+              <div id="progress_bar_section" style="display: none;">
+                <div class="flex">
+                  <div class="mr-3 font-medium dark:text-white  flex items-center text-slate-800 "
+                    id="upload_percentage">0%</div>
+                  <div id="result" style="display: none;"
+                    class="flex items-center text-red-500 dark:text-red-500 offline ">
+                    <i class="bi bi-wifi-off" style="font-size: 20px;"></i>
+                    <span>Seems you are offline, Dont leave this page </span>
+                  </div>
+                </div>
+
+                <div class="progress h-2 bg-slate-150 dark:bg-navy-500">
+                  <div class="is-active relative overflow-hidden rounded-full bg-warning progress_bar">
+
+                  </div>
+                </div>
+              </div>
+              <!-- UPLOAD BUTTON FLEX -->
+              <div class="flex justify-start space-x-2 pt-4" id="upload_button" style="display:none;">
+
+                <button onclick="uploadToDrive()"
+                  class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  <span>Upload</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                  </svg>
+                  <div id="up_spinner" style="display: none;"
+                    class="spinner is-elastic h-7 w-7 animate-spin rounded-full border-[3px] border-white border-r-transparent dark:border-white dark:border-r-transparent">
+                  </div>
+
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="relative border rounded-lg md:border-slate-700 col-span-12 grid lg:col-span5 sm:col-span-4 lg: sm: p-4  border-slate-700">
+          <div>
+            <div class="mt-2 text-2xl text- dark:text-white">Upload Description </div>
+            <div class="mt-4 text-base text- up_desc" id="upload_description"></div>
+
+            <div class="text-base"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+
+  </div>
+  <!-- 
+        This is a place for Alpine.js Teleport feature 
+        @see https://alpinejs.dev/directives/teleport
+      -->
+  <div id="x-teleport-target"></div>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => Alpine.start());
+  </script>
+</body>
+
+</html>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+<script type="script" src="script/upload/u_form.js"></script>
+<script type="script" src="script/upload/u_fetchData.js"></script>
+<script type="script" src="script/upload/u_resume.js"></script>
+
+
+
+
+<script>
+  function connection() {
+
+    if (window.navigator.onLine == true) {
+      console.log('you are online')
+    } else {
+      console.log('you are offline')
+    }
+    window.addEventListener("online", function () {
+      console.log("I am connected to the internet")
+    })
+
+    window.addEventListener("offline", function () {
+      console.log("Disconnected...so sad!!!")
+    })
+  }
+
+
+</script>
+
+<script>
+  // UNSET LOCALSTORAGES NOT NEEDED
+  localStorage.setItem('savedQuestions', null)
+  localStorage.removeItem('savedQuestions')
+  localStorage.removeItem('stopLoop')
+  localStorage.setItem('savedQuestions', null)
+  localStorage.setItem('savedQuestions', null)
+  localStorage.setItem('savedQuestions', null)
+</script>

@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const allRoute = require('./routes/all.route');
+const dahboard = require('./routes/dahboard.route');
+const admin = require('./routes/admin.route');
+const auth = require('./routes/auth.route');
 const dotenv = require('dotenv');
 const cors=require("cors");
 const corsOptions ={
@@ -13,30 +15,26 @@ app.set('view engine', 'ejs');
 
 
 // app.use(express.static(__dirname + '/public'));
-app.use(express.static(path.join(__dirname, './public')));
-app.use(express.static(path.join(__dirname, './views')));
-// index page
-app.get('/', function(req, res) {
-  res.redirect('/dashboard/home.html?app_email=822');
-//   +'&app_email=' + res.decoded_access.id
-});
- 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'static/dashboard')));
+// app.use(express.static(path.join(__dirname, 'static/Admin')));
+app.use(express.static(path.join(__dirname, 'static/auth')));
+// app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 
-app.use("/dash/", allRoute)
+app.use("/dash/", dahboard)
+app.use("/auth/", auth)
+app.use("/admin/", admin)
 
 
-// Handling GET request
-app.get('/', (req, res) => {
-    res.send('A simple Node App is '
-        + 'running on this server')
-    res.end()
-})
- 
+app.get('/', function(req, res) {
+  res.sendFile(`index.html`, { root: 'static' });
+});
+
 // Port Number
-const PORT = process.env.PORT ||8000;
+const PORT = process.env.PORT ||4000;
  
 // Server Setup
 app.listen(PORT,console.log(

@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700&family=Poppins:wght@300&family=Roboto:wght@100&family=Slabo+27px&family=Tilt+Neon&family=Young+Serif&display=swap');
+.jaka{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.poppin{
+    font-family: 'Poppins', sans-serif;
+}
+.roboto{
+    font-family: 'Roboto', sans-serif;
+}
+.slabo{
+    font-family: 'Slabo 27px', serif; 
+}
+.neon{
+    font-family: 'Tilt Neon', cursive;
+}
+.young{
+    font-family: 'Young Serif', serif;
+}
+:root {
+    --main: 240px
+}
+.my_body{
+    z-index: 19;
+    margin-top:61px!important;
+}
+@media (max-width:639px) {
+    .pad {
+       padding-left: 16px;
+       padding-right: 16px;
+    }
+}
+@media (max-width:768) {
+   .calcimage{
+        height:300px;
+   } 
+}
+
+#alteText {
+    white-space: pre;
+    /* font-family: monospace; */
+}

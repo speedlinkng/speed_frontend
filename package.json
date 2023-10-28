@@ -15,8 +15,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build-watch": "tailwindcss -i ./src/css/app.css -o ./dist/css/output.css --watch",
-    "build-css": "tailwindcss -i ./src/css/app.css -o ./dist/css/output.css "
+    "build-watch": "tailwindcss -i ./src/css/app.css -o ./public/css/output.css --watch",
+    "build-css": "tailwindcss -i ./src/css/app.css -o ./public/css/output.css "
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",

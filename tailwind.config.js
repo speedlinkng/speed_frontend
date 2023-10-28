@@ -1,9 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class', // or 'media' or 'class'
-  content: ["./public/dist/index.ejs","./dist/*.{html,js}", "./dist/*/*.{html,js}", "./dist/dashboard/*.{html,js}"],
+  content: ["./static/*.{html,js}","./static/index.html","./static/*/*.{html,js}", "./static/*/*/*.{html,js}", "./static/*/*/*/*.{html,js}"],
   theme: {
-    extend: {},
+    extend: {
+      screens: {
+        'tab': '760px', // if 768 it will affect tablets, so with a minimum of 760 this should show your screens
+      },
+    },
   },
   plugins: [],
 }

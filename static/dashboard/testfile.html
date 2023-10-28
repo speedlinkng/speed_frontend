@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Input Example</title>
+</head>
+<body>
+    <input type="file" id="fileInput">
+    <script>
+        // Get a reference to the file input element
+        const fileInput = document.getElementById('fileInput');
+
+        // Add an event listener to the file input's change event
+        fileInput.addEventListener('change', function (event) {
+            // Get the selected file from the input
+            const selectedFile = event.target.files[0];
+
+            if (selectedFile) {
+                // Create a new FileReader
+                const fileReader = new FileReader();
+
+                // Define an event handler for when the file is loaded
+                fileReader.onload = function (event) {
+                    // Access the file data as an ArrayBuffer
+                    const arrayBuffer = event.target.result;
+
+                    // Convert the ArrayBuffer to a Uint8Array
+                    const uint8Array = new Uint8Array(arrayBuffer);
+                    console.log('File data as Uint8Array:', uint8Array);
+                    // Get a chunk of 200KB from the Uint8Array
+                    const chunkSize = 20 * 1024; // 200KB
+                    const chunk = uint8Array.slice(0, chunkSize);
+
+                    // Now you have the file data as a Uint8Array
+                    console.log('20 kb:', chunk);
+
+                    // You can perform further processing with the Uint8Array here
+                };
+
+                // Read the file as an ArrayBuffer
+                fileReader.readAsArrayBuffer(selectedFile);
+            }
+        });
+    </script>
+</body>
+</html>
