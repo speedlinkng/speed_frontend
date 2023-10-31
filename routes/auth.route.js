@@ -12,6 +12,10 @@ const serveStatic = require('serve-static');
     res.sendFile(`signup.html`, { root: 'static/auth' });
   });
 
+  router.get('/', function(req, res) {
+    res.sendFile(`auth.html`, { root: 'static/auth' });
+  });
+
   
 
 module.exports = router

@@ -20,6 +20,7 @@
 :root {
     --main: 240px
 }
+
 .my_body{
     z-index: 19;
     margin-top:61px!important;
@@ -66,7 +67,30 @@ button[disabled]::after {
     animation: loading-dots 2.5s infinite steps(4, start) 0s;
 }
 
+.w2-animate-fading{animation:fading 5s infinite}@keyframes fading{0%{opacity:0}50%{opacity:1}100%{opacity:0}}
 
+@keyframes opacityAnimation {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  
+  .animated-image {
+    animation-name: opacityAnimation;
+    animation-duration: 3.5s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+  }
+  
+  
+  
+  
 
 
 

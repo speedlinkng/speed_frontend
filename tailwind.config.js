@@ -1,7 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: 'class', // or 'media' or 'class'
-  content: ["./static/*.{html,js}","./static/index.html","./static/*/*.{html,js}", "./static/*/*/*.{html,js}", "./static/*/*/*/*.{html,js}"],
+  content: [
+  "./public/js/*.{html,js}",
+  "./public/js/*/*.{html,js}",
+  "./static/*.{html,js}",
+  "./static/index.html",
+  "./static/*/*.{html,js}",
+  "./static/*/*/*.{html,js}",
+  "./static/*/*/*/*.{html,js}"
+],
   theme: {
     extend: {
       screens: {

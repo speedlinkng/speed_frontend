@@ -1,5 +1,3 @@
-// Another JavaScript file
-import { myGlobalVariable } from './globals.js';
 
 function start_loading(myButton){
     // Change the text to "Loading..." with animated dots

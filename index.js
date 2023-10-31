@@ -15,10 +15,11 @@ app.set('view engine', 'ejs');
 
 // app.use(express.static(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'include')));
 app.use(express.static(path.join(__dirname, 'static/dashboard')));
 // app.use(express.static(path.join(__dirname, 'static/Admin')));
 app.use(express.static(path.join(__dirname, 'static/auth')));
-// app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
@@ -31,6 +32,11 @@ app.use("/admin/", admin)
 app.get('/', function(req, res) {
   res.sendFile(`index.html`, { root: 'static' });
 });
+
+app.get('/inc', function(req, res) {
+  res.sendFile(`qrcode.html`, { root: 'src' });
+});
+
 
 // Port Number
 const PORT = process.env.PORT ||4000;

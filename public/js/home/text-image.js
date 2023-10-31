@@ -1,3 +1,4 @@
+
   const textContainer = document.getElementById('alteText');
   const image = document.getElementById('displayedImage');
   const words = ["Your Students", "Your Clients", " & Friends"];
@@ -22,6 +23,7 @@
    });
 
   function writeAndErase() {
+   
       if (currentIndex >= words.length) {
           currentIndex = 0; // Reset to the first word if we've reached the end
       }
@@ -37,8 +39,10 @@
               if (i === wordLength) {
                 setTimeout(() => {
                     erase();
-                    showImage();
                 }, 1000);
+                setTimeout(() => {
+                    showImage();
+                }, 500);
               }
           }, i * interval);
       }
@@ -46,7 +50,7 @@
 
   function erase() {
       const currentText = textContainer.textContent;
-      const interval = 50; // Time in milliseconds for each character
+      const interval = 80; // Time in milliseconds for each character
 
       for (let i = currentText.length; i >= 0; i--) {
           setTimeout(() => {
@@ -85,20 +89,28 @@
     //     }
     // }
     function showImage() {
+        // Remove animation
+        image.classList.remove("animated-image");
+      
         const highQualityImage = preloadedHighQualityImages[currentIndex % highQualityImages.length];
+        setTimeout(function(){
+            // Check if the high-quality image has finished loading
+            if (highQualityImage.complete) { 
+                // image.classList.add("animated-image");
+            
+                // Change the image source to high quality
+                image.src = highQualityImage.src;
+                // image.loading = "lazy";
+            } else {
+                // image.classList.add("animated-image");
+                // Change the image source to low quality
+                image.src = preloadedLowQualityImages[currentIndex % lowQualityImages.length].src;
+            }
 
-        // Check if the high-quality image has finished loading
-        if (highQualityImage.complete) {
-            // Change the image source to high quality
-            image.src = highQualityImage.src;
-        } else {
-            // Change the image source to low quality
-            image.src = preloadedLowQualityImages[currentIndex % lowQualityImages.length].src;
-        }
-
-        // Apply the CSS class to trigger the fade-in effect
-        image.classList.add("fade-in");
+            // Apply the CSS class to trigger the fade-in effect
+            image.classList.add("animated-image");
+        }, 100)
+    
     }
     
   writeAndErase(); // Start the process
-
