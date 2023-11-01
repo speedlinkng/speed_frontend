@@ -1,412 +1,332 @@
-    <!-- Main Content Wrapper -->
-    <div>
-        <div
-          class="flex items-center justify-between space-x-2 px-[var(--margin-x)] pb-4 pt-5 transition-all duration-[.25s]">
-          <div class="flex items-center space-x-1">
+<!-- Main Content Wrapper -->
+<div>
+    <div
+        class="flex items-center justify-between space-x-2 px-[var(--margin-x)] pb-4 pt-5 transition-all duration-[.25s]">
+        <div class="flex items-center space-x-1">
             <h3 class="text-lg font-medium text-slate-700 line-clamp-1 dark:text-navy-50">
-              Admin Dashboard
+                Admin Dashboard
             </h3>
             <div x-data="usePopper({placement:'bottom-start',offset:4})"
-              @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
-              <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
-                class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                <i class="fas fa-chevron-down"></i>
-              </button>
-  
-              <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
-                <div
-                  class="popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
-                  <ul>
-                    <li>
-                      <a href="#"
-                        class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
-                          stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                        </svg>
-  
-                        <span> New Folder</span></a>
-                    </li>
-                    <li>
-                      <a href="#"
-                        class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
-                          stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                        </svg>
-  
-                        <span>Upload Folder</span></a>
-                    </li>
-                    <li>
-                      <a href="#"
-                        class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
-                          stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-  
-                        <span>Download Folder</span></a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-  
-  
-        </div>
-        <div class="flex flex-col" x-data="{activeTab:'tab-recent'}">
-          <div class="flex space-x-2 px-[var(--margin-x)] transition-all duration-[.25s]">
-            <button @click="activeTab = 'tab-recent'" class="btn h-8 rounded-full text-xs+ font-medium"
-              :class="activeTab === 'tab-recent' ? 'bg-slate-150 text-slate-800 dark:bg-navy-600 dark:text-navy-50' : 'hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 hover:text-slate-800 focus:text-slate-800 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 dark:hover:text-navy-100 dark:focus:text-navy-100'">
-              Recent
-            </button>
-     
-          </div>
-          <div>
-            <div x-show="activeTab === 'tab-recent'" x-transition:enter="transition-all duration-500 easy-in-out"
-              x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
-              x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
-              x-init="$nextTick(()=>new Swiper($el,{  slidesPerView: 'auto', spaceBetween: 20}))"
-              class="swiper px-[var(--margin-x)] pt-4 transition-all duration-[.25s]">
-              <div class="swiper-wrapper">
-                <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
-                  <div class="flex items-center justify-between">
-                    <img class="w-14" src="../images/folders/folder-primary.svg" alt="folder" />
-                    <button
-                      class="btn -mr-2 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="pt-5 text-base font-medium tracking-wide text-primary dark:text-accent-light">
-                    Total Users
-                  </div>
-                  <div class="mt-1.5 flex items-center justify-between">
-                    <p class="text-salte-400 text-xs+ dark:text-navy-300">
-                      <span id="total_users"> 22 </span> Users
-                    </p>
-                  </div>
-                </div>
-                <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
-                  <div class="flex items-center justify-between">
-                    <img class="w-14" src="../images/folders/folder-warning.svg" alt="folder" />
-                    <button
-                      class="btn -mr-2 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="pt-5 text-base font-medium tracking-wide text-warning">
-                    Total Files Uploaded
-                  </div>
-                  <div class="mt-1.5 flex items-center justify-between">
-                    <p class="text-salte-400 text-xs+ dark:text-navy-300">
-                      <span id="total_files"> 140 </span> files
-                    </p>
-                    <p class="font-medium text-slate-600 dark:text-navy-100">
-                      <span id="total_files_gb"> 22 </span> GB
-                    </p>
-                  </div>
-                </div>
-                <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
-                  <div class="flex items-center justify-between">
-                    <img class="w-14" src="../images/folders/folder-info.svg" alt="folder" />
-                    <button
-                      class="btn -mr-2 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="pt-5 text-base font-medium tracking-wide text-info">
-                    Total Paid Users
-                  </div>
-                  <div class="mt-1.5 flex items-center justify-between">
-                    <p class="text-salte-400 text-xs+ dark:text-navy-300">
-                      <span id="paid_users"> 100 </span> Users
-                    </p>
-                  </div>
-                </div>
-     
-           
-              </div>
-            </div>
-           
-          </div>
-        </div>
-        <div
-          class="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6">
-          <div class="col-span-12 lg:col-span-8">
-            <div class="flex items-center justify-between">
-              <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-                Users
-              </h2>
-        
-            </div>
-            <div class="card mt-3">
-              <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
-                <table class="poppins is-hoverable w-full text-left">
-                  <thead>
-                    <tr>
-                      <th
-                        class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                        Name
-                      </th>
-                      <th
-                        class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                        Email
-                      </th>
-                      <th
-                        class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                        Pone No
-                      </th>
-                      <th
-                        class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                        Uploads
-                      </th>
-  
-                      <th
-                        class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="all_users">
-                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                      <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                        <div class="flex items-center space-x-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" viewbox="0 0 20 20"
-                            fill="currentColor">
-                            <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-                          </svg>
-                          <span class="font-medium text-slate-700 dark:text-navy-100">Designs</span>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                        2 day ago
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
-                        14.3GB
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                        <div class="flex -space-x-2">
-                          <div class="avatar h-7 w-7 hover:z-10">
-                            <img class="rounded-full ring ring-white dark:ring-navy-700" src="../images/200x200.png"
-                              alt="avatar" />
-                          </div>
-  
-                          <div class="avatar h-7 w-7 hover:z-10">
-                            <div
-                              class="is-initial rounded-full bg-info text-xs+ uppercase text-white ring ring-white dark:ring-navy-700">
-                              jd
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                        <button
-                          class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                          </svg>
-                        </button>
-                      </td>
-                    </tr>
+                @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
+                <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
+                    class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
 
-                  </tbody>
-                </table>
-              </div>
+                <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
+                    <div
+                        class="popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
+                        <ul>
+                            <li>
+                                <a href="#"
+                                    class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none"
+                                        viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                                    </svg>
+
+                                    <span> New Folder</span></a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none"
+                                        viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                    </svg>
+
+                                    <span>Upload Folder</span></a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex h-8 items-center space-x-3 px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="mt-px h-4.5 w-4.5" fill="none"
+                                        viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                    </svg>
+
+                                    <span>Download Folder</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col-span-12 lg:col-span-4">
-            <div class="flex items-center justify-between">
-              <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-                Tags
-              </h2>
-  
-         
-            </div>
-            <div class="card mt-3 space-y-3.5 p-4 text-xs+">
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div
-                    class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white dark:bg-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clip-rule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Image</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>654 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>1.5 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path
-                        d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Video</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>135 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>14 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-info text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path
-                        d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
-                      <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Documents</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>5477 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>1.2 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-         
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div
-                    class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white dark:bg-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clip-rule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Image</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>654 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>1.5 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path
-                        d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Video</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>135 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>14 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-              <div class="group flex items-center justify-between">
-                <div class="flex space-x-3">
-                  <div class="flex h-10 w-10 items-center justify-center rounded-full bg-info text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path
-                        d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
-                      <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <a href="#" class="text-slate-600 dark:text-navy-100">#Documents</a>
-                    <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
-                      <p>5477 Files</p>
-                      <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
-                      <p>1.2 GB</p>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
+
 
     </div>
+    <div class="flex flex-col" x-data="{activeTab:'tab-recent'}">
+        <div class="flex space-x-2 px-[var(--margin-x)] transition-all duration-[.25s]">
+            <button @click="activeTab = 'tab-recent'" class="btn h-8 rounded-full text-xs+ font-medium"
+                :class="activeTab === 'tab-recent' ? 'bg-slate-150 text-slate-800 dark:bg-navy-600 dark:text-navy-50' : 'hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 hover:text-slate-800 focus:text-slate-800 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 dark:hover:text-navy-100 dark:focus:text-navy-100'">
+                Recent
+            </button>
 
-    <script src="../js/admin/all.js"></script>
+        </div>
+        <div>
+            <div x-show="activeTab === 'tab-recent'" x-transition:enter="transition-all duration-500 easy-in-out"
+                x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
+                x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
+                x-init="$nextTick(()=>new Swiper($el,{  slidesPerView: 'auto', spaceBetween: 20}))"
+                class="swiper px-[var(--margin-x)] pt-4 transition-all duration-[.25s]">
+                <div class="swiper-wrapper">
+                    <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                        <div class="flex items-center justify-between">
+                            <img class="w-14" src="../images/folders/folder-primary.svg" alt="folder" />
+                            <button
+                                class="btn -mr-2 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="pt-5 text-base font-medium tracking-wide text-primary dark:text-accent-light">
+                            Total Users
+                        </div>
+                        <div class="mt-1.5 flex items-center justify-between">
+                            <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                                <span id="total_users"> 0 </span> Users
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                        <div class="flex items-center justify-between">
+                            <img class="w-14" src="../images/folders/folder-warning.svg" alt="folder" />
+                        </div>
+                        <div class="pt-5 text-base font-medium tracking-wide text-warning">
+                            Total Files Uploaded
+                        </div>
+                        <div class="mt-1.5 flex items-center justify-between">
+                            <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                                <span id="total_files"> 0 </span> files
+                            </p>
+                            <p class="font-medium text-slate-600 dark:text-navy-100">
+                                <span id="total_files_gb"> 0 </span> GB
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                        <div class="flex items-center justify-between">
+                            <img class="w-14" src="../images/folders/folder-info.svg" alt="folder" />
+                        </div>
+                        <div class="pt-5 text-base font-medium tracking-wide text-info">
+                            Total Paid Users
+                        </div>
+                        <div class="mt-1.5 flex items-center justify-between">
+                            <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                                <span id="paid_users"> 0 </span> Users
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                        <div class="flex items-center justify-between">
+                            <img class="w-14" src="../images/folders/folder-error.svg" alt="folder" />
+                        </div>
+                        <div class="pt-5 text-base font-medium tracking-wide text-error">
+                            Total Records Created
+                        </div>
+                        <div class="mt-1.5 flex items-center justify-between">
+                            <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                                <span id="record_count"> 0 </span> files
+                            </p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div
+        class="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6">
+        <div class="col-span-12 lg:col-span-8">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+                    Users
+                </h2>
+
+            </div>
+            <div class="card mt-3">
+                <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
+                    <table class="poppins is-hoverable w-full text-left">
+                        <thead>
+                            <tr>
+                                <th
+                                    class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    Name
+                                </th>
+                                <th
+                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    Email
+                                </th>
+                                <th
+                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    Pone No
+                                </th>
+                                <th
+                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                    Uploads
+                                </th>
+
+                                <th
+                                    class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="all_users">
+                            <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                    <div class="flex items-center space-x-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500"
+                                            viewbox="0 0 20 20" fill="currentColor">
+                                            <path
+                                                d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
+                                        </svg>
+                                        <span class="font-medium text-slate-700 dark:text-navy-100">Designs</span>
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                    2 day ago
+                                </td>
+                                <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
+                                    14.3GB
+                                </td>
+                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                    <div class="flex -space-x-2">
+                                        <div class="avatar h-7 w-7 hover:z-10">
+                                            <img class="rounded-full ring ring-white dark:ring-navy-700"
+                                                src="../images/200x200.png" alt="avatar" />
+                                        </div>
+
+                                        <div class="avatar h-7 w-7 hover:z-10">
+                                            <div
+                                                class="is-initial rounded-full bg-info text-xs+ uppercase text-white ring ring-white dark:ring-navy-700">
+                                                jd
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                                    <button
+                                        class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                                            viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-12 lg:col-span-4">
+            <div class="flex items-center justify-between">
+                <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+                    Tags
+                </h2>
+
+
+            </div>
+            <div class="card mt-3 space-y-3.5 p-4 text-xs+">
+                <div class="group flex items-center justify-between">
+                    <div class="flex space-x-3">
+                        <div
+                            class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white dark:bg-accent">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20"
+                                fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div>
+                            <a href="#" class="text-slate-600 dark:text-navy-100">#Image</a>
+                            <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
+                                <p>654 Files</p>
+                                <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
+                                <p>1.5 GB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="group flex items-center justify-between">
+                    <div class="flex space-x-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-secondary text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <a href="#" class="text-slate-600 dark:text-navy-100">#Video</a>
+                            <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
+                                <p>135 Files</p>
+                                <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
+                                <p>14 GB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="group flex items-center justify-between">
+                    <div class="flex space-x-3">
+                        <div class="flex h-10 w-10 items-center justify-center rounded-full bg-info text-white">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20"
+                                fill="currentColor">
+                                <path
+                                    d="M9 2a2 2 0 00-2 2v8a2 2 0 002 2h6a2 2 0 002-2V6.414A2 2 0 0016.414 5L14 2.586A2 2 0 0012.586 2H9z" />
+                                <path d="M3 8a2 2 0 012-2v10h8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <a href="#" class="text-slate-600 dark:text-navy-100">#Documents</a>
+                            <div class="mt-1 flex text-xs text-slate-400 dark:text-navy-300">
+                                <p>5477 Files</p>
+                                <div class="mx-2 my-1 w-px bg-slate-200 dark:bg-navy-500"></div>
+                                <p>1.2 GB</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="btn -mr-2 h-8 w-8 rounded-full p-0 opacity-0 hover:bg-slate-300/20 focus:bg-slate-300/20 focus:opacity-100 active:bg-slate-300/25 group-hover:opacity-100 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                            stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/admin/all.js"></script>

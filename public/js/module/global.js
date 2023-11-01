@@ -1,6 +1,6 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const backendUrl = `http://localhost:5000`;
+    const backendUrl = `https://speedlink-backend.onrender.com/`;
 
     async function start(){
         var w2 = {};
