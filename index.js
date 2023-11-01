@@ -17,9 +17,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'include')));
 app.use(express.static(path.join(__dirname, 'static/dashboard')));
-// app.use(express.static(path.join(__dirname, 'static/Admin')));
-app.use(express.static(path.join(__dirname, 'static/auth')));
-app.use(express.static(path.join(__dirname, 'static')));
+// app.use(express.static(path.join(__dirname, 'static/auth')));
+// app.use(express.static(path.join(__dirname, 'static')));
 
 app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));

@@ -5,11 +5,11 @@ const serveStatic = require('serve-static');
 
 
   router.get('/signin', function(req, res) {
-    res.sendFile(`signin.html`, { root: 'static/auth' });
+    res.sendFile(`auth.html`, { root: 'static/auth' });
   });
 
   router.get('/signup', function(req, res) {
-    res.sendFile(`signup.html`, { root: 'static/auth' });
+    res.sendFile(`auth.html`, { root: 'static/auth' });
   });
 
   router.get('/', function(req, res) {

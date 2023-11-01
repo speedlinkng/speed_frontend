@@ -25,14 +25,15 @@ $(document).ready(function () {
 
 
         if (sta == 200) {
-          $('#call_success').show()
-          $('#call_success').text('')
           $('#call_error').text('')
           $('#call_error').hide('')
+          $('#call_success').show()
+          $('#call_success').text('')
+          
           $('#call_success').append('Signup successful')
           localStorage.setItem('access', json.token);
           localStorage.getItem('access');
-          window.location.href = '/dash'
+          window.location.href = `${baseUrl}/dash`
 
 
         }

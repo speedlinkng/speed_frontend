@@ -55,7 +55,7 @@
       if (res.error == 1) {
 
       } else if (res.error == 2) {
-        window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
+        window.location.href = `${baseUrl}/auth/signin`
       } else if (res.success == 1) {
         console.log(res.token)
         localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
@@ -192,11 +192,7 @@
         window.location.href = `${baseUrl}/auth/signin`
       } else if (res.success == 1 && staus == 200) {
         console.log(res.data)
-        if(res.data == ''){
-            console.log('is empty')
-        }else{
-            console.log('not empty')
-        }
+
         if (res.data != '') {
           let data = res.data
           $('#display').html('') // EMPTY THE HTML DISPLAY HOLDER
@@ -228,7 +224,7 @@
            <td
              class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
            >
-             17.2 GB
+            ${(rez.file_size) / (1024 * 1024)} MB
            </td>
            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
             <div class="flex -space-x-2">

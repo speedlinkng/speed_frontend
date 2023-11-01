@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta tags  -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+  <title>Lineone - File Manager App</title>
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+  <!-- CSS Assets -->
+  <link rel="stylesheet" href="../css/output.css" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/w3.css" />
+  <link rel="stylesheet" href="../css/custom.css" />
+
+  <!-- Javascript Assets -->
+  <script src="../js/app.js" defer></script>
+  <script src="../js/w3.js" defer></script>
+  <script src="../js/jquery.js" defer></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body x-data x-bind="$store.global.documentBody" class="has-min-sidebar is-sidebar-open is-header-blur">
+    <!-- App preloader-->
+    <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900" >
+      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+    </div>
+  <!-- Page Wrapper -->
+  <div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
+    <!-- Sidebar -->
+    <div class="sidebar border bg-white border-l-2 border-green-700 print:hidden">
+      <!-- Main Sidebar -->
+      <div class="main-sidebar">
+        <div class="flex h-full grow flex-col bg-white dark:bg-navy-750 ">
+          <!-- Sidebar Panel Header -->
+          <div class="flex h-18 w-full items-center justify-between pl-4 pr-1">
+            <div class="flex items-center">
+              <div class="avatar mr-3 hidden h-9 w-9 lg:flex">
+                <div
+                  class="is-initial rounded-full bg-primary/10 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-lg font-medium tracking-wider text-slate-800 line-clamp-1 dark:text-navy-100">
+                My Admin Panel
+              </p>
+            </div>
+            <button @click="$store.global.isSidebarExpanded = false"
+              class="btn h-7 w-7 rounded-full p-0 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Sidebar Panel Body -->
+          <div class="flex h-[calc(100%-4.5rem)] grow flex-col">
+            <div class="is-scrollbar-hidden grow overflow-y-auto">
+              <div class="mt-2 px-4">
+                <button
+                  class="btn w-full space-x-2 rounded-full border border-slate-200 py-2 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-500 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span> Logout </span>
+                </button>
+              </div>
+
+            
+              <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+
+              <ul class="space-y-1.5 px-2 font-inter text-md font-medium">
+                <li>
+                  <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      class="h-4.5 w-4.5 text-slate-400 transition-colors group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200"
+                      fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                    </svg>
+                    <span class="text-slate-800 dark:text-navy-100">Users</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      class="h-4.5 w-4.5 text-slate-400 transition-colors group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200"
+                      fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                    <span class="text-slate-800 dark:text-navy-100">Records</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      class="h-4.5 w-4.5 text-slate-400 transition-colors group-hover:text-slate-500 group-focus:text-slate-500 dark:text-navy-300 dark:group-hover:text-navy-200 dark:group-focus:text-navy-200"
+                      fill="none" viewbox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span class="text-slate-800 dark:text-navy-100">Revenue</span>
+                  </a>
+                </li>
+                
+              </ul>
+            </div>
+
+            <div class="flex flex-col p-4">
+              <div class="flex items-center justify-between">
+                <p>
+                  <span id="speed_storage_usage" class="font-medium text-slate-600 dark:text-navy-100">35GB</span>
+                  of 1TB
+                </p>
+              </div>
+
+              <div class="progress mt-2 h-2 bg-slate-150 dark:bg-navy-500">
+                <div class="w-7/12 rounded-full bg-info"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar Panel -->
+      <div class="sidebar-panel- hidden" style="">
+        <div class="flex h-full grow flex-col bg-white dark:bg-navy-750 ">
+          <!-- Sidebar Panel Header -->
+          <div class="flex h-18 w-full items-center justify-between pl-4 pr-1">
+            <div class="flex items-center">
+              <div class="avatar mr-3 hidden h-9 w-9 lg:flex">
+                <div
+                  class="is-initial rounded-full bg-primary/10 text-primary dark:bg-accent-light/10 dark:text-accent-light">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                  </svg>
+                </div>
+              </div>
+              <p class="text-lg font-medium tracking-wider text-slate-800 line-clamp-1 dark:text-navy-100">
+                My Cloud
+              </p>
+            </div>
+            <button @click="$store.global.isSidebarExpanded = false"
+              class="btn h-7 w-7 rounded-full p-0 text-primary hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 xl:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Sidebar Panel Body -->
+          <div class="flex h-[calc(100%-4.5rem)] grow flex-col">
+            <div class="is-scrollbar-hidden grow overflow-y-auto">
+              <div class="mt-2 px-4">
+                <button
+                  class="btn w-full space-x-2 rounded-full border border-slate-200 py-2 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-500 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
+                    stroke="currentColor" stroke-width="1.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                  </svg>
+                  <span> Create New </span>
+                </button>
+              </div>
+
+    
+              <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+
+      
+            </div>
+
+            <div class="flex flex-col p-4">
+              <div class="flex items-center justify-between">
+                <p>
+                  <span class="font-medium text-slate-600 dark:text-navy-100">35GB</span>
+                  of 1TB
+                </p>
+                <a href="#"
+                  class="text-xs+ font-medium text-primary outline-none transition-colors duration-300 hover:text-primary/70 focus:text-primary/70 dark:text-accent-light dark:hover:text-accent-light/70 dark:focus:text-accent-light/70">Upgrade</a>
+              </div>
+
+              <div class="progress mt-2 h-2 bg-slate-150 dark:bg-navy-500">
+                <div class="w-7/12 rounded-full bg-info"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <!-- App Header Wrapper-->
+    <nav class="header print:hidden">
+      <!-- App Header  -->
+      <div class="header-container relative flex w-full bg-white dark:bg-navy-750 print:hidden">
+        <!-- Header Items -->
+        <div class="flex w-full items-center justify-between">
+          <!-- Left: Sidebar Toggle Button -->
+          <div class="h-7 w-7 md:hidden">
+            <button
+              class="menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+              :class="$store.global.isSidebarExpanded && ''"
+              @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+
+          <!-- Right: Header buttons -->
+          <div class="-mr-1.5 flex items-center space-x-2">
+            <!-- Mobile Search Toggle -->
+            <button @click="$store.global.isSearchbarActive = !$store.global.isSearchbarActive"
+              class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 sm:hidden">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5 text-slate-500 dark:text-navy-100" fill="none"
+                viewbox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </button>
+
+     
+            <!-- Dark Mode Toggle -->
+            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+              class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+              <svg x-show="$store.global.isDarkModeEnabled"
+                x-transition:enter="transition-transform duration-200 ease-out absolute origin-top"
+                x-transition:enter-start="scale-75" x-transition:enter-end="scale-100 static"
+                class="h-6 w-6 text-amber-400" fill="currentColor" viewbox="0 0 24 24">
+                <path
+                  d="M11.75 3.412a.818.818 0 01-.07.917 6.332 6.332 0 00-1.4 3.971c0 3.564 2.98 6.494 6.706 6.494a6.86 6.86 0 002.856-.617.818.818 0 011.1 1.047C19.593 18.614 16.218 21 12.283 21 7.18 21 3 16.973 3 11.956c0-4.563 3.46-8.31 7.925-8.948a.818.818 0 01.826.404z" />
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" x-show="!$store.global.isDarkModeEnabled"
+                x-transition:enter="transition-transform duration-200 ease-out absolute origin-top"
+                x-transition:enter-start="scale-75" x-transition:enter-end="scale-100 static"
+                class="h-6 w-6 text-amber-400" viewbox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  clip-rule="evenodd" />
+              </svg>
+            </button>
+            <!-- Monochrome Mode Toggle -->
+            <button @click="$store.global.isMonochromeModeEnabled = !$store.global.isMonochromeModeEnabled"
+              class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+              <i
+                class="fa-solid fa-palette bg-gradient-to-r from-sky-400 to-blue-600 bg-clip-text text-lg font-semibold text-transparent"></i>
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </nav>
+
+<main w2-include-html="/admin/all.html" class="main-content filemanager-app w-full pb-6">
+
+
+</main>
+
+ 
+
+    <div class="fixed right-3 bottom-3 rounded-full bg-white dark:bg-navy-700">
+      <button
+        class="btn h-14 w-14 rounded-full bg-primary p-0 font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent-focus/90 sm:hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewbox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <div id="x-teleport-target"></div>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => Alpine.start());
+  </script>
+</body>
+
+</html>
+<script src="../js/module/global.js" defer></script>
