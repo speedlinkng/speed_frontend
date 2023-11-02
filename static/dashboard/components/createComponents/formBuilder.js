@@ -6,7 +6,7 @@ app.component('form-builder', {
     
     /*html*/
     `
-    <div class="place-content-center p-2 rounded-md h-fit w-full m-auto left-0 right-0 relative">
+    <div class="place-content-center dark:bg-navy-800 p-2 rounded-md h-fit w-full m-auto left-0 right-0 relative">
         <h3 class="text-center">Your question input</h3>
         <div class="showResult_ p-2 grid grid-cols-1 place-content-center w-[90%]">
             <!-- SHOW INPUT FORM -->

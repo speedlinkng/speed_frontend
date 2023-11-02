@@ -1,0 +1,67 @@
+      <!-- App Header Wrapper-->
+      <nav class="header print:hidden bg-red-00">
+        <!-- App Header  -->
+        <div
+          class="header-container relative flex w-full bg-white dark:bg-navy-750 print:hidden"
+        >
+          <!-- Header Items -->
+          <div class="flex w-full items-center justify-between">
+            <!-- Left: Sidebar Toggle Button -->
+            <div class="h-7 w-11">
+              <button
+                class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+              
+              >
+                lOGO
+              </button>
+            </div>
+
+  
+              <div class="h-7 w-28">
+                <button
+                  class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+                  :class="$store.global.isSidebarExpanded && 'active'"
+                  @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded"
+                >
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </button>
+              </div>
+             
+        
+
+
+            
+            <!-- Right: Header buttons -->
+            <div class=" flex items-center space-x-2 w-full  px-4">
+ 
+                    <!-- Dark Mode Toggle -->
+                    <button
+                        @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+                        class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                    >
+                    How it works
+                    </button>
+
+                    <button
+                    @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+                    class="btn h-8 w-fix rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                    >
+                
+                    Features
+                    </button>
+
+                    <button
+                    @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
+                    class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
+                >
+                
+                    Pricing
+                </button>
+
+            </div>
+
+          </div>
+        </div>
+      </nav>

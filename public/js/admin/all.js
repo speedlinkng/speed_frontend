@@ -41,10 +41,24 @@ async function getAllUsers() {
             <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
                 ${res.number}
             </td>
-            <td class="whitespace-nowrap text-center px-4 py-3 sm:px-5">
+            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                 ${res.count_uploads}
               </div>
             </td>
+            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                ${res.plan}
+            </div>
+            </td>
+            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+            <button
+                class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                    viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                </svg>
+            </button>
+        </td>
 
           </tr>
      
@@ -124,7 +138,7 @@ async function getAllUsers() {
       console.log('internet error')
       console.log(err)
     }
-  }
+  } 
 
   async function searchRecord() {
 
@@ -186,7 +200,7 @@ async function getAllUsers() {
     try {
       let getTotalRecordCount = await fetch(`${backendUrl}/api/admin/getTotalRecordCount`, settings);
       let res = await getTotalRecordCount.json();
-        console.log(res.data[0])
+        $('#record_count').text(res.data)
 
     }
     catch (err) {
@@ -206,7 +220,29 @@ async function getAllUsers() {
     try {
       let getTotalByteUploaded = await fetch(`${backendUrl}/api/admin/getTotalByteUploaded`, settings);
       let res = await getTotalByteUploaded.json();
-        console.log(res.data[0])
+
+      function chooseDisplayUnit(result) {
+        const bytes = result.bytes;
+        const kilobytes = result.kilobytes;
+        const megabytes = result.megabytes;
+        const gigabytes = result.gigabytes;
+    
+        if (gigabytes >= 1) {
+            return `${gigabytes.toFixed(2)} GB`;
+        } else if (megabytes >= 1) {
+            return `${megabytes.toFixed(2)} MB`;
+        } else if (kilobytes >= 1) {
+            return `${kilobytes.toFixed(2)} KB`;
+        } else {
+            return `${bytes} BYTES`;
+        }
+    }
+
+    
+        const displayUnit = chooseDisplayUnit(res.data);
+        // console.log(`Display Unit: ${displayUnit}`);
+        $('#total_files_gb').text(displayUnit)
+ 
 
     }
     catch (err) {
@@ -256,6 +292,8 @@ async function getAllUsers() {
   }
 
 
+  getTotalByteUploaded()
+  getTotalRecordCount()
   getTotalUserCount()
   searchRecord()
   searchUser()

@@ -21,8 +21,8 @@
   let gisInited = false;
 
 
-  document.getElementById('authorize_button').style.visibility = 'hidden';
-  document.getElementById('signout_button').style.visibility = 'hidden';
+  // document.getElementById('authorize_button').style.visibility = 'hidden';
+  // document.getElementById('signout_button').style.visibility = 'hidden';
 
   /**
    * Callback after api.js is loaded.
@@ -59,7 +59,7 @@
    */
   function maybeEnableButtons() {
     if (pickerInited && gisInited) {
-      document.getElementById('authorize_button').style.visibility = 'visible';
+      // document.getElementById('authorize_button').style.visibility = 'visible';
     }
   }
 
@@ -75,8 +75,8 @@
    
       accessToken = response.access_token;
       localStorage.setItem('ac', response.access_token)
-      document.getElementById('signout_button').style.visibility = 'visible';
-      document.getElementById('authorize_button').innerText = 'Refresh';
+      // document.getElementById('signout_button').style.visibility = 'visible';
+      // document.getElementById('authorize_button').innerText = 'Refresh';
       await createPicker();
     };
 
@@ -96,13 +96,13 @@
    *  Sign out the user upon button click.
    */
   function handleSignoutClick() {
-      alert('none')
+    
     if (accessToken) {
       accessToken = null;
       google.accounts.oauth2.revoke(accessToken);
       document.getElementById('content').innerText = '';
-      document.getElementById('authorize_button').innerText = 'Authorize';
-      document.getElementById('signout_button').style.visibility = 'hidden';
+      // document.getElementById('authorize_button').innerText = 'Authorize';
+      // document.getElementById('signout_button').style.visibility = 'hidden';
     }
   }
 
@@ -144,13 +144,27 @@
     if (data.action === google.picker.Action.PICKED) {
       let text = `Picker response: \n${JSON.stringify(data, null, 2)}\n`;
       const document = data[google.picker.Response.DOCUMENTS][0];
+      console.log(document.name)
+      console.log(document.embedUrl)
+      console.log(document.id)
+      console.log('<<<<<<<<<dpcument>>>>>>>>>')
       const fileId = document[google.picker.Document.ID];
       localStorage.setItem('folderId', fileId);
+      console.log(fileId)
+      window.document.getElementById('file_res').innerText = fileId
       const res = await gapi.client.drive.files.get({
         'fileId': fileId,
         'fields': '*',
       });
       text += `Drive API response for first document: \n${JSON.stringify(res.result, null, 2)}\n`;
-      window.document.getElementById('file_res').innerText = text;
+
+      // REPLACE FOLDER NAME FROM SPEEDLINK
+
+      $('#create_folder').val(res.result.name)
+      $('#file_res').val(fileId)
+  //  console.log(text)
+  //  console.log(res.result.name)
+  //  console.log(res.result.kind)
+      // /window.document.getElementById('file_res').innerText = text;
     }
   }

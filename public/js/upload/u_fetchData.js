@@ -1,12 +1,11 @@
-$(document).ready(function () {
-    //REPLACE ID IN URL
 
-    let url_params = new URLSearchParams(window.location.search)
-    console.log(url_params.get('id'))
 
-    if (url_params == null || url_params == '') {
+    let url_params = window.location.href;
+    const parts = url_params.split('/');
+    const url_id = parts[parts.length - 1];
+    console.log(url_id)
 
-    }
+
 
     async function open(url_params) {
 
@@ -16,15 +15,16 @@ $(document).ready(function () {
 
 
       try {
-        let fetchRecord = await fetch(`http://localhost:5000/api/app/getrecordbyidnoauth/${url_params.get('id')}`, settings);
-        let fetchSettings = await fetch(`http://localhost:5000/api/app/getsettingbyidnoauth/${url_params.get('id')}`, settings);
+        let fetchRecord = await fetch(`http://localhost:5000/api/app/getrecordbyidnoauth/${url_id}`, settings);
+        let fetchSettings = await fetch(`http://localhost:5000/api/app/getsettingbyidnoauth/${url_id}`, settings);
         let statuz = await fetchRecord.status
         let record = await fetchRecord.json();
         let set = await fetchSettings.json();
 
+        if(statuz == 200){
 
         console.log('folder ' + record.data.folder)
-        console.log('folder_id ' + record.data.folder_id)
+        console.log('statuz')
 
         // store google access token, folderName and folderId in localstorage
         localStorage.setItem('b_token', set.token)
@@ -38,7 +38,23 @@ $(document).ready(function () {
 
         // loop through questions and append them to form on the page
         const questArray = savedQuestions.split(', ');
-        questArray.forEach(function (question, index) {
+
+          // Split questions and remove the "-Required" suffix
+          const modifiedQuestions = questArray.map((question) => {
+            // Remove both suffixes and trim any leading/trailing spaces
+              const modifiedQuestion = question
+                .replace(/-required/g, '')
+                .replace('-not required', '')
+                .trim();
+
+              return modifiedQuestion;
+            });
+
+      
+        console.log(modifiedQuestions);
+        console.log('modifiedQuestions');
+
+        modifiedQuestions.forEach(function (question, index) {
           const newInput = $( /*html*/`
           <label class="block mt-1">
             <span class="capitalize">${question}?</span>
@@ -56,12 +72,24 @@ $(document).ready(function () {
           $('#include_questions').append(newInput);
         });
 
+        // IPLOAD DETAILS TO THE DOM
+        $('#upload_title').html(`<span class="capitalize">${record.data.record_name}</span>`)
+        $('#upload_description').text(record.data.description)
+      } // END 200 SUCCESS
 
         if (statuz == 301) {
           $('#main_content').hide()
           $('#upload_title').text('Link Expired')
           // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
-        } else {
+        } else if (statuz == 303) {
+          $('#main_content').hide()
+          $('#upload_title').text('Upload Completed')
+          // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
+        } else if (statuz == 300) {
+          $('#main_content').hide()
+          $('#upload_title').text('No data')
+          // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
+        } else{
 
         }
 
@@ -93,45 +121,21 @@ $(document).ready(function () {
 
         }
 
-        /*
-        const inputString = "John,Doe,30";
-  
-        // Split the string into an array using a comma as the delimiter
-        const parts = inputString.split(',');
-  
-        // Count how many parts were generated
-        const numberOfParts = parts.length;
-  
-        // Assign the array elements to variables
-        const firstName = parts[0];
-        const lastName = parts[1];
-        const age = parseInt(parts[2]); // Convert age to an integer
-  
-        console.log("First Name:", firstName);
-        console.log("Last Name:", lastName);
-        console.log("Age:", age);
-        */
 
 
-        if (record.error == 2) {
-          window.location.href = "/dist/auth/signin.html";
-        }
+
+
         if (record.status == 200) {
-          $('#upload_title').html(`<span class="capitalize">${record.data.record_name}</span>`)
-          $('#upload_description').text(record.data.description)
+        
           // $('#upload_title').text(record.data.record_name)
           //console.log(json.data)
           //window.location.href = "/dist/dashboard/share.html";        
-        } else {
-          console.log('Going to chunk 2')
-
-
-        }
+        } 
       } catch (e) {
         // WHEN BACKEND HANDLES NO URL ID
         console.log('hmm')
         console.log(e);
       }
     }
-    open(url_params)
-}) 
+    open(url_id)
+

@@ -53,73 +53,25 @@
       x-cloak
     >
 
-
       <!-- App Header Wrapper-->
-      <nav class="header print:hidden bg-red-00">
-        <!-- App Header  -->
-        <div
-          class="header-container relative flex w-full bg-white dark:bg-navy-750 print:hidden"
-        >
-          <!-- Header Items -->
-          <div class="flex w-full items-center justify-between">
-            <!-- Left: Sidebar Toggle Button -->
-            <div class="h-7 w-11">
-              <button
-                class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
+      <nav class="header dark:bg-slate-500">
+        <div class="header-container grid grid-cols-5 w-full  px-2">
+          <div class=" col-span-1 text-left  md:pl-10 flex items-center">LOGO</div>
+          <div class=" col-span-4 flex tab:gap-2 gap-7 md:10 items-center px-2">
+            <div
+              class=" feature rounded-xl  w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+              <a >How it works</a>
               
-              >
-                lOGO
-              </button>
             </div>
 
-  
-              <div class="h-7 w-28">
-                <button
-                  class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
-                  :class="$store.global.isSidebarExpanded && 'active'"
-                  @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded"
-                >
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>
-             
-        
-
-
-            
-            <!-- Right: Header buttons -->
-            <div class=" flex items-center space-x-2 w-full  px-4">
- 
-                    <!-- Dark Mode Toggle -->
-                    <button
-                        @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-                        class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
-                    >
-                    How it works
-                    </button>
-
-                    <button
-                    @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-                    class="btn h-8 w-fix rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
-                    >
-                
-                    Features
-                    </button>
-
-                    <button
-                    @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-                    class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
-                >
-                
-                    Pricing
-                </button>
-
+            <div
+          
+              class=" rounded-xl w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+              <a>Pricing</a>
             </div>
-
           </div>
         </div>
+
       </nav>
 
       <!-- Main Content Wrapper -->
@@ -179,7 +131,7 @@
                   
                         <span class="relative mt-1.5 flex dark:text-blue-400 text-blue-700 text-center justify-center whitespace-normal break-normal">
                           
-                          <a href="" class="w-full whitespace-normal break-words" id="share_link">http://127.0.0.1:5502/dist/dashboard/upload.html/</a> 
+                          <a href="" class="w-full whitespace-normal break-words" id="share_link">https://</a> 
                         </span>
                       </label>
       
@@ -234,7 +186,7 @@
   $(document).ready(function() {
     //REPLACE ID IN URL
     
-    let url = `http://127.0.0.1:5502/dist/dashboard/upload.html?id=${localStorage.getItem('upload_id')}`
+    let url = `${baseUrl}/dash/upload/id=${localStorage.getItem('upload_id')}`
     $('#share_link').text(url)
     $('#share_link').attr('href', url)
     async function open(){
@@ -296,3 +248,5 @@ const id = urlParts[urlParts.length - 1];
 console.log(id);
   });
 </script>
+<script src="../js/module/global.js"></script>
+<script src="../js/checktoken.js"></script>

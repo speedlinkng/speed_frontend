@@ -23,7 +23,6 @@
   <script src="../js/app.js" defer></script>
   <script src="../js/jquery.js"></script>
   <script src="../js/w3.js"></script>
-  <script src="../js/checktoken.js"></script>
   <script src="https://unpkg.com/vue@3.0.11/dist/vue.global.js"></script>
   
   <script src="../js/vueStart.js"></script>
@@ -55,62 +54,26 @@
   <div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
 
 
-    <!-- App Header Wrapper-->
-    <nav class="header print:hidden bg-red-">
-      <!-- App Header  -->
-      <div class="header-container relative flex w-full bg-white dark:bg-navy-750 print:hidden">
-        <!-- Header Items -->
-        <div class="flex w-full items-center justify-between">
-          <!-- Left: Sidebar Toggle Button -->
-          <div class="h-7 w-11">
-            <button
-              class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80">
-              lOGO
-            </button>
-          </div>
+  <!-- App Header Wrapper-->
+  <nav class="header dark:bg-slate-500">
+    <div class="header-container grid grid-cols-5 w-full  px-2">
+      <div class=" col-span-1 text-left  md:pl-10 flex items-center">LOGO</div>
+      <div class=" col-span-4 flex tab:gap-2 gap-7 md:10 items-center px-2">
+        <div
+          class=" feature rounded-xl  w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+          <a >How it works</a>
+          
+        </div>
 
-
-          <div class="h-7 w-28">
-            <button
-              class=" menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80"
-              :class="$store.global.isSidebarExpanded && 'active'"
-              @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded">
-              <span></span>
-              <span></span>
-              <span></span>
-            </button>
-          </div>
-
-
-
-
-
-          <!-- Right: Header buttons -->
-          <div class=" flex items-center justify- space-x-2 w-full  px-4">
-
-            <!-- Dark Mode Toggle -->
-            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-              class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-              How it works
-            </button>
-
-            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-              class="btn h-8 w-fix rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-
-              Features
-            </button>
-
-            <button @click="$store.global.isDarkModeEnabled = !$store.global.isDarkModeEnabled"
-              class="btn h-8 w-fit rounded-full px-10 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-
-              Pricing
-            </button>
-
-          </div>
-
+        <div
+       
+          class=" rounded-xl w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+          <a>Pricing</a>
         </div>
       </div>
-    </nav>
+    </div>
+
+  </nav>
 
     <!-- Main Content Wrapper -->
     <main id="create" class="main-content w-full pb-8 relative">
@@ -176,6 +139,10 @@
                     <input
                       class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
+                    <input
+                    id="file_res"
+                      class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                      placeholder="" value="Speedlink" type="text" />
                     <span
                       class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                       <i class="fa-regular fa-building text-base"></i>
@@ -189,11 +156,15 @@
                 </label>
 
                 <label class="block addQuestion_" onclick="w3.hide('.settings, .general'), w3.show('.form')" style="display: block;">
-                  <div class=" btn border border-primary/30 bg-primary/10 font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:border-accent-light/30 dark:bg-accent-light/10 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25 w-[50%] text-center">Add Questions Form</div>
+                  <div class=" btn border border-primary/30 bg-primary/10 font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:border-accent-light/30 dark:bg-accent-light/10 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25 w-[50%] text-center">
+                    Add Questions Form
+                  </div>
                 </label>
 
                 <label class="block questionAdded_" style="display: none;">
-                  <div class="border rounded-lg btn border-success/30 dark:border-success/30 hover:bg-success/20 bg-success/10 text-success px-3 py-2  w-[50%] text-center">Questions Added Successfully</div>
+                  <div class="border rounded-lg btn border-success/30 dark:border-success/30 hover:bg-success/20 bg-success/10 text-success px-3 py-2  w-[50%] text-center">
+                    Questions Added Successfully
+                  </div>
                 </label>
 
                 <div class="flex justify-start space-x-2">
@@ -208,7 +179,7 @@
                     </svg>
                   </button>
                 </div>
-                <div id="file_res">
+                <div class="file_res">
                   
                 </div>
               </div>
@@ -358,7 +329,8 @@
 
               <!-- BUTTON -->
               <div class="w-full mt-5 grid place-items-center">
-                <button id="create_save"
+                <button 
+                  onclick="w3.hide('.settings, .form'), w3.show('.general')"
                   class="relative btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                   <span>Save</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewbox="0 0 20 20" fill="currentColor">
@@ -372,9 +344,9 @@
 
 
             <!-- FORM SECTION modified with vue.js-->
-            <script src="./components/createComponents/formBuilder.js"></script>
+            <script src="../components/createComponents/formBuilder.js"></script>
             <section class="card p-4 sm:p-5 w-full sm:w-[400px] md:!w-[500px] lg:!w-[800px] form" style="display:none;">
-              <div >You need to upgrade your plan to use the form builder. Learn more about creating the forms.</div>
+              <div id="form_text">You need to upgrade your plan to use the form builder. Learn more about creating the forms.</div>
               <form-builder></form-builder>
             </section>
 
@@ -383,9 +355,6 @@
 
         </div>
       </div>
-
-
-
 
 
 
@@ -407,11 +376,13 @@
   const mountedApp = app.mount('#create')
 </script>
 
+<script src="../js/loading.js"></script>
+
 <script>
   $(document).ready(function () {
     function checkForm(){
       // Toggle to display form indicator of created form
-      if(localStorage.getItem('form-questions') !== null){
+      if(localStorage.getItem('form-questions') == null){
         $('.addQuestion_').show()
         $('.questionAdded_').hide()
       }else{
@@ -459,6 +430,7 @@
           description: $('#create_description').val(),
           folder: $('#create_folder').val(),
           subfolder: $('#create_folder').val(),
+          folder_id: $('#create_folder_id').val(),
           drive_email: localStorage.getItem('drive_email'),
           quantity: $('#quantity').text(),
           file_type: $('#file_type').text(),
@@ -472,15 +444,15 @@
       };
 
       console.log(settings.body)
-
+      const myButton = document.getElementById('create_save');
       try {
-        let fetchResponses = await fetch(`http://localhost:5000/api/app/create`, settings);
+        let fetchResponses = await fetch(`${backendUrl}/api/app/create`, settings);
         let stta = await fetchResponses.status
         let json = await fetchResponses.json();
 
 
         if (json.status == 200) {
-          window.location.href = "/dist/dashboard/share.html";
+          window.location.href = `${baseUel}/dash/share`;
           console.log(json.id)
           localStorage.setItem('upload_id', json.id)
 
@@ -489,12 +461,17 @@
         }
       } catch (e) {
         console.log(e);
+      }finally {
+        setTimeout(function () {
+         end_loading(myButton)
+        }, 1000)
       }
     })
   }) 
 </script>
 <script>
-  // IF YOURE NOT COMING FROM HOME, RETURN TO HOME
+  //UNSET FORM
+  // alert(localStorage.setItem('form-questions'))
   if (localStorage.getItem('my_goog_acc') == null) {
 
   }
@@ -508,3 +485,5 @@
 <script src="../js/selectFolder.js"></script>
 <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
 <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+<script src="../js/module/global.js"></script>
+<script src="../js/checktoken.js"></script>

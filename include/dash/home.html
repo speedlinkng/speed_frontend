@@ -55,6 +55,7 @@
                 </button>
 
                 <button id="useMy" onclick="myStorage()"
+                style="display:none;"
                   class="col-span-12 mb-2 btn border border-warning font-medium text-warning hover:bg-warning hover:text-white focus:bg-warning focus:text-white active:bg-warning/90">
                   Use <span class="ml-1 myStorage"> my storage </span>
                 </button>
@@ -90,7 +91,7 @@
         <!-- reduce span to encourage split screen -->
         <div class="flex items-center justify-between">
           <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-            Folders
+            Records
           </h2>
           <div class="flex">
             <div class="flex items-center" x-data="{isInputActive:false}">
@@ -153,12 +154,12 @@
         </div>
         <div class="card mt-3">
           <div class="is-scrollbar-hidden min-w-full max-h-96 overflow-x-auto">
-            <table class="is-hoverable w-full text-left">
+            <table class="is-hoverable w-full text-left poppin">
               <thead>
                 <tr>
                   <th
                     class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                    Name
+                    Record Name
                   </th>
                   <th
                     class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
@@ -174,7 +175,20 @@
                   </th>
                   <th
                     class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                    photo Card
+                    Status
+                  </th>
+                  <th
+                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    Size
+                  </th>
+                  <th
+                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    Drive Email
+                  </th>
+
+                  <th
+                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    Drive Folder
                   </th>
 
                 </tr>

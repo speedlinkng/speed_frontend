@@ -1,3 +1,4 @@
+
   const fd = new FormData();
   // Find the input element
   const inputElements = document.getElementById('filepond');
@@ -302,8 +303,10 @@
 
           async function submitAndUpdate(selectedFile, fileId) {
             console.log('submit')
-            let url_params = new URLSearchParams(window.location.search)
-            console.log(url_params.get('id'))
+            let url_params = window.location.href;
+            let parts = url_params.split('/');
+            let url_id = parts[parts.length - 1];
+          
             let settings = {
               method: 'POST',
               headers: {
@@ -313,7 +316,7 @@
                 email: $('#upload_email').val(),
                 name: $('#upload_name').val(),
                 answers: $('#answered').val(),
-                record_id: url_params.get('id'),
+                record_id: url_id,
                 fileType: selectedFile.type,
                 fileName: selectedFile.name,
                 fileId: fileId,
@@ -331,6 +334,9 @@
 
               if (sta == 200) {
                 $('#main_content').hide()
+
+                // RELOAD PAGE AFTER ALL
+                // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
               }
             } catch (err) {
               console.log(err)

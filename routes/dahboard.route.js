@@ -20,7 +20,7 @@ router.get('/share', function(req, res) {
     res.sendFile(`pricing.html`, { root: 'static/dashboard' });
   });
 
-  router.get('/upload', function(req, res) {
+  router.get('/upload/:id', function(req, res) {
     res.sendFile(`upload.html`, { root: 'static/dashboard' });
   });
 

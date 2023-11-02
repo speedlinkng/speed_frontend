@@ -22,7 +22,7 @@
       } else if (res.success == 1) {
         console.log(res.token)
         localStorage.setItem('default_goog_acc', res.token) // google default accesstokend to upload to speedlink drive
-        window.location.href = `${baseUrl}/create.html`
+        window.location.href = `${baseUrl}/dash/create`
       } else {
         console.log('something is wrong')
       }
@@ -59,7 +59,7 @@
       } else if (res.success == 1) {
         console.log(res.token)
         localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
-        window.location.href = `${baseUrl}/create.html`
+        window.location.href = `${baseUrl}/dash/create`
       } else {
         console.log('something is wrong')
       }
@@ -97,7 +97,7 @@
        }else if(res.success == 1){
          console.log(res.token)
          localStorage.setItem('new_goog_acc', res.token) // google new access tokenfor the users first time
-         window.location.href = '${baseUrl}create.html'
+         window.location.href = '${baseUrl}dash/create.html'
        }else{
          console.log('something is wrong')
        }
@@ -149,7 +149,7 @@
           //alert('success')
           console.log(res.token)
           localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
-          window.location.href = `${baseUrl}/create.html`
+          window.location.href = `${baseUrl}/dash/create`
         } else {
           console.log('something is wrong')
         }
@@ -198,10 +198,16 @@
           $('#display').html('') // EMPTY THE HTML DISPLAY HOLDER
           data.forEach(rez => {
             console.log(rez)
+            let res_status = ''
+            if(rez.status == 'pending'){
+              res_status = `<div class=" badge border  rounded-full border-warning text-warning">${rez.status}</div>`
+            }else{
+              res_status = `<div class="badge border rounded-full border-success text-success">${rez.status}</div>`
+            }
             $('#display').append(
             /*html*/
               `
-           <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+           <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
              <div class="flex items-center space-x-4">
                <svg
@@ -214,12 +220,12 @@
                    d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
                  />
                </svg>
-               <span class="font-medium text-slate-700 dark:text-navy-100">Media</span
+               <span class="font-medium text-slate-700 dark:text-navy-100">${rez.record_name}</span
                >
              </div>
            </td>
            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-             ${rez.created_at}2 hour ago
+             ${moment(rez.created_at).format('lll')} 
            </td>
            <td
              class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
@@ -228,18 +234,27 @@
            </td>
            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
             <div class="flex -space-x-2">
-              <div>Firstname Lastname</div>
+              <div>${rez.sender_name}</div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+          <div class="flex -space-x-2">
+              ${res_status}
             </div>
           </td>
           <td class="whitespace-nowrap px-4 py-3 sm:px-5">
             <div class="flex -space-x-2">
-              <div class="avatar h-7 w-7 hover:z-10">
-                <div
-                  class="is-initial rounded-full bg-error text-xs+ uppercase text-white ring ring-white dark:ring-navy-700"
-                >
-                  nd
-                </div>
-              </div>
+              <div>${rez.file_size}</div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+            <div class="flex -space-x-2">
+              <div>${rez.drive_email}</div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+            <div class="flex -space-x-2">
+              <div>${rez.folder}</div>
             </div>
           </td>
          </tr>
@@ -256,7 +271,7 @@
                 /*html*/
                   `
                <div class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
-                <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] border dark:border-navy-500">
+                <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] dark:border-navy-500">
                     <div class="flex items-center space-x-4 justify-center">
                        
                         <span class="font-medium text-slate-700 dark:text-navy-200">No Record Yet</span>
