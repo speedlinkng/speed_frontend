@@ -151,7 +151,7 @@
       const fileId = document[google.picker.Document.ID];
       localStorage.setItem('folderId', fileId);
       console.log(fileId)
-      window.document.getElementById('file_res').innerText = fileId
+      // window.document.getElementById('file_res').innerText = fileId
       const res = await gapi.client.drive.files.get({
         'fileId': fileId,
         'fields': '*',
@@ -161,7 +161,7 @@
       // REPLACE FOLDER NAME FROM SPEEDLINK
 
       $('#create_folder').val(res.result.name)
-      $('#file_res').val(fileId)
+      $('#folder_id').val(fileId)
   //  console.log(text)
   //  console.log(res.result.name)
   //  console.log(res.result.kind)

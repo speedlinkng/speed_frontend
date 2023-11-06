@@ -306,7 +306,7 @@
             let url_params = window.location.href;
             let parts = url_params.split('/');
             let url_id = parts[parts.length - 1];
-          
+          console.log($('#answered').val())
             let settings = {
               method: 'POST',
               headers: {
@@ -334,6 +334,7 @@
 
               if (sta == 200) {
                 $('#main_content').hide()
+                $('#upload_title').text('Upload Completed')
 
                 // RELOAD PAGE AFTER ALL
                 // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`

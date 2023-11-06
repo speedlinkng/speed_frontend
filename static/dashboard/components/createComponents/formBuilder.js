@@ -50,8 +50,9 @@ app.component('form-builder', {
             <button @click="addQ" id="add_question" class="btn text-sm bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover-bg-navy-450 dark:focus-bg-navy-450 dark:active-bg-navy-450/90" v-if="isAddQuestionVisible">
                 New Question
             </button>
-            <button :disabled="!disableSave" @click="save" class="btn ml-2 text-sm bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover-bg-accent-focus dark:focus-bg-accent-focus dark:active-bg-accent/90">
-                Save
+            <button :disabled="isLoading" @click="save" class="btn ml-2 text-sm bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover-bg-accent-focus dark:focus-bg-accent-focus dark:active-bg-accent/90">
+                <span v-if="isLoading">Loading...</span> <!-- Display the loading text -->
+                <span v-else>Save</span>
             </button>
             </div>
         </div>
@@ -62,6 +63,7 @@ app.component('form-builder', {
     data(){
        return{
           count: 0,
+          isLoading: false,
           quest: '',
           question: [],
           show_template:null,
@@ -72,7 +74,7 @@ app.component('form-builder', {
           value: '',
           isAddQuestionVisible: true,
           showQuestion:false,
-          disableSave:true,
+          disableSave:false,
           showQuestion_: [], // Define newInputs as an empty array
 
 
@@ -84,9 +86,11 @@ app.component('form-builder', {
     methods: {
         save(){
             localStorage.setItem('form-questions', this.quest)
-            this.disableSave = true
+            // this.disableSave = true
+            console.log('saved')
         },
         onDelete(){
+            alert('delete')
             // this.showQuestion = !this.showQuestion
             // this.isAddQuestionVisible =  !this.isAddQuestionVisible;
         },
@@ -171,6 +175,10 @@ app.component('form-builder', {
         
             console.log(this.question)
             console.log(this.quest)
+
+            // empty question
+            this.questionText = ''
+            this.isRequired = ''
             this.addQuestion++
             this.showQuest(selectedQuestion, isRequired)
                 

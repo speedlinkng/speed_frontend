@@ -1,5 +1,5 @@
 
-
+$('.app-preloader').show()
 
   //GET SPEEDLINK GOOGLE_ACCESS TOKEN TO UPLOAD TO SPEEDLINK DRIVE
   async function speedlinkAccess() {
@@ -18,7 +18,7 @@
       if (res.error == 1) {
 
       } else if (res.error == 2) {
-        window.location.href = `${baseUrl}/auth/signin`
+        window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1) {
         console.log(res.token)
         localStorage.setItem('default_goog_acc', res.token) // google default accesstokend to upload to speedlink drive
@@ -55,7 +55,7 @@
       if (res.error == 1) {
 
       } else if (res.error == 2) {
-        window.location.href = `${baseUrl}/auth/signin`
+        window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1) {
         console.log(res.token)
         localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
@@ -115,6 +115,7 @@
 
 
   if (localStorage.getItem('temp_newstore') == 1) {
+
     localStorage.setItem('temp_newstore', 0)
     let url_params = new URLSearchParams(window.location.search)
     console.log(url_params.get('scope'))
@@ -136,6 +137,10 @@
           authuser: url_params.get('authuser'),
         })
       };
+
+      // open uploader
+      $('.app-preloader').show()
+
       try {
         let fetchResponses = await fetch(`${backendUrl}/api/google/newstorage`, settings);
         let staus = await fetchResponses.status
@@ -144,7 +149,7 @@
         if (res.error == 1) {
 
         } else if (res.error == 2) {
-          window.location.href = `${baseUrl}/auth/signin`
+          window.location.href = `${baseUrl}/auth`
         } else if (res.success == 1) {
           //alert('success')
           console.log(res.token)
@@ -159,6 +164,8 @@
       catch (err) {
         console.log('internet error')
         console.log(err)
+      } finally{
+        $('.app-preloader').hide()
       }
     }
     // myStorage()
@@ -189,7 +196,7 @@
         ('wrong 1')
       } else if (res.error == 2) {
         //alert('wrong 2')
-        window.location.href = `${baseUrl}/auth/signin`
+        window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1 && staus == 200) {
         console.log(res.data)
 
@@ -201,8 +208,10 @@
             let res_status = ''
             if(rez.status == 'pending'){
               res_status = `<div class=" badge border  rounded-full border-warning text-warning">${rez.status}</div>`
-            }else{
+            }else if(rez.status == 'completed'){
               res_status = `<div class="badge border rounded-full border-success text-success">${rez.status}</div>`
+            }else{
+              res_status = `<div class="badge border rounded-full border-error text-error">${rez.status}</div>`
             }
             $('#display').append(
             /*html*/
@@ -230,7 +239,7 @@
            <td
              class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
            >
-            ${(rez.file_size) / (1024 * 1024)} MB
+            ${Number(((rez.file_size) / (1024 * 1024)).toFixed(2))} MB
            </td>
            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
             <div class="flex -space-x-2">

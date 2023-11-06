@@ -1,0 +1,133 @@
+async function getAllRecords() {
+
+    let settings = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+      },
+    };
+    try {
+      let getAllRecords = await fetch(`${backendUrl}/api/admin/getAllRecords`, settings);
+      let res = await getAllRecords.json();
+      let status = await getAllRecords.status;
+
+        if(status == 403 && res.message == 'invalid token'){
+            window.location.href = `${baseUrl}/auth`
+        }
+
+        if(status == 400 && res.message == 'invalid token'){
+          console.log('invalid')
+          window.location.href = `${baseUrl}/auth`
+        }
+
+        if (res.data != '') {
+          let data = res.data
+          let id = 1
+          $('#all_records').html('') // EMPTY THE HTML DISPLAY HOLDER
+          data.forEach(res => {
+
+            let res_status = ''
+            if(res.status == 'pending'){
+              res_status = `<div class=" badge border  rounded-full border-warning text-warning">${res.status}</div>`
+            }else if(res.status == 'completed'){
+              res_status = `<div class="badge border rounded-full border-success text-success">${res.status}</div>`
+            }else{
+              res_status = `<div class="badge border rounded-full border-error text-error">${res.status}</div>`
+            }
+
+            // alert(res.record_name)
+            $('#all_records').append(
+            /*html*/
+            `
+            <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${id++}
+              </td>  
+            <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.record_name}
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res_status}
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
+                  ${res.sender_name}
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.sender_email}
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.description}
+              </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.folder}
+              </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.file_type}
+              </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.file_size}
+              </div>
+              </td>  
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.drive_email}
+              </div>
+              </td>  
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.record_id}
+              </div>
+              </td>  
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                  ${res.user_id}
+              </div>
+              </td>                      
+              <td class="whitespace-nowrap px-4 py-3 sm:px-5"  x-data="{showModal:false}">
+              <button
+                  @click="showModal = true"
+                  class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+                      viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                  </svg>
+              </button>
+             
+          </td>
+
+            </tr>
+      
+              `
+
+              )
+
+            })
+
+          }else{
+              $('#display').html('') // set diaplay to empty
+              $('#display').append(
+                  /*html*/
+                    `
+                <div class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
+                  <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] border dark:border-navy-500">
+                      <div class="flex items-center space-x-4 justify-center">
+                        
+                          <span class="font-medium text-slate-700 dark:text-navy-200">No Record Yet</span>
+                      </div>
+                  </div>
+                </div>
+                `
+              )
+        }
+        
+
+    }
+    catch (err) {
+      console.log('internet error')
+      console.log(err)
+    }
+  }
+
+  getAllRecords()

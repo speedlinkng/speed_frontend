@@ -4,6 +4,7 @@ const path = require('path');
 const dahboard = require('./routes/dahboard.route');
 const admin = require('./routes/admin.route');
 const auth = require('./routes/auth.route');
+const paystack = require('./routes/paystack.route');
 const dotenv = require('dotenv');
 const cors=require("cors");
 const corsOptions ={
@@ -26,6 +27,7 @@ app.use(express.json())
 app.use("/dash/", dahboard)
 app.use("/auth/", auth)
 app.use("/admin/", admin)
+app.use("/paystack/", paystack)
 
 
 app.get('/', function(req, res) {

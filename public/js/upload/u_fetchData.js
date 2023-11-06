@@ -43,8 +43,8 @@
           const modifiedQuestions = questArray.map((question) => {
             // Remove both suffixes and trim any leading/trailing spaces
               const modifiedQuestion = question
-                .replace(/-required/g, '')
-                .replace('-not required', '')
+                .replace(/-Required/g, '')
+                .replace('-Not Required', '')
                 .trim();
 
               return modifiedQuestion;
@@ -64,7 +64,7 @@
               placeholder=""
               id="upload_email"
               type="text"
-              value="mmm"
+              value=""
             />
             <span class="text-red-400 question_class_error${index}"></span>
           </label>

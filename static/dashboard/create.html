@@ -56,24 +56,25 @@
 
   <!-- App Header Wrapper-->
   <nav class="header dark:bg-slate-500">
-    <div class="header-container grid grid-cols-5 w-full  px-2">
-      <div class=" col-span-1 text-left  md:pl-10 flex items-center">LOGO</div>
-      <div class=" col-span-4 flex tab:gap-2 gap-7 md:10 items-center px-2">
+    <div class="header-container grid grid-cols-10 w-full  px-2">
+      <div class=" md:col-span-1 col-span-3  text-left  md:pl-10 flex items-center ">LOGO</div>
+      <div class=" md:col-span-8  col-span-7  flex tab:gap-2 gap-7 md:10 items-center px-2 ">
         <div
-          class=" feature rounded-xl  w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+          class=" feature rounded-lg  w-fit px-2 py-2 sm:px-5 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
           <a >How it works</a>
           
         </div>
 
         <div
        
-          class=" rounded-xl w-fit px-2 py-2 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
+          class=" rounded-lg w-fit px-2 py-2 sm:px-5 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20">
           <a>Pricing</a>
         </div>
       </div>
     </div>
 
   </nav>
+
 
     <!-- Main Content Wrapper -->
     <main id="create" class="main-content w-full pb-8 relative">
@@ -140,9 +141,10 @@
                       class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                       placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
                     <input
-                    id="file_res"
+                    id="folder_id"
+                    style="display: none;"
                       class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                      placeholder="" value="Speedlink" type="text" />
+                      placeholder="" value="" type="text" />
                     <span
                       class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                       <i class="fa-regular fa-building text-base"></i>
@@ -346,8 +348,8 @@
             <!-- FORM SECTION modified with vue.js-->
             <script src="../components/createComponents/formBuilder.js"></script>
             <section class="card p-4 sm:p-5 w-full sm:w-[400px] md:!w-[500px] lg:!w-[800px] form" style="display:none;">
-              <div id="form_text">You need to upgrade your plan to use the form builder. Learn more about creating the forms.</div>
-              <form-builder></form-builder>
+              <div id="form_text" style="display: block;">You need to upgrade your plan to use the form builder. Learn more about creating the forms.</div>
+              <form-builder  id="form-builder" style="display: block;"></form-builder>
             </section>
 
 
@@ -380,12 +382,51 @@
 
 <script>
   $(document).ready(function () {
+
+    async function getPlan(){
+ 
+      let settings = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access')}`,
+        },
+      };
+
+      try {
+        let getPlan = await fetch(`${backendUrl}/api/app/check`, settings);
+        let res = await getPlan.json()
+       console.log(res.data.plan)
+       
+       if(res.data.plan == 1 || res.data.plan == '1'){
+        // DEFAULT FREE PLAN
+        $('#form_text').hide()
+        $('#builder').show()
+
+       }
+       if(res.data.plan == 2 || res.data.plan == '2'){
+        $('#form_text').hide()
+        $('#builder').show()
+       }
+
+       if(res.data.plan == 3 || res.data.plan == '3'){
+        $('#form_text').hide()
+        $('#builder').show()
+       }
+
+      }catch(err){
+
+      }
+    }
+    getPlan()
+
     function checkForm(){
       // Toggle to display form indicator of created form
-      if(localStorage.getItem('form-questions') == null){
+      if(localStorage.getItem('form-questions') === 'null'){
+      
         $('.addQuestion_').show()
         $('.questionAdded_').hide()
       }else{
+
         $('.questionAdded_').show()
         $('.addQuestion_').hide()
       }
@@ -430,7 +471,7 @@
           description: $('#create_description').val(),
           folder: $('#create_folder').val(),
           subfolder: $('#create_folder').val(),
-          folder_id: $('#create_folder_id').val(),
+          folder_id: $('#folder_id').val(),
           drive_email: localStorage.getItem('drive_email'),
           quantity: $('#quantity').text(),
           file_type: $('#file_type').text(),
@@ -445,6 +486,7 @@
 
       console.log(settings.body)
       const myButton = document.getElementById('create_save');
+      alert(myButton)
       try {
         let fetchResponses = await fetch(`${backendUrl}/api/app/create`, settings);
         let stta = await fetchResponses.status
@@ -452,12 +494,12 @@
 
 
         if (json.status == 200) {
-          window.location.href = `${baseUel}/dash/share`;
+          window.location.href = `${baseUrl}/dash/share`;
           console.log(json.id)
           localStorage.setItem('upload_id', json.id)
 
         } else {
-          console.log('Going to Login')
+          console.log('Going to Login', json.status)
         }
       } catch (e) {
         console.log(e);
@@ -471,6 +513,7 @@
 </script>
 <script>
   //UNSET FORM
+  localStorage.setItem('form-questions', null)
   // alert(localStorage.setItem('form-questions'))
   if (localStorage.getItem('my_goog_acc') == null) {
 

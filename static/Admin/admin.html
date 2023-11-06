@@ -13,14 +13,22 @@
 
   <!-- CSS Assets -->
   <link rel="stylesheet" href="../css/output.css" />
+  <link rel="stylesheet" href="../css/custom.css" />
   <link rel="stylesheet" href="../css/app.css" />
   <link rel="stylesheet" href="../css/w3.css" />
   <link rel="stylesheet" href="../css/custom.css" />
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
+  <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
+
 
   <!-- Javascript Assets -->
   <script src="../js/app.js" defer></script>
+  <script src="../js/admin/protect_admin.js" defer></script>
   <script src="../js/w3.js" defer></script>
   <script src="../js/jquery.js" defer></script>
+  <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+<script src="https://unpkg.com/gridjs-jquery/dist/gridjs.production.min.js"></script>
+  <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -28,6 +36,7 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
     rel="stylesheet" />
+
 </head>
 
 <body x-data x-bind="$store.global.documentBody" class="has-min-sidebar is-sidebar-open is-header-blur">
@@ -86,9 +95,9 @@
               <div class="my-3 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
 
               <ul class="space-y-1.5 px-2 font-inter text-md font-medium">
-                <li>
+                <li onclick="w3.hide('#records_admin'), w3.hide('#sub_admin'), w3.show('#user_admin')">
                   <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
-                    href="#">
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people w-6 h-6" viewBox="0 0 16 16">
                       <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/>
                     </svg>
@@ -96,23 +105,23 @@
                     <span class="text-slate-800 dark:text-navy-100">Users</span>
                   </a>
                 </li>
-                <li>
+                <li onclick="w3.show('#records_admin'), w3.hide('#sub_admin'), w3.hide('#user_admin')">
                   <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
-                    href="#">
+                    >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list-nested w-6 h-6" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
                     </svg>
                     <span class="text-slate-800 dark:text-navy-100">Records</span>
                   </a>
                 </li>
-                <li>
+                <li onclick="w3.hide('#records_admin'), w3.show('#sub_admin'), w3.hide('#user_admin')">
                   <a class="group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
-                    href="#">
+                   >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-piggy-bank w-6 h-6" viewBox="0 0 16 16">
                       <path d="M5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0zm1.138-1.496A6.613 6.613 0 0 1 7.964 4.5c.666 0 1.303.097 1.893.273a.5.5 0 0 0 .286-.958A7.602 7.602 0 0 0 7.964 3.5c-.734 0-1.441.103-2.102.292a.5.5 0 1 0 .276.962z"/>
                       <path fill-rule="evenodd" d="M7.964 1.527c-2.977 0-5.571 1.704-6.32 4.125h-.55A1 1 0 0 0 .11 6.824l.254 1.46a1.5 1.5 0 0 0 1.478 1.243h.263c.3.513.688.978 1.145 1.382l-.729 2.477a.5.5 0 0 0 .48.641h2a.5.5 0 0 0 .471-.332l.482-1.351c.635.173 1.31.267 2.011.267.707 0 1.388-.095 2.028-.272l.543 1.372a.5.5 0 0 0 .465.316h2a.5.5 0 0 0 .478-.645l-.761-2.506C13.81 9.895 14.5 8.559 14.5 7.069c0-.145-.007-.29-.02-.431.261-.11.508-.266.705-.444.315.306.815.306.815-.417 0 .223-.5.223-.461-.026a.95.95 0 0 0 .09-.255.7.7 0 0 0-.202-.645.58.58 0 0 0-.707-.098.735.735 0 0 0-.375.562c-.024.243.082.48.32.654a2.112 2.112 0 0 1-.259.153c-.534-2.664-3.284-4.595-6.442-4.595zM2.516 6.26c.455-2.066 2.667-3.733 5.448-3.733 3.146 0 5.536 2.114 5.536 4.542 0 1.254-.624 2.41-1.67 3.248a.5.5 0 0 0-.165.535l.66 2.175h-.985l-.59-1.487a.5.5 0 0 0-.629-.288c-.661.23-1.39.359-2.157.359a6.558 6.558 0 0 1-2.157-.359.5.5 0 0 0-.635.304l-.525 1.471h-.979l.633-2.15a.5.5 0 0 0-.17-.534 4.649 4.649 0 0 1-1.284-1.541.5.5 0 0 0-.446-.275h-.56a.5.5 0 0 1-.492-.414l-.254-1.46h.933a.5.5 0 0 0 .488-.393zm12.621-.857a.565.565 0 0 1-.098.21.704.704 0 0 1-.044-.025c-.146-.09-.157-.175-.152-.223a.236.236 0 0 1 .117-.173c.049-.027.08-.021.113.012a.202.202 0 0 1 .064.199z"/>
                     </svg>
-                    <span class="text-slate-800 dark:text-navy-100">Revenue</span>
+                    <span class="text-slate-800 dark:text-navy-100">Subscribers</span>
                   </a>
                 </li>
                 
@@ -267,9 +276,121 @@
       </div>
     </nav>
 
-<main w2-include-html="/admin/all.html" class="main-content filemanager-app w-full pb-6">
+<main class="main-content filemanager-app w-full pb-6">
+
+    <div class="flex items-center justify-between space-x-2 px-[var(--margin-x)] pb-4 pt-5 transition-all duration-[.25s]">
+      <div class="flex items-center space-x-1">
+          <h3 class="text-lg font-medium text-slate-700 line-clamp-1 dark:text-navy-50">
+              Admin Dashboard
+          </h3>
+          <div x-data="usePopper({placement:'bottom-start',offset:4})"
+              @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
+              <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
+                  class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                  <i class="fas fa-chevron-down"></i>
+              </button>
+          </div>
+      </div>
+  </div>
+  <div class="flex flex-col" x-data="{activeTab:'tab-recent'}">
+      <div class="flex space-x-2 px-[var(--margin-x)] transition-all duration-[.25s]">
+          <button @click="activeTab = 'tab-recent'" class="hidden btn h-8 rounded-full text-xs+ font-medium"
+              :class="activeTab === 'tab-recent' ? 'bg-slate-150 text-slate-800 dark:bg-navy-600 dark:text-navy-50' : 'hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 hover:text-slate-800 focus:text-slate-800 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 dark:hover:text-navy-100 dark:focus:text-navy-100'">
+              Recent
+          </button>
+
+      </div>
+      <div>
+          <div x-show="activeTab === 'tab-recent'" x-transition:enter="transition-all duration-500 easy-in-out"
+              x-transition:enter-start="opacity-0 [transform:translate3d(1rem,0,0)]"
+              x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
+              x-init="$nextTick(()=>new Swiper($el,{  slidesPerView: 'auto', spaceBetween: 20}))"
+              class="swiper px-[var(--margin-x)] pt-4 transition-all duration-[.25s]">
+              <div class="swiper-wrapper">
+                  <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                      <div class="flex items-center justify-between">
+                          <img class="w-14" src="../images/folders/folder-primary.svg" alt="folder" />
+                          <button
+                              class="btn -mr-2 h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24"
+                                  stroke="currentColor" stroke-width="2">
+                                  <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                              </svg>
+                          </button>
+                      </div>
+                      <div class="pt-5 text-base font-medium tracking-wide text-primary dark:text-accent-light">
+                          Total Users
+                      </div>
+                      <div class="mt-1.5 flex items-center justify-between">
+                          <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                              <span id="total_users"> 0 </span> Users
+                          </p>
+                      </div>
+                  </div>
+                  <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                      <div class="flex items-center justify-between">
+                          <img class="w-14" src="../images/folders/folder-warning.svg" alt="folder" />
+                      </div>
+                      <div class="pt-5 text-base font-medium tracking-wide text-warning">
+                          Total Files Uploaded
+                      </div>
+                      <div class="mt-1.5 flex items-center justify-between">
+                          <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                              <span id="total_files"> 0 </span> files
+                          </p>
+                          <p class="font-medium text-slate-600 dark:text-navy-100">
+                              <span id="total_files_gb"> 0 </span>
+                          </p>
+                      </div>
+                  </div>
+                  <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                      <div class="flex items-center justify-between">
+                          <img class="w-14" src="../images/folders/folder-info.svg" alt="folder" />
+                      </div>
+                      <div class="pt-5 text-base font-medium tracking-wide text-info">
+                          Total Paid Users
+                      </div>
+                      <div class="mt-1.5 flex items-center justify-between">
+                          <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                              <span id="paid_users"> 0 </span> Users
+                          </p>
+                      </div>
+                  </div>
+                  <div class="card swiper-slide w-56 shrink-0 p-3 pt-4">
+                      <div class="flex items-center justify-between">
+                          <img class="w-14" src="../images/folders/folder-error.svg" alt="folder" />
+                      </div>
+                      <div class="pt-5 text-base font-medium tracking-wide text-error">
+                          Total Records Created
+                      </div>
+                      <div class="mt-1.5 flex items-center justify-between">
+                          <p class="text-salte-400 text-xs+ dark:text-navy-300">
+                              <span id="record_count"> 0 </span> files
+                          </p>
+                      </div>
+                  </div>
 
 
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+  <div>
+
+  </div>
+
+  <div id="user_admin" style="display: block;" w2-include-html="/admin/user.html" >
+
+  </div>
+  <div id="records_admin" style="display: none;" w2-include-html="/admin/records.html" >
+
+  </div>
+  <div id="sub_admin" style="display: none;" w2-include-html="/admin/subscribers.html" >
+
+  </div> 
 </main>
 
  
@@ -295,3 +416,5 @@
 
 </html>
 <script src="../js/module/global.js" defer></script>
+<script src="../js/admin/all.js" defer></script>
+
