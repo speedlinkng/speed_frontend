@@ -127,7 +127,7 @@ router.get('/', async function(req, res) {
                     email: 'customer@email.com',
                     amount: 20000,
                     plan: plan,
-                    callback_url: 'http://localhost:4000/paystack/verify?plan='+plan
+                    callback_url: 'https://speedlink-frontend.onrender.com/paystack/verify?plan='+plan
                 },
             };
 
