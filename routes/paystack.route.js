@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const request = require('request')
+const https = require('https');
 const url = require('url');
 const crypto = require('crypto');
 const fs = require('fs');
@@ -56,8 +57,27 @@ router.post('/webhook', function(req, res){
       fs.appendFile(filePath, body, (err) => {
         if (err) {
           console.error('Error saving webhook data:', err);
+        }else{
+            console.log(body)
         }
       });
+
+                const url = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
+
+                https.get(url, (response) => {
+                let data = '';
+
+                response.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                response.on('end', () => {
+                    console.log(data); // Display the content of paystack.html
+                });
+                }).on('error', (error) => {
+                console.error('Error fetching content:', error);
+                });
+
     
       // Parse the request body as JSON
       try {
