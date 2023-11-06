@@ -6,70 +6,59 @@ const crypto = require('crypto');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path'); // Import the path module
-
-router.post('/webhook', function(req, res){
- // Replace with your Paystack secret key
-const PAYSTACK_SECRET_KEY = 'sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686';
-
+    
 router.use(bodyParser.raw({ type: 'application/json' }));
+    
+router.post('/webhook', function(req, res){
+    const express = require('express');
+    const crypto = require('crypto');
+    const fs = require('fs');
+    const bodyParser = require('body-parser');
+    const app = express();
+    
+    // Replace with your Paystack secret key
+    const PAYSTACK_SECRET_KEY = 'sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686';
 
-  if (req.method !== 'POST' || !req.get('X-Paystack-Signature')) {
-    res.status(400).end();
-    return;
-  }
+      if (req.method !== 'POST' || !req.get('X-Paystack-Signature')) {
+        res.status(400).end();
+        return;
+      }
+    
+      const signatureHeader = req.get('X-Paystack-Signature');
+      const body = req.body;
+    
+      // Validate the signature
+      const computedSignature = crypto
+        .createHmac('sha512', PAYSTACK_SECRET_KEY)
+        .update(body)
+        .digest('hex');
+    
+      if (computedSignature !== signatureHeader) {
+        res.status(403).end();
+        return;
+      }
+    
+      // Save the request body to a file (optional)
+      const filePath = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
+      fs.appendFile(filePath, body, (err) => {
+        if (err) {
+          console.error('Error saving webhook data:', err);
+        }
+      });
+    
+      // Parse the request body as JSON
+      try {
+        const event = JSON.parse(body);
+        // Do something with the event
+        console.log('Received event:', event);
+      } catch (error) {
+        console.error('Error parsing JSON:', error);
+      }
+    
+      res.status(200).end();
+    });
 
-  const signatureHeader = req.get('X-Paystack-Signature');
-  const body = req.body;
-
-  // Validate the signature
-  const computedSignature = crypto
-    .createHmac('sha512', PAYSTACK_SECRET_KEY)
-    .update(body)
-    .digest('hex');
-
-  if (computedSignature !== signatureHeader) {
-    res.status(403).end();
-    return;
-  }
-
-  // Define the directory path and file name
-  const directoryPath = 'https://speedlink-frontend.onrender.com/dash/';
-  const filePath = path.join(directoryPath, 'paystack.json');
-
-  try {
-    // Create the directory and save the request body as a JSON object
-    fs.mkdirSync(directoryPath, { recursive: true });
-    fs.writeFileSync(filePath, JSON.stringify(JSON.parse(body), null, 2));
-    console.log('Webhook data saved to paystack.json');
-  } catch (err) {
-    console.error('Error saving webhook data:', err);
-  }
-
-   // Read the content of the paystack.json file
-   try {
-    const fileContent = fs.readFileSync(filePath, 'utf8');
-    const jsonData = JSON.parse(fileContent);
-    console.log('Content of paystack.json:', jsonData);
-  } catch (error) {
-    console.error('Error reading paystack.json:', error);
-  }
-
-
-
-  // Parse the request body as JSON
-  try {
-    const event = JSON.parse(body);
-    // Do something with the event
-    console.log('Received event:', event);
-  } catch (error) {
-    console.error('Error parsing JSON:', error);
-  }
-
-  res.status(200).end();
-
-
-})
-
+    
 
 
 router.get('/verify', function(req, res) {
