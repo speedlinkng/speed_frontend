@@ -11,6 +11,7 @@ const path = require('path'); // Import the path module
 router.use(bodyParser.raw({ type: 'application/json' }));
     
 router.post('/webhook', function(req, res){
+    console.log('webhook running')
     const express = require('express');
     const crypto = require('crypto');
     const fs = require('fs');
@@ -51,32 +52,51 @@ router.post('/webhook', function(req, res){
             return;
         }
 
-    
-      // Save the request body to a file (optional)
-      const filePath = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
-      fs.appendFile(filePath, body, (err) => {
-        if (err) {
-          console.error('Error saving webhook data:', err);
-        }else{
-            console.log(body)
+
+        // Append the 'body' variable to package.json
+fs.appendFile('package.json', body, (err) => {
+    if (err) {
+      console.error('Error appending to package.json:', err);
+    } else {
+      console.log('Appended to package.json');
+      // Now, let's read the content from package.json
+      fs.readFile('package.json', 'utf8', (readErr, data) => {
+        if (readErr) {
+          console.error('Error reading package.json:', readErr);
+        } else {
+          console.log('Content of package.json:');
+          console.log(data);
         }
       });
+    }
+  });
 
-                const url = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
+    
+    //   // Save the request body to a file (optional)
+    //   const filePath = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
+    //   fs.appendFile(filePath, body, (err) => {
+    //     if (err) {
+    //       console.error('Error saving webhook data:', err);
+    //     }else{
+    //         console.log(body)
+    //     }
+    //   });
 
-                https.get(url, (response) => {
-                let data = '';
+    //             const url = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
 
-                response.on('data', (chunk) => {
-                    data += chunk;
-                });
+    //             https.get(url, (response) => {
+    //             let data = '';
 
-                response.on('end', () => {
-                    console.log(data); // Display the content of paystack.html
-                });
-                }).on('error', (error) => {
-                console.error('Error fetching content:', error);
-                });
+    //             response.on('data', (chunk) => {
+    //                 data += chunk;
+    //             });
+
+    //             response.on('end', () => {
+    //                 console.log(data); // Display the content of paystack.html
+    //             });
+    //             }).on('error', (error) => {
+    //             console.error('Error fetching content:', error);
+    //             });
 
     
       // Parse the request body as JSON
