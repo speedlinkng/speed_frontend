@@ -5,6 +5,7 @@ const url = require('url');
 const crypto = require('crypto');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const path = require('path'); // Import the path module
 
 router.get('/webhook', function(req, res){
  // Replace with your Paystack secret key
@@ -33,7 +34,7 @@ app.post('/webhook', (req, res) => {
   }
 
   // Define the directory path and file name
-  const directoryPath = 'path/to/your/directory/';
+  const directoryPath = 'https://speedlink-frontend.onrender.com/dash/';
   const filePath = path.join(directoryPath, 'paystack.json');
 
   try {
@@ -44,6 +45,17 @@ app.post('/webhook', (req, res) => {
   } catch (err) {
     console.error('Error saving webhook data:', err);
   }
+
+   // Read the content of the paystack.json file
+   try {
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const jsonData = JSON.parse(fileContent);
+    console.log('Content of paystack.json:', jsonData);
+  } catch (error) {
+    console.error('Error reading paystack.json:', error);
+  }
+
+
 
   // Parse the request body as JSON
   try {
