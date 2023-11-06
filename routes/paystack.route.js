@@ -7,13 +7,12 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path'); // Import the path module
 
-router.get('/webhook', function(req, res){
+router.post('/webhook', function(req, res){
  // Replace with your Paystack secret key
 const PAYSTACK_SECRET_KEY = 'sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686';
 
-app.use(bodyParser.raw({ type: 'application/json' }));
+router.use(bodyParser.raw({ type: 'application/json' }));
 
-app.post('/webhook', (req, res) => {
   if (req.method !== 'POST' || !req.get('X-Paystack-Signature')) {
     res.status(400).end();
     return;
@@ -67,7 +66,7 @@ app.post('/webhook', (req, res) => {
   }
 
   res.status(200).end();
-});
+
 
 })
 
