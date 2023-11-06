@@ -26,7 +26,7 @@ router.post('/webhook', function(req, res){
     
       
         const signatureHeader = req.get('X-Paystack-Signature');
-        const body = req.body;
+        let body = req.body;
 
         // Ensure that 'body' is a buffer or a string
         if (!Buffer.isBuffer(body)) {
