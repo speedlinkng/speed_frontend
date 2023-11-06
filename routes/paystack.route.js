@@ -24,19 +24,32 @@ router.post('/webhook', function(req, res){
         return;
       }
     
-      const signatureHeader = req.get('X-Paystack-Signature');
-      const body = req.body;
-    
-      // Validate the signature
-      const computedSignature = crypto
-        .createHmac('sha512', PAYSTACK_SECRET_KEY)
-        .update(body)
-        .digest('hex');
-    
-      if (computedSignature !== signatureHeader) {
-        res.status(403).end();
-        return;
-      }
+      
+        const signatureHeader = req.get('X-Paystack-Signature');
+        const body = req.body;
+
+        // Ensure that 'body' is a buffer or a string
+        if (!Buffer.isBuffer(body)) {
+            // If 'body' is an object, convert it to a string using JSON.stringify
+            if (typeof body === 'object') {
+            body = JSON.stringify(body);
+            } else {
+            res.status(400).end(); // Handle other data types
+            return;
+            }
+        }
+
+        // Validate the signature
+        const computedSignature = crypto
+            .createHmac('sha512', PAYSTACK_SECRET_KEY)
+            .update(body)
+            .digest('hex');
+
+        if (computedSignature !== signatureHeader) {
+            res.status(403).end();
+            return;
+        }
+
     
       // Save the request body to a file (optional)
       const filePath = 'https://speedlink-frontend.onrender.com/dash/paystack.html';
