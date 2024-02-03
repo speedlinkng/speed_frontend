@@ -643,7 +643,7 @@ nav.header .header-container {
 
 @media (min-width:768px) {
     .has-min-sidebar nav.header {
-        width: calc(100% - var(--main-sidebar-width) - var(--sidebar-panel-min-width))
+        width: calc(100% - var(--main-sidebar-width)) /* - var(--sidebar-panel-min-width) edited out */
     }
 }
 

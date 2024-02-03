@@ -1,0 +1,701 @@
+{
+  "values": {
+    "page1": [
+      {
+        "header": [
+          {
+            "page_header": "Personal Details",
+            "page_description": "fill in your personal details here",
+            "edit_submit_field": "Send"
+          }
+        ]
+      },
+      {
+        "field1": {
+          "settings": [
+            {
+              "inputName": "Required",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Add field value to the front of the file name ",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Placeholder",
+              "inputValue": "post your name"
+            },
+            {
+              "inputName": "Validation Pattern",
+              "inputValue": ""
+            },
+            {
+              "inputName": "Description",
+              "inputValue": "this is a description"
+            }
+          ],
+          "fieldType": {
+            "fieldName": "Text",
+            "fieldValue": "Your Name"
+          },
+          "conditions": {
+            "firstCondition": [
+              {
+                "selectorName": "hide-show",
+                "selectorValue": "Hide"
+              },
+              {
+                "selectorName": "if",
+                "selectorValue": "All"
+              }
+            ],
+            "secondCondition": [
+              {
+                "SCL_selectorName": "matches",
+                "SCL_selectorValue": "Email"
+              },
+              {
+                "SCL_selectorName": "condition",
+                "SCL_selectorValue": "greater"
+              },
+              {
+                "SCL_inputName": "compared",
+                "SCL_inputValue": ""
+              }
+            ]
+          },
+          "other_data": {
+            "page_url": "",
+            "drop_zone": "",
+            "page_name": "",
+            "shearable_link": "",
+            "error_page_text": "",
+            "success_page_text": ""
+          }
+        }
+      },
+      {
+        "field2": {
+          "settings": [
+            {
+              "inputName": "Required",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Add field value to the front of the file name",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Placeholder",
+              "inputValue": "Post your email"
+            },
+            {
+              "inputName": "Validation Pattern",
+              "inputValue": ""
+            },
+            {
+              "inputName": "Description",
+              "inputValue": "post your email description"
+            }
+          ],
+          "fieldType": {
+            "fieldName": "Email",
+            "fieldValue": "Your Email"
+          },
+          "conditions": {
+            "firstCondition": [
+              {
+                "selectorName": "hide-show",
+                "selectorValue": "Hide"
+              },
+              {
+                "selectorName": "if",
+                "selectorValue": "All"
+              }
+            ],
+            "secondCondition": [
+              {
+                "SCL_selectorName": "matches",
+                "SCL_selectorValue": "Your Name"
+              },
+              {
+                "SCL_selectorName": "condition",
+                "SCL_selectorValue": "greater"
+              },
+              {
+                "SCL_inputName": "compared",
+                "SCL_inputValue": ""
+              }
+            ]
+          },
+          "other_data": {
+            "page_url": "",
+            "drop_zone": "",
+            "page_name": "",
+            "shearable_link": "",
+            "error_page_text": "",
+            "success_page_text": ""
+          }
+        }
+      },
+      {
+        "field3": {
+          "settings": [
+            {
+              "inputName": "Dropdown List",
+              "inputValue": [
+                "car",
+                "dog",
+                "mouse",
+                "parrot"
+              ]
+            },
+            {
+              "inputName": "Required",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Add field value to the front of the file name",
+              "inputValue": "off"
+            },
+            {
+              "inputName": "Description",
+              "inputValue": "Description foe dropdown"
+            }
+          ],
+          "fieldType": {
+            "fieldName": "Dropdown",
+            "fieldValue": "choose you pet"
+          },
+          "conditions": {
+            "firstCondition": [
+              {
+                "selectorName": "hide-show",
+                "selectorValue": "Hide"
+              },
+              {
+                "selectorName": "if",
+                "selectorValue": "All"
+              }
+            ],
+            "secondCondition": [
+              {
+                "SCL_selectorName": "matches",
+                "SCL_selectorValue": "Your Name"
+              },
+              {
+                "SCL_selectorName": "condition",
+                "SCL_selectorValue": "equal"
+              },
+              {
+                "SCL_inputName": "compared",
+                "SCL_inputValue": "dog"
+              }
+            ]
+          },
+          "other_data": {
+            "page_url": "",
+            "drop_zone": "",
+            "page_name": "",
+            "shearable_link": "",
+            "error_page_text": "",
+            "success_page_text": ""
+          }
+        }
+      },
+      {
+        "field4": {
+          "settings": [
+            {
+              "inputName": "Required",
+              "inputValue": "off"
+            },
+            {
+              "inputName": "Description",
+              "inputValue": ""
+            },
+            {
+              "inputName": "Rename File As",
+              "inputValue": "macho dogs"
+            },
+            {
+              "inputName": "File Types",
+              "inputValue": "jpg"
+            },
+            {
+              "inputName": "Max File Size (MB)",
+              "inputValue": "10"
+            },
+            {
+              "inputName": "File Quantity",
+              "inputValue": "2"
+            }
+          ],
+          "fieldType": {
+            "fieldName": "File Upload",
+            "fieldValue": "upload photos of your chosen pet"
+          },
+          "conditions": {
+            "firstCondition": [
+              {
+                "selectorName": "hide-show",
+                "selectorValue": "Show"
+              },
+              {
+                "selectorName": "if",
+                "selectorValue": "All"
+              }
+            ],
+            "secondCondition": [
+              {
+                "SCL_selectorName": "matches",
+                "SCL_selectorValue": "Your Name"
+              },
+              {
+                "SCL_selectorName": "condition",
+                "SCL_selectorValue": "contains"
+              },
+              {
+                "SCL_inputName": "compared",
+                "SCL_inputValue": "dog"
+              }
+            ]
+          },
+          "other_data": {
+            "page_url": "",
+            "drop_zone": "drop your files here",
+            "page_name": "",
+            "shearable_link": "",
+            "error_page_text": "",
+            "success_page_text": ""
+          }
+        }
+      },
+      {
+        "field5": {
+          "settings": [
+            {
+              "inputName": "Dropdown List",
+              "inputValue": [
+                "cat",
+                "rabbit",
+                "mouse",
+                "puppy",
+                "pig"
+              ]
+            },
+            {
+              "inputName": "Required",
+              "inputValue": "on"
+            },
+            {
+              "inputName": "Add field value to the front of the file name",
+              "inputValue": "off"
+            },
+            {
+              "inputName": "Description",
+              "inputValue": "Description foe dropdown"
+            }
+          ],
+          "fieldType": {
+            "fieldName": "Dropdown",
+            "fieldValue": "choose another"
+          },
+          "conditions": {
+            "firstCondition": [
+              {
+                "selectorName": "hide-show",
+                "selectorValue": "Hide"
+              },
+              {
+                "selectorName": "if",
+                "selectorValue": "All"
+              }
+            ],
+            "secondCondition": [
+              {
+                "SCL_selectorName": "matches",
+                "SCL_selectorValue": "choose you pet"
+              },
+              {
+                "SCL_selectorName": "condition",
+                "SCL_selectorValue": "equal"
+              },
+              {
+                "SCL_inputName": "compared",
+                "SCL_inputValue": "mouse"
+              }
+            ]
+          },
+          "other_data": {
+            "page_url": "",
+            "drop_zone": "",
+            "page_name": "",
+            "shearable_link": "",
+            "error_page_text": "",
+            "success_page_text": ""
+          }
+        }
+      }
+    ],    
+    "page2": [
+        {
+          "header": [
+            {
+              "page_header": "Professional Details",
+              "page_description": "fill in your personal details here",
+              "edit_submit_field": "Send"
+            }
+          ]
+        },
+        {
+          "field1": {
+            "settings": [
+              {
+                "inputName": "Required",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Add field value to the front of the file name ",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Placeholder",
+                "inputValue": "post your name"
+              },
+              {
+                "inputName": "Validation Pattern",
+                "inputValue": ""
+              },
+              {
+                "inputName": "Description",
+                "inputValue": "this is a description"
+              }
+            ],
+            "fieldType": {
+              "fieldName": "Text",
+              "fieldValue": "Your Name"
+            },
+            "conditions": {
+              "firstCondition": [
+                {
+                  "selectorName": "hide-show",
+                  "selectorValue": "Hide"
+                },
+                {
+                  "selectorName": "if",
+                  "selectorValue": "All"
+                }
+              ],
+              "secondCondition": [
+                {
+                  "SCL_selectorName": "matches",
+                  "SCL_selectorValue": "Email"
+                },
+                {
+                  "SCL_selectorName": "condition",
+                  "SCL_selectorValue": "greater"
+                },
+                {
+                  "SCL_inputName": "compared",
+                  "SCL_inputValue": ""
+                }
+              ]
+            },
+            "other_data": {
+              "page_url": "",
+              "drop_zone": "",
+              "page_name": "",
+              "shearable_link": "",
+              "error_page_text": "",
+              "success_page_text": ""
+            }
+          }
+        },
+        {
+          "field2": {
+            "settings": [
+              {
+                "inputName": "Required",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Add field value to the front of the file name",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Placeholder",
+                "inputValue": "Post your email"
+              },
+              {
+                "inputName": "Validation Pattern",
+                "inputValue": ""
+              },
+              {
+                "inputName": "Description",
+                "inputValue": "post your email description"
+              }
+            ],
+            "fieldType": {
+              "fieldName": "Email",
+              "fieldValue": "Your Email"
+            },
+            "conditions": {
+              "firstCondition": [
+                {
+                  "selectorName": "hide-show",
+                  "selectorValue": "Hide"
+                },
+                {
+                  "selectorName": "if",
+                  "selectorValue": "All"
+                }
+              ],
+              "secondCondition": [
+                {
+                  "SCL_selectorName": "matches",
+                  "SCL_selectorValue": "Your Name"
+                },
+                {
+                  "SCL_selectorName": "condition",
+                  "SCL_selectorValue": "greater"
+                },
+                {
+                  "SCL_inputName": "compared",
+                  "SCL_inputValue": ""
+                }
+              ]
+            },
+            "other_data": {
+              "page_url": "",
+              "drop_zone": "",
+              "page_name": "",
+              "shearable_link": "",
+              "error_page_text": "",
+              "success_page_text": ""
+            }
+          }
+        },
+        {
+          "field3": {
+            "settings": [
+              {
+                "inputName": "Dropdown List",
+                "inputValue": [
+                  "car",
+                  "dog",
+                  "mouse",
+                  "parrot"
+                ]
+              },
+              {
+                "inputName": "Required",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Add field value to the front of the file name",
+                "inputValue": "off"
+              },
+              {
+                "inputName": "Description",
+                "inputValue": "Description foe dropdown"
+              }
+            ],
+            "fieldType": {
+              "fieldName": "Dropdown",
+              "fieldValue": "choose you pet"
+            },
+            "conditions": {
+              "firstCondition": [
+                {
+                  "selectorName": "hide-show",
+                  "selectorValue": "Hide"
+                },
+                {
+                  "selectorName": "if",
+                  "selectorValue": "All"
+                }
+              ],
+              "secondCondition": [
+                {
+                  "SCL_selectorName": "matches",
+                  "SCL_selectorValue": "Your Name"
+                },
+                {
+                  "SCL_selectorName": "condition",
+                  "SCL_selectorValue": "equal"
+                },
+                {
+                  "SCL_inputName": "compared",
+                  "SCL_inputValue": "dog"
+                }
+              ]
+            },
+            "other_data": {
+              "page_url": "",
+              "drop_zone": "",
+              "page_name": "",
+              "shearable_link": "",
+              "error_page_text": "",
+              "success_page_text": ""
+            }
+          }
+        },
+        {
+          "field4": {
+            "settings": [
+              {
+                "inputName": "Required",
+                "inputValue": "off"
+              },
+              {
+                "inputName": "Description",
+                "inputValue": ""
+              },
+              {
+                "inputName": "Rename File As",
+                "inputValue": "macho dogs"
+              },
+              {
+                "inputName": "File Types",
+                "inputValue": "jpg"
+              },
+              {
+                "inputName": "Max File Size (MB)",
+                "inputValue": "10"
+              },
+              {
+                "inputName": "File Quantity",
+                "inputValue": "2"
+              }
+            ],
+            "fieldType": {
+              "fieldName": "File Upload",
+              "fieldValue": "upload photos of your chosen pet"
+            },
+            "conditions": {
+              "firstCondition": [
+                {
+                  "selectorName": "hide-show",
+                  "selectorValue": "Show"
+                },
+                {
+                  "selectorName": "if",
+                  "selectorValue": "All"
+                }
+              ],
+              "secondCondition": [
+                {
+                  "SCL_selectorName": "matches",
+                  "SCL_selectorValue": "Your Name"
+                },
+                {
+                  "SCL_selectorName": "condition",
+                  "SCL_selectorValue": "contains"
+                },
+                {
+                  "SCL_inputName": "compared",
+                  "SCL_inputValue": "dog"
+                }
+              ]
+            },
+            "other_data": {
+              "page_url": "",
+              "drop_zone": "drop your files here",
+              "page_name": "",
+              "shearable_link": "",
+              "error_page_text": "",
+              "success_page_text": ""
+            }
+          }
+        },
+        {
+          "field5": {
+            "settings": [
+              {
+                "inputName": "Dropdown List",
+                "inputValue": [
+                  "cat",
+                  "rabbit",
+                  "mouse",
+                  "puppy",
+                  "pig"
+                ]
+              },
+              {
+                "inputName": "Required",
+                "inputValue": "on"
+              },
+              {
+                "inputName": "Add field value to the front of the file name",
+                "inputValue": "off"
+              },
+              {
+                "inputName": "Description",
+                "inputValue": "Description foe dropdown"
+              }
+            ],
+            "fieldType": {
+              "fieldName": "Dropdown",
+              "fieldValue": "choose another"
+            },
+            "conditions": {
+              "firstCondition": [
+                {
+                  "selectorName": "hide-show",
+                  "selectorValue": "Hide"
+                },
+                {
+                  "selectorName": "if",
+                  "selectorValue": "All"
+                }
+              ],
+              "secondCondition": [
+                {
+                  "SCL_selectorName": "matches",
+                  "SCL_selectorValue": "choose you pet"
+                },
+                {
+                  "SCL_selectorName": "condition",
+                  "SCL_selectorValue": "equal"
+                },
+                {
+                  "SCL_inputName": "compared",
+                  "SCL_inputValue": "mouse"
+                }
+              ]
+            },
+            "other_data": {
+              "page_url": "",
+              "drop_zone": "",
+              "page_name": "",
+              "shearable_link": "",
+              "error_page_text": "",
+              "success_page_text": ""
+            }
+          }
+        }
+      ]
+  },
+  "b_token": "ya29.a0AfB_byC3K-8bYNTsgcVGf_aV12LsmclBzaPVnWmK6eBWH7gxJYTVAThj3CYl8xIH-S8gsuVMXzxyeKKJW2eDQU8fCAw4AmFgY9wGtpq4MCVSVhmcyNQ4kvT0yPhGbY5iC1GaV3SjycMjp4QgJ1ZIAGE_6OaE70kc51NnjnYaCgYKAUoSARISFQHGX2Migb_8iQpaklF9xIJCytVieA0174",
+  "otherData": {
+    "page_url": "moped",
+    "drop_zone": "Drop your files here",
+    "page_name": "MATH101.1 QUESTIONS",
+    "shearable_link": "YES",
+    "error_page_text": "",
+    "success_page_text": ""
+  },
+  "preferred": "0",
+  "filesandFolder": {
+    "group_by": [
+      "Your Email",
+      "Your Name"
+    ],
+    "folder_id": "",
+    "chosen_folder": "Speedlinkrs",
+    "other_settings": {
+      "replyAsText": "off"
+    }
+  }
+}

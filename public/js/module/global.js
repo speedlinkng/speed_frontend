@@ -1,6 +1,12 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
     const backendUrl = `http://localhost:5000`;
+    const allArray = { 
+      values: {},
+      preferred: localStorage.getItem('preferred'),
+      b_token: localStorage.getItem('b_token')
+   };
+    var addPage  =  0;
 
     async function start(){
         var w2 = {};

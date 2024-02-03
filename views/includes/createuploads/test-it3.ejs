@@ -1,0 +1,131 @@
+
+<div class="">
+    <div class="grid grid-cols-9 h-auto">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+        </svg>
+       
+    <div class="col-span-8 mb-2 sm:mb-0 sm:col-span-2 -ml-3 ">
+            Drop Zone
+    </div>
+    <label class="col-span-8 pl-10 sm:pl-0 sm:col-span-6 ">
+        <textarea
+        rows="3"
+        name="drop_zone"
+        placeholder="E.g Drop your files here or click to choose your files" 
+        class="drop_zone form-textarea w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 placeholder:font-light hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-transparent dark:hover:border-navy-400 dark:focus:border-accent"
+        ></textarea> 
+    </label>
+
+    
+    </div><br>
+    
+    
+    <div class="grid grid-cols-9 ">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+        </svg>
+       
+    <div class="col-span-8 mb-2 sm:mb-0 sm:col-span-2 -ml-3 ">
+        Success page text
+    </div>
+    
+    <div 
+        x-data="{ quillContent: $store.quillContent }"
+        x-init="$store.quillContent = null"  
+        class="ql-header-filled col-span-8 pl-10 sm:pl-0 sm:col-span-6"
+    >
+        <div
+            class="h-48"
+            x-init="() => {
+                let quill = new Quill($el, {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                            [{ color: [] }, { background: [] }],
+                            ['clean'],
+                        ]
+                    },
+                    placeholder: 'Enter your thank you text after submition...',
+                    theme: 'snow',
+                });
+    
+                quill.on('text-change', function() {
+                    // Update the global store 'quillContent'
+                    Alpine.store('quillContent', quill.root.innerHTML);
+                });
+            }"
+        ></div>
+        
+         <!-- Display the current content -- -->
+        <div 
+            x-text="decodeURIComponent($store.quillContent)" 
+            contenteditable="true"
+            class="hidden success_page_text" 
+        ></div>
+            <!-- Display the current content -->
+            <div 
+            class="dat hidden" 
+            x-text="encodeURIComponent($store.quillContent)" 
+    
+        ></div>
+    </div>
+    
+    </div><br>
+
+    <div class="grid grid-cols-9 ">
+        <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+        </svg>
+       
+    <div class="col-span-8 mb-2 sm:mb-0 sm:col-span-2 -ml-3 ">
+        Error page text
+    </div>
+    
+    <div 
+        x-data="{ quillContent2: $store.quillContent2 }"
+        x-init="$store.quillContent2 = null"  
+        class="ql-header-filled col-span-8 pl-10 sm:pl-0 sm:col-span-6"
+    >
+        <div
+            class="h-48"
+            x-init="() => {
+                let quill = new Quill($el, {
+                    modules: {
+                        toolbar: [
+                            ['bold', 'italic', 'underline', 'strike'],
+                            ['blockquote', 'code-block'],
+                            [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                            [{ color: [] }, { background: [] }],
+                            ['clean'],
+                        ]
+                    },
+                    placeholder: 'Enter text for uploading file error...',
+                    theme: 'snow',
+                });
+    
+                quill.on('text-change', function() {
+                    // Update the global store 'quillContent2'
+                    Alpine.store('quillContent2', quill.root.innerHTML);
+                });
+            }"
+        ></div>
+        
+        <!-- -- Display the current content -- -->
+        <div 
+            class="error_page_text hidden" 
+            x-text="decodeURIComponent($store.quillContent2)" 
+            contenteditable="true" 
+        ></div>
+            <!-- -- Display the current content -- -->
+            <div 
+            class="hidden" 
+            x-text="encodeURIComponent($store.quillContent2)" 
+    
+        ></div>
+    </div>
+    
+    </div>
+</div>

@@ -14,7 +14,7 @@
         let fetchResponses = await fetch(`${backendUrl}/api/app/check`, settings);
         let staus = await fetchResponses.status
         let res = await fetchResponses.json();
-        console.log(res)
+        // console.log(res)
         if(res.error == 1){
 
         }else if(res.error == 2){
@@ -26,7 +26,7 @@
   
       }
       catch (err) {
-        console.log(err)
+        // console.log(err)
       }
     }else{
       // if access token is not set, go to login

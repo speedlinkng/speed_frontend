@@ -4,14 +4,14 @@ module.exports = {
   content: [
   "./public/js/*.{html,js}",
   "./public/js/*/*.{html,js}",
-  "./include/*/*.{html,js}",
-  "./include/*.{html,js}",
-  "./static/*.{html,js}",
-  "./static/index.html",
-  "./static/*/*.{html,js}",
-  "./static/dashoard/*upload.{html,js}",
-  "./static/*/*/*.{html,js}",
-  "./static/*/*/*/*.{html,js}"
+  "./views/includes/*/*.{ejs,js}",
+  "./views/includes/*.{html,js}",
+  "./views/*.{html,ejs,js}",
+  "./views/main.ejs",
+  "./views/*/*.{html,ejs,js}",
+  "./views/dashoard/*upload.{html,ejs,js}",
+  "./views/*/*/*.{html,ejs,js}",
+  "./views/*/*/*/*.{html,ejs,js}"
 ],
   theme: {
     extend: {

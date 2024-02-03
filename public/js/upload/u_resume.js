@@ -1,38 +1,20 @@
 
   const fd = new FormData();
   // Find the input element
-  const inputElements = document.getElementById('filepond');
-
-  // Initialize FilePond
-  const ponds = FilePond.create(inputElements, {
-    allowMultiple: true,
-    instantUpload: true,
-    allowProcess: false
-    // Configuration options go here
-  });
-
-
-  // Listen for the 'addfile' event
-  ponds.on('addfile', (error, file) => {
-    if (!error) {
-      const firstFile = file;
-    } else {
-      // Handle the error
-      console.error('Error adding file:', error);
-    }
-  });
-
+  
   function uploadToDrive() {
     const uploadedFiles = ponds.getFiles();
 
+    const myButton = document.getElementById('upload_btn');
+    start_loading(myButton)
 
+    // START LOADING
     console.log('loop')
     for (var i = 0; i < uploadedFiles.length; i++) {
       console.log(uploadedFiles[i].source)
     }
 
     // BLOB
-
     let selectedFile = uploadedFiles[0].source
 
     // Resume an upload after it failed due to network issues
@@ -51,7 +33,7 @@
             url = header_res
           }
           console.log('url' + url)
-
+ 
           try {
             const response = await fetch(header_res, {
               method: 'PUT',
@@ -77,11 +59,11 @@
               } else {
                 console.log('Invalid format');
               }
-
               console.log('new range is:' + range)
               uploadfile(url, selectedFile, range)
               clearInterval(intervalId);
             }
+          
             if (status_ == 200) {
               updateProgressBar('complete')
               console.log('upload complete')
@@ -103,7 +85,7 @@
 
 
 
-
+    // GET GOOGLE LOCATION URL FOR THIS FILE UPLOAD
 
 
     const getlocations = async (selectedFile) => {
@@ -114,6 +96,8 @@
         const folderId = localStorage.getItem('folder_id'); // Replace with the actual folder ID
         const accessToken = localStorage.getItem('b_token');
 
+        console.log(accessToken)
+
         // Step 1: Initiate the resumable session
         const initiateResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable', {
           method: 'POST',
@@ -122,12 +106,12 @@
             "Content-Type": "application/json; charset=UTF-8"
           },
           body: JSON.stringify({
-            name: `LESS${selectedFile.name}`,
+            name: `${selectedFile.name}`,
             mimeType: selectedFile.type,
             parents: [folderId] // Place the folder ID in an array
           })
         });
-
+        console.log(initiateResponse.status)
         if (initiateResponse.status === 200) {
           const header_res = await initiateResponse.headers.get('location');
           let status = await initiateResponse.status
@@ -162,6 +146,10 @@
       }
       catch (error) {
         console.log(error)
+      }finally{
+        setTimeout(function () {
+          end_loading(myButton, 'Upload')
+         }, 1000)
       }
     }
     // END FUNCTION
@@ -306,7 +294,7 @@
             let url_params = window.location.href;
             let parts = url_params.split('/');
             let url_id = parts[parts.length - 1];
-          console.log($('#answered').val())
+            console.log($('#answered').val())
             let settings = {
               method: 'POST',
               headers: {
@@ -345,6 +333,7 @@
           }
 
           async function gogetMetadata(res) {
+            
             // Assuming you have authenticated and obtained an access token
             const accessToken = localStorage.getItem('b_token'); // Replace with your actual access token
             const fileId = res.id; // Replace with the actual file ID
@@ -365,13 +354,17 @@
               if (linkResponse.status == 200) {
                 let link = await linkResponse.json()
                 console.log(link.webViewLink)
-
-                submitAndUpdate(selectedFile, fileId)
+                alert('update and submit')
+                // submitAndUpdate(selectedFile, fileId)
               }
 
             }
             catch (error) {
               console.error('Error fetching wbviewLink:', error);
+            }finally{
+              setTimeout(function () {
+                end_loading(myButton, 'Upload')
+               }, 1000)
             }
 
             try {

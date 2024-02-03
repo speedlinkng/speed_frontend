@@ -1,0 +1,207 @@
+
+<div class=" mt-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-4 w-full ">
+  <div x-data="{expandedItem:null, page_start:true}" class=" flex flex-col space-y-4 rounded-lg sm:space-y-5 lg:space-y-6  sm:max-w-[900px] m-auto left-0 right-0  ">
+
+
+    <div x-data="accordionItem('item-1')" class="rounded-lg card border border-slate-150 dark:border-navy-500 ">
+      <div @click="expanded = !expanded" class="flex border-b-[1px] capitalize cursor-pointer items-center justify-between px-4 py-5 text-base font-medium text-slate-700 dark:text-navy-100 sm:px-5">
+        <p>Your form request settings</p>
+        <div :class="expanded && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+          <i class="bi bi-chevron-down"></i>
+        </div>
+      </div>
+      <div x-collapse class="py-4 pr-4 pl-2" x-show="page_start" >
+
+        <div class=" flex space-x-4 mt-4">
+          <div class="flex-initial w-[10%] flex items-center justify-center">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+            </svg>
+          </div>
+          <div class="flex-grow w-full ">
+            <!-- <input class="shearable_link form-input border w-[70%] md:w-[80%] rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" /> -->
+            <label class="block">
+              <span class="w-[20%] ">Request Name <span class="text-red-400">*</span> </span>
+              <input class="page_name form-input border w-full rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" />
+            </label>
+
+          </div>
+        </div>
+
+        <div class=" flex space-x-4 mt-4">
+          <div class="flex-initial w-[10%] flex items-center justify-center">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+            </svg>
+          </div>
+          <div class="flex-grow w-full ">
+            <label class="block">
+              <span class="w-fit flex justify-left items-center">Request URL <span class="text-red-400">*</span> </span>
+              <div class="w-full border flex items-center justify-left rounded-l-lg rounded-r-lg border-slate-300 px-3.5 font-inter dark:border-navy-450">
+                <span class="w-fit">speedlink.com/page/</span>
+                <input class="page_url form-input w-full border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="your unique url code" type="text" />
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class=" flex space-x-4 mt-4">
+          <div class="flex-initial w-[10%] flex items-center justify-center">
+            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+            </svg>
+          </div>
+          <div class="flex-grow w-full ">
+            <!-- <input class="shearable_link form-input border w-[70%] md:w-[80%] rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" /> -->
+            <label class="block">
+              <span class="w-[20%]">Shareable link <span class="text-red-400">*</span>
+              <select
+                class="shearable_link form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </label>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div x-data="accordionItem('item-2')" class="rounded-lg card border hidden border-slate-150 dark:border-navy-500 ">
+      <div @click="expanded = !expanded" class="flex border-b-[1px] cursor-pointer items-center justify-between px-4 py-5 text-base font-medium text-slate-700 dark:text-navy-100 sm:px-5">
+        <p>Page labels, text, and translations</p>
+        <div :class="expanded && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+          <i class="bi bi-chevron-down"></i>
+        </div>
+      </div>
+      <div x-collapse x-show="expanded">
+        <div class="item-2">
+
+        </div>
+      </div>
+    </div>
+
+    <div x-data="accordionItem('item-3')" class="rounded-lg card border border-slate-150 dark:border-navy-500 ">
+      <div @click="expanded = !expanded" class="flex border-b-[1px] cursor-pointer items-center justify-between px-4 py-5 text-base font-medium text-slate-700 dark:text-navy-100 sm:px-5">
+        <p>Upload labels, text, and translations</p>
+        <div :class="expanded && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+          <i class="bi bi-chevron-down"></i>
+        </div>
+      </div>
+      <div x-collapse x-show="expanded">
+        <div class="px-4 pb-4 sm:px-5 item-3 text-slate-500 h-fit p-2 ">
+          <%- include('./test-it3.ejs') %>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div x-data="accordionItem('item-4')" class="rounded-lg border border-slate-150 dark:border-navy-500 ">
+      <div @click="expanded = !expanded" class="flex cursor-pointer items-center justify-between px-4 py-5 text-base font-medium text-slate-700 dark:text-navy-100 sm:px-5">
+        <p>Upload branding and customisations</p>
+        <div :class="expanded && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+          <i class="fas fa-chevron-down"></i>
+        </div>
+      </div>
+      <div x-collapse x-show="expanded">
+        <div class="px-4 pb-4 sm:px-5 item-4">
+          
+        </div>
+      </div>
+    </div> -->
+
+    <div x-data="accordionItem('item-4')" class="card rounded-lg border border-slate-150 dark:border-navy-500 ">
+      <div @click="expanded = !expanded" class="flex border-b-[1px] cursor-pointer items-center justify-between px-4 py-5 text-base font-medium text-slate-700 dark:text-navy-100 sm:px-5">
+        <p>Form Fields</p>
+        <div :class="expanded && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+          <i class="bi bi-chevron-down"></i>
+        </div>
+      </div>
+      <div x-collapse x-show="expanded" class="">
+        <div class="px-4 pb-4 sm:px-5 item-4">
+          <%- include('./test-it4.ejs') %>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <div x-data="{showModal:false}">
+      <button
+        id = "openModal"
+        @click="showModal = true"
+        class="btn hidden bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+      >
+        Shift Down
+      </button>
+      <template x-teleport="#x-teleport-target">
+        <div
+          class="border p-5 fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
+          x-show="showModal"
+          role="dialog"
+          @keydown.window.escape="showModal = false"
+        >
+          <div
+            class="border p-3 absolute inset-0 bg-slate-900/60 backdrop-blur transition-opacity duration-300"
+            @click="showModal = false"
+            x-show="showModal"
+            x-transition:enter="ease-out"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="ease-in"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+          ></div>
+          <div
+            class="relative border h-fit max-w-3xl w-full rounded-lg bg-white px-4 pb-4 transition-all duration-300 dark:bg-navy-700 sm:px-5"
+            x-show="showModal"
+            x-transition:enter="easy-out"
+            x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]"
+            x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
+            x-transition:leave="easy-in"
+            x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]"
+            x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]"
+          >
+            <div class=" p-2">
+              <div class="prev_form p-2">
+
+              </div>
+
+              <div>
+
+              </div>
+            </div>
+        
+          </div>
+        </div>
+      </template>
+    </div>
+    
+    <div  x-data="{showModal3:false}" class="w3-container  ">
+      <button onclick="getFieldValues()"  @click="saveOrganizedform_(), showModal3 = true"  id="create_save_" class="btn bg-primary text-white inline-flex w-full justify-center bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+        Save
+      </button>
+      
+      <div class="filesandform p-2">
+        <%- include('./google_drive_filesandfolders.ejs') %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+  function saveOrganizedform_(){
+    // CLICK THE ORGANISEFILE BUTTON FROM HERE AUTOMATICALLY
+    document.getElementById("setOrganizedForm").click();
+  }
+</script>
+
+
+
+
+<script  src="../../js/upload/u_form.js"></script>
+<script  src="../../js/upload/u_fetchData.js"></script>
+<script  src="../../js/upload/u_resume.js"></script>

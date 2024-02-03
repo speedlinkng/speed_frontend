@@ -1,0 +1,55 @@
+                
+                <div>
+                    <template x-teleport="#x-teleport-target">
+                      <div class="border p-5 fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModal2" role="dialog" @keydown.window.escape="showModal2 = false">
+                        <div class="border p-3 absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300" @click="showModal2 = false" x-show="showModal2" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+                        <div class="relative border h-fit max-w-3xl w-full rounded-lg bg-white px-4 pb-4 transition-all duration-300 dark:bg-navy-700 sm:px-5" x-show="showModal2" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]">
+                          <div class=" p-2">
+                            <div class="logging_out p-2">
+                              <p>Are you sure you want to log out now ?</p>
+              
+                              <div class="w-full flex justify-start mt-2">
+                                <button @click="logMeOut()" class="btn font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
+                                  Yes
+                                </button>
+                                <button @click="showModal2 = false" class="btn font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+                                  No
+                                </button>
+                              </div>
+                            </div>
+              
+                            <div>
+              
+                            </div>
+                          </div>
+              
+                        </div>
+                      </div>
+                    </template>
+                  </div>
+<script>
+    async function logMeOut(){
+            fetch(`${backendUrl}/api/users/logout`, {
+                method: 'GET', 
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('access')}`,
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => {
+                console.log(response)
+                if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // Handle successful logout
+                console.log("Logout successful");
+            })
+            .catch(error => {
+                console.log(error)
+                // Handle errors during the fetch
+                console.error('Fetch error:', error);
+            });
+
+    }
+</script>
+

@@ -10,6 +10,73 @@ const path = require('path'); // Import the path module
     
 router.use(bodyParser.raw({ type: 'application/json' }));
     
+
+
+
+
+router.get('/cancel', function(req, res){
+
+     function cancel(){
+    
+
+        const options = {
+        url: 'https://api.paystack.co/subscription/disable',
+        method: 'POST',
+        headers: {
+            Authorization: 'Bearer sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686',
+            'Content-Type': 'application/json'
+        },
+        json: {
+            code: 'SUB_q43eot2ku0l7v7k',
+            token: 'wrqwk3bi9mf006y'
+        }
+        };
+        
+        request(options, (error, response, body) => {
+        if (error) {
+            console.error(error);
+        } else {
+            confirmCancel()
+            console.log(body);
+        }
+        });
+    }
+
+     function confirmCancel(){
+      
+
+        const options = {
+        url: 'https://api.paystack.co/subscription/SUB_fde32hknzjuup5j',
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686',
+        },
+        // json: {
+        //     code: 'SUB_fde32hknzjuup5j',
+        //     token: '6ltghw44x01ck5k'
+        // }
+        };
+        
+        request(options, (error, response, body) => {
+        if (error) {
+            console.error(error);
+            res.send(error)
+            return
+        } else {
+            confirmCancel()
+            console.log(body);
+            res.send(body)
+            return
+        }
+        });
+    }
+
+    cancel()
+    
+})
+
+
+
 router.post('/webhook', function(req, res){
     console.log('webhook running')
     const express = require('express');
@@ -118,35 +185,70 @@ router.get('/verify', function(req, res) {
     console.log('hi')
     const sampleUrl = req.query;
     console.log(sampleUrl.trxref)
-    
+    async function verify() {
+        try {
 
-        const options = {
-        url: 'https://api.paystack.co/transaction/verify/'+sampleUrl.trxref,
-        method: 'GET',
-        headers: {
-            Authorization: 'Bearer sk_test_5388c69b71e0348ae0fbc13d3fa337b26c7db7c3',
-        },
-        };
+            const options = {
+            url: 'https://api.paystack.co/transaction/verify/'+sampleUrl.trxref,
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer sk_test_5388c69b71e0348ae0fbc13d3fa337b26c7db7c3',
+            },
+            };
 
-        request(options, (error, response, body) => {
-        if (error) {
-            console.error(error);
-        } else {
-            const responseData = JSON.parse(body);
-           
-            if (responseData.data.authorization.authorization_code != '') {
-                console.log('Auth: '+responseData.data.authorization.authorization_code);
-                console.log('Customer code: '+responseData.data.customer.customer_code);
-                console.log('Customer email: '+responseData.data.customer.email);
-                console.log('Customer plan: '+sampleUrl.plan);
-                res.send(responseData.data.authorization.authorization_code);
-            }else{
-                res.send(responseData);
+            request(options, (error, response, body) => {
+            if (error) {
+                console.error(error);
+            } else {
+                const responseData = JSON.parse(body);
+            
+                if (responseData.data.authorization.authorization_code != '') {
+                    console.log('Auth: '+responseData.data.authorization.authorization_code);
+                    console.log('Customer code: '+responseData.data.customer.customer_code);
+                    console.log('Customer email: '+responseData.data.customer.email);
+                    console.log('Customer plan: '+sampleUrl.plan);
+                    res.send(responseData);
+                    createSub(responseData.data.customer.customer_code)
+                }else{
+                    res.send(responseData);
+                }
             }
+            });
         }
+        catch(error){
+            console.log(error)
+        }
+    }
+
+    async function createSub(CUS_ccode) {
+        return new Promise((resolve, reject) => {
+            const params = {
+                customer: CUS_ccode , plan: sampleUrl.plan
+            };
+
+            const options = {
+                url: 'https://api.paystack.co/subscription',
+                method: 'POST',
+                headers: {
+                    Authorization: 'Bearer sk_test_5388c69b71e0348ae0fbc13d3fa337b26c7db7c3',
+                    'Content-Type': 'application/json',
+                },
+                json: params,
+            };
+
+            request(options, (error, response, body) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    console.log(body.data.subscription_code);
+                    console.log(body.data.email_token);
+                    console.log(body.data.status);
+                }
+            });
         });
+    }
 
-
+        verify()
 })
 
 router.get('/', async function(req, res) {
@@ -154,8 +256,6 @@ router.get('/', async function(req, res) {
     async function init() {
         try {
             const plan = await createPlan();
-            // const plan = '000';
-            console.log('<><><><>');
             console.log(plan);
             const options = {
                 url: 'https://api.paystack.co/transaction/initialize',
@@ -166,8 +266,10 @@ router.get('/', async function(req, res) {
                 },
                 json: {
                     email: 'customer@email.com',
+                    first_name: 'Divine ',
+                    first_name: 'iso',
                     amount: 20000,
-                    plan: plan,
+                    // plan: plan,
                     callback_url: 'https://speedlink-frontend.onrender.com/paystack/verify?plan='+plan
                 },
             };
@@ -188,8 +290,8 @@ router.get('/', async function(req, res) {
         return new Promise((resolve, reject) => {
             const params = {
                 name: 'Speedlink Plus',
-                interval: 'hourly',
-                amount: 500000,
+                interval: 'daily',
+                amount: 30000,
             };
 
             const options = {

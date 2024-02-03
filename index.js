@@ -1,10 +1,14 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const crypto = require('crypto');
 const dahboard = require('./routes/dahboard.route');
+const form = require('./routes/form.route');
 const admin = require('./routes/admin.route');
 const auth = require('./routes/auth.route');
 const paystack = require('./routes/paystack.route');
+const session = require('express-session');
+const {sign, decode} = require("jsonwebtoken")
 const dotenv = require('dotenv');
 const cors=require("cors");
 const corsOptions ={
@@ -12,30 +16,85 @@ const corsOptions ={
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
+app.use(
+  session({
+    secret: process.env.SESSION,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 20 * 60 * 1000, // 2 minutes in milliseconds
+    },
+  })
+);
+
 app.set('view engine', 'ejs');
 
-// app.use(express.static(__dirname + '/public'));
+// app.set("views", process.cwd()+"/view")
+
+
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'include')));
-app.use(express.static(path.join(__dirname, 'static/dashboard')));
-// app.use(express.static(path.join(__dirname, 'static/auth')));
-// app.use(express.static(path.join(__dirname, 'static')));
+app.use(express.static(path.join(__dirname, 'views/includes')));
+app.use(express.static(path.join(__dirname, 'views/dashboard')));
+
 
 app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 
+
+
 app.use("/dash/", dahboard)
+app.use("/form/", form)
 app.use("/auth/", auth)
 app.use("/admin/", admin)
 app.use("/paystack/", paystack)
 
 
-app.get('/', function(req, res) {
-  res.sendFile(`index.html`, { root: 'static' });
+app.get('/exchange', function(req, res, next) {
+  console.log('exch')
+  // TOKENIZE BACKEN USER ACCESS TOKEN, FOR FRONTEND SERVERSIDE ACCESS
+  let token = req.headers.authorization; // Assuming the token is in the request headers
+  if (!token) {
+      return res.status(701).json({ message: 'Unauthorized' });
+  }
+  token = token && token.split(' ')[1];
+  //  const decodedToken = decode(token);
+  //  console.log(decodedToken)
+  const accessToken = sign({this_user_token : token}, process.env.REFRESH_TOK_SEC, {
+      expiresIn: "58m"
+  })
+ //  console.log(accessToken)
+  req.session.token = accessToken
+  console.log(req.sessionID)
+  console.log('id up')
+  console.log(req.session.token)
+  req.session.save()
+  return res.status(200).json({
+     token:accessToken
+  })
+
+
+})
+app.get('/', function(req, res, next) {
+  // req.session.username = 'JohnDoe';
+
+  // req.session.save()
+  console.log(req.sessionID)
+  console.log(req.session.token)
+  res.render("main");
+});
+app.get('/exchange/c', function(req, res) {
+  // req.session.username = 'JohnDoe';
+
+  // req.session.save()
+  console.log(req.sessionID)
+  console.log(req.session.token)
+  // res.render("main");
 });
 
-app.get('/inc', function(req, res) {
-  res.sendFile(`qrcode.html`, { root: 'src' });
+let count = 0
+app.get('/count', function(req, res, next) {
+  count += 1
+  res.send('count is:' + count)
 });
 
 

@@ -1,0 +1,168 @@
+<template x-data x-if="field.fieldType && field.fieldType.fieldName === 'Email'">
+  <div class="mt-3" x-data="{keyComb:''+pageKey+''+fieldKey+'', inputValue:'', error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}">
+
+      <!-- SETTINGS -->
+      <template x-for="(set, index) in setting">
+        <input x-init="emailSettings[keyComb] = emailSettings[keyComb] || []; emailSettings[keyComb].push({ [set.inputName]: set.inputValue })" 
+        class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
+      </template>
+      <!-- CONDITIONS -->
+
+      <template x-if="Object.entries(condition)[0][0] === 'firstCondition'"  x-init="console.log()">
+        <div>
+            <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+            <template x-for="(con, conIndex) in Object.entries(condition)[0][1]">
+              <div>
+                <template x-if="con.selectorName === 'hide-show'">
+                  <div class=" hidden"  x-text="con.selectorValue" x-init=" showLabel = con.selectorValue === 'Hide';"></div>
+                </template>
+                <template x-if="con.selectorName === 'if'">
+                  <div class=" hidden"  x-text="con.selectorValue" x-init=" _if = con.selectorValue;"></div>
+                </template>
+              </div>
+              
+                <!-- <div class="border"  x-text="con.selectorValue" x-init="con.selectorName === 'hide-show' ? showLabel = con.selectorValue === 'show' : null; // console.log(showLabel);"></div> -->
+            </template>
+        </div>
+      </template>
+
+      <template  x-init=" console.log(Object.entries(condition)[1][1])" x-if="Object.entries(condition)[1][0] === 'secondCondition'">
+        <div>
+            <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+           <template x-for="(con, conIndex) in Object.entries(condition)[1][1]">
+              <div x-init=" console.log((Object.entries(condition)[1][1].length)/3)">
+                <div class=" mt-" x-data="{ countcondition: 0 }" x-init="countcondition = Math.floor(conIndex / 3) + 1">
+                  <template x-if="con.SCL_selectorName === 'matches'">
+                    <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="_matches.push(con.SCL_selectorValue)"></div>
+                  </template>
+                  <template x-if="con.SCL_selectorName === 'condition'">
+                    <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="conditionPush(con.SCL_selectorValue, _conditions, _conditionsWord)"></div>
+                  </template>
+                  <template x-if="con.SCL_inputName === 'compared'">
+                    <div :class="con.SCL_inputName+conIndex" class="hidden"  x-init="comparedPush(con.SCL_inputValue, _compared, _conditionsWord, countcondition)"></div>
+                  </template>
+          
+                  <template x-if="conIndex % 3 === 2">
+                    <div x-init="checkFor(countcondition, fieldType.fieldValue+keyComb, _matches, _conditions, _compared)"></div>
+                  </template>
+
+                </div>
+              </div>
+            </template>
+           
+            <div class="hidden">
+              <div x-text="JSON.stringify(_matches)"></div>
+              <div x-text="JSON.stringify(_conditions)"></div>
+              <div x-text="JSON.stringify(_compared)"></div>
+            </div>
+
+             <!-- Auto click to check if conditions have been mt -->
+             <input :value="_if" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :class="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+            </div>
+      </template>
+
+      <label x-init=""  x-show="showLabel" class="block" style="font-weight: 100;">
+        <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>
+        <template x-for="(set, index) in setting">
+          <input class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
+        </template>
+
+        <input  
+          x-model="inputValue"
+          @click="submitForm_ ? checkSettings(emailSettings, fieldType.fieldValue, error[0]) : noSubmit" 
+          @blur="handleInput(fieldType.fieldValue, fieldIndex);checkSettings(emailSettings, fieldType.fieldValue, error[0])" 
+          x-bind:class="[(error[0].validation === true) ? '!border-[#ff5724]' :'', (fieldType.fieldValue).replace(/\s/g, '')+keyComb, 'field'+keyComb]" 
+          class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" 
+          :placeholder="setting[2].inputName === 'Placeholder' ? setting[2].inputValue : ''" 
+          type="email" />
+        <span :class="'description'+keyComb" x-text="(setting.find(item => item.inputName === 'Description') || {}).inputValue || ''" class=" text-tiny+ text-slate-400 dark:text-navy-300">This is a help text</span>
+        <span :class="(error[0].validation === true) ? 'text-error' :'text-success' " x-html="(error[0].validation === true) ? error[0].message: ''" class="text-tiny+ ">Username is valid</span>
+      </label>
+
+    </div>
+  </template>
+
+  <!-- <script>
+
+    Alpine.data('emailBuilder', () => ({
+        // this contains a list of fields that a condition points at
+        
+        handleInput(fieldValue) {
+               
+          this.conditionPointer
+         // console.log('Input value:', this.inputValue);
+          // console.log('field value:', ((fieldValue).replace(/\s/g, '')));
+          // Once im sure this field is in the pointer
+          // this fields value will then be used to process conditions of the pointer field
+          
+          const foundItems = this.conditionsTest.filter(item => item.pointField === fieldValue.replace(/\s/g, ''));
+
+         
+          if (foundItems) {
+             console.log('Item found:', foundItems);
+             foundItems.forEach(foundItem => {
+              const newParam1 = this.inputValue;
+              const operand = foundItem.condition.operand;
+              const param3 = foundItem.condition.param3;
+              let finalCondition = ''
+              if (typeof param3 === "string") {
+                 finalCondition = `"${newParam1}" ${operand} "${param3}"`;
+              } else if (typeof param3 === "number") {
+                finalCondition = `"${newParam1}" ${operand} "${param3}"`;
+              }
+          console.log(finalCondition)
+
+              if (eval(finalCondition)) {
+                  this.completeCondition.push(true);
+              } else {
+                  console.log('not greater');
+                  this.completeCondition.push(false);
+              }
+          
+              console.log('Final Condition:', finalCondition);
+              console.log('Complete Condition:', this.completeCondition);
+              console.log('If:', this._if);
+
+              // Check if that is all the conditions there is in this system
+              if(foundItems.length < (this.conditionsTest).length){
+                  console.log('more condtions')
+                  if ((this._if).toLowerCase() == 'any') {
+                      const anyConditionMet = this.completeCondition.some(condition => condition);
+                      console.log('Any condition met:', anyConditionMet);
+                      this.showLabel = anyConditionMet
+                      // Add logic for the case when any condition is met
+                  }
+              }else{
+                  console.log('no more conditions')
+                  if ((this._if).toLowerCase() == 'all') {
+           
+                      const allConditionsMet = this.completeCondition.every(condition => condition);
+                      console.log('All conditions met:', allConditionsMet);
+                      this.showLabel = allConditionsMet
+                      // Add logic for the case when all conditions are met
+                  }
+                  if ((this._if).toLowerCase() == 'any') {
+                      const anyConditionMet = this.completeCondition.some(condition => condition);
+                      console.log('Any condition met:', anyConditionMet);
+                      this.showLabel = anyConditionMet
+                      // Add logic for the case when any condition is met
+                  }
+              }
+
+              
+              
+              
+          })
+              
+              
+              // Perform some action with the found item
+          } else {
+              console.log('Item not found');
+              // Perform some action when the item is not found
+          }
+          
+      }
+  }))
+
+
+</script> -->

@@ -25,6 +25,9 @@
     z-index: 19;
     margin-top:61px!important;
 }
+#root{
+  background-color: #faf8ff!important;
+}
 @media (max-width:639px) {
     .pad {
        padding-left: 16px;
@@ -89,8 +92,38 @@ button[disabled]::after {
   }
   
   
+
+
+  /* .first-letter-capital {
+    text-transform: capitalize;
+  } */
   
+  /* Adjust the style for the first letter inside parentheses */
+  .first-letter-capital:first-letter {
+    text-transform: capitalize;
+  }
   
 
+
+  th {
+    background-color: #f2f2f2;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+
+  thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f2f2f2;
+    z-index: 2;
+  }
+
+  tbody th {
+    position: sticky;
+    left: 0;
+    background-color: #f2f2f2;
+    z-index: 1;
+  }
 
 

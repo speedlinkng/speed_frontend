@@ -1,0 +1,77 @@
+<div>
+  <div x-data="{expandedItem:null}" class=" mt-4 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5 ">
+
+    <div class="card relative h-fit w-full p-4">
+      <div x-data="accordionItem('item-1')" class="flex flex-col">
+        <span class="text-sm px-2">Your Name</span>
+        <div class="mt-1.5 flex relative w-full justify-between px-2">
+          <div class="left-0">Divine Edet Iso</div>
+          <div @click="expanded = !expanded" class="cursor-pointer right-0 text-blue-400 text-xs">change</div>
+        </div>
+        <div class="pl-2 mt-3">
+            <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
+                <div class="flex flex-col">
+                  <label class="block">
+                    <span></span>
+                    <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new name" type="text" />
+                  </label>
+                  <button class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                    Update
+                  </button>
+                </div>
+              </div>
+        </div>
+
+      </div>
+    </div>
+    <br>
+    <div class="card relative h-fit w-full p-4">
+        <div x-data="accordionItem('item-2')" class="flex flex-col">
+          <span class="text-sm px-2">Your Phone Number</span>
+          <div class="mt-1.5 flex relative w-full justify-between px-2">
+            <div class="left-0">09079417401</div>
+            <div @click="expanded = !expanded" class="cursor-pointer right-0 text-blue-400 text-xs">change</div>
+          </div>
+          <div class="pl-2 mt-3">
+              <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
+                  <div class="flex flex-col">
+                    <label class="block">
+                      <span></span>
+                      <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new phone number" type="text" />
+                    </label>
+                    <button class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                      Update
+                    </button>
+                  </div>
+                </div>
+          </div>
+  
+        </div>
+      </div>
+    <br>
+    <div class="card relative h-fit w-full p-4">
+        <div x-data="accordionItem('item-3')" class="flex flex-col">
+          <span class="text-sm px-2">Your Email</span>
+          <div class="mt-1.5 flex relative w-full justify-between px-2">
+            <div class="left-0">drrowly99@gmail.com</div>
+            <div @click="expanded = !expanded" class="cursor-pointer right-0 text-blue-400 text-xs">change</div>
+          </div>
+          <div class="pl-2 mt-3">
+              <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
+                  <div class="flex flex-col">
+                    <label class="block">
+                      <span></span>
+                      <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new email" type="text" />
+                    </label>
+                    <button class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                      Update
+                    </button>
+                  </div>
+                </div>
+          </div>
+  
+        </div>
+      </div>
+
+  </div>
+</div>

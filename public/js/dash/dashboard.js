@@ -1,0 +1,407 @@
+
+$('.app-preloader').show()
+
+
+  function setActiveItem(item) {
+    // Set activeItem in localStorage with a 2-minute expiration time
+    localStorage.setItem('activeItem', item);
+    localStorage.setItem('activeItemTimestamp', Date.now());
+
+    $(`#_${item}`).trigger('click');
+  }
+
+  
+  //GET SPEEDLINK GOOGLE_ACCESS TOKEN TO UPLOAD TO SPEEDLINK DRIVE
+  async function speedlinkAccess() {
+
+    let settings = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+      },
+    };
+    try {
+      let fetchResponses = await fetch(`${backendUrl}/api/google/speedlinkaccess`, settings);
+      let staus = await fetchResponses.status
+      let res = await fetchResponses.json();
+
+      if (res.error == 1) {
+
+      } else if (res.error == 2) {
+        window.location.href = `${baseUrl}/auth`
+      } else if (res.success == 1) {
+        console.log(res.token)
+        localStorage.setItem('default_goog_acc', res.token) // google default accesstokend to upload to speedlink drive
+        localStorage.setItem('b_token', res.token) // google default accesstokend to upload to speedlink drive
+        localStorage.setItem('preferred', 0) // this is the preferred drive usage, speedlink or my own 
+        // close others, open /create
+      
+        setActiveItem('Create')
+        $(`#cancel_stroage_selec_modal`).trigger('click');
+
+            // window.location.href = `${baseUrl}/dash/create`
+      } else {
+        console.log('something is wrong')
+      }
+
+
+    }
+    catch (err) {
+      console.log('internet error')
+      console.log(err)
+    }
+  }
+
+
+  async function myStorage() {
+
+    localStorage.setItem('temp_mystore', true) // set a temporary storage which will be used to know the user clicked this option
+    // window.location.href = `${backendUrl}/api/google/auth` // prompt 
+
+    let settings = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+      },
+    };
+    try {
+      let fetchResponses = await fetch(`${backendUrl}/api/google/mystorage`, settings);
+      let staus = await fetchResponses.status
+      let res = await fetchResponses.json();
+
+      if (res.error == 1) {
+
+      } else if (res.error == 2) {
+        window.location.href = `${baseUrl}/auth`
+      } else if (res.success == 1) {
+        console.log(res.token)
+        localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
+        localStorage.setItem('b_token', res.token) // google access token for users second time
+        localStorage.setItem('preferred', 1)
+        setActiveItem('Create')
+        $(`#cancel_stroage_selec_modal`).trigger('click');
+        // window.location.href = `${baseUrl}/dash/create`
+      } else {
+        console.log('something is wrong')
+      }
+
+
+    }
+    catch (err) {
+      console.log('internet error')
+      console.log(err)
+    }
+  }
+
+
+  async function newStorage() {
+
+    localStorage.setItem('temp_newstore', 1) // set a temporary storage which will be used to know the user clicked this option
+    localStorage.setItem('preferred', 1) // set a temporary storage which will be used to know the user clicked this option
+    window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem('access')}` // prompt 
+
+    //myStorage()
+    /* let settings = {
+       method: 'GET',
+       headers: {
+         "Authorization": `Bearer ${localStorage.getItem('access')}`,
+       },
+     };
+     try {
+       let fetchResponses = await fetch(`${backendUrl}/api/google/newstorage`, settings);
+       let staus = await fetchResponses.status
+       let res = await fetchResponses.json();
+    
+       if(res.error == 1){
+ 
+       }else if(res.error == 2){
+         window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
+       }else if(res.success == 1){
+         console.log(res.token)
+         localStorage.setItem('new_goog_acc', res.token) // google new access tokenfor the users first time
+         window.location.href = '${baseUrl}dash/create.html'
+       }else{
+         console.log('something is wrong')
+       }
+    
+ 
+     }
+     catch (err) {
+       console.log('internet error')
+       console.log(err)
+     } */
+  }
+
+
+
+
+
+  if (localStorage.getItem('temp_newstore') == 1) {
+
+    localStorage.setItem('temp_newstore', 0)
+    let url_params = new URLSearchParams(window.location.search)
+    console.log(url_params.get('scope'))
+    console.log(url_params.get('code'))
+    console.log(url_params.get('prompt'))
+    console.log(url_params.get('authuser'))
+
+    async function sendData() {
+      let settings = {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          "Authorization": `Bearer ${localStorage.getItem('access')}`,
+        },
+        body: JSON.stringify({
+          scope: url_params.get('scope'),
+          code: url_params.get('code'),
+          prompt: url_params.get('prompt'),
+          authuser: url_params.get('authuser'),
+        })
+      };
+
+      // open uploader
+      $('.app-preloader').show()
+      localStorage.setItem('preferred', 1)
+      console.log('pref')
+      try {
+        let fetchResponses = await fetch(`${backendUrl}/api/google/newstorage`, settings);
+        let staus = await fetchResponses.status
+        let res = await fetchResponses.json();
+
+        if (res.error == 1) {
+
+        } else if (res.error == 2) {
+          window.location.href = `${baseUrl}/auth`
+        } else if (res.success == 1) {
+          //alert('success')
+          console.log(res.token)
+          localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
+          setActiveItem('Create')
+          $(`#cancel_stroage_selec_modal`).trigger('click');
+          // window.location.href = `${baseUrl}/dash/create`
+        } else {
+          console.log('something is wrong')
+        }
+
+
+      }
+      catch (err) {
+        console.log('internet error')
+        console.log(err)
+      } finally{
+        $('.app-preloader').hide()
+      }
+    }
+    // myStorage()
+    sendData()
+  } else {
+
+    //   alert(localStorage.getItem('temp_newstore'))
+  }
+
+
+
+// GET LIS OFALL RECORDS 
+
+  async function getRecordList() {
+    // alert('working')
+    let settings = {
+      method: 'GET',
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+      }
+    };
+    try {
+      let fetchResponses = await fetch(`${backendUrl}/api/app/getrecords`, settings);
+      let staus = await fetchResponses.status
+      let res = await fetchResponses.json();
+
+      if (res.error == 1) {
+        // alert('wrong 1')
+      } else if (res.error == 2) {
+        // alert('wrong 2')
+        window.location.href = `${baseUrl}/auth`
+      } else if (res.success == 1 && staus == 200) {
+        console.log('{{{{{{{{{{{{{{{{{{{{{{{{success}}}}}}}}}}}}}}}}}}}}}}}}')
+
+        if (res.data != '') {
+          let data = res.data
+          $('#display').html('') // EMPTY THE HTML DISPLAY HOLDER
+          data.forEach(rez => {
+            console.log(rez)
+            console.log(rez.record_data)
+            console.log(rez.record_data.otherData)
+            console.log(rez.record_data.otherData.drop_zone)
+            let allres = rez.record_data
+       
+            let res_status = ''
+            if(rez.status == 'pending'){
+              res_status = `<div class=" badge border  rounded-full border-warning text-warning">${rez.status}</div>`
+            }else if(rez.status == 'completed'){
+              res_status = `<div class="badge border rounded-full border-success text-success">${rez.status}</div>`
+            }else{
+              res_status = `<div class="badge border rounded-full border-error text-error">${rez.status}</div>`
+            }
+            $('#display').append(
+            /*html*/
+              `
+           <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+           <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+             <div class="flex items-center space-x-4">
+               <svg
+                 xmlns="http://www.w3.org/2000/svg"
+                 class="h-8 w-8 text-secondary"
+                 viewbox="0 0 20 20"
+                 fill="currentColor"
+               >
+                 <path
+                   d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                 />
+               </svg>
+               <span class="font-medium text-slate-700 dark:text-navy-100">${allres.otherData.page_name}</span
+               >
+             </div>
+           </td>
+           <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+             ${moment(rez.expiry_date).format('lll')} 
+           </td>
+           <td
+             class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
+           >
+            <span>50</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${rez.record_id}', '${allres.otherData.page_name}')" class="text-blue-500 lowercase pl-3 cursor-pointer ">View all</span>
+           </td>
+           <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+            <div class="flex -space-x-2">
+              <div class="lowercase"> <a id="clipboardContent${rez.record_id}" href="https://speedlink/form/${((allres.otherData.page_url).replace(/\s/g, '')).toLowerCase()}">https://speedlink/form/${((allres.otherData.page_url).replace(/\s/g, '')).toLowerCase()}</a></div>
+            </div>
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+          <div class="flex -space-x-2">
+            <div class="flex space-x-4">
+              <button class="btn h-9 w-9 border border-success p-0 font-medium text-success hover:bg-success hover:text-white focus:bg-success focus:text-white active:bg-success-focus/90 ">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share " viewBox="0 0 16 16">
+                  <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
+                </svg>
+              </button>
+              <button @click="$clipboard({
+                content:document.querySelector('#clipboardContent${rez.record_id}').innerText,
+                success:()=>$notification({text:'Text Copied',variant:'success'}),
+                error:()=>$notification({text:'Error',variant:'error'})
+              })" class="btn h-9 w-9 border border-primary p-0 font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy " viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </td>
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+          <div class="flex -space-x-2">
+              ${rez.status}
+            </div>
+          </td>
+
+          <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+            <div class="flex -space-x-2">
+              <div>
+              <div x-data="usePopper({placement:'bottom-end',offset:4})"
+              @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
+              <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
+                class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                </svg>
+              </button>
+              <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
+                <div
+                  class="popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
+                  <ul>
+                    <li>
+                      <a href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">Download .docx</a>
+                    </li>
+                    <li>
+                      <a href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      Download .xls  
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      Download .cvs  
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="my-1 h-px bg-slate-150 dark:bg-navy-500"></div>
+                  <ul>
+                    <li>
+                      <a href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      Download .pdf
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </td>
+
+         </tr>
+   
+         <script>
+            function viewAll(e, subfor){
+              // hide create button
+              $('.hold_create_button').hide()
+              $('.submission_for').text(subfor)
+              $('#dashoard').hide()
+              $('#submissions').show()
+              // call to show submissions
+              callSubmittedData(e)
+
+            }
+         </script>
+           `
+
+            )
+
+          })
+
+        }else{
+            $('.dashboardTableHolder').html('') // set diaplay to empty
+            console.log($('.tReq').text())
+            $('.dashboardTableHolder').append(
+                /*html*/
+                  `
+               <div class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
+                <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] dark:border-navy-500">
+                    <div class="flex items-center space-x-4 justify-center">
+                       
+                        <span class="font-medium text-slate-700 dark:text-navy-200">No Record Yet</span>
+                    </div>
+                </div>
+               </div>
+               `
+               )
+        }
+
+      } else {
+        console.log('something is wrong')
+      }
+    }
+
+    catch (err) {
+      console.log('internet error')
+      console.log(err)
+    }
+
+  }
+
+  getRecordList()
+
+

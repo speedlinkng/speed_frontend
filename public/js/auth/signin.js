@@ -25,15 +25,41 @@ $(document).ready(function () {
 
 
         if (sta == 200) {
+
+          // call backend
+
+          let options = {
+            method: 'GET',
+            headers: {
+              "Content-Type": "application/json; charset=UTF-8",
+              "Authorization": `Bearer ${json.token}`
+              
+            },
+          };
+          let backSave = await fetch(`${baseUrl}/exchange`, options);
+          b_status  = backSave.status
+          console.log(backSave)
+          if(b_status == 200){
+            console.log('something came back')
+             // call backend
           $('#call_error').text('')
-          $('#call_error').hide('')
+          $('#call_error').hide()
           $('#call_success').show()
           $('#call_success').text('')
           
-          $('#call_success').append('Signup successful')
+          $('#call_success').append('Signin Successful')
           localStorage.setItem('access', json.token);
           localStorage.getItem('access');
           window.location.href = `${baseUrl}/dash`
+            
+          }else{
+            end_loading(myButton, 'Sign in')
+            return
+          }
+
+          
+
+         
 
 
         }
@@ -70,7 +96,7 @@ $(document).ready(function () {
         console.log(e);
       } finally {
         setTimeout(function () {
-         end_loading(myButton)
+         end_loading(myButton, 'Sign in')
         }, 1000)
       }
     })

@@ -1,0 +1,5 @@
+
+GET http://localhost:5000/api/app/getUploadRecordById/Tbq0jv7wH
+Content-Type: application/json
+
+###

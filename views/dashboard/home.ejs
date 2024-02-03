@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Meta tags  -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+  <title><%= title %></title>
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="../css/output.css" />
+  <link rel="stylesheet" href="../css/custom.css" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../css/w3.css" />
+  <link rel="stylesheet" href="../../css/pond.css" />
+  <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet">
+
+
+  <!-- Javascript Assets -->
+  <script src="../js/app.js" defer></script>
+  <script src="../js/jquery.js"></script>
+  <script src="../js/w3.js"></script>
+  <script src="../js/moment.js"></script>
+  <script src="../js/checktoken.js"></script>
+  <script src="../../js/pond.js"></script>
+
+
+  <script src="../js/formBuilder/testmodule.js"></script>
+  <script src="../js/module/global.js"></script>
+  <script src="../js/formBuilder/preview.js"></script>
+
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+</head>
+
+<body x-data="{ activeItem: 'Zoom' }" class="has-min-sidebar is-sidebar-open is-header-blur" x-bind="$store.global.documentBody">
+  <!-- App preloader-->
+  <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+    <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+  </div>
+
+  <!-- Page Wrapper -->
+  <div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
+
+    <!-- Main Sidebar -->
+    <div class="main-sidebar">
+      <div class="flex h-full grow flex-col bg-white dark:bg-navy-750 ">
+        <!-- Sidebar Panel Header -->
+        <div class="flex h-18 w-full items-center justify-between pl-4 pr-1">
+          <div class=" md:col-span-1 col-span-3 text-left md:pl-10 flex items-center">LOGO</div>
+          <button @click="$store.global.isSidebarExpanded = false" class="btn h-7 w-7 rounded-full p-0 text-primary lg:hidden hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:text-accent-light/80 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Sidebar Panel Body -->
+        <div x-data class="flex h-[calc(100%-4.5rem)] grow flex-col">
+          <div x-data="{showModal2:false}" class="is-scrollbar-hidden grow overflow-y-auto">
+
+            <div class="my-[1px] mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+
+            <ul class="space-y-1.5 px-2 pt-5 font-inter text-md font-medium">
+              <li id="_Dashboard" @click="activeItem = 'Dashboard'">
+                <a onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());" @click="activeItem = 'Dashboard'" :class="[activeItem === 'Dashboard' ? 'text-primary dark:text-accent-light ' : '']" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-house w-7 h-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                  </svg>
+
+                  <span :class="[activeItem === 'Dashboard' ? 'text-primary dark:text-accent-light ' : '']" class=" text-slate-800 dark:text-navy-100">Dashboard</span>
+                </a>
+              </li>
+
+              <li id="_Plan" @click="activeItem = 'Plan'">
+                <a onclick=" localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());" :class="[activeItem === 'Plan' ? 'text-primary dark:text-accent-light ' : '']" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-substack w-7 h-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
+                    <path d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z" />
+                  </svg>
+
+                  <span :class="[activeItem === 'Plan' ? 'text-primary dark:text-accent-light ' : '']" class="text-slate-800 dark:text-navy-100">Plan</span>
+                </a>
+              </li>
+              <li id="_Zoom" @click="activeItem = 'Zoom'">
+                <a :class="[activeItem === 'Zoom' ? 'text-primary dark:text-accent-light ' : '']" onclick=" localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-camera-video h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" />
+                  </svg>
+
+
+                  <span :class="[activeItem === 'Zoom' ? 'text-primary dark:text-accent-light ' : '']" class="text-slate-800 dark:text-navy-100">Zoom Recordings</span>
+                </a>
+              </li>
+              <li id="_Settings" @click="activeItem = 'Settings'">
+                <a :class="[activeItem === 'Settings' ? 'text-primary dark:text-accent-light ' : '']" onclick=" localStorage.setItem('activeItem', 'Settings'), localStorage.setItem('activeItemTimestamp', Date.now());" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear  h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
+                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
+                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z" />
+                  </svg>
+
+                  <span :class="[activeItem === 'Settings' ? 'text-primary dark:text-accent-light ' : '']" class="text-slate-800 dark:text-navy-100">
+                    Settings
+                  </span>
+
+                </a>
+              </li>
+
+              <li id="_Logout" class="absolute bottom-0 w-full pr-4 font-thin">
+                <a @click="showModal2 = true" :class="[activeItem === 'Logout' ? 'text-primary dark:text-accent-light ' : '']" class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-red-500 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
+                    <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z" />
+                    <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                  </svg>
+
+                  <span :class="[activeItem === 'Logout' ? 'text-error dark:text-error ' : '']" class="text-error dark:text-error">
+                    Logout
+                  </span>
+
+                </a>
+                <div id="logout"><%- include('../includes/dash/logout.ejs') %></div>
+
+              </li>
+              <li id="_Create" @click="activeItem = 'Create'" class="hidden">
+                create
+              </li>
+
+              <li id="_Share" @click="activeItem = 'Share'" class="hidden">
+
+              </li>
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- App Navigation Wrapper-->
+    <nav class="header dark:bg-slate-500 ">
+      <div x-data class=" header-container grid grid-cols-10 w-full -px-5">
+
+        <div class="col-span-10 flex justify-start items-center space-x-2 px-[var(--margin-x)] w-full transition-all duration-[.25s]">
+          <!-- Left: Sidebar Toggle Button -->
+          <div class="h-7 w-7 md:hidden">
+            <button class="md:hidden menu-toggle ml-0.5 flex h-7 w-7 flex-col justify-center space-y-1.5 text-primary outline-none focus:outline-none dark:text-accent-light/80" :class="$store.global.isSidebarExpanded && ''" @click="$store.global.isSidebarExpanded = !$store.global.isSidebarExpanded">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+          <div class="flex items-center space-x-3 py-3 lg:py-3">
+            <ul class=" flex flex-wrap items-center space-x-2 text-base">
+              <li @click="activeItem = 'Dashboard'" class="flex items-center space-x-2">
+                <a @click="activeItem = 'Dashboard'" :class="[activeItem === 'Dashboard' ? 'text-primary text-base transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent' : '']" href="#">Dashboard</a>
+                <span class="px-2">|</span>
+              </li>
+              <li @click="activeItem = 'Submissions'" :class="{ 'hidden': activeItem !== 'Submissions' }">
+                <a :class="{ 'text-primary text-base transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent': activeItem === 'Plan' }" class="cursor-pointer" href="#">Submissions</a>
+                <span class="px-2 showAdmin">|</span>
+                <span class="submission_for text-primary dark:text-accent-light"></span>
+              </li>
+              <li @click="activeItem = 'Submissions'" :class="{ 'hidden': activeItem !== 'Plan' }">
+                <a :class="{ 'text-primary text-base transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent': activeItem === 'Plan' }" class="cursor-pointer" href="#">Plan</a>
+                <span class="px-2 showAdmin">|</span>
+              </li>
+              <li @click="activeItem = 'Create'" :class="{ 'hidden': activeItem !== 'Create' }">
+                <a :class="[activeItem === 'Create' ? 'text-primary text-base transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent' : '']" class="cursor-pointer" href="#">Create</a>
+                <span class="px-2 showAdmin">- </span><span>Form Builder</span>
+              </li>
+              <li @click="activeItem = 'Zoom'" :class="{ 'hidden': activeItem !== 'Zoom' }">
+                <a :class="[activeItem === 'Zoom' ? 'text-primary text-base transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent' : '']" class="cursor-pointer" href="#">Zoom</a>
+                <span class="px-2 showAdmin">|</span>
+              </li>
+              <% if(role == 'admin'){ %>
+              <li onclick="goAdmin()" id="" class=" flex items-center space-x-2 cursor-pointer">
+                Admin
+              </li>
+              <% }%>
+            </ul>
+          </div>
+        </div>
+        
+      </div>
+      
+
+    </nav>
+
+
+    <!-- Main Content Wrapper -->
+    <main x-data class=" main-content filemanager-app w-full pb-6">
+
+
+      <div class="hold_create_button order pr-3 sm:pr-10 pt-2 flex justify-between create_button_holder" x-data="{activeTab:'tab-recent'}">
+        <div class=" px-[var(--margin-x)]" x-show="activeItem === 'Dashboard'">
+          <h2 class="text-xl sm:text-xl font-semibold">My Requests</h2>
+        </div>
+        <div x-data="{showModal:false}" class=" flex space-x-3" x-show="activeItem === 'Dashboard'">
+          <button @click="showModal = true" id="another storage" style="display: block;" class="btn border text-black bg-white text-sm h-10 px-3 font-medium hover:bg-black hover:text-white focus:text-white hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:border-0 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+            Create Request
+          </button>
+
+          <template x-teleport="#x-teleport-target">
+            <div class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModal" role="dialog" @keydown.window.escape="showModal = false">
+              <div class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300" @click="showModal = false" x-show="showModal" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+              <div class="relative max-w-md rounded-lg bg-white pt-10 pb-4 text-center transition-all duration-300 dark:bg-navy-700" x-show="showModal" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]">
+
+                <div class=" px-4 sm:px-12">
+                  <h3 class="text-xl text-slate-800 dark:text-navy-50 font-semibold">
+                    Select a storage option
+                  </h3>
+                  <p class="mt-1 text-slate-500 dark:text-navy-200">
+                    For larger files we recommend using <b>speedlinks</b> storage storage
+                  </p>
+                </div>
+
+                <div class="dark:card mt-4 grid gap-3 sm:grid-cols-3 grid-cols-2 w-[85%] m-auto h-fit py-4 px-2 ">
+                  <div onclick="speedlinkAccess()" id="another_storage" class="cursor-pointer grid place-content-center col-span-1 rounded-md p-2 card dark:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/60 hover:text-primary dark:text-navy-50 dark:bg-navy-500">
+                    <div class="h-16 w-full flex items-center justify-center">
+                      <img class="h-[50px]  w-[50px]  text-center" src="../images/app-logo.svg" alt="logo" />
+                    </div>
+                    <div class="text-xs w-[100%] h-8 flex justify-center items-center text-center">Use Speedlink Storage</div>
+                  </div>
+                  <div onclick="newStorage()" class="cursor-pointer grid place-content-center col-span-1  rounded-md p-2 card dark:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/60 dark:border-navy-450 hover:text-primary dark:text-navy-50 dark:bg-navy-500">
+                    <div class="h-16 w-full  flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" class="" viewBox="0 0 48 48">
+                        <path fill="#1e88e5" d="M38.59,39c-0.535,0.93-0.298,1.68-1.195,2.197C36.498,41.715,35.465,42,34.39,42H13.61 c-1.074,0-2.106-0.285-3.004-0.802C9.708,40.681,9.945,39.93,9.41,39l7.67-9h13.84L38.59,39z"></path>
+                        <path fill="#fbc02d" d="M27.463,6.999c1.073-0.002,2.104-0.716,3.001-0.198c0.897,0.519,1.66,1.27,2.197,2.201l10.39,17.996 c0.537,0.93,0.807,1.967,0.808,3.002c0.001,1.037-1.267,2.073-1.806,3.001l-11.127-3.005l-6.924-11.993L27.463,6.999z"></path>
+                        <path fill="#e53935" d="M43.86,30c0,1.04-0.27,2.07-0.81,3l-3.67,6.35c-0.53,0.78-1.21,1.4-1.99,1.85L30.92,30H43.86z"></path>
+                        <path fill="#4caf50" d="M5.947,33.001c-0.538-0.928-1.806-1.964-1.806-3c0.001-1.036,0.27-2.073,0.808-3.004l10.39-17.996 c0.537-0.93,1.3-1.682,2.196-2.2c0.897-0.519,1.929,0.195,3.002,0.197l3.459,11.009l-6.922,11.989L5.947,33.001z"></path>
+                        <path fill="#1565c0" d="M17.08,30l-6.47,11.2c-0.78-0.45-1.46-1.07-1.99-1.85L4.95,33c-0.54-0.93-0.81-1.96-0.81-3H17.08z"></path>
+                        <path fill="#2e7d32" d="M30.46,6.8L24,18L17.53,6.8c0.78-0.45,1.66-0.73,2.6-0.79L27.46,6C28.54,6,29.57,6.28,30.46,6.8z"></path>
+                      </svg>
+                    </div>
+                    <div class="text-xs w-[100%] h-8 flex justify-center items-center text-center">Use Google Drive </div>
+                  </div>
+                  <div class="grid place-content-center col-span-1 pb- rounded-md p-2 card dark:bg-slate-200 dark:border-navy-450 hover:text-primary hover:shadow-lg hover:shadow-slate-200/60 dark:bg-navy-500">
+                    <div class="h-16 w-full  flex items-center justify-center">
+                      <svg viewBox="-1.1321105886927185 4.72657656030581 34.05693991778303 21.467001054769135" xmlns="http://www.w3.org/2000/svg" width="50" height="50">
+                        <path d="M12.202 11.193v-.001l6.718 4.024 4.003-1.685A6.477 6.477 0 0 1 25.5 13c.148 0 .294.007.439.016a10 10 0 0 0-18.041-3.013L8 10a7.96 7.96 0 0 1 4.202 1.193z" fill="#0364b8" />
+                        <path d="M12.203 11.192A7.96 7.96 0 0 0 8 10l-.102.003a7.997 7.997 0 0 0-6.46 12.57L7.36 20.08l2.634-1.108 5.863-2.468 3.062-1.288z" fill="#0078d4" />
+                        <path d="M25.939 13.016A6.577 6.577 0 0 0 25.5 13a6.477 6.477 0 0 0-2.576.532l-4.004 1.684 1.161.695 3.805 2.279 1.66.994 5.677 3.4a6.5 6.5 0 0 0-5.284-9.568z" fill="#1490df" />
+                        <path d="M25.546 19.184l-1.66-.994-3.805-2.28-1.16-.694-3.063 1.288-5.863 2.468L7.36 20.08l-5.924 2.493A7.989 7.989 0 0 0 8 26h17.5a6.498 6.498 0 0 0 5.723-3.416z" fill="#28a8ea" />
+                      </svg>
+                    </div>
+                    <div class="text-xs w-[100%] h-8 flex justify-center items-center text-center">(Coming Soon) </div>
+                  </div>
+                  <div class="grid place-content-center col-span-1 pb- rounded-md p-2 card dark:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/60 dark:border-navy-450 hover:text-primary dark:bg-navy-500">
+                    <div class="h-16 w-full  flex items-center justify-center">
+                      <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 42.4 39.5" width="50" height="50">
+                        <style>
+                          .st0 {
+                            fill: #0062ff
+                          }
+                        </style>
+                        <path class="st0" d="M10.6 1.7L0 8.5l10.6 6.7 10.6-6.7zm21.2 0L21.2 8.5l10.6 6.7 10.6-6.7zM0 22l10.6 6.8L21.2 22l-10.6-6.8zm31.8-6.8L21.2 22l10.6 6.8L42.4 22zM10.6 31l10.6 6.8L31.8 31l-10.6-6.7z" />
+                      </svg>
+                    </div>
+                    <div class="text-xs w-[100%] h-8 flex justify-center items-center text-center">(Coming Soon) </div>
+                  </div>
+                </div>
+
+
+                <div class="hidden grid grid-cols-12 mt-4 place-content-center w-[80%] m-auto h-fit borders">
+
+                  <button style="display: block;" onclick="speedlinkAccess()" class="col-span-12 mb-2 mt-2 btn w-full bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
+                    Use speedlink's storage
+                  </button>
+
+                  <button id="useMy" onclick="myStorage()" style="display:none;" class="col-span-12 mb-2 btn border border-warning font-medium text-warning hover:bg-warning hover:text-white focus:bg-warning focus:text-white active:bg-warning/90">
+                    Use <span class="ml-1 myStorage"> my storage </span>
+                  </button>
+
+                  <button onclick="newStorage()" class="col-span-12 btn bg-gradient-to-l from-amber-400 to-orange-600 font-medium text-white">
+                    New storage
+                  </button>
+
+                </div>
+
+                <div class="my-4 mt-16 h-px bg-slate-200 dark:bg-navy-500"></div>
+
+                <div class="space-x-3">
+                  <button id="cancel_stroage_selec_modal" @click="showModal = false" class="btn min-w-[7rem] rounded-full border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90">
+                    Cancel
+                  </button>
+
+                </div>
+              </div>
+            </div>
+          </template>
+        </div>
+      </div>
+
+
+      <div id="dashoard" x-show="activeItem === 'Dashboard'"><%- include('../includes/dash/dashboard.html') %></div>
+      <div id="submissions" x-show="activeItem === 'Submissions'"><%- include('../includes/dash/submissions.ejs') %></div>
+      <div id="plan" x-show="activeItem === 'Plan'"><%- include('../includes/dash/plan.html') %></div>
+      <div id="zoomInt" x-show="activeItem === 'Zoom'"><%- include('../includes/zoom/zoom.ejs') %></div>
+      <div id="payment_history" x-show="activeItem === 'Payment'" w2-include-html="/dash/payment.html"></div>
+      <div id="settings" x-show="activeItem === 'Settings'"><%- include('../includes/dash/settings.ejs') %></div>
+
+      <div id="Create" x-show="activeItem === 'Create'"><%- include('../includes/createuploads/test1.ejs') %></div>
+    </main>
+
+
+  </div>
+
+  <div id="x-teleport-target"></div>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => Alpine.start());
+  </script>
+</body>
+
+</html>
+
+
+<script>
+  $(document).ready(function() {
+    setTimeout(() => {
+      const storedItem = localStorage.getItem('activeItem');
+      const timestamp = localStorage.getItem('activeItemTimestamp');
+
+      if (storedItem !== null) {
+        // Check if the stored item is not expired (2 minutes)
+        if (storedItem && timestamp && Date.now() - timestamp < 100 * 60 * 1000) {
+          // Trigger click event on the corresponding list item
+          $(`#_${storedItem}`).trigger('click');
+        }
+      }
+    }, 1000);
+  })
+</script>

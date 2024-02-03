@@ -1,0 +1,252 @@
+<div>
+    <template x-teleport="#x-teleport-target">
+      <div class="p-5 fixed h-screen inset-0 z-[100] flex flex-col items-center justify-center px-4 py-6 sm:px-5" x-show="showModal3" role="dialog" @keydown.window.escape="showModal3 = false">
+        <div class=" p-3 fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300" x-show="showModal3" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        <div class="border relative overflow-y-scroll  h-fit max-w-3xl w-full rounded-lg bg-white px-4 pb-4 transition-all duration-300 dark:bg-navy-700 sm:px-5" x-show="showModal3" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]">
+          <div class=" p-2">
+  
+            <div>
+              <div class="h-16 p-2 border-slate-300 dark:border-navy-500  mb-1 flex justify-start items-center">
+                <h3>Google Drive</h3>
+              </div>
+  
+              <div class="card border border-slate-300 dark:border-navy-500  min-h-40 text-sm p-2">
+                <p class="text-sm">Write or choose the folder with which you want all your files to be stored inside</p>
+                <label class="block">
+                  <span>Destination Folder</span>
+                  <span class="relative mt-1.5 flex">
+                    <input class="form-input peer w-full hidden rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="select" id="select_folder" value="testing" type="text" />
+                    <input id="chosen_folder" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
+                    <input id="chosen_folder_id" style="display: none;" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
+                    <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <i class="fa-regular fa-building text-base"></i>
+                    </span>
+                    <button id="" onclick="handleAuthClick()" class="btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                      <span>Select</span>
+                      <i class="bi bi-google"></i>
+                    </button>
+                  </span>
+                </label>
+  
+              </div>
+              <br>
+  
+  
+              <div class="card border border-slate-300 dark:border-navy-500  h-auto text-sm p-2">
+                <h4 class="">Automatically organise your files</h4>
+                <p class="text-sm">
+                  You can create subfolders based on your form responses.
+                  Kindly note that the options available to you are options of fields with mandatory/required option, to avoid errors.
+                </p>
+  
+                <div class="gfb text-base mt-2 pt-2">
+                  
+                </div>
+  
+              </div>
+              <br>
+  
+              <div class="card border border-slate-300 dark:border-navy-500 h-auto text-sm p-2">
+                <h4 class="">Other Settings</h4>
+                <p class="text-sm">Save form field as a text file in my drive</p>
+                <p class="text-xs mt-2">Click this checkbox to receive your replies as a text file in the google drive folder you selected</p>
+                <label class="py-3 grid items-center grid-cols-9">
+  
+  
+                  <input id="replyAsText" name="replyAsText" class="col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                </label>
+  
+              </div>
+  
+  
+              <div class="flex justify-start items-center mt-2 space-x-2">
+                <button  @click="saveOrganizedform" id="saveOrganized" class="btn h-10 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  Save
+                </button>
+                <button  @click="setOrganizedForm" id="setOrganizedForm" class="btn h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  Set
+                </button>
+                <button @click="showModal3 = false"  class="btn h-10 border border-error font-medium text-error hover:bg-error hover:text-white focus:bg-error focus:text-white active:bg-error/90">
+                  Cancel
+                </button>
+              </div>
+  
+            </div>
+  
+            <div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </template>
+  </div>
+  
+  <script src="../../js/selectFolder.js"></script>
+  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+  <script src="../../js/formBuilder/fileandfolders.js"></script>
+  
+  <script>
+
+    function setOrganizedForm(){
+      console.log(allArray.values)
+      
+      // Check if 'filesandFolder' already exists
+      if (allArray.values && typeof allArray.values === "object") {
+        // Check if 'filesandFolder' exists inside 'values'
+        if ("filesandFolder" in allArray.values) {
+          // 'afilesandFolder' exists, retrieve information
+          let { chosen_folder, folder_id, group_by, other_settings } =
+          allArray.values.filesandFolder;
+      
+          // Do something with the retrieved information
+          console.log("Chosen Folder:", chosen_folder);
+          console.log("Folder ID:", folder_id);
+          console.log("Group By:", group_by);
+          console.log("Other Settings:", other_settings);
+
+          // Populate fields
+          // $('.selectField').val('')
+          $('#chosen_folder_id').val(folder_id)
+          $('#chosen_folder').val(chosen_folder)
+
+        } else {
+          $('.gfb').html('');
+          // 'afilesandFolder' does not exist, perform some action
+          console.log("filesandFolder does not exist. Performing some action...");
+        }
+      } else {
+        console.error("'values' does not exist or is not an object.");
+      }
+
+   
+      // Create the select element
+      let $_select = `
+        <label class="block">
+          <span class="pl-1 font-bold text-base">Group files by</span>
+          <select class="selectField mt-1 w-full px-1 py-2" multiple placeholder="Select group field" autocomplete="off" x-init="$el._tom = new Tom($el,{ plugins: ['remove_button'],create: true,sortField: {field: 'text',direction: 'asc'}})">
+          </select>
+        </label>
+      `;
+    
+      $('.gfb').append($_select);
+    
+      // Get the select element
+      let $select = $('.selectField');
+    
+      Object.keys(allArray.values).forEach(pageName => {
+        allArray.values[pageName].forEach((field, fieldCount) => {
+          const fieldName = Object.keys(field)[0];
+          
+          // this if condition is to ensure header{} on the zeroth index dosnt affect
+          if(fieldCount > 0){
+            console.log(fieldName)
+            console.log(fieldCount)
+            const fieldData = field[fieldName];
+            const isRequired = fieldData.settings.some(setting => setting.inputName === "Required" && setting.inputValue === "on");
+      
+            if (isRequired) {
+              // Append the option to the select element
+              $select.append(`<option value="${fieldData.fieldType.fieldValue}">${ fieldData.fieldType.fieldValue}</option>`);
+            }
+          }
+        });
+        
+      });
+
+      // auto select data for select field
+      let dataFields = ['your grace', 'your age'];
+      dataFields.forEach(fieldValue_ => {
+      
+        $select.append(`<option value="${fieldValue_}">${fieldValue_}</option>`);
+
+      });
+
+      let selectElement = document.querySelector(".selectField");
+      for (let i = 0; i < dataFields.length; i++) {
+        let option = selectElement.options[i];
+        if (dataFields.includes(option.value.toLowerCase())) {
+          option.selected = true;
+        }
+      }
+      // End auto select
+
+
+    }
+
+    function saveOrganizedform() {
+      
+      // NOW save the new data entry inside resulte array and ALLARRAY.
+      console.log($('#replyAsText').val())
+      RAS = $('#replyAsText').val()
+      const RASChecked = RAS.checked ? 'on' : 'off';
+      console.log(RASChecked)
+      console.log($('.selectField').val())
+      console.log($('#chosen_folder_id').val())
+      console.log($('#chosen_folder').val())
+
+      let newDataset = {
+          chosen_folder: $('#chosen_folder').val(),
+          folder_id: $('#chosen_folder_id').val(),
+          group_by: $('.selectField').val(),
+          other_settings: {
+            replyAsText: RASChecked,
+          },
+      };
+
+      allArray.filesandFolder = newDataset;
+
+      // Log the modified JSON for verification
+      // console.log(JSON.stringify(allArray, null, 2));
+
+
+
+      // NOW SAVE TO DATABASE
+      async function saveThisForm(){
+        let settings = {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access')}`,
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          body: JSON.stringify(allArray)
+        };
+
+   
+        const saveButton = document.getElementById('saveOrganized');
+
+          saveButton.innerText = 'Saving...';
+
+        try {
+          let fetchResponses = await fetch(`${backendUrl}/api/app/create`, settings);
+          let stta = await fetchResponses.status
+          let json = await fetchResponses.json();
+
+          if (json.status == 200) {
+            localStorage.setItem('upload_id', json.id)
+            setTimeout(function() {
+              saveButton.innerText = 'Save';
+            }, 1000);
+            setTimeout(function() {
+              window.location.href = `${baseUrl}/dash`; // redirect to dash, the user will find option to share or copy link address from the dashboard
+            }, 5000);
+
+
+          } else {
+            console.log('Going to Login', json.status)
+          }
+        } catch (e) {
+          console.log(e);
+        }finally {
+
+          setTimeout(function() {
+            saveButton.innerText = 'Save';
+          }, 1000);
+        }
+    }
+
+      saveThisForm()
+    }
+    
+  </script>

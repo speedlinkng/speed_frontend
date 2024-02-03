@@ -23,7 +23,7 @@
 
         if(statuz == 200){
 
-        console.log('folder ' + record.data.folder)
+        console.log(set)
         console.log('statuz')
 
         // store google access token, folderName and folderId in localstorage
@@ -33,9 +33,9 @@
 
         // initialize questions
         let savedQuestions = record.data.questions
-        localStorage.setItem('savedQuestions', record.data.questions)
-
-
+        if(savedQuestions == 'null'){
+          
+        }else{
         // loop through questions and append them to form on the page
         const questArray = savedQuestions.split(', ');
 
@@ -53,6 +53,7 @@
       
         console.log(modifiedQuestions);
         console.log('modifiedQuestions');
+      
 
         modifiedQuestions.forEach(function (question, index) {
           const newInput = $( /*html*/`
@@ -71,6 +72,10 @@
           `);
           $('#include_questions').append(newInput);
         });
+      }
+        localStorage.setItem('savedQuestions', record.data.questions)
+
+
 
         // IPLOAD DETAILS TO THE DOM
         $('#upload_title').html(`<span class="capitalize">${record.data.record_name}</span>`)
@@ -78,8 +83,8 @@
       } // END 200 SUCCESS
 
         if (statuz == 301) {
-          $('#main_content').hide()
-          $('#upload_title').text('Link Expired')
+          // $('#main_content').hide()
+          //$('#upload_title').text('Link Expired')
           // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
         } else if (statuz == 303) {
           $('#main_content').hide()

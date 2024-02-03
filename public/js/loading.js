@@ -6,8 +6,8 @@ function start_loading(myButton){
     myButton.disabled = true;
 }
 
-function end_loading(myButton){
+function end_loading(myButton, name){
     myButton.classList.remove('disabled:pointer-events-none', 'disabled:select-none', 'disabled:opacity-60');
     myButton.disabled = false; // Re-enable the button (whether the fetch succeeds or fails)
-    myButton.innerHTML = 'Sign In';
+    myButton.innerHTML = name;
 }

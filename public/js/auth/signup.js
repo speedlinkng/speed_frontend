@@ -33,7 +33,7 @@
           $('#call_error_').hide()
           $('#call_success_').show()
           $('#call_success_').text('')
-          $('#call_success_').append('Signup successful')
+          $('#call_success_').append('Signup Successful')
           localStorage.setItem('access', json.token);
           localStorage.getItem('access');
           window.location.href = `${baseUrl}/auth/signin`
@@ -74,7 +74,7 @@
         console.log(e);
       }finally {
         setTimeout(function () {
-         end_loading(myButton)
+         end_loading(myButton, 'Sign up')
         }, 1000)
       }
     })

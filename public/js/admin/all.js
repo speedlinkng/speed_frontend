@@ -15,6 +15,9 @@
       let status = await searchUser.status;
       console.log(status)
       console.log(res.data[0])
+      if(status == 305){
+        window.location.href = `${baseUrl}/auth`
+      }
 
     }
     catch (err) {
@@ -42,6 +45,9 @@
         if(status == 402){
             return 'record not found';
         }
+        if(status == 305){
+          window.location.href = `${baseUrl}/auth`
+        }
         console.log(res.data[0])
 
 
@@ -65,6 +71,9 @@
       let res = await getTotalUserCount.json();
         $('#total_users').text(res.data)
 
+        if(status == 305){
+          window.location.href = `${baseUrl}/auth`
+        }
     }
     catch (err) {
       console.log('internet error')
@@ -84,6 +93,9 @@
       let getTotalRecordCount = await fetch(`${backendUrl}/api/admin/getTotalRecordCount`, settings);
       let res = await getTotalRecordCount.json();
         $('#record_count').text(res.data)
+        if(status == 305){
+          window.location.href = `${baseUrl}/auth`
+        }
 
     }
     catch (err) {
@@ -174,9 +186,51 @@
     }
   }
 
+  async function logout() {
+
+    let settings = {
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+      }
+    };
+  
+    const myButton = document.getElementById('logout');
+    start_loading(myButton)
+    try {
+      let searchRecord = await fetch(`${backendUrl}/api/users/logout`, settings);
+      let res = await searchRecord.json();
+      let status = await searchRecord.status;
+        if(status == 305){
+          window.location.href = `${baseUrl}/auth`
+        }
+        if(status == 403){
+          window.location.href = `${baseUrl}/auth`
+        }
+        if(status == 200){
+          window.location.href = `${baseUrl}/auth`
+        }
+        
+
+
+
+    }
+    catch (err) {
+      console.log('internet error')
+      console.log(err)
+    } finally{
+      setTimeout(function () {
+        end_loading(myButton)
+       }, 1000)
+    }
+  }
+
 
   getTotalByteUploaded()
   getTotalRecordCount()
   getTotalUserCount()
   searchRecord()
   searchUser()
+
+  

@@ -1,0 +1,64 @@
+<div>
+    <div class=" mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6">
+     <div id="free_plan" class="hidden absolute m-auto px-4 py-4 w-[90%] mx-1 min-h-[300px] h-auto rounded-lg border border-slate-300 hover:border-slate-400 dark:border-navy-450 dark:hover:border-navy-400 ">
+        <div class="flex">
+            <div class="text-xl"> Your Plan</div>
+            <span class="px-2">|</span>
+            <div class="text-lg dark:text-slate-500 font-light"> Free plan</div>
+        </div>
+        <br>
+        <div>
+            <div>You currently have access to the following</div>
+            <div class="grid grid-cols-1 gap-2 mt-4">
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Unlimited upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Ask for additional information before upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit"> Expiration of an upload link  (1 day) </div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Folder upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">No advertisment on the upload page</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Team Drive support</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Save zoom recordings</div>
+            </div>
+        </div>
+        <br>
+        <button data-plan="c_free" class="btn border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90" >
+            Cancel
+        </button>
+        <button data-plan="u_plus" class="btn bg-gradient-to-r from-amber-400 to-orange-600 p-0.5 font-medium">
+          <span class="btn bg-white dark:bg-navy-900"> Upgrade to plus </span>
+        </button>
+     </div>
+     <br>
+     <div id="paid_plan" class="hidden absolute m-auto px-4 py-4 w-[90%] mx-1 min-h-[300px] h-auto rounded-lg border border-slate-300 hover:border-slate-400 dark:border-navy-450 dark:hover:border-navy-400 ">
+        <div class="flex">
+            <div class="text-xl"> Your Plan</div>
+            <span class="px-2">|</span>
+            <div class="text-lg text-secondary dark:text-secondary-light font-light"> Plus plan</div>
+        </div>
+        <br>
+        <div>
+            <div>You currently have access to the following</div>
+            <div class="grid grid-cols-1 gap-2 mt-4">
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Unlimited upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Ask for additional information before upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit"> Expiration of an upload link  (1 day) </div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Folder upload</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">No advertisment on the upload page</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Team Drive support</div>
+                <div class="p-3 border border-slate-300 dark:border-navy-450 rounded-md sm:w-fit">Save zoom recordings</div>
+            </div>
+        </div>
+        <br>
+        <button onclick="cancelPlan2()" id="cancelPlan2" data-plan="c_plus" class="btn border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90" >
+            Cancel
+        </button>
+        <div class="text-green-500 sub_canceled  px-2 py-2 w-fit mt-2 rounded-lg hidden border dark:bg-success/10 dark:border-navy-800 dark:text-success">subscription Canceled</div>
+        <button data-plan="u_free" class="hidden btn bg-gradient-to-r from-amber-400 to-orange-600 p-0.5 font-medium">
+          <span class="btn bg-white dark:bg-navy-900"> Switch to free </span>
+        </button>
+     </div>
+    </div>
+</div>
+
+
+<script src="../js/loading.js"></script>
+<script src="../js/dash/plan.js"></script>
