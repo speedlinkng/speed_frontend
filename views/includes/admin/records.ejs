@@ -5,89 +5,72 @@
         <div class="col-span-12 lg:col-span-12">
             <div class="flex items-center justify-between">
                 <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
-                    Users
+                    Records
                 </h2>
 
             </div>
             <div class="card mt-3 poppin">
                 <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
-                    <table class="poppins is-zebra is-hoverable w-full text-left">
+                    <table class="poppins is-hoverable w-full text-left">
                         <thead>
                             <tr>
-                                <th
-                                    class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Index
-                                </th>
-                                <th
-                                    class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Name
-                                </th>
-                                <th
-                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Email
-                                </th>
-                                <th
-                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Pone No
-                                </th>
-                                <th
-                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Uploads
-                                </th>
-                                <th
-                                    class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Plan
-                                </th>
-
-                                <th
-                                    class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                                    Action
-                                </th>
-                            </tr>
+                            <th
+                                class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Index
+                            </th>
+                            <th
+                                class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Record Name
+                            </th>
+                            <th
+                                class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Status
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Sender Name
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Sender Email
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Description
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Location Folder
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                File Type
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                File Size
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Drive Email
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Record Id
+                            </th>
+                            <th
+                                class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                User Id 
+                            </th>
+                            <th
+                                class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold uppercase text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                                Action
+                            </th>
+                         </tr>
                         </thead>
-                        <tbody id="all_users">
+                        <tbody id="all_records">
                             <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                    <div class="flex items-center space-x-4">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500"
-                                            viewbox="0 0 20 20" fill="currentColor">
-                                            <path
-                                                d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" />
-                                        </svg>
-                                        <span class="font-medium text-slate-700 dark:text-navy-100">Designs</span>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                    No data
-                                </td>
-                                <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
-                                    No data
-                                </td>
-                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                    <div class="flex -space-x-2">
-                                        <div class="avatar h-7 w-7 hover:z-10">
-                                            <img class="rounded-full ring ring-white dark:ring-navy-700"
-                                                src="../images/200x200.png" alt="avatar" />
-                                        </div>
-
-                                        <div class="avatar h-7 w-7 hover:z-10">
-                                            <div
-                                                class="is-initial rounded-full bg-info text-xs+ uppercase text-white ring ring-white dark:ring-navy-700">
-                                                No data
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                    <button
-                                        class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-                                            viewbox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                                        </svg>
-                                    </button>
-                                </td>
+                                
                             </tr>
 
                         </tbody>
@@ -194,4 +177,5 @@
     </div>
 </div>
 
-<script src="../js/admin/user.js"></script> 
+
+<script src="../js/admin/records.js" defer></script>

@@ -1,9 +1,12 @@
-// Get all user records
+// Get all user record$s
+
+var allUsers; // this will be available everywhere within admin.ejs
 async function getAllUsers() {
 
     let settings = {
       method: 'GET',
       headers: {
+        "content-Type": "application/javascript",
         "Authorization": `Bearer ${localStorage.getItem('access')}`,
       },
     };
@@ -37,6 +40,7 @@ async function getAllUsers() {
               console.log(user.user)
               console.log(user.records)
 
+              allUsers = user.user
               let usr = user.user
               let rec = user.records
               usr.forEach(res => {  

@@ -1,0 +1,55 @@
+<div>
+    <div class=" mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6">
+      <div class="col-span-12 lg:col-span-12">
+  
+        <div class="card shadow-none mt-3">
+          <div class="px-3 p-4 flex items-center justify-between">
+            <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+              Submissions For <span class="submission_for"></span>
+            </h2>
+  
+          </div>
+          <div class="is-scrollbar-hidden min-w-full max-h-96 overflow-x-auto show_submissions_table">
+            <table id="recordingsTable" class=" w-full text-left poppin">
+              <thead>
+                <tr>
+                  <th class="whitespace-nowrap rounded-tl-lg  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    s/n
+                  </th>
+                  <th class="whitespace-nowrap  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    recording_id
+                  </th>
+                  <th class=" whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    meeting id
+                  </th>
+                  <th class=" w-1/4 whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    date
+                  </th>
+                  <th class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    download
+                  </th>
+                  <th style="min-width:250px;" class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    view
+                  </th>
+                  <th class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                    status
+                  </th>
+  
+  
+  
+  
+                </tr>
+              </thead>
+              <tbody id="displayRecording">
+  
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  
+
+  <script src="../js/dash/recordings.js"></script>

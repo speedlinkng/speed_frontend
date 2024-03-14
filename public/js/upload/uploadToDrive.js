@@ -390,4 +390,4 @@ Alpine.data('f_u_a', () => ({
       }
       getlocations(selectedFile)
     }
-    }))
+}))

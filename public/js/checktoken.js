@@ -1,7 +1,7 @@
  
  //check if access token is still valid
   async function checkToken (){
-    
+
   if(localStorage.getItem('access') !== null){
    
       let settings = {
@@ -14,13 +14,13 @@
         let fetchResponses = await fetch(`${backendUrl}/api/app/check`, settings);
         let staus = await fetchResponses.status
         let res = await fetchResponses.json();
-        // console.log(res)
+    
         if(res.error == 1){
 
         }else if(res.error == 2){
           window.location.href = `${baseUrl}/auth`
         }else{
-
+         
         }
      
   
@@ -34,5 +34,5 @@
   }
     setInterval(function(){
       checkToken()
-    }, 5000)
+    }, 8000)
 

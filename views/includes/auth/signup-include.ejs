@@ -18,7 +18,7 @@
           src="../images/illustrations/dashboard-meet-dark.svg" alt="image" />
       </div>
     </div>
-    <main class="flex w-full flex-col items-center bg-green- dark:bg-navy-700 lg:max-w-md">
+    <main class="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-md">
       <div class="relative flex w-full max-w-sm grow flex-col justify-center p-5 bg-red-">
         <div class="text-center bg-yellow- md:relative absolute top-2 left-0 right-0  ">
           <img class="mx-auto h-16 w-16 lg:hidden" src="../images/app-logo.svg" alt="logo" />
@@ -50,10 +50,10 @@
 
           <div class="h-px flex-1 bg-slate-200 dark:bg-navy-500"></div>
         </div>
-        <div id="call_error_" class="bg-red-400 p-2 py-4 text-slate-300 w-full h-fit rounded-lg text-xs" style="display: none;">
+        <div id="call_error_" class="bg-red-400 p-2 py-4 text-slate-300 w-full h-fit rounded-lg text-sm" style="display: none;">
 
         </div>
-        <div id="call_success_" class="bg-success p-4 text-white w-full h-fit rounded-lg text-xs "
+        <div id="call_success_" class="bg-success p-4 text-white w-full h-fit rounded-lg text-sm "
           style="display: none;">
 
         </div>
@@ -156,7 +156,7 @@
         <div class="mt-4 text-center text-xs+">
           <p class="line-clamp-1">
             <span>Already have an account? </span>
-            <a class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
+            <a class="text-primary cursor-pointer transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
             onclick="w3.show('.signin'), w3.hide('.signup')">Sign In</a>
           </p>
         </div>

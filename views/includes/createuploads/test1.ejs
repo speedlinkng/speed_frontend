@@ -22,7 +22,7 @@
             <!-- <input class="shearable_link form-input border w-[70%] md:w-[80%] rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" /> -->
             <label class="block">
               <span class="w-[20%] ">Request Name <span class="text-red-400">*</span> </span>
-              <input class="page_name form-input border w-full rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" />
+              <input class="page_name mt-1.5 form-input border w-full rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" />
             </label>
 
           </div>
@@ -37,7 +37,7 @@
           <div class="flex-grow w-full ">
             <label class="block">
               <span class="w-fit flex justify-left items-center">Request URL <span class="text-red-400">*</span> </span>
-              <div class="w-full border flex items-center justify-left rounded-l-lg rounded-r-lg border-slate-300 px-3.5 font-inter dark:border-navy-450">
+              <div class="w-full border mt-1.5 flex items-center justify-left rounded-l-lg rounded-r-lg border-slate-300 px-3.5 font-inter dark:border-navy-450">
                 <span class="w-fit">speedlink.com/page/</span>
                 <input class="page_url form-input w-full border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="your unique url code" type="text" />
               </div>
@@ -61,7 +61,6 @@
                 <option value="No">No</option>
               </select>
             </label>
-
           </div>
         </div>
       </div>
@@ -179,8 +178,12 @@
     </div>
     
     <div  x-data="{showModal3:false}" class="w3-container  ">
-      <button onclick="getFieldValues()"  @click="saveOrganizedform_(), showModal3 = true"  id="create_save_" class="btn bg-primary text-white inline-flex w-full justify-center bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+      <button onclick="getFieldValues(this)"  @click="saveOrganizedform_('save'), showModal3 = window.showModal3"  id="create_save_" class="btn bg-primary text-white inline-flex w-full justify-center bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
         Save
+      </button>
+
+      <button onclick="getFieldValues(this)"  @click="saveOrganizedform_('update'), showModal3 = window.showModal3"  id="create_update_" class="hidden btn bg-primary text-white inline-flex w-full justify-center bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+        Update
       </button>
       
       <div class="filesandform p-2">
@@ -193,15 +196,27 @@
 
 
 <script>
-  function saveOrganizedform_(){
+  window.showModal3 = false
+  function saveOrganizedform_(e){
+    if(e == 'save'){
+      $('#updateOrganized').hide()
+      $('#saveOrganized').show()
     // CLICK THE ORGANISEFILE BUTTON FROM HERE AUTOMATICALLY
     document.getElementById("setOrganizedForm").click();
+    }
+    if(e == 'update'){
+      $('#updateOrganized').show()
+      $('#saveOrganized').hide()
+    // CLICK THE ORGANISEFILE BUTTON FROM HERE AUTOMATICALLY
+    document.getElementById("setOrganizedForm").click();
+    }
+
   }
 </script>
-
 
 
 
 <script  src="../../js/upload/u_form.js"></script>
 <script  src="../../js/upload/u_fetchData.js"></script>
 <script  src="../../js/upload/u_resume.js"></script>
+<script  src="../../js/formBuilder/edit.js" ></script>

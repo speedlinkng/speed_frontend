@@ -20,7 +20,7 @@ function decode1(token, res) {
     res.redirect(`${process.env.BASE_URL}/auth/`);
     return null;  // Return early if there's no token
   }
-console.log(token)
+
   const decodedToken = decode(token);
   let this_user_token = decodedToken.this_user_token;
   return decode2(this_user_token);
@@ -36,10 +36,11 @@ function decode2(this_user_token) {
 
   router.get('/', function(req, res) {
     const _data = decode1(req.session.token, res);
+      console.log(_data)
 
     if (_data !== null) {
         // Handle the decoded data and render the response in this route handler.
-        res.render("dashboard/home", { title: 'Home page', role: _data.role });
+        res.render("dashboard/home", { title: 'Home page', role: _data.role, data: _data });
     }
   });
 
@@ -65,7 +66,7 @@ function decode2(this_user_token) {
   });
 
   router.get('/test', function(req, res) {
-    res.render(`includes/createuploads/test1.ejs`, { root: 'views' });
+    res.render(`test/test1.ejs`, { root: 'views' });
   });
 
   // router.post('/paystack', logout)

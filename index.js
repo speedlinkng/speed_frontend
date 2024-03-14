@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const crypto = require('crypto');
-const dahboard = require('./routes/dahboard.route');
+const dashboard = require('./routes/dahboard.route');
 const form = require('./routes/form.route');
 const admin = require('./routes/admin.route');
 const auth = require('./routes/auth.route');
@@ -33,8 +33,11 @@ app.set('view engine', 'ejs');
 
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'views/includes')));
 app.use(express.static(path.join(__dirname, 'views/dashboard')));
+app.use('/auth', express.static(path.join(__dirname, 'public')));
+
 
 
 app.use(cors(corsOptions))
@@ -42,7 +45,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 
 
 
-app.use("/dash/", dahboard)
+app.use("/dash/", dashboard)
 app.use("/form/", form)
 app.use("/auth/", auth)
 app.use("/admin/", admin)
@@ -82,13 +85,36 @@ app.get('/', function(req, res, next) {
   console.log(req.session.token)
   res.render("main");
 });
-app.get('/exchange/c', function(req, res) {
-  // req.session.username = 'JohnDoe';
-
-  // req.session.save()
-  console.log(req.sessionID)
-  console.log(req.session.token)
-  // res.render("main");
+app.get('/c', function(req, res) {
+  function startCountdown(time) {
+    return new Promise((resolve) => {
+      let intervalId = setInterval(() => {
+        console.log(time);
+        time -= 10; // Countdown in intervals of 10 milliseconds
+        if (time < 0) {
+          clearInterval(intervalId);
+          resolve();
+        }
+      }, 10);
+    });
+  }
+  
+  async function main() {
+    const durations = [10000, 200,9000];
+  
+    for (let i = 0; i < durations.length; i++) {
+      console.log(`Starting countdown for ${durations[i]} milliseconds (Iteration ${i + 1})...`);
+      await startCountdown(durations[i]);
+      console.log(`Countdown for ${durations[i]} milliseconds (Iteration ${i + 1}) completed.\n`);
+    }
+  
+    console.log("All countdowns completed!");
+  }
+  
+  main();
+  
+  
+  
 });
 
 let count = 0

@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="../css/output.css" />
   <link rel="stylesheet" href="../css/custom.css" />
   <link rel="stylesheet" href="../css/app.css" />
-  <link rel="stylesheet" href="../css/w3.css" />
   <link rel="stylesheet" href="../../css/pond.css" />
   <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet">
 
@@ -24,7 +23,8 @@
   <script src="../js/w3.js"></script>
   <script src="../js/moment.js"></script>
   <script src="../js/checktoken.js"></script>
-  <script src="../../js/pond.js"></script>
+  <!-- <script src="../js/module/global.js"></script> -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
 
@@ -45,18 +45,42 @@
   <div id="root" x-data="" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
 
     <% if(data.status == 200){ %>
-    <% var jsonData = data.data; %>
+    <% var jsonData = data.data.recordData; %>
+    <% var otherData = data.data.recordData; %>
+    <% var uploadToken = data.data.uploadToken; %>
+    <% var allRepliesFolder = allRepliesFolder; %>
+ 
+   
     <!-- Main Content Wrapper -->
     <!-- <main x-data x-text="mainData.title" class=" filemanager-app w-full pb-6" > -->
 
     <main x-data="{ jsonData: <%=  JSON.stringify(jsonData.record_data, null, 2) %> }" class=" filemanager-app w-full pb-6">
+
+      <!-- OTHR DATA -->
+      <div class="">
+      
+        <input id="defaultParent" value="<%= allRepliesFolder %>" class=""/>
+        <input id="error_page_text" value="<%= otherData.record_data.otherData.error_page_text %>" class=""/>
+        <input id="success_page_text" value="<%= otherData.record_data.otherData.success_page_text %>" class=""/>
+        <input id="record_id" value="<%=  otherData.record_id %>" class=""/>
+        <input id="expiry_date" value="<%= otherData.expiry_date %>" class=""/>
+        <input id="status" value="<%= otherData.status %>" class=""/>
+        <input id="folder_id" value="<%= otherData.folder_id %>" class=""/>
+        <input id="user_id" value="<%= otherData.user_id %>" class=""/>
+        <input id="uploadToken" value="<%= uploadToken %>" class=""/>  <!--This will be updated as an array after each image upload-->
+        <input id="viewable_url" value="s" class=""/> <!--This will be updated as an array after each image upload-->
+        <input id="drive_email" value="<%= otherData.storage_email %>" class=""/>
+        
+      </div>
+
+
       <div class="prev_form pb-4 sm:px-5 grid place-content-center ">
        <!-- Form Header -->
        <div><%- include('./formHeader.ejs') %></div>
 
         <div class="max-w-2xl md:w-[600px] card border p-4 mt-5">
           <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
-            <template x-data="dropdown" x-if="Object.keys(pages).length == 1" >
+            <template x-data="dropdown" x-if="Object.keys(pages).length == 100" >
               <div>
                 <div class="prev_form" x-init="console.log(Object.keys(pages).length)">
                   <div class="prev_form_ max-w-xl">
@@ -116,8 +140,12 @@
             </template>
 
 
-            <template x-data="dropdown" x-if="Object.keys(pages).length >= 2"  x-init="getrealJson(jsonData)">
-              <div x-data="{allInputFields:[], submitForm_:false}">
+            <template x-data="dropdown" x-if="Object.keys(pages).length >= 1" >
+              <div x-data="{allInputFields:[],submitForm_:false}" x-init="requestJson = jsonData">
+                  <!-- Content to be displayed if the condition is false -->
+                  <div><%- include('./message/success.ejs') %></div>
+                  <div><%- include('./message/error.ejs') %></div>
+
                 <template x-for="(pageData, pageKey) in Object.entries(pages)">
                   <div x-init="if(pageKey == 0) {}" :id="'pageId' + pageKey" :class="{ 'hidden': pageKey != 0 }">
                     <div x-init="">
@@ -128,6 +156,7 @@
                             <div x-init="" >
                               <!-- page header -->
                               <div><%- include('./pageHeader.ejs') %></div> 
+                              <div><%- include('./repliesToDoc.ejs')  %> </div>
                               <template x-for="(item, fieldKey) in Object.entries(pageData[1])">
                                 <div x-if="Array.isArray(item[1]) && item[1].length > 0">
 
@@ -162,18 +191,18 @@
     
                               <br>
                           
-                              <div class="relative mt-5 w-full" x-init="">
+                              <div class="relative mt-5 w-full" x-init="console.log (Object.keys(pages).length - 1) ">
                                 <template x-if="pageKey > 0">
                                   <button @click="prev(pageKey)" class="  text-primary  dark:text-blue-300 inline-flex justify-center bg-transparent border border-blue-700 dark:!border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Prev
                                   </button> 
                                 </template>
-                                <template x-if="pageKey >= 0 && pageKey < (pageData.length-1) ">
+                                <template x-if="pageKey >= 0 && pageKey < (Object.keys(pages).length-1) ">
                                   <button @click="next(pageKey)"  x-bind:class="pageKey >= 0 && pageKey <pageData.length ? 'ml-2' : '' " x-text="pageData[1][0].header[0].edit_submit_field" class=" text-white inline-flex justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Next
                                 </button> 
                                 </template>
-                                <template x-if=" pageKey === (pageData.length-1) ">
+                                <template x-if=" pageKey === (Object.keys(pages).length-1) ">
                                   <button @click="submitForm()"  x-bind:class="pageKey >= 0 && pageKey <pageData.length ? 'ml-2' : '' "  class=" text-white inline-flex justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Submit
                                 </button> 
@@ -190,14 +219,15 @@
                           </div>
                         </div>
                       </div>
-                      <script src="./script.js"></script>
+                      <script src="./script.js" ></script>
                    
                       <script  src="../../js/upload/uploadToDrive.js"></script>
                     </div>
                   </div>
                 </template>
               </div>         
-              <!-- Content to be displayed if the condition is false -->
+
+      
             </template>
 
           </div>
@@ -208,7 +238,13 @@
         </div>
       </div>
 
-
+    
+      <!-- PROGRESS BAR START -->
+    
+      <div x-data="{showModal:false}" id="progress_bar_section">
+        <div @click="showModal = true" id="show_progress" class="hidden"></div>
+        <div><%- include('./progress.ejs')  %> </div>
+      </div>
     </main>
 
     <% }else{ %>
@@ -261,31 +297,10 @@
     drop_zone
     let required = true ? FU_Required : false
 
-
   })
 </script>
 
-<!-- 
-  <script>
-    document.addEventListener('alpine:init', () => {
-      Alpine.data('responseData', () => ({
-        mainData: {},
-        fetchData() {
-          // Make AJAX call here
-          fetch('https://jsonplaceholder.typicode.com/posts/1')
-            .then(response => response.json())
-            .then(data => {
-              // Update mainData in Alpine.js component
-              this.mainData = data;
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
-        },
-      }));
-    });
-  </script> 
--->
+
 
 <script>
   document.addEventListener('alpine:init', () => {
@@ -297,6 +312,7 @@
       }, // $store to store global data
 
       initFilePond: function(fieldKey) {
+      
         const inputElement = document.getElementById('filepond' + fieldKey);
 
         // Initialize FilePond
@@ -336,3 +352,57 @@
     }));
   })
 </script>
+<script defer>
+//  var Group_by;
+  var Folder_id = '<%= otherData.folder_id %>'
+  var Group_by = '<%= jsonData.record_data.filesandFolder.group_by %>'.split(',').map(item => item.trim());
+  console.log(Group_by);
+//  console.log(Group)
+
+</script>
+
+<!-- <script>
+  async function createSubFolders(parentFolderId, subfolderNames) {
+    const accessToken = '<%= uploadToken %>'; // Replace with the actual access token
+    let currentParentFolderId = parentFolderId;
+  
+    // Loop through the subfolderNames array and create each subfolder
+    for (const subfolderName of subfolderNames) {
+      const fileMetadata = {
+        name: subfolderName,
+        parents: [currentParentFolderId],
+        mimeType: 'application/vnd.google-apps.folder',
+      };
+  
+      try {
+        const response = await fetch('https://www.googleapis.com/drive/v3/files', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(fileMetadata),
+        });
+  
+        const fileData = await response.json();
+        console.log(`Subfolder ${subfolderName} Id:`, fileData.id);
+  
+        // Set the currentParentFolderId to the newly created subfolder for the next iteration
+        currentParentFolderId = fileData.id;
+  
+        // You can perform additional actions here if needed
+  
+      } catch (error) {
+        // Handle error for each subfolder creation
+        console.error(`Error creating subfolder ${subfolderName}:`, error);
+      }
+    }
+  }
+  
+  // Example usage with a parent folder ID and an array of subfolder names
+  const parentFolderId = '19jJu__20dOou7SdJVf-2WoulKoBmryKw'; // Replace with the actual parent folder ID
+  const subfolderNames = ['subfold1', 'subfold2', 'subfold3'];
+  
+  createSubFolders(parentFolderId, subfolderNames);
+  
+</script> -->

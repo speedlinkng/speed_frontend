@@ -1,12 +1,16 @@
 <div>
   <div class="mt-4 flex items-center justify-center gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5" style="height:85vh;">
     <div class="p-5 grid border w-full card h-fit">
-      <div> Create a zoom meet</div>
-      <div>
+      <div class="text-center ">Save all your zoom recordings on our drive and access them easily anytime, any year.</div>
+      <div class="flex justify-center items-center space-x-2">
 
-        <button class="btn mt-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus hover:shadow-sm hover:shadow-primary/50 focus:bg-primary-focus focus:shadow-sm focus:shadow-primary/50 active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:hover:shadow-accent/50 dark:focus:bg-accent-focus dark:focus:shadow-accent/50 dark:active:bg-accent/90">
+        <button class="btn mt-2 hidden space-x-2 bg-primary font-medium bg-primary px-4 py-3 text-white hover:bg-primary-focus dark:bg-accent sm:px-3">
             <i class="bi bi-plus-lg"></i>
           <span>Start meet</span>
+        </button>
+        <button onclick="integrateZoom()" class="btn mt-2 space-x-2 font-medium bg-secondary/10 py-3 px-4 text-secondary hover:bg-secondary/20 dark:bg-secondary-light/15 dark:text-secondary-light sm:px-3">
+            <i class="bi bi-plus-lg"></i>
+          <span>Integrate Recordings</span>
         </button>
       </div>
     </div>
@@ -15,4 +19,4 @@
 
 
 <script src="../js/loading.js"></script>
-<script src="../js/dash/plan.js"></script>
+<script src="../js/dash/zoom.js"></script>

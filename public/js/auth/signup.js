@@ -36,7 +36,7 @@
           $('#call_success_').append('Signup Successful')
           localStorage.setItem('access', json.token);
           localStorage.getItem('access');
-          window.location.href = `${baseUrl}/auth/signin`
+          window.location.href = `${baseUrl}/auth`
 
 
         }

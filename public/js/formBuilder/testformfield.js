@@ -4,11 +4,13 @@
 
 var count = 0;
 var count_ = 0;
+var addmore_count = 0;
 var quest = ""
 var ans = "";
 var newInput = "";
 var storedInput = "";
 var value = ""
+var editSettings ;
 
 var save = (function () {
   localStorage.setItem('form-questions', quest)
@@ -20,37 +22,75 @@ async function adddefaultQ(addpage, res_id = null){
   
   if(addpage == 1 ){
     addQ('', res_id)
-  }else{
+  }
+  else{
     var label_ = [ 'Your Name', 'Your Email'] 
     for(i= 0; i < 2; i++){
-      await addQ(label_[i])
+      await addQ(label_[i], null, 'Text')
    
     }
 
   }
 }
+
+
+
+async function editAddDefaultQ(fieldValues, res_id, fieldTypes, fieldIndex, conditions, editSettings){
+  // console.log('inside the hosue', JSON.parse(editSettings))
+
+    await addQ(fieldValues, res_id, fieldTypes, fieldIndex, conditions, editSettings) 
+
+}
+
 setTimeout(function(){
   var a_ = addPage
   adddefaultQ(a_)
 }, 1000)
 
 
-async function addQ(e = null, res_id = null) {
+
+async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = null, conditions = null, editSettings = null) {
+  // res_id is also pageIndex
+  // console.log('BIG BOYS ARE FINE', JSON.parse(editSettings))
+
+
   window.def = ''
   window.res_id = res_id
   // console.log(e)
-  if(e != null){
-    window.def = e
-    // console.log('{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}')
-    // console.log(window.def)
+  if(fieldTypes !== null){
+    if(fieldTypes == 'File Upload'){
+      window.typ = 'File_Upload'
+    }else{
+      window.typ = fieldTypes
+    }
+    // alert('type not null')
   }else{
-    window.def = ''
+    window.typ = 'Text'
+    // alert('type is null')
   }
 
-  count += 1
-  // console.log(window.def+ 'first then sec')
-  //   var how = `<script>alert('scripted')</script>`;
+  if(e !== null){
+    window.def = e
+  }else{
+    window.def = undefined
+  }
 
+    count += 1
+    addmore_count += 1
+
+
+    if(conditions !== null){
+    
+      let conditions_ = JSON.parse(conditions)
+    
+      window.selCond = conditions_.secondCondition[1].SCL_selectorValue
+      window.selCondAll = conditions_.secondCondition
+
+    }else{
+      window.selCond = 'greater'
+    }
+
+// alert(window.typ)
   newInput = $(
     /*html*/
     `
@@ -58,22 +98,23 @@ async function addQ(e = null, res_id = null) {
       <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-5 dark:border-navy-600">
         <div class="flex space-x-4">
 
-          <label class="block w-[55%]" x-data="{selectedOption${count}: $store.selectedOption${count}}" x-init="$store.selectedOption${count} = 'Text'">
-            <select x-init="$store.selectedOption${count};$el._x_tom = new Tom($el,{create: true,sortField: {field: 'text',direction: 'asc'}})" x-model="$store.selectedOption${count}">
-              <option>Text</option>
-              <option>Email</option>
-              <option>Dropdown</option>
-              <option>File Upload</option>
+          <label class="block w-[55%]" x-data="{selectedOption${count}: $store.selectedOption${count}}" x-init="$store.selectedOption${count} = window.typ">
+            <select x-init="$el._x_tom = new Tom($el,{create: true,sortField: {field: 'text',direction: 'asc'}})" x-bind:value="$store.selectedOption${count}" x-model="$store.selectedOption${count}">
+              <option value="Text">Text</option>
+              <option value="Email">Email</option>
+              <option value="Dropdown">Dropdown</option>
+              <option value="File_Upload">File Upload</option>
 
             </select>
 
             <!-- Result of whatever option was selected -->
             <input name="Field_select_option" type="text" class="hidden Field_select_option" x-bind:value="$store.selectedOption${count}" />
+            <input name="Field_count" type="text" class="hidden Field_count prime_count${count}" value="${count}" />
 
 
           </label>
 
-          <input class="fieldName form-input w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def !== '' ? window.def : undefined" type="text" />
+          <input @blur="getPrevFields(${count}, ${addmore_count}, ${true})" class="fieldName form-input w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def" type="text" />
 
         </div>
 
@@ -95,37 +136,36 @@ async function addQ(e = null, res_id = null) {
               <div x-collapse x-show="$store.expanded_condition${count}">
                 <div>
 
-                  <div class="CONDITIONAL_LOOP${count} mt-4 mb-2 text-sm dropdown-custom grid grid-col-1 gap-1 py-4 border border-primary dark:border-0 px-2 rounded-lg bg-[#f4f4f5] card">
+                  <div class="CONDITIONAL_LOOP${count} mt-4 mb-2 text-sm dropdown-custom grid grid-col-1 gap-1 py-4 border border-primary dark:border-0 px-2 rounded-lg bg-[#f4f4f5] card shadow">
                     <div class="FirstCondition${count}">
                       <label x-data="{ myVariable: null }" x-init="myVariable = window.def" class="sm:flex sm:flex-row text-sm">
 
-                        <select name="hide-show" class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option>Hide</option>
-                          <option>Show</option>
-                          <option>Make Required</option>
-
+                        <select name="hide-show" class="hide-show${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="Hide">Hide</option>
+                          <option value="Show">Show</option>
+                          <option value="Make Required">Make Required</option>
                         </select>
+
                         <span class=" mx-2 h-inherit flex items-center w-[25%] text-blue-500">This field (if)</span>
                       </label>
 
                       <label class="sm:flex sm:flex-row">
-                        <select name="if" class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option>All</option>
-                          <option>Any</option>
-
+                        <select name="if" class="if${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                          <option value="All">All</option>
+                          <option value="Any">Any</option>
                         </select>
                         <span class=" mx-2 h-inherit flex items-center w-[55%] text-blue-500">of the following rules match</span>
                       </label>
                     </div>
                     <br>
                     <div id="logicContition${count}" class="SecondCondition${count} w-full relative px-2 pb-8">
-                      <label x-data="{ myVariable: null, selectedCondition: 'greater' }" x-init="myVariable = window.def" class="logicContition${count} sm:flex sm:flex-row sm:space-x-4">
+                      <label x-data="{ myVariable: null, selectedCondition: window.selCond }" x-init="myVariable = window.def; selectCondition = window.selCond" class="logicContition${count} sm:flex sm:flex-row sm:space-x-4">
 
-                        <select name="matches" id="loginSelect${count}" onchange="checkSelected(${count})" class="loginSelect${count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                        <select name="matches" id="loginSelect${addmore_count}" onchange="checkSelected(${addmore_count})" class="loginSelect${addmore_count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value="" selected></option>
                         </select>
 
-                        <select x-model="selectedCondition" name="condition" class="form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                        <select x-model="selectedCondition" name="condition" class="selectedCondition${count} form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value="greater">Is greater than</option>
                           <option value="less">Is less than</option>
                           <option value="equal">Is equal to</option>
@@ -156,7 +196,7 @@ async function addQ(e = null, res_id = null) {
 
                       </label>
 
-                      <div @click="addmorecondition(${count})" class="absolute bottom-0 right-2 text-blue-400 cursor-pointer hover:text-blue-200">Add more</div>
+                      <div onclick='addmorecondition(${count},window.selCondAll)' class="addmorecondition absolute bottom-0 right-2 text-blue-400 cursor-pointer hover:text-blue-200">Add more</div>
                     </div>
 
 
@@ -175,24 +215,25 @@ async function addQ(e = null, res_id = null) {
                   <i class="bi bi-chevron-down"></i>
                 </div>
               </div>
-              <div x-collapse x-show="$store.expanded${count}" class="mt-4 mb-2 w-full bg-[#f4f4f5] py-4 px-2 rounded-lg card dark:border-0">
+              <div x-collapse x-show="$store.expanded${count}" class="mt-4 mb-2 w-full bg-[#f4f4f5] py-4 px-2 rounded-lg card shadow dark:border-0">
                 <div class="text-sm FIELD_SETTINGS">
 
                   <!--  TEXT SETTINGS -->
                   <div class="text-custom TEXT_SETTING${count}" x-show="$store.selectedOption${count} === 'Text'">
-                    <label class=" grid items-center grid-cols-9">
+                    <label class=" grid items-center grid-cols-9" x-data="{selectedFruits: ['apple']}">
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 invisible " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
                       <p class="col-span-4 ">Required</p>
-                      <input name="Required" class="col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label><br>
+                      <input x-model="selectedFruits" name="Required" class="RequiredCheck col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                      <p>Value: <span x-text="selectedFruits"></span></p>
+                      </label><br>
                     <label class=" grid items-center grid-cols-9 mt-2">
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
                       <p class="col-span-4 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name " class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                      <input name="Add field value to the front of the file name" class="ADVT col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
                     </label><br>
                     <label class=" grid items-center grid-cols-9 mt-2">
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -225,16 +266,14 @@ async function addQ(e = null, res_id = null) {
                       </svg>
                       <p class="col-span-4">Required</p>
                       <input name="Required" class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 mr-1 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-
                     </label>
                     <br>
                     <label class="grid items-center grid-cols-9 mt-1">
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-
                       <p class="col-span-6 lg:col-span-5 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name" class="col-span-2 lg:col-span-3 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                      <input name="Add field value to the front of the file name" class="ADVT col-span-2 lg:col-span-3 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
                     </label>
                     <br>
                     <label class=" grid items-center grid-cols-9 mt-1">
@@ -257,9 +296,9 @@ async function addQ(e = null, res_id = null) {
                   </div>
 
                   <!--  FILE UPLOAD SETTINGS -->
-                  <div class="dropdown-custom FILEUPLOAD_SETTING${count}" x-show="$store.selectedOption${count} === 'File Upload'">
+                  <div class="dropdown-custom FILEUPLOAD_SETTING${count}" x-show="$store.selectedOption${count} === 'File_Upload'">
                     <label class="s items-center grid  grid-cols-9 ">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 invisible" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
 
@@ -273,8 +312,8 @@ async function addQ(e = null, res_id = null) {
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-                      <p class="col-span-4 lg:col-span-5">Description</p>
-                      <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
+                      <p class="col-span-4 lg:col-span-3">Description</p>
+                      <input name="Description" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
                     </label><br>
 
                     <!-- Rename File As -->
@@ -282,29 +321,28 @@ async function addQ(e = null, res_id = null) {
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-                      <p class="col-span-4 lg:col-span-5">Rename File As</p>
-                      <input name="Rename File As" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
+                      <p class="col-span-4 lg:col-span-3">Rename File As</p>
+                      <input name="Rename File As" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
                     </label><br>
 
                     <!-- File Types -->
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <label x-data="{selectFileType${count}:''}" class="grid items-center grid-cols-9 mt-1">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-                      <p class="col-span-4 lg:col-span-5">File Types</p>
-                      <input name="File Types" class="col-span-4 hidden form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
+                      <p class="col-span-4 lg:col-span-3">File Types</p>
 
-                      <select name="File Types" x-init="$el._tom = new Tom($el,{ 
+                      <select x-model="selectFileType${count}" name="File Types" x-init="$el._tom = new Tom($el,{ 
                                   plugins: ['remove_button'],
                                   create: true,
                                   sortField: {field: 'text',direction: 'asc'}
-                                })" class="x-3 py-2  w-full col-span-4 " multiple placeholder="Enter/Select File Types..." autocomplete="off">
-                        <option value="pdf" selected>PDF (.pdf)</option>
+                                })" class="x-3 py-2 select-tom${count} w-full col-span-4 lg:col-span-5" multiple placeholder="Enter/Select File Types..." autocomplete="off">
+                        <option value="pdf">PDF (.pdf)</option>
                         <option value="doc">Microsoft Word (.doc, .docx)</option>
                         <option value="xls">Microsoft Excel (.xls, .xlsx)</option>
                         <option value="ppt">Microsoft PowerPoint (.ppt, .pptx)</option>
                         <option value="txt">Plain Text (.txt)</option>
-                        <option value="jpg" selected>JPEG Image (.jpg, .jpeg)</option>
+                        <option value="jpg" >JPEG Image (.jpg, .jpeg)</option>
                         <option value="png">PNG Image (.png)</option>
                         <option value="gif">GIF Image (.gif)</option>
                         <option value="mp3">MP3 Audio (.mp3)</option>
@@ -318,24 +356,26 @@ async function addQ(e = null, res_id = null) {
                         <option value="xml">XML Document (.xml)</option>
                         <option value="svg">SVG Image (.svg)</option>
                       </select>
+                      <input name="File Types" :value="selectFileType${count}" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
+
                     </label><br>
 
                     <!-- Max File Size (MB) -->
                     <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-                      <p class="col-span-4 lg:col-span-5">Max File Size (MB)</p>
-                      <input name="Max File Size (MB)" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
+                      <p class="col-span-4 lg:col-span-3">Max File Size (MB)</p>
+                      <input name="Max File Size (MB)" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
                     </label><br>
 
                     <!-- File Quantity -->
                     <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
-                      <p class="col-span-4 lg:col-span-5">File Quantity</p>
-                      <input name="File Quantity" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
+                      <p class="col-span-4 lg:col-span-3">File Quantity</p>
+                      <input name="File Quantity" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
                     </label>
 
                   </div>
@@ -343,13 +383,14 @@ async function addQ(e = null, res_id = null) {
 
                   <!--  EMAIL SETTINGS -->
                   <div class="dropdown-custom EMAIL_SETTING${count}" x-show="$store.selectedOption${count} === 'Email'">
-                    <label class=" grid items-center grid-cols-4">
+                    <label class=" grid items-center grid-cols-4" x-data="{selectedFruits: ['apple']}">
                       <p class="col-span-2 ">Required</p>
-                      <input name="Required" class="col-span-2 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label><br>
+                      <input x-model="selectedFruits" name="Required" class="col-span-2 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                      <p>Value: <span x-text="selectedFruits"></span></p>
+                      </label><br>
                     <label class=" grid items-center grid-cols-4">
                       <p class="col-span-2 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name" class="col-span-2 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                      <input name="Add field value to the front of the file name" class="ADVT col-span-2 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
                     </label><br>
                     <label class=" grid items-center grid-cols-4">
                       <p class="col-span-2 ">Placeholder</p>
@@ -406,9 +447,8 @@ async function addQ(e = null, res_id = null) {
 
     <script>
       getPrevFields(count)
-
-      function addmorecondition(e) {
-        addMore(e)
+      function addmorecondition(e, con) {
+        addMore(e, con)
       }
     </script>
 
@@ -441,19 +481,151 @@ async function addQ(e = null, res_id = null) {
   // $('#add_question').hide();
   if(window.res_id == null){
    
-    console.log(newInput)
-    // alert(window.res_id)
+    // console.log(newInput)
+
     $('#showResult_').append(newInput);
   }else{
-
     $('.showResult_'+window.res_id).append(newInput);
   }
+
+  // Handle Edit Settings, FOR SOME REASON IT CAN ONLYWORK IN THIS JS FILE DUE TO TOM-SELECT
+  if(editSettings !== null){
+      
+    // await editSet(count, editSettings, fieldIndex, fieldTypes)
+  
+  }
+
 }
 function myComponent(initialValue) {
   
   return {
     myVariable: window.def,
   };
+}
+async function editSet(count_ES, editSettings, fieldIndex, fieldTypes) {
+  
+  let settings_ = JSON.parse(editSettings) // gotten from edit function
+  let settArray = []
+  settings_.forEach((setting_)=>{
+    settArray.push(setting_)
+  })
+  console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+  console.log(settArray)
+  if(fieldIndex !== null){
+
+    if(fieldTypes == 'Text'){
+      let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count_ES} .TEXT_SETTING${count_ES}`)
+
+      if(settArray[0].inputValue == 'on'){
+        getPage.querySelector(`[name="Required"]`).setAttribute('checked', 'true');
+      }
+
+      if(settArray[1].inputValue == 'on'){
+        getPage.querySelector(`.ADVT`).checked = true
+      }
+
+      if(settArray[2].inputValue !== ''){
+        getPage.querySelector(`[name="Placeholder"]`).value = settArray[2].inputValue
+      }
+
+      if(settArray[3].inputValue !== ''){
+        getPage.querySelector(`[name="Validation Pattern"]`).value = settArray[3].inputValue
+      }
+
+      if(settArray[4].inputValue !== ''){
+        getPage.querySelector(`[name="Description"]`).value = settArray[4].inputValue
+      }
+
+    // END TEXT SETTINGS
+    }            
+    if(fieldTypes == 'Dropdown'){
+      let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count_ES} .DROPDOWN_SETTING${count_ES}`)
+
+      if(settArray[0].inputValue == 'on'){
+        getPage.querySelector(`[name="Required"]`).checked = true
+      }
+
+      if(settArray[1].inputValue == 'on'){
+        getPage.querySelector(`.ADVT`).checked = true
+      }
+
+      if(settArray[2].inputValue !== ''){
+        getPage.querySelector(`[name="Description"]`).value = settArray[2].inputValue
+      }
+
+      // DROPSDOWN OPTIONS
+      
+      if(settArray[3].inputValue !== ''){
+        const options = settArray[3].inputValue;
+        const formattedOptions = options.join('\n');
+        getPage.querySelector(`[name="Validation Pattern"]`).value = formattedOptionss
+    
+      }
+
+      
+    }            
+    if(fieldTypes == 'Email'){
+      
+      let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count_ES} .EMAIL_SETTING${count_ES}`)
+
+      if(settArray[0].inputValue == 'on'){
+        getPage.querySelector(`[name="Required"]`).checked = true
+      }
+
+      if(settArray[1].inputValue == 'on'){
+        getPage.querySelector(`.ADVT`).checked = true
+      }
+
+      if(settArray[2].inputValue !== ''){
+        getPage.querySelector(`[name="Placeholder"]`).value = settArray[2].inputValue
+      }
+
+      if(settArray[3].inputValue !== ''){
+        getPage.querySelector(`[name="Validation Pattern"]`).value = settArray[3].inputValue
+      }
+
+      if(settArray[4].inputValue !== ''){
+        getPage.querySelector(`[name="Description"]`).value = settArray[4].inputValue
+      }
+
+    }       
+    if(fieldTypes == 'File Upload'){
+      
+      let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count_ES} .FILEUPLOAD_SETTING${count_ES}`)
+
+      if(settArray[0].inputValue == 'on'){
+        getPage.querySelector(`[name="Required"]`).checked = true
+      }
+
+      if(settArray[1].inputValue !== ''){
+        getPage.querySelector(`[name="Description"]`).value = settArray[1].inputValue
+      }
+
+      if(settArray[2].inputValue !== ''){
+        getPage.querySelector(`[name="Rename File As"]`).value = settArray[2].inputValue
+      }
+
+      if(settArray[3].inputValue !== ''){
+       // console.log(getPage.querySelector(`[name="File Types"]`))
+        getPage.querySelector(`[name="File Types"] option[value="${settArray[3].inputValue}"]`).selected = true
+      
+
+        // console.log( getPage.querySelector(`[name="File Types"] [role="listbox"] [data-value="css"]`))
+        // getPage.querySelector(`[name="File Types""] [role="listbox"] [data-value="css"]`).selected = true
+      }
+
+      if(settArray[4].inputValue !== ''){
+        getPage.querySelector(`[name="Max File Size (MB)"]`).value = settArray[4].inputValue
+      }
+
+      if(settArray[5].inputValue !== ''){
+        getPage.querySelector(`[name="File Quantity"]`).value = settArray[5].inputValue
+      }
+
+
+    }
+  }
+
 }
 function checkSelected(e){
   var selectedValue =   $('#loginSelect'+e).val();
@@ -465,15 +637,82 @@ function checkSelected(e){
 }
 
 
-function getPrevFields(e){
+async function getPrevFields(e, addmore_count_ = null, refresh = null){
+  e = Math.max(1, Math.floor(e || 1));
+  const values = [];
+
+
+  let GPF_Count;
+    if(addmore_count_ !== null){
+      GPF_Count = addmore_count_
+    }else{
+      GPF_Count = e
+    }
+    if(e == 1){
+      let fieldConditionSelect = document.querySelector(`.prime${e}`);
+      let fieldConditionCount = document.querySelector(`.prime_count${e}`);
+      let $select = $('.loginSelect' + GPF_Count);
+      if(refresh == true){
+        $select.empty();
+      }
+      // console.log(fieldConditionSelect)
+      // console.log($select)
+      $select.append('<option value="Email#1">Email</option>');
+      $select.append('<option value=""  disabled selected>Choose Field</option>');
+    
+    }else{
+      let $select = $('.loginSelect' + GPF_Count);
+      if(refresh == true){
+        $select.empty();
+      }
+      $select.append('<option value=""  disabled selected>Choose Field</option>');
+
+      for (let i = e-1; i >= 1; i--) {
+
+        // console.log('for an I: ' + i)
+        // console.log('what is e: ' + e)
+        let fieldConditionSelect = document.querySelector(`.prime${i}`);
+        let fieldConditionCount = document.querySelector(`.prime_count${i}`);
+
+       // console.log(fieldConditionSelect)
+        if(fieldConditionSelect !== null){
+          // let $field = $('.prime'+GPF_Count);
+          // console.log(GPF_Count)
+          // console.log(e)
+          // console.log(fieldConditionSelect)
+          // console.log($select)
+          let value = fieldConditionSelect.value; // Add this line to get the value from each select
+          let value_count = fieldConditionCount.value; // incase of duplicate field label, this attempts to arrdess it
+          $select.find('option[value=""]').not(':disabled').remove();     
+          $select.append('<option value="' + value +'#'+ value_count+'">' + value + '</option>');
+        }
+      }
+    }
+
+}
+
+
+async function getPrevFields_(e, addmore_count_ = null){
+  // DEFUNCT
+  let GPF_Count;
+    if(addmore_count_ !== null){
+      GPF_Count = addmore_count_
+    }else{
+      GPF_Count = e
+    }
+
+    // get the current field number, 
+    // get the fieilds less than that number, do not get to 0, stop at one
+    // get the value of those fields lss than tat number
       // Assuming 'e' is defined elsewhere in your code
       let allConditionSelect = document.querySelectorAll('.fieldName');
-      let $select = $('.loginSelect' + e);
+      let $select = $('.loginSelect' + GPF_Count);
 
       allConditionSelect.forEach((selectCondition, index) => {
         let value = selectCondition.value; // Add this line to get the value from each select
-        let $field = $('.prime'+e);
-  
+        let $field = $('.prime'+GPF_Count);
+   
+        // alert(value)
         // Use $select instead of $('.loginSelect'+index) for consistency
 
         $select.find('option[value=""]').remove();      
@@ -484,7 +723,7 @@ function getPrevFields(e){
           $select.find(`option[value="${value}"]`).remove(); 
           // console.log(`${$select.val()} ' = ' ${value})`)
         } 
-        if(e == '1'){
+        if(GPF_Count == '1'){
           $select.append('<option value="Email">Email</option>');
         }
       });
@@ -529,18 +768,29 @@ $select.append('<option value="'+value+'">'+value+'</option>');
 
 
 // ADD MORE LOGIC TO THE FORM
-function addMore(counted) {
+async function addMore(counted, con = null) {
 
   // console.log(counted)
+  // alert(window.pos) // this was set in edit.js
+  if(con !== null){
+    // console.log(con)
+    if(window.selCondAddMore !== ''){
+      let conditions_ = con
+      // console.log(conditions_[window.pos])
+     
+      // window.selCond = conditions_.secondCondition[window.pos].SCL_selectorValue
+    }
+  }
+  ++addmore_count
 
   $(`#logicContition${counted}`).append(
     `
 
-          <label x-data="{ myVariable: null,isOpen: true, selectedCondition: 'greater' }" x-init="myVariable = window.def"  x-show="isOpen" class="logicContition${count}  mt-1 sm:flex sm:flex-row sm:space-x-4">
-            <select name="matches" id="loginSelect${count}" onchange="checkSelected(${count})" class="loginSelect${count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+          <label x-data="{myVariable: null,isOpen: true, selectedCondition: window.selCond}" x-init="myVariable = window.def"  x-show="isOpen" class="logicContition${counted}  mt-1 sm:flex sm:flex-row sm:space-x-4">
+            <select name="matches" id="loginSelect${addmore_count}" onchange="checkSelected(${addmore_count})" class="loginSelect${addmore_count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                 <option value="" selected></option>
             </select>
-            <select x-model="selectedCondition" name="condition" class="form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+            <select x-model="selectedCondition" name="condition" class="selectedCondition${count} form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                 <option value="greater">Is greater than</option>
                 <option value="less">Is less than</option>
                 <option value="equal">Is equal to</option>
@@ -578,6 +828,7 @@ function addMore(counted) {
         </label>
      
         `)
+      await getPrevFields(counted, addmore_count)
 }
 
 

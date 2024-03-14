@@ -4,8 +4,8 @@ module.exports = {
   content: [
   "./public/js/*.{html,js}",
   "./public/js/*/*.{html,js}",
-  "./views/includes/*/*.{ejs,js}",
-  "./views/includes/*.{html,js}",
+  "./views/includes/*/*.{ejs,js,html}",
+  "./views/includes/*.{html,js,ejs}",
   "./views/*.{html,ejs,js}",
   "./views/main.ejs",
   "./views/*/*.{html,ejs,js}",

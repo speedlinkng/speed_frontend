@@ -1,0 +1,608 @@
+<template x-data="fileUpload" id="filefilefile" x-if="field.fieldType && field.fieldType.fieldName === 'File_Upload'">
+    <section>
+      <div x-data="{keyComb:''+pageKey+''+fieldKey+'', conditionValue:'', error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}">
+        <!-- IMAGE SECTION  -->
+        <div class="mt-3" id="image_section" style="display: block;">
+          <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
+          <input class="FU_filekey " :value="'filepond' +pageKey" />
+
+          <template x-for="(set, index) in setting">
+            <input x-init="fileSettings[keyComb] = fileSettings[keyComb] || []; fileSettings[keyComb].push({ [set.inputName]: set.inputValue })"
+            class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
+          </template>
+
+             <!-- CONDITIONS -->
+
+          <template x-if="Object.entries(condition)[0][0] === 'firstCondition'"  x-init="console.log()">
+            <div>
+                <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+                <template x-for="(con, conIndex) in Object.entries(condition)[0][1]">
+                  <div>
+                    <template x-if="con.selectorName === 'hide-show'">
+                      <div class=" hidden"  x-text="con.selectorValue" x-init=" showLabel = con.selectorValue === 'Hide';"></div>
+                    </template>
+                    <template x-if="con.selectorName === 'if'">
+                      <div class=" hidden"  x-text="con.selectorValue" x-init=" _if = con.selectorValue;"></div>
+                    </template>
+                  </div>
+                  
+                    <!-- <div class="border"  x-text="con.selectorValue" x-init="con.selectorName === 'hide-show' ? showLabel = con.selectorValue === 'show' : null; // console.log(showLabel);"></div> -->
+                </template>
+            </div>
+          </template>
+
+          <template  x-init=" console.log(Object.entries(condition)[1][1])" x-if="Object.entries(condition)[1][0] === 'secondCondition'">
+            <div>
+                <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+              <template x-for="(con, conIndex) in Object.entries(condition)[1][1]">
+                  <div x-init=" console.log((Object.entries(condition)[1][1].length)/3)">
+                    <div class=" mt-" x-data="{ countcondition: 0 }" x-init="countcondition = Math.floor(conIndex / 3) + 1">
+                      <template x-if="con.SCL_selectorName === 'matches'">
+                        <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="_matches.push(con.SCL_selectorValue)"></div>
+                      </template>
+                      <template x-if="con.SCL_selectorName === 'condition'">
+                        <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="conditionPush(con.SCL_selectorValue, _conditions, _conditionsWord)"></div>
+                      </template>
+                      <template x-if="con.SCL_inputName === 'compared'">
+                        <div :class="con.SCL_inputName+conIndex" class="hidden"  x-init="comparedPush(con.SCL_inputValue, _compared, _conditionsWord, countcondition)"></div>
+                      </template>
+              
+                      <template x-if="conIndex % 3 === 2">
+                        <div x-init="checkFor(countcondition, fieldType.fieldValue+keyComb, _matches, _conditions, _compared)"></div>
+                      </template>
+
+                    </div>
+                  </div>
+                </template>
+              
+                <div class="hidden">
+                  <div x-text="JSON.stringify(_matches)"></div>
+                  <div x-text="JSON.stringify(_conditions)"></div>
+                  <div x-text="JSON.stringify(_compared)"></div>
+                </div>
+
+                <!-- Auto click to check if conditions have been mt -->
+                <input :value="_if" :class="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                <input :value="conditionValue" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :id="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                </div>
+          </template>
+  
+          <div x-show="showLabel" x-bind:data-pointId="field.fieldCount" class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
+            <input  type="file" class="files" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
+          </div>
+          
+        </div>
+  
+        <!-- Store the name of the file uploaded here -->
+        <input x-bind:class="'field'+keyComb" value="file" class="" /> 
+  
+        <!-- This is a trigger button click to start uploading this particular file to google drive -->
+  
+        <button :id="'FileButtonClickfield'+keyComb" id="" class="uploadToDrive" @click="uploadToDrive()">
+          Upload to Drive
+        </button>
+
+      </div>
+    </section>
+  </template>
+
+  <script>
+
+    Alpine.data('fileUpload', () => ({
+     
+      pond:'',
+
+      startFilePond(filekey, keyComb){
+        console.log(this.allWebDownloadLink)
+        console.log(this.allWebViewLink)
+
+        console.log(this.fileSettings[keyComb])
+        console.log('{{{}}}}}}}}}}}}}}}}}{}}}}}}}}{}{}{}}{}{}')
+        console.log('tis is key comb',(this.fileSettings[keyComb]).find(item => item.hasOwnProperty("File Quantity"))["File Quantity"] || '1')
+        
+        let FQ
+        let maxFile
+        let drop_zone
+
+        FQ = (this.fileSettings[keyComb]).find(item => item.hasOwnProperty("File Quantity"))["File Quantity"] || '1';
+    
+        maxFile= (this.fileSettings[keyComb]).find(item => item.hasOwnProperty("Max File Size (MB)"))["Max File Size (MB)"] || '50';
+        
+        if($('.drop_zone').text() !== '' || $('.drop_zone').text()  !== undefined ){
+          drop_zone = $('.drop_zone').text()
+        }else{
+          drop_zone = 'drop all your files here'
+        }
+       
+        // alert('filepond' +this.pageKey+this.fieldKey)
+        
+        const inputElements = document.getElementById(filekey);
+        // Initialize FilePond
+        this.pond = FilePond.create(inputElements, {
+          allowMultiple: true,
+          instantUpload: true,
+          allowProcess: false,
+          dropOnPage: true,
+          maxFiles: parseInt(FQ),
+          // Maximum number of files allowed
+          maxFileSize: maxFile + 'MB', // Maximum file size allowed
+          allowReplace: true,
+          required: true, // Require at least one file to be added (true/false)
+          styleFilePanelMaxHeight: '60px', // Maximum height of the file panel
+          acceptedFileTypes: ['image/*', 'application/pdf'], // Array of accepted file types
+          labelIdle: drop_zone + ' or <span class="filepond--label-action"> Browse </span>', // Custom label when no files are selected
+          // Configuration options go here 
+        });
+
+
+        // Listen for the 'addfile' event
+        this.pond.on('addfile', (error, file) => {
+          if (!error) {
+            const firstFile = file;
+          //  console.log(firstFile.getFiles())
+          } else {
+            // Handle the error
+            console.error('Error adding file:', error);
+          }
+        });
+      },
+
+     
+    // Find the input element
+    
+
+    
+    async startFileProcessing  (uploadedFile, i, countDownUpload) {
+      return new Promise((resolve) => {
+        // BLOB
+        let selectedFile = uploadedFile.source
+      alert(countDownUpload)
+        // Resume an upload after it failed due to network issues
+        const checkResume = async (header_res, size) => {
+          let url = ''
+          let range = ''
+      
+          //  Set interval to keep checking to see if the chunk_status has changes  
+          // const intervalId = setInterval(function () {
+            resume()
+          // }, 3000)
+      
+          const resume = async () => {
+            if (navigator.onLine) {
+              if (localStorage.getItem('loc_url') !== null) {
+                url = header_res
+              }
+              console.log('url' + url)
+      
+              try {
+                const response = await fetch(header_res, {
+                  method: 'PUT',
+                  headers: {
+                    "Content-Range": `bytes */${size}`,
+                    "Content-Length": '0'
+                  }
+                });
+                let status_ = await response.status
+                let headers = await response.headers.get('range');
+      
+                console.log(status_)
+                console.log(headers)
+                if (headers == null) {
+                  range = null
+                  uploadfile(url, selectedFile, range)
+                }
+                if (status_ == 308) {
+                  let ranges = headers
+                  let parts = ranges.split("-");
+                  if (parts.length === 2) {
+                    range = parts[1];
+                  } else {
+                    console.log('Invalid format');
+                  }
+                  console.log('new range is:' + range)
+                  uploadfile(url, selectedFile, range)
+                  clearInterval(intervalId);
+                }
+              
+                if (status_ == 200) {
+                  updateProgressBar('complete')
+                  console.log('upload complete')
+                  clearInterval(intervalId);
+                }
+                clearInterval(intervalId);
+      
+              } catch (err) {
+                console.log(err)
+              }
+      
+            } else {
+              console.log('You are offline.');
+            }
+          }
+
+        }
+       
+      
+        // GET GOOGLE LOCATION URL FOR THIS FILE UPLOAD
+      
+      
+        const getlocations = async (selectedFile) => {
+          console.log('SLECTED FILE' + selectedFile)
+          let accssToken = '<%= uploadToken %>'
+          try {
+      
+            const folderId = uploadFolderId_; // Replace with the actual folder ID
+           
+            let accssToken = '<%= uploadToken %>'
+       
+            
+      
+            // Step 1: Initiate the resumable session
+            const initiateResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable', {
+              method: 'POST',
+              headers: {
+                "Authorization": `Bearer ${accssToken}`,
+                "Content-Type": "application/json; charset=UTF-8"
+              },
+              body: JSON.stringify({
+                name: `${selectedFile.name}`,
+                mimeType: selectedFile.type,
+                parents:[ folderId ] // Place the folder ID in an array
+              })
+            });
+            console.log(initiateResponse)
+            if (initiateResponse.status === 200) {
+              const header_res = await initiateResponse.headers.get('location');
+              let status = await initiateResponse.status
+              localStorage.setItem('loc_url', header_res)
+      
+              if (header_res != null) {
+                uploadfile(header_res, selectedFile)
+              }
+            } else {
+              console.error('Failed to initiate the resumable session.');
+            }
+      
+          }
+          catch (error) {
+            console.log(error)
+          }finally{
+            setTimeout( ()=> {
+              // end_loading(myButton, 'Upload')
+            }, 1000)
+          }
+        }
+        // END FUNCTION
+      
+        const uploadfile = async (header_res, selectedFile, range = null) => {
+          // alert(range)
+          if (selectedFile) {
+            // Create a new FileReader
+            const fileReader = new FileReader();
+      
+            // Define an event handler for when the file is loaded
+            fileReader.onload = function (event) {
+            
+              //alert(event)
+              let chunkIndex = ''
+              // Access the file data as an ArrayBuffer
+              const arrayBuffer = event.target.result;
+      
+              // Convert the ArrayBuffer to a Uint8Array
+              const uint8Array = new Uint8Array(arrayBuffer);
+      
+              // Get a chunk of 256KB from the Uint8Array
+              const chunkSize = 256 * 1024; // 200KB
+              // Initialize variables for tracking chunk index and total chunks
+              
+              if (range !== null) {
+                chunkIndex = localStorage.getItem('chunkIndex');
+              } else {
+                chunkIndex = 0;
+              }
+      
+      
+              const totalChunks = Math.ceil(uint8Array.length / chunkSize);
+      
+      
+              const uploadLessThan = async (range = null, selectedFile) => {
+      
+                const totalSize_ = uint8Array.length;
+                let chunk_ = '';
+                //console.log(`the chunk is ${chunk_}`)
+      
+                let _start = ''
+      
+                if (range != null) {
+                  console.log('range is present')
+                  _start = Number(range) + 1
+                  console.log(_start)
+                  chunk_ = uint8Array.slice(_start, uint8Array.length);
+                } else {
+                  _start = 0
+                  chunk_ = uint8Array
+                }
+      
+      
+      
+                // Step 2: Upload the file
+                const uploadFile = async (header_res, selectedFile) => {
+                    
+                  
+                  let progress = `
+                  <div class="flex mt-2">
+                    <div class="mr-3 font-medium dark:text-white  flex items-center text-slate-800 " id="upload_percentage${i}${countDownUpload}">0%</div>
+                    <div id="result" style="display: none;" class="flex items-center text-red-500 dark:text-red-500 offline ">
+                      <i class="bi bi-wifi-off" style="font-size: 20px;"></i>
+                      <span>Seems you are offline, Dont leave this page </span>
+                    </div>
+                  </div>
+          
+                  <div class="progress h-2 bg-slate-150 dark:bg-navy-500">
+                    <div class="is-active relative overflow-hidden rounded-full bg-warning progress_bar${i}${countDownUpload}">
+          
+                    </div>
+                  </div>
+                  `
+                  $('#add_progressbar').append(progress)
+                  // add progress bar to loader
+                  // alert(localStorage.getItem('folder_id'))
+                  const response = await axios(
+                    {
+                      method: "PUT",
+                      url: header_res,
+                      headers: {
+                        'Content-Range': `bytes ${_start}-${totalSize_ - 1}/${totalSize_}`,
+                        'Content-Type': selectedFile.type, // Specify the MIME type
+                      },
+                      data: chunk_,
+                      onUploadProgress: (progressEvent) => {
+                        const myButton = document.getElementById('show_progress');
+                        myButton.click();
+               
+                        if (range != null) {
+      
+                          console.log('totalsize' + totalSize_)
+                          let new_load = (progressEvent.loaded + Number(range))
+                          let percentCompleted = Math.round((new_load / totalSize_ * 100));
+                          $('.prog').text(`${Math.round(percentCompleted)}%`)
+      
+                          console.log(`Upload Progress: ${percentCompleted}%`);
+                          console.log(`File Loaded: ${new_load}`);
+      
+                          $(`.progress_bar${i}${countDownUpload}`).removeClass('bg-green-500')
+                          $(`.progress_bar${i}${countDownUpload}`).addClass('is-active')
+                          $(`.progress_bar${i}${countDownUpload}`).addClass('bg-orange-500')
+                          $('#progress_bar_section').show()
+                          $(`.progress_bar${i}${countDownUpload}`).css('width', `${percentCompleted.toFixed(2)}%`)
+                          $(`#upload_percentage${i}${countDownUpload}`).text(`${Math.round(percentCompleted)}%`)
+                        } else {
+                          // Calculate and report the upload progress
+                          $('.prog').text(`${Math.round(progressEvent.loaded * 100 / progressEvent.total)}%`)
+                          let percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+      
+                          console.log(`Upload Progress: ${percentCompleted}%`);
+                          console.log(`File Loaded: ${progressEvent.loaded}`);
+      
+                          $(`.progress_bar${i}${countDownUpload}`).removeClass('bg-green-500')
+                          $(`.progress_bar${i}${countDownUpload}`).addClass('is-active')
+                          $(`.progress_bar${i}${countDownUpload}`).addClass('bg-orange-500')
+                          $('#progress_bar_section').show()
+                          $(`#upload_percentage${i}${countDownUpload}`).text(`${Math.round(percentCompleted)}%`)
+                          $(`.progress_bar${i}${countDownUpload}`).css('width', `${percentCompleted.toFixed(2)}%`)
+                        }
+      
+                      }
+                    })
+                    .then((response) => {
+                      // Handle a successful response here
+                      console.log('Response data:', response.data);
+                      console.log('Response data:', response.status);
+                      if (response.status == 200) {
+      
+      
+                        $('.progress_bar'+i+''+countDownUpload).removeClass('bg-orange-500')
+                        $('.progress_bar'+i+''+countDownUpload).removeClass('bg-warning')
+                        $('.progress_bar'+i+''+countDownUpload).removeClass('is-active')
+                        $('.progress_bar'+i+''+countDownUpload).addClass('bg-green-500')
+                        // resolve();
+      
+                      }
+                      gogetMetadata(response.data)
+                    })
+                    .catch((error) => {
+                      if (error.response) {
+      
+                        // The request was made and the server responded with a non-2xx status code
+                        console.log('Error response status:', error.response.status);
+                        console.log('Error response data:', error.response.data);
+                      } else if (error.request) {
+                        // The request was made but no response was received, typically a network issue
+                        console.error('Network issue:', error.request);
+                        checkResume(header_res, totalSize_)
+                      } else {
+                        // Something happened in setting up the request or during the request
+                        console.error('Request error:', error.message);
+                      }
+                    });
+      
+                }
+      
+                uploadFile(header_res, selectedFile)
+              }
+      
+              async function submitAndUpdate(selectedFile, fileId) {
+                console.log('submit')
+                let url_params = window.location.href;
+                let parts = url_params.split('/');
+                let url_id = parts[parts.length - 1];
+                console.log($('#answered').val())
+                let settings = {
+                  method: 'POST',
+                  headers: {
+                    "Content-Type": "application/json; charset=UTF-8"
+                  },
+                  body: JSON.stringify({
+                    email: $('#upload_email').val(),
+                    name: $('#upload_name').val(),
+                    answers: $('#answered').val(),
+                    record_id: url_id,
+                    fileType: selectedFile.type,
+                    fileName: selectedFile.name,
+                    fileId: fileId,
+                    fileSize: uint8Array.length
+                  })
+                };
+      
+                console.log(settings)
+                console.log('<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>')
+                try {
+                  let submitResponse = await fetch(`http://localhost:5000/api/app/submitAndUpdate`, settings);
+                  // let head = await fetchResponses.headers
+                  let sta = await submitResponse.status
+                  let json = await submitResponse.json();
+      
+                  if (sta == 200) {
+                    $('#main_content').hide()
+                    $('#upload_title').text('Upload Completed')
+      
+                    // RELOAD PAGE AFTER ALL
+                    // window.location.href = `http://127.0.0.1:5502/dist/auth/signin.html`
+                  }
+                } catch (err) {
+                  console.log(err)
+                }
+              }
+      
+              const gogetMetadata = async (res)=>{
+                let links = [];
+                let web = ''
+                let down =''
+                console.log(this.allWebDownloadLink)
+                // Assuming you have authenticated and obtained an access token
+                let accessToken = '<%= uploadToken %>' // Replace with your actual access token
+                const fileId = res.id; // Replace with the actual file ID
+      
+                // Make a request to fetch the file's metadata, including webViewLink
+                const webLink = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
+                const webContent = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webContentLink`;
+                const webDownload = `https://www.googleapis.com/drive/v3/files/${fileId}?supportsTeamDrives=true&alt=media`
+                try {
+                  const linkResponse = await fetch(webLink, {
+                    method: 'GET',
+                    headers: {
+                      'Authorization': `Bearer ${accessToken}`,
+                      'Accept': 'application/json',
+                    },
+      
+                  });
+                  console.log('link status:' + linkResponse.status)
+                  if (linkResponse.status == 200) {
+                    let link = await linkResponse.json()
+                    console.log(link.webViewLink);
+                    web = link.webViewLink
+                    // alert('update and submit')
+                    
+                    // submitAndUpdate(selectedFile, fileId)
+                  }
+      
+                }
+                catch (error) {
+                  console.error('Error fetching wbviewLink:', error);
+                }
+                try {
+                  const linkContent = await fetch(webContent, {
+                    method: 'GET',
+                    headers: {
+                      'Authorization': `Bearer ${accessToken}`,
+                      'Accept': 'application/json',
+                    },
+                  });
+      
+                  let content = await linkContent.json()
+                  console.log(content.webContentLink)
+                  console.log(content)
+
+                  // Remove the "&authuser=0" part from the URL.
+                  const newUrl = (content.webContentLink).replace(/&authuser=0/, "");
+
+                  // Extract the ID from the original URL
+                  const id = (content.webContentLink).match(/id=([^&]+)/)[1];
+
+                  // Construct the desired URL by injecting the extracted ID
+                  const desiredUrl = `https://drive.usercontent.google.com/u/1/uc?id=${id}&export=download`;
+
+                  console.log('desiredUrl', desiredUrl);
+                  down = desiredUrl
+
+                }
+                catch (error) {
+                  console.error('Error fetching webViewContent:', error);
+                }
+
+                links.push({
+                  webViewLink: web,
+                  downloadLink: down
+                })
+                resolve(links);
+      
+           
+      
+              }
+      
+              // Function to update the progress bar and text 
+      
+      
+              // Check if file size is less than 256 of equal to 256 kb
+              console.log(uint8Array.length)
+              if (uint8Array.length >= (1024)) {
+                console.log('less thank')
+                uploadLessThan(range, selectedFile)
+              }
+      
+            };
+      
+            // Read the file as an ArrayBuffer
+            fileReader.readAsArrayBuffer(selectedFile);
+          }
+        }
+        getlocations(selectedFile)
+      }) // End Promise
+    }, // End startProcessing function
+    async initFileProcessing (i){
+      console.log(this.allUploadImageArray)
+      console.log(this.allUploadImageArray[i])
+      let countDownUpload_ = this.countDownUpload
+      this.startFileProcessing(this.allUploadImageArray[i], (Number(i))+10, countDownUpload_)
+    },
+    async uploadToDrive() {
+      var uploadFolderId_ = this.uploadFolderId
+      $('#add_progressbar').html('')
+      const fd = new FormData();
+      const uploadedFiles = this.pond.getFiles();
+  
+
+      // This method would upload everyfile all together at onces
+ 
+      for (var i = 0; i < uploadedFiles.length; i++) {
+        $(`<button class="myButton hidden" @click='initFileProcessing(${i})'>Imaginary Button</button>`).appendTo('#filefilefile');
+        alert('tomato '+ i)
+        this.allUploadImageArray?.push(uploadedFiles[i].source)
+      }
+      let promises = [];
+      const clickClass = document.querySelectorAll(`.myButton`);
+      if (clickClass) {
+        for (const clickClass_ of clickClass) {
+          promises.push(new Promise(resolve => {
+            clickClass_.click();
+            resolve();
+          }));
+        }
+       }
+       await Promise.all(promises);
+    
+
+      }
+    })) 
+</script>
+

@@ -13,15 +13,16 @@
   <link rel="stylesheet" href="../css/output.css" />
   <link rel="stylesheet" href="../css/custom.css" />
   <link rel="stylesheet" href="../css/app.css" />
-  <link rel="stylesheet" href="../css/w3.css" />
-  <link rel="stylesheet" href="../../css/pond.css" />
+  <!-- <link rel="stylesheet" href="../css/w3.css" /> -->
   <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet">
+  
 
 
   <!-- Javascript Assets -->
   <script src="../js/app.js" defer></script>
   <script src="../js/jquery.js"></script>
   <script src="../js/w3.js"></script>
+  <script src="../js/jsPdf.js"></script>
   <script src="../js/moment.js"></script>
   <script src="../js/checktoken.js"></script>
   <script src="../../js/pond.js"></script>
@@ -30,6 +31,16 @@
   <script src="../js/formBuilder/testmodule.js"></script>
   <script src="../js/module/global.js"></script>
   <script src="../js/formBuilder/preview.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+  <script src="https://rawgit.com/evidenceprime/html-docx-js/master/dist/html-docx.js"></script>
+  <script src="https://rawgit.com/evidenceprime/html-docx-js/master/dist/html-docx.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
 
 
   <!-- Fonts -->
@@ -37,9 +48,16 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 </head>
+<style>
+  th[class="w-[1000px]"] {
+    min-width: 500px;
+  }
+</style>
+
 
 <body x-data="{ activeItem: 'Zoom' }" class="has-min-sidebar is-sidebar-open is-header-blur" x-bind="$store.global.documentBody">
   <!-- App preloader-->
+ 
   <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
     <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
   </div>
@@ -67,6 +85,23 @@
             <div class="my-[1px] mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
 
             <ul class="space-y-1.5 px-2 pt-5 font-inter text-md font-medium">
+              <li id="" class="w-full pr-4 mb-2 font-normal">
+              
+                <div class="flex space-x-3 rounded-lg bg-slate-100 p-3 dark:bg-navy-500">
+                  <div class="avatar">
+                    <img
+                      class="rounded-full"
+                      src="../images/custom/avatar2.png"
+                      alt="image"
+                    />
+                  </div>
+                  <div>
+                    <p class="text-xs text-slate-500 dark:text-navy-200">Welcome ...</p>
+                    <p class="font-medium text-slate-700 dark:text-navy-100 capitalize"> <%= data.firstname %>  <%= data.lastname %></p>
+                  </div>
+                </div>
+              
+              </li>
               <li id="_Dashboard" @click="activeItem = 'Dashboard'">
                 <a onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());" @click="activeItem = 'Dashboard'" :class="[activeItem === 'Dashboard' ? 'text-primary dark:text-accent-light ' : '']" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-house w-7 h-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
@@ -110,7 +145,9 @@
                 </a>
               </li>
 
-              <li id="_Logout" class="absolute bottom-0 w-full pr-4 font-thin">
+            <br>
+            <br>
+              <li id="_Logout" class="absolute bottom-1 w-full pr-4 font-normal">
                 <a @click="showModal2 = true" :class="[activeItem === 'Logout' ? 'text-primary dark:text-accent-light ' : '']" class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-red-500 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
 
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
@@ -126,6 +163,7 @@
                 <div id="logout"><%- include('../includes/dash/logout.ejs') %></div>
 
               </li>
+             
               <li id="_Create" @click="activeItem = 'Create'" class="hidden">
                 create
               </li>
@@ -137,7 +175,6 @@
 
             </ul>
           </div>
-
         </div>
       </div>
     </div>
@@ -300,7 +337,7 @@
 
       <div id="dashoard" x-show="activeItem === 'Dashboard'"><%- include('../includes/dash/dashboard.html') %></div>
       <div id="submissions" x-show="activeItem === 'Submissions'"><%- include('../includes/dash/submissions.ejs') %></div>
-      <div id="plan" x-show="activeItem === 'Plan'"><%- include('../includes/dash/plan.html') %></div>
+      <div id="plan" x-show="activeItem === 'Plan'"><%- include('../includes/dash/plan.ejs') %></div>
       <div id="zoomInt" x-show="activeItem === 'Zoom'"><%- include('../includes/zoom/zoom.ejs') %></div>
       <div id="payment_history" x-show="activeItem === 'Payment'" w2-include-html="/dash/payment.html"></div>
       <div id="settings" x-show="activeItem === 'Settings'"><%- include('../includes/dash/settings.ejs') %></div>
@@ -321,6 +358,13 @@
 
 
 <script>
+
+ var rut = document.getElementById('root')
+ var preloader = document.getElementsByClassName('app-preloader')[0]
+ var pre = document.getElementsByClassName('app-preloader-inner')[0]
+
+
+ 
   $(document).ready(function() {
     setTimeout(() => {
       const storedItem = localStorage.getItem('activeItem');

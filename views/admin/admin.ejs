@@ -8,20 +8,23 @@
   <meta name="viewport"
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
 
-  <title><% title %></title>
+  <title><%= title %></title>
   <link rel="icon" type="image/png" href="../images/favicon.png" />
 
   <!-- CSS Assets -->
   <link rel="stylesheet" href="../css/output.css" />
   <link rel="stylesheet" href="../css/custom.css" />
   <link rel="stylesheet" href="../css/app.css" />
-  <link rel="stylesheet" href="../css/w3.css" />
+  <!-- <link rel="stylesheet" href="../css/w3.css" /> -->
   <link rel="stylesheet" href="../css/custom.css" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" />
   <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet" />
 
 
   <!-- Javascript Assets -->
+  <script src="../js/module/global.js" ></script>
+  <script src="../js/admin/all.js" defer ></script>
+  <script src="../js/loading.js"></script>
   <script src="../js/app.js" defer></script>
   <script src="../js/admin/protect_admin.js" defer></script>
   <script src="../js/w3.js" defer></script>
@@ -29,7 +32,15 @@
   <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
 <script src="https://unpkg.com/gridjs-jquery/dist/gridjs.production.min.js"></script>
   <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+<script>
+ 
+    function changeDriveMail(){
+      // alert('afterload')
+      // window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem('access')}` // prompt 
+    }
+    changeDriveMail()
 
+</script>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -52,7 +63,7 @@
       <div class="main-sidebar">
         <div class="flex h-full grow flex-col bg-white dark:bg-navy-750 ">
           <!-- Sidebar Panel Header -->
-          <div class="flex h-18 w-full items-center justify-between pl-4 pr-1">
+          <div class=" flex h-18 w-full items-center justify-between pl-4 pr-1">
             <div class="flex items-center">
               <div class="avatar mr-3 hidden h-9 w-9 lg:flex">
                 <div
@@ -86,7 +97,7 @@
               <div class="my-2 mx-4 h-px bg-slate-200 dark:bg-navy-500"></div>
 
               <ul class="space-y-1.5 px-2 font-inter text-md font-medium">
-                <li onclick="w3.hide('#records_admin'), w3.hide('#sub_admin'), w3.show('#user_admin')">
+                <li onclick="w3.hide('#records_admin'), w3.show('.dash_display'), w3.hide('#sub_admin'), w3.show('#user_admin')">
                   <a class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people w-6 h-6" viewBox="0 0 16 16">
@@ -96,7 +107,7 @@
                     <span class="text-slate-800 dark:text-navy-100">Users</span>
                   </a>
                 </li>
-                <li onclick="w3.show('#records_admin'), w3.hide('#sub_admin'), w3.hide('#user_admin')">
+                <li onclick="w3.show('#records_admin'), w3.hide('.dash_display'), w3.hide('#sub_admin'), w3.hide('#user_admin')">
                   <a class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-list-nested w-6 h-6" viewBox="0 0 16 16">
@@ -105,7 +116,7 @@
                     <span class="text-slate-800 dark:text-navy-100">Records</span>
                   </a>
                 </li>
-                <li onclick="w3.hide('#records_admin'), w3.show('#sub_admin'), w3.hide('#user_admin')">
+                <li onclick="w3.hide('#records_admin'), w3.hide('#setting_admin'), w3.hide('.dash_display'), w3.show('#sub_admin'), w3.hide('#user_admin')">
                   <a class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                    >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-piggy-bank w-6 h-6" viewBox="0 0 16 16">
@@ -116,7 +127,7 @@
                   </a>
                 </li>
 
-                <li onclick="w3.show('#records_admin'), w3.hide('#sub_admin'), w3.hide('#user_admin')">
+                <li onclick="w3.show('#setting_admin'), w3.hide('.dash_display'), w3.hide('#sub_admin'), w3.hide('#user_admin')">
                   <a class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -220,7 +231,8 @@
 
   <section class="whole_content">
 
-    <div class="flex items-center justify-between space-x-2 px-[var(--margin-x)] pb-4 pt-5 transition-all duration-[.25s]">
+    <div class="dash_display" style="display:block;">
+      <div class="flex items-center justify-between space-x-2 px-[var(--margin-x)] pb-4 pt-5 transition-all duration-[.25s]">
         <div class="flex items-center space-x-1">
             <h3 class="text-lg font-medium text-slate-700 line-clamp-1 dark:text-navy-50">
                 Admin Dashboard
@@ -318,20 +330,24 @@
             </div>
 
         </div>
+      </div>
     </div>
 
     <div>
 
     </div>
 
-    <div id="user_admin" style="display: block;" w2-include-html="/admin/user.html" >
-
+    <div id="user_admin" style="display: block;" >
+      <%- include('../includes/admin/user.ejs') %>
     </div>
-    <div id="records_admin" style="display: none;" w2-include-html="/admin/records.html" >
-
+    <div id="records_admin" style="display: none;">
+      <%- include('../includes/admin/records.ejs') %>
     </div>
-    <div id="sub_admin" style="display: none;" w2-include-html="/admin/subscribers.html" >
-
+    <div id="sub_admin" style="display: none;" >
+      <%- include('../includes/admin/subscribers.ejs') %>
+    </div> 
+    <div id="setting_admin" style="display: none;" >
+      <%- include('../includes/admin/settings.ejs') %>
     </div> 
   </section>
 </main>
@@ -358,7 +374,6 @@
 </body>
 
 </html>
-<script src="../js/module/global.js" defer></script>
-<script src="../js/admin/all.js" defer></script>
-<script src="../../js/loading.js"></script>
+
+
 

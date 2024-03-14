@@ -5,7 +5,13 @@
       values: {},
       preferred: localStorage.getItem('preferred'),
       b_token: localStorage.getItem('b_token')
-   };
+    };
+   let allArrayEdit = { 
+        values: {},
+        preferred: localStorage.getItem('preferred'),
+        b_token: localStorage.getItem('b_token')
+    };
+    var editFormRecordId;
     var addPage  =  0;
 
     async function start(){

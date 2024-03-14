@@ -13,7 +13,7 @@
                                   Yes
                                 </button>
                                 <button @click="showModal2 = false" class="btn font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-                                  No
+                                  Noo
                                 </button>
                               </div>
                             </div>
@@ -27,29 +27,30 @@
                       </div>
                     </template>
                   </div>
-<script>
-    async function logMeOut(){
-            fetch(`${backendUrl}/api/users/logout`, {
-                method: 'GET', 
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('access')}`,
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then(response => {
-                console.log(response)
-                if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                // Handle successful logout
-                console.log("Logout successful");
-            })
-            .catch(error => {
-                console.log(error)
-                // Handle errors during the fetch
-                console.error('Fetch error:', error);
-            });
 
-    }
+<script>
+async function logMeOut(){
+      fetch(`${backendUrl}/api/users/logout`, {
+          method: 'GET', 
+          headers: {
+              'Authorization': `Bearer ${localStorage.getItem('access')}`,
+              'Content-Type': 'application/json',
+          },
+      })
+      .then(response => {
+          console.log(response)
+          if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          // Handle successful logout
+          window.location.href = `${baseUrl}/auth`
+          console.log("Logout successful");
+      })
+      .catch(error => {
+          console.log(error)
+          // Handle errors during the fetch
+          console.error('Fetch error:', error);
+      });
+}
 </script>
 

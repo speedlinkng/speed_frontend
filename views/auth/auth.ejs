@@ -47,8 +47,16 @@
 
 
   
-    <section class="signin" style="display: block;" w2-include-html="/auth/signin-include.html"></section>
-    <section class="signup" style="display: none;" w2-include-html="/auth/signup-include.html"></section>
+    <section class="signin" style="display: block;" w2-include-html="/auth/signin-include.ejs"></section>
+    <section class="signup" style="display: none;" w2-include-html="/auth/signup-include.ejs"></section>
+    <section class="forgot" style="display: none;" w2-include-html="/auth/forgot-include.ejs"></section>
+    <% if (data !== null) { %>
+      <section class="newPwd" style="display: none;"> 
+          <%- include('../includes/auth/newPassword-include.ejs') %>
+      </section>
+    <% } %>
+  
+    <section class="preverify" style="display: none;" w2-include-html="/auth/preverify-include.ejs"></section>
 
 
 
@@ -63,5 +71,21 @@
 </body>
 
 </html>
+<% if (data !== null) { %>
+<script>
+  const sections = document.querySelectorAll('section');
+
+    // Loop through each section
+    sections.forEach(section => {
+      if (section.classList.contains('newPwd')) {
+        // If it has the class 'privide', display it
+        section.style.display = 'block'; // Or any other display value you prefer
+      } else {
+          // If it doesn't have the class 'privide', hide it
+          section.style.display = 'none';
+      }
+    })
+</script>
+<% } %> 
 <script src="../js/loading.js"></script>
 <script src="../js/module/global.js" defer></script>

@@ -2,7 +2,7 @@
 <script src="../js/formBuilder/testformfield.js"></script>
 <div><%- include('./rightPanel.ejs') %></div>
 <div x-data class="wholePage">
-  <div class="place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative">
+  <div  page-count="1" class="EACHPAGE place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative">
     <div class="grid grid-cols-12 "  x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
       <!-- INPUT TITLE -->
       <input class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Page Header" type="text" />    
@@ -103,22 +103,32 @@
 
 <script>
 
-  let resultCount = 1; // Initialize the count outside the function
+  const eachPageDivs =  document.querySelectorAll('.wholePage'); // how many pages currently *resent 6n screen
+console.log(eachPageDivs.length)
+
+
+
+  const eachPageDivs_ = eachPageDivs.length;
+
+  var resultCount = eachPageDivs_; // Initialize the count outside the function
 
   function addPage() {
-
+   // alert(resultCount)
     // Increment the resultCount and set the data-count attribute
-    const _count = resultCount++;
+    let _count = ++resultCount;
+
+   alert(_count)
+
     const addpage = 1;
 
 
     // Get the HTML content of the wholePage element
     const wholePageHTML = `
-            <div class=" this_page${_count} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
+            <div page-count="${_count}" class="EACHPAGE this_page${_count} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
     
                 <div class="grid grid-cols-12 "  x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
                   <!-- INPUT TITLE -->
-                  <input class="uph_${_count+1} form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Title" type="text" />    
+                  <input class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Title" type="text" />    
                   <!-- EDIT BUTTON -->
                   <div class=" col-span-2 sm:col-span-2 p-2 mt-2 ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-5 h-5">
@@ -135,7 +145,7 @@
 
                 <div class="grid grid-cols-12 gap-[] " x-data="{ isOpenDesc: true }" x-show="isOpenDesc">
                   <!-- INPUT DESCRIPTION -->
-                  <input class="upd_${_count+1} form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Description" type="text" />    
+                  <input class="upd_${_count} form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Description" type="text" />    
                   <!-- EDIT BUTTON -->
                   <div class=" col-span-2 sm:col-span-2 p-2 mt-2 ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-5 h-5">
@@ -155,9 +165,9 @@
               
               </div>
               <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
-                <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" :input="" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${_count+1} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
+                <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${_count+1} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
                 </span>
-                <input x-model="inputHasValue" class=" hidden edit_submit_field${_count+1} hidden text-lg btn !p-0 border-0 bg-transparent !w-fit" />
+                <input x-model="inputHasValue" class=" hidden edit_submit_field${_count} hidden text-lg btn !p-0 border-0 bg-transparent !w-fit" />
                 <div x-show="!inputEntered" class="grid place-content-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -167,7 +177,7 @@
               <br>
               <div>
                 <div class="flex space-x-2">
-                  <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(${null},${_count})" id="add_question" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                  <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(${null},${_count})" id="add_question${_count}" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                     Add Field
                   </button>
                   <button @click="deletePage(${_count})" id="delete_page" class="btn text-sm text-error border border-error hover:bg-error/20 font-medium focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:border-error">
@@ -184,7 +194,8 @@
               </div>
             </div>`;
 
-    $('.wholePage').append(`<div class="wholePage_ mt-5" data-count="${count}">${wholePageHTML}</div>`);
+    $('.wholePage').append(`<div class="wholePage_ mt-5">${wholePageHTML}</div>`);
+    // alert(count)
     adddefaultQ(addpage, _count);
 
   }
@@ -196,7 +207,6 @@
   }
 
   function falsifyAllExpanded() {
-alert('shs')
     for (let i = 0; i <= count; i++) {
       // Update the global state directly
       Alpine.store('expanded_condition' + i, false);
@@ -227,15 +237,16 @@ alert('shs')
      document.body.removeChild(link);
   } 
 
-  function getFieldValues(e = null) {
-
+  async function getFieldValues(e = null) {
     // other input data
-    console.log('drop_zone'+$('.drop_zone').val())
-    console.log('success_page_text'+$('.success_page_text').text())
-    console.log('error_page_text'+$('.error_page_text').text())
-    console.log('shearable_link'+$('.shearable_link').val())
-    console.log('page_url'+$('.page_url').val())
-    console.log('page_name'+$('.page_name').val())
+  localStorage.getItem('preferred') //.. initialize this
+
+    if($('.page_name').val() == '' || $('.page_url').val() == '' || $('.shearable_link').val() == ''){ 
+      return
+    }
+   
+
+
     let otherData = {
       drop_zone:$('.drop_zone').val(),
       success_page_text:$('.success_page_text').val(),
@@ -276,10 +287,11 @@ alert('shs')
       const fieldSelectOptions = formClassElement.querySelectorAll('.Field_select_option');
       console.log(fieldSelectOptions)
       const fieldNames = formClassElement.querySelectorAll('.fieldName');   
+      const fieldCounts = formClassElement.querySelectorAll('.Field_count');   
       const settingsClassMap = {
         'Text': 'TEXT_SETTING',
         'Dropdown': 'DROPDOWN_SETTING',
-        'File Upload': 'FILEUPLOAD_SETTING',
+        'File_Upload': 'FILEUPLOAD_SETTING',
         'Email': 'EMAIL_SETTING',
         // Add more mappings as needed
       };
@@ -294,6 +306,7 @@ alert('shs')
           let ins = index + 1 + pageIndex
           console.log(`${index},${pageIndex} then the end result is ${ins}`)
           const fieldName = fieldNames[index].value;
+          const fieldCount = fieldCounts[index].value;
           const selectOptionValue = selectOption.value;
   
           // PUSH DATATYPE AND VALUE
@@ -308,6 +321,8 @@ alert('shs')
 
           // FIND INPUTS INSIDE OF CONDITIONS
           const conditionsLoopData = document.querySelector(`.CONDITIONAL_LOOP${ins}`);
+          console.log(conditionsLoopData)
+
           const FirstCondition = conditionsLoopData.querySelector(`.FirstCondition${ins}`);
           const FC_correspondingSelect = FirstCondition.querySelectorAll(`select`);
   
@@ -348,8 +363,9 @@ alert('shs')
           const settingsData = document.querySelectorAll(`.FIELD_SETTINGS`);
           const t2Input = document.querySelector(`.FIELD_SETTINGS .${settingsClassMap[selectOptionValue] + ins}`);
           const settingInputs = Array.from(t2Input.querySelectorAll('input'));
-        
-          let STV = ''
+
+       
+
           if(settingsClassMap[selectOptionValue] == 'DROPDOWN_SETTING'){
             const settingTextarea = t2Input.querySelector('textarea');
             inputValue = settingTextarea.value.split('\n');
@@ -365,19 +381,18 @@ alert('shs')
 
           }  
 
-          // HELPS HEADER NOT TO REPEAT ITSELF
  
           settingInputs.forEach((input) => {
          
-           console.log('this is the index: @'+index)
               const inputName = input.getAttribute('name');
               let inputValue = ''
               if(input.getAttribute('type') == 'checkbox'){
                 const isChecked = input.checked;
                  inputValue = isChecked ? 'on' : 'off';
+                 console.log('inputValue'+inputValue)
               }else{
                  inputValue =  input.value
-                 console.log(inputValue)
+                 console.log('inputValue'+inputValue)
               }
      
               settingsArray.push({
@@ -391,6 +406,7 @@ alert('shs')
               ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -403,6 +419,7 @@ alert('shs')
               ['field' + ins]: {
                   'other_data': otherData,
                   'fieldType': fieldType,
+                  'fieldCount': fieldCount,
                   'conditions': {
                       firstCondition: firstCondition,
                       secondCondition: secondCondition
@@ -423,6 +440,7 @@ alert('shs')
               ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -441,6 +459,7 @@ alert('shs')
             ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -456,13 +475,13 @@ alert('shs')
       console.log(allArray)
   }
   
-    else{
 
+  else{
+      let storeIns = 0
       // This else statement handles when the form contains more than one paes
-   
       // EACH FORMCLASS Represents each PAGE
       formClassElements.forEach((formClassElement, pageInd) => {
-
+        let ins = 0
         // Try to set pageind to 0 or a number
         // such that a continuous iteration will be enabled ie: 1, 2, 3, 4, 5
         let pageIndex
@@ -482,15 +501,16 @@ alert('shs')
         // ADD THE pageIndex TO NORMAL INDEX TO DETERMINT IF NEW PAGE
         const fieldSelectOptions = formClassElement.querySelectorAll('.Field_select_option');
         const fieldNames = formClassElement.querySelectorAll('.fieldName');
+        const fieldCounts = formClassElement.querySelectorAll('.Field_count');
       
         const settingsClassMap = {
           'Text': 'TEXT_SETTING',
           'Dropdown': 'DROPDOWN_SETTING',
-          'File Upload': 'FILEUPLOAD_SETTING',
+          'File_Upload': 'FILEUPLOAD_SETTING',
           'Email': 'EMAIL_SETTING',
           // Add more mappings as needed
         };
-/*
+      /*
         result.values['page1'+(Number(pageInd)+1)].push({
           'edit_submit_field': $('.edit_submit_field1').val(),
           'page_header': $('.uph_1').val(),
@@ -505,14 +525,31 @@ alert('shs')
         });*/
       
         fieldSelectOptions.forEach((selectOption, index) => {
+          /*
+          we have to kep track of the previous value of $ins
+          this is to enable us increment after the page loops
+          */
+       
+          if(pageIndex > 1){
+            ins = storeIns + index + 1 
+
+            console.log(`${storeIns} + 1 + ${index}`)
+            console.log(ins)
+          }else{
+            console.log(`${index} + 1 + ${pageIndex}`)
+            ins = index + 1 + pageIndex
+            storeIns = ins
+            console.log('storeIns is'+ storeIns)
+          }
           const condition = [];
           const fieldType = {};
           const conditionData = [];
           const firstCondition = [];
           const secondCondition = [];
           const settingsArray = [];
-          let ins = index + 1 + pageIndex
+
           const fieldName = fieldNames[index].value;
+          const fieldCount = fieldCounts[index].value;
           const selectOptionValue = selectOption.value;
          
           // PUSH DATATYPE AND VALUE
@@ -524,7 +561,7 @@ alert('shs')
               fieldName: selectOptionValue,
               fieldValue: fieldName
             });
-            */
+          */
 
             // FIND INPUTS INSIDE OF CONDITIONS
 
@@ -570,13 +607,11 @@ alert('shs')
 
 
 
-
-
           // FIND INPUTS INSIDE OF SETTINGS
           const settingsData = document.querySelectorAll(`.FIELD_SETTINGS`);
           const t2Input = document.querySelector(`.FIELD_SETTINGS .${settingsClassMap[selectOptionValue]+ins}`);
           const settingInputs = Array.from(t2Input.querySelectorAll('input'));
-          let STV = ''
+          // let STV = ''
           if(settingsClassMap[selectOptionValue] == 'DROPDOWN_SETTING'){
             const settingTextarea = t2Input.querySelector('textarea');
             inputValue = settingTextarea.value.split('\n');
@@ -598,8 +633,14 @@ alert('shs')
             if(input.getAttribute('type') == 'checkbox'){
               const isChecked = input.checked;
                inputValue = isChecked ? 'on' : 'off';
+               console.log(input)
+               console.log('sssssssssssssssssssssssssssssssss')
+               console.log('index'+index)
+               console.log(settingsClassMap[selectOptionValue]+ins)
+               console.log('inputValue'+inputValue)
             }else{
                inputValue =  input.value
+               console.log('inputValue'+inputValue)
             }
             
           
@@ -610,13 +651,13 @@ alert('shs')
             });
           });
 
-              console.log(index)
-              console.log(otherData)
+          console.log(settingsArray)
           if(index > 0){
             result.values['page'+(Number(pageInd)+1)].push({
               ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -629,6 +670,7 @@ alert('shs')
               ['field' + ins]: {
                   'other_data': otherData,
                   'fieldType': fieldType,
+                  'fieldCount': fieldCount,
                   'conditions': {
                       firstCondition: firstCondition,
                       secondCondition: secondCondition
@@ -641,14 +683,15 @@ alert('shs')
           else{
             result.values['page'+(Number(pageInd)+1)].push({
               'header':[{         
-              'edit_submit_field': $('.edit_submit_field1').val(),
-              'page_header': $('.uph_1').val(),
-              'page_description': $('.upd_1').val(),
+              'edit_submit_field': $(`.edit_submit_field${(Number(pageInd)+1)}`).val(),
+              'page_header': $(`.uph_${(Number(pageInd)+1)}`).val(),
+              'page_description': $(`.upd_${(Number(pageInd)+1)}`).val(),
               // Add other properties as needed    
             }]},{
               ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -659,14 +702,15 @@ alert('shs')
       
             allArray.values['page'+(Number(pageInd)+1)].push(
             {'header':[{         
-              'edit_submit_field': $('.edit_submit_field1').val(),
-              'page_header': $('.uph_1').val(),
-              'page_description': $('.upd_1').val(),
+              'edit_submit_field': $(`.edit_submit_field${(Number(pageInd)+1)}`).val(),
+              'page_header': $(`.uph_${(Number(pageInd)+1)}`).val(),
+              'page_description': $(`.upd_${(Number(pageInd)+1)}`).val(),
               // Add other properties as needed    
           }]},{
             ['field' + ins]: {
                 'other_data': otherData,
                 'fieldType': fieldType,
+                'fieldCount': fieldCount,
                 'conditions': {
                     firstCondition: firstCondition,
                     secondCondition: secondCondition
@@ -677,16 +721,33 @@ alert('shs')
           }
         
           console.log(allArray)
+      
+          return
   
         });
+       
       });
 
      // downloadJson(result)
     }
   
+
+
+    if((e.innerText).toLowerCase() == 'update'){
+      window.showModal3 = true
+       saveOrganizedform_('update')
+    }if((e.innerText).toLowerCase()  == 'save'){
+      window.showModal3 = true
+
+       saveOrganizedform_('save')
+    }
+
     if(e == 'preview'){
       previews('openModal')
-    }else{
+    }else if(e === 'update'){
+
+    }
+    else{
       // CHECK OF OPTION SELECTED WAS GOOGLE DRIVE OR SOMETHING ELSE
 
 

@@ -8,7 +8,7 @@ const {sign, decode} = require("jsonwebtoken")
 
 
   router.get('/:record_id', async function(req, res) {
-    console.log(req.params.record_id)
+   // console.log(req.params.record_id)
 
     // GET RECORD_ID
     let record_id = req.params.record_id
@@ -25,16 +25,22 @@ const {sign, decode} = require("jsonwebtoken")
           console.log(err);
           
         }else{
-          console.log('response')
+          // console.log('response')
+       
+          
           let bodyString = body;
           let result = JSON.parse(bodyString);
-          // console.log(result)
+           console.log(result.data)
+           console.log(result.data.recordData.status)
+           console.log(result.data.allReplies)
+           console.log('#####################')
+           
           // console.log(JSON.stringify(result.data.record_data))
           if(result.status == 404){
-            res.render("dashboard/form/form", { title: 'Form page', data: result });
+            res.render("dashboard/form/form", { title: 'Form page', data: result, uploadToken: result.data.uploadToken });
           }
           if(result.status == 200){
-            res.render("dashboard/form/form", { title: 'Form page', data: result });
+            res.render("dashboard/form/form", { title: 'Form page', data: result, uploadToken: result.data.uploadToken, allRepliesFolder: result.data.allReplies });
         
           }  
         }

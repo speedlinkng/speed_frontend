@@ -1,7 +1,7 @@
 
 <template x-data x-if="field.fieldType && field.fieldType.fieldName === 'Text'">
     <!-- SET CONDITIONS DATA HERE -->
-    <div class="mt-3" x-init="" x-data="{keyComb:''+pageKey+''+fieldKey+'', inputValue:'',error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}">
+    <div class="mt-3" x-init="" x-data="{keyComb:''+pageKey+''+fieldKey+'', conditionValue:'', inputValue:'',error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}">
           <!-- SETTINGS -->
           <template x-for="(set, index) in setting">
             <input x-init="textSettings[keyComb] = textSettings[keyComb] || []; textSettings[keyComb].push({ [set.inputName]: set.inputValue })"
@@ -58,17 +58,21 @@
                 </div>
 
                  <!-- Auto click to check if conditions have been mt -->
-                 <input :value="_if" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :class="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                 <input x-bind:data-pointId="field.fieldCount"  :value="_if" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :class="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                 <input :value="conditionValue" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :id="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+             
+
                 </div>
           </template>
     
       <label x-show="showLabel" class="block" style="font-weight: 300;">
         <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>        
         <input 
+          x-bind:data-pointId="field.fieldCount" 
           x-ref="fieldIndex+''+pageKey"  
           x-model="inputValue" 
           @click="submitForm_ ? checkSettings(textSettings, fieldType.fieldValue, error[0]) : noSubmit" 
-          @blur="checkSettings(textSettings, fieldType.fieldValue, error[0])" 
+          @blur="handleInput(fieldType.fieldValue, fieldIndex, field.fieldCount);checkSettings(textSettings, fieldType.fieldValue, error[0])" 
           :class="[(error[0].validation === true) ? '!border-[#ff5724]' :'', (fieldType.fieldValue).replace(/\s/g, '')+keyComb, 'field'+keyComb]" 
           class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent " 
           type="text" 

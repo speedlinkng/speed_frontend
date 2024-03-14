@@ -16,8 +16,9 @@
                   <span>Destination Folder</span>
                   <span class="relative mt-1.5 flex">
                     <input class="form-input peer w-full hidden rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="select" id="select_folder" value="testing" type="text" />
+                    <input id="chosen_folder_idd" style="display: block;" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
+
                     <input id="chosen_folder" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
-                    <input id="chosen_folder_id" style="display: none;" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
                     <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                       <i class="fa-regular fa-building text-base"></i>
                     </span>
@@ -60,8 +61,11 @@
   
   
               <div class="flex justify-start items-center mt-2 space-x-2">
-                <button  @click="saveOrganizedform" id="saveOrganized" class="btn h-10 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                <button  @click="saveOrganizedform" id="saveOrganized" class="hidden btn h-10 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                   Save
+                </button>
+                <button  @click="updateOrganizedform" id="updateOrganized" class="hidden btn h-10 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  Update
                 </button>
                 <button  @click="setOrganizedForm" id="setOrganizedForm" class="btn h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                   Set
@@ -91,6 +95,8 @@
 
     function setOrganizedForm(){
       console.log(allArray.values)
+
+   
       
       // Check if 'filesandFolder' already exists
       if (allArray.values && typeof allArray.values === "object") {
@@ -105,10 +111,11 @@
           console.log("Folder ID:", folder_id);
           console.log("Group By:", group_by);
           console.log("Other Settings:", other_settings);
+          console.log('ccccccccccccccchhhhhhhhhhhhheeeeeeeeeeeeecccccccccck')
 
           // Populate fields
           // $('.selectField').val('')
-          $('#chosen_folder_id').val(folder_id)
+          $('#chosen_folder_idd').val(folder_id)
           $('#chosen_folder').val(chosen_folder)
 
         } else {
@@ -156,7 +163,7 @@
       });
 
       // auto select data for select field
-      let dataFields = ['your grace', 'your age'];
+      let dataFields = [];
       dataFields.forEach(fieldValue_ => {
       
         $select.append(`<option value="${fieldValue_}">${fieldValue_}</option>`);
@@ -183,12 +190,13 @@
       const RASChecked = RAS.checked ? 'on' : 'off';
       console.log(RASChecked)
       console.log($('.selectField').val())
-      console.log($('#chosen_folder_id').val())
+      console.log($('#chosen_folder_idd').val())
+     
       console.log($('#chosen_folder').val())
 
       let newDataset = {
           chosen_folder: $('#chosen_folder').val(),
-          folder_id: $('#chosen_folder_id').val(),
+          folder_id: $('#chosen_folder_idd').val(),
           group_by: $('.selectField').val(),
           other_settings: {
             replyAsText: RASChecked,
@@ -197,9 +205,11 @@
 
       allArray.filesandFolder = newDataset;
 
+      console.log(allArray)
+      return
+     
       // Log the modified JSON for verification
       // console.log(JSON.stringify(allArray, null, 2));
-
 
 
       // NOW SAVE TO DATABASE
@@ -247,6 +257,80 @@
     }
 
       saveThisForm()
+    }
+    
+
+    function updateOrganizedform() {
+      
+      // NOW save the new data entry inside resulte array and ALLARRAY.
+      console.log($('#replyAsText').val())
+      RAS = $('#replyAsText').val()
+      const RASChecked = RAS.checked ? 'on' : 'off';
+      console.log(RASChecked)
+      console.log($('.selectField').val())
+      console.log($('#chosen_folder_idd').val())
+      console.log($('#chosen_folder').val())
+
+      let newDataset = {
+          chosen_folder: $('#chosen_folder').val(),
+          folder_id: $('#chosen_folder_idd').val(),
+          group_by: $('.selectField').val(),
+          other_settings: {
+            replyAsText: RASChecked,
+          },
+      };
+
+      allArray.filesandFolder = newDataset;
+
+      // Log the modified JSON for verification
+      // console.log(JSON.stringify(allArray, null, 2));
+
+      
+      // NOW SAVE TO DATABASE
+      async function updateThisForm(){
+        let settings = {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('access')}`,
+            "Content-Type": "application/json; charset=UTF-8"
+          },
+          body: JSON.stringify({json: allArray, record_id:editFormRecordId})
+        };
+
+   
+        const updateButton = document.getElementById('updateOrganized');
+
+        updateButton.innerText = 'Updating...';
+
+        try {
+          let fetchResponses = await fetch(`${backendUrl}/api/app/update`, settings);
+          let stta = await fetchResponses.status
+          let json = await fetchResponses.json();
+
+          if (json.status == 200) {
+            localStorage.setItem('upload_id', json.id)
+            setTimeout(function() {
+              updateButton.innerText = 'Update';
+            }, 1000);
+            setTimeout(function() {
+              window.location.href = `${baseUrl}/dash`; // redirect to dash, the user will find option to share or copy link address from the dashboard
+            }, 5000);
+
+
+          } else {
+            console.log('Going to Login', json.status)
+          }
+        } catch (e) {
+          console.log(e);
+        }finally {
+
+          setTimeout(function() {
+            updateButton.innerText = 'Update';
+          }, 1000);
+        }
+    }
+
+      updateThisForm()
     }
     
   </script>
