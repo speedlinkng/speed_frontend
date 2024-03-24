@@ -19,7 +19,7 @@ async function setNewPwd() {
 
       console.log(staus)
       if (staus == 301) {
-        window.variant = 'success'
+        window.variant = 'warning'
         window.noti = 'It seems your old password is incorrect'
         $('#showPasswordChangedNotifiaction').click()
       } else if (staus == 400) {

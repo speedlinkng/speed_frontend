@@ -54,7 +54,7 @@ $(document).ready(function () {
         let json = await fetchResponses.json();
 
         if (sta == 200) {
-            alert(json.data.recovery_id)
+          
           
             $('.forgot_success').show()
             $('.forgot_success').text('A password reset link has been sent to your email address')

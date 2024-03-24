@@ -129,7 +129,7 @@ const conditionSymbolMap = {
               successModal.click();
              
               // RELOAD PAGE AFTER ALL
-              location.reload();
+              // location.reload();
               return false;
             }else{
               await this.callSuccess('ERROR Happened')
@@ -312,9 +312,6 @@ const conditionSymbolMap = {
           }
         
 
-      // var blob = new Blob([text], { type: "application/pdf" });
-      // var blob = new Blob([html], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-    
         
         },
 
@@ -331,12 +328,12 @@ const conditionSymbolMap = {
                     let data = `                    
                     <div style="margin-top: 15px; margin-bottom: 15px; display: grid;font-family: 'Verdana', sans-serif;">
                       <div style="display: flex;">
-                          <span style=" margin-left: 15px; padding-left: 10px; font-weight: bold;">Q 1.</span>
+                          <span style=" margin-left: 15px; padding-left: 10px; font-weight: bold;">Question ${field.fieldCount}.</span>
                           <span style="">${field.fieldName}</span>
                       </div>
-                      <div style="display: flex; margin-top:8px;">
-                          <span style=" margin-left: 15px;padding-left: 40px; font-weight: bold;">Ans :</span>
-                          <span class="getCount${field.fieldCount}" style="">${field.fieldValue}</span>
+                      <div style="display: flex; margin-top:8px;" class="getCount${field.fieldCount}">
+                          <span style=" margin-left: 15px;padding-left: 40px; font-weight: bold;">Reply ${field.fieldCount} :</span>
+                          <span class="" style="">${field.fieldValue}</span>
                       </div>
                     </div>
                     `
@@ -351,6 +348,7 @@ const conditionSymbolMap = {
         },
 
         async createSubFolders(parentFolderId, subfolderNames) {
+          console.log('subfoldernames', subfolderNames)
           const accessToken = (document.getElementById('uploadToken')).value; // Replace with the actual access token
           // alert(accessToken)
           let currentParentFolderId = parentFolderId;
@@ -377,7 +375,7 @@ const conditionSymbolMap = {
         
               const fileData = await response.json();
               this.uploadFolderId = fileData.id
-              // console.log(`Subfolder ${subfolderValue} Id:`, fileData.id);
+              console.log(`Subfolder ${subfolderValue} Id:`, fileData.id);
         
               // Set the currentParentFolderId to the newly created subfolder for the next iteration
               currentParentFolderId = fileData.id;
@@ -401,12 +399,15 @@ const conditionSymbolMap = {
         
         async repliesToJson(_errors){
 
+          console.log(_errors)
           if ((_errors).every(element => element === false)) {
             // Do something if all elements are false
             const replies = { 
               formReplies: {}, 
             }
-            replies.formReplies[this.pageKey] = {};
+            // disturbing change is thhis pagekey
+            // replies.formReplies[this.pageKey] = {}; before
+            replies.formReplies[0] = {}; //after
           
             this.allInputFields.forEach(field => {
               
@@ -427,7 +428,8 @@ const conditionSymbolMap = {
                 // Add more mappings as needed
               };
                // Push fields into replies.formReplies[this.pageKey]
-              replies.formReplies[this.pageKey][field] = fields;
+              // replies.formReplies[this.pageKey][field] = fields; before
+              replies.formReplies[0][field] = fields;
               
             })
             
@@ -436,21 +438,40 @@ const conditionSymbolMap = {
             // call repliesToDoc to convert the results into a document of choice
             await this.repliesToDoc(replies)
 
+            console.log('done')
             // Create subfolders using this data
             // Example usage with a parent folder ID and an array of subfolder names
             const parentFolderId = Folder_id; // Replace with the actual parent folder ID
             const subfolderNames = Group_by;
+            console.log(Group_by)
+
+
+          
 
             var result = Group_by.map(fieldName => {
-              // Find the first matching fieldName in formReplies
-              var matchingField = Object.values(replies.formReplies[0]).find(field => field.fieldName === fieldName);
-            
-              // Return an object with fieldName and corresponding fieldValue
-              return {
-                fieldName: fieldName,
-                fieldValue: matchingField ? matchingField.fieldValue : null
-              };
+           
+              // Check if replies.formReplies[0] exists and is an object
+              if (replies.formReplies[0] && typeof replies.formReplies[0] === 'object') {
+              
+                  // Find the first matching fieldName in formReplies
+                  var matchingField = Object.values(replies.formReplies[0]).find(field => field.fieldName === fieldName);
+                 
+                      console.log('matching field'+ matchingField)
+                  // Return an object with fieldName and corresponding fieldValue
+                  return {
+                      fieldName: fieldName,
+                      fieldValue: matchingField ? matchingField.fieldValue : null
+                  };
+              } else {
+                
+                  // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
+                  return {
+                      fieldName: fieldName,
+                      fieldValue: null
+                  };
+              }
             });
+          
             // console.log(result);
             
             await this.createSubFolders(parentFolderId, result);
@@ -467,6 +488,7 @@ const conditionSymbolMap = {
             this.ensure = clickClass.length
             this.countDownUpload = clickClass.length // So we can know how many upload were expecting 
               if (clickClass) {
+              console.log('other one : '+this.countDownUpload)
                 for (const clickClass_ of clickClass) {
                   promises.push(new Promise(resolve => {
                     clickClass_.click();
@@ -482,15 +504,16 @@ const conditionSymbolMap = {
               
             let promis = [];
             const fielTofield = document.querySelectorAll('.fielTofield');
-        
-            if (fielTofield) {
+         
+            if (fielTofield.length > 0) {
               this.countfielTofield = fielTofield.length; // Set the initial count
               this.ii = 0;         
-              alert(`${this.ii} < ${this.countfielTofield}`) 
+             // alert(`${this.ii} < ${this.countfielTofield}`) 
               const intervalId = setInterval(() => {
                 if (this.ii < this.countfielTofield) {
+                 
                   promis.push(new Promise(resolve => {
-                    
+                    console.log('this promis: '+this.ii)
                     fielTofield[this.ii].click();
                     this.ii++;
                     resolve();
@@ -500,8 +523,11 @@ const conditionSymbolMap = {
                 }
               }, 2000); // 10 seconds interval
             } else {
+           
+              const downlaodToDoc = document.querySelector(`#downloadToDoc`);
+              downlaodToDoc.click();
               // Handle the case where the buttons are not found
-              console.error("Buttons not found.");
+              // console.error("Buttons not found.");
             }
 
             await Promise.all(promis);
@@ -517,12 +543,14 @@ const conditionSymbolMap = {
             */
          
           } else {
-          // console.log('All elements are not false.');
+           
+            console.log('All elements are not false.');
             
           }
         },
 
         async saveToDB(replies) {
+
           /*
             Get other data from the form json array stored in form.ejs html
             sheck if an image is uploading in progress, 
@@ -567,9 +595,11 @@ const conditionSymbolMap = {
               // Set SUBMIT_ID
               
               localStorage.setItem('submit_id',  res.submit_id)
-              
+             
             } else {
-              // console.log('something is wrong')
+            
+             console.log('something is wrong')
+             return
             }
     
           }

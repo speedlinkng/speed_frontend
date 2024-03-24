@@ -1,0 +1,27 @@
+    <div 
+        x-data="{notificationText: 'hello there'}" >
+
+            <div 
+                x-data="{ onShowNoti: () => { $notification({ text: window.noti, variant: window.variant, position: 'center-top', duration: window.duration }) } }" 
+                @click>
+                <p id="allNotifications" x-on:click="onShowNoti()">tomorrow</p>
+            </div>
+
+    </div>
+
+<script>
+function showNoti(variant, message, duration){
+
+        window.variant = `${variant}`
+        window.noti = `${message}`
+        window.duration  = duration     
+        let noti = document.querySelector('#allNotifications')
+        noti.click()
+        
+}
+/* how to call notification
+setTimeout(function(){
+    showNoti('primary', 'how are you', 5000)
+}, 3000)
+*/
+</script>

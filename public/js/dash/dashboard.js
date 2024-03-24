@@ -137,6 +137,142 @@ $('.app-preloader').show()
   }
 
 
+  async function downloadZip(record_id,u,f,s){
+
+
+    $.ajax({
+      url: `${backendUrl}/api/google/downloadFolderAsZip/${record_id}/${u}/${f}/${s}`,
+      type: 'GET',
+      beforeSend: function(){
+        // alert('loading')
+      },
+      success: function(response, status) {
+        // Handle successful response
+        console.log(status);
+        console.log(response);
+        createZipFile(response.token)
+
+      },
+      error: function(xhr, status, error) {
+        // Handle error
+       console.log(error)
+      }
+    });
+
+    async function createZipFile(accessToken) {
+      // Create a zip file.
+      const zip = new JSZip();
+  
+      // Get the parent folder's ID.
+      const folderId = f; // Assuming you want to start from the root folder
+      let totalBytesDownloaded = 0;
+      // Function to fetch files and subfolders recursively
+      async function fetchFilesAndSubfolders(folderId, zipFolder) {
+          const response = await axios.get(`https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents&fields=files(id,name,mimeType)`, {
+              headers: {
+                  'Authorization': `Bearer ${accessToken}`
+              },
+              responseType: 'json',
+              onDownloadProgress: function(progressEvent) {
+                // Indicate that download is in progress
+                console.log('Download in progress...');
+            }
+          });
+  
+          const items = response.data.files;
+  
+          // Fetch files and subfolders recursively
+          for (const item of items) {
+              if (item.mimeType === 'application/vnd.google-apps.folder') {
+                  // If it's a folder, create a subfolder in the zip and recursively fetch its contents
+                  const subZipFolder = zipFolder.folder(item.name);
+                  await fetchFilesAndSubfolders(item.id, subZipFolder);
+              } else {
+                  // If it's a file, add it to the current zip folder
+                  const fileResponse = await axios.get(`https://www.googleapis.com/drive/v3/files/${item.id}?alt=media`, {
+                      headers: {
+                          'Authorization': `Bearer ${accessToken}`
+                      },
+                      responseType: 'blob'
+                  });
+                  zipFolder.file(item.name, fileResponse.data);
+              }
+          }
+      }
+  
+      try {
+          // Start fetching files and subfolders recursively
+          await fetchFilesAndSubfolders(folderId, zip);
+  
+          // Save the zip file using FileSaver.js
+          const blob = await zip.generateAsync({ type: 'blob' });
+          saveAs(blob, 'folder.zip');
+          console.log('Download initiated.');
+      } catch (error) {
+          console.error('Error fetching files and subfolders:', error);
+      }
+  }
+  
+  
+  async function createZipFiles(accessToken) {
+    // Create a zip file.
+    const zip = new JSZip();
+
+    // Get the parent folder's ID.
+    const folderId = f; // Assuming you want to start from the root folder
+
+    // Function to fetch files and subfolders recursively
+    async function fetchFilesAndSubfolders(folderId, zipFolder) {
+        const response = await fetch(`https://www.googleapis.com/drive/v3/files?q='${folderId}' in parents&fields=files(id,name,mimeType)`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${accessToken}`
+            }
+        });
+
+        const data = await response.json();
+        const items = data.files;
+
+        // Fetch files and subfolders recursively
+        for (const item of items) {
+            if (item.mimeType === 'application/vnd.google-apps.folder') {
+                // If it's a folder, create a subfolder in the zip and recursively fetch its contents
+                const subZipFolder = zipFolder.folder(item.name);
+                await fetchFilesAndSubfolders(item.id, subZipFolder);
+            } else {
+                // If it's a file, add it to the current zip folder
+                const fileResponse = await fetch(`https://www.googleapis.com/drive/v3/files/${item.id}?alt=media`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                const blob = await fileResponse.blob();
+                zipFolder.file(item.name, blob);
+            }
+        }
+    }
+
+    try {
+        // Start fetching files and subfolders recursively
+        await fetchFilesAndSubfolders(folderId, zip);
+
+        // Save the zip file using FileSaver.js
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = 'folder.zip';
+        link.click();
+        console.log('Clicked');
+    } catch (error) {
+        console.error('Error fetching files and subfolders:', error);
+    }
+}
+
+  }
+
+
   function getGoogleUrlData(){
   let url = '';
 
@@ -289,7 +425,7 @@ $('.app-preloader').show()
                 </td>
                 <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                   <div class="flex -space-x-2">
-                    <div class="lowercase"> <a id="clipboardContent${rez.record_id}" href="https://speedlink/form/${((allres.otherData.page_url).replace(/\s/g, '')).toLowerCase()}">https://speedlink/form/${((allres.otherData.page_url).replace(/\s/g, '')).toLowerCase()}</a></div>
+                    <div class=""> <a id="clipboardContent${rez.record_id}" href="${baseUrl}/form/${((rez.record_id).replace(/\s/g, ''))}">${baseUrl}/form/${((rez.record_id).replace(/\s/g, ''))}</a></div>
                   </div>
                 </td>
                 <td class="whitespace-nowrap px-4 py-3 sm:px-5">
@@ -357,6 +493,12 @@ $('.app-preloader').show()
                           Download .pdf  
                           </a>
                         </li>
+                        <li onclick="downloadZip('${rez.record_id}', '${rez.user_google_id}', '${rez.folder_id}', '${rez.storage_email}')">
+                          <a href="#"
+                            class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                          Download record folder 
+                          </a>
+                        </li>
                         </ul>
                         <div class="my-1 h-px bg-slate-150 dark:bg-navy-500"></div>
                         <ul>
@@ -396,7 +538,7 @@ $('.app-preloader').show()
 
                   function viewAll(e, subfor){
                     // hide create button
-                    $('.hold_create_button').hide()
+                
                     $('.submission_for').text(subfor)
                     $('#dashoard').hide()
                     $('#submissions').show()

@@ -260,7 +260,7 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
 
                   <!--  DROPDOWN SETTINGS -->
                   <div class="dropdown-custom text-sm DROPDOWN_SETTING${count}" x-show="$store.selectedOption${count} === 'Dropdown'">
-                    <label class="s items-center grid  grid-cols-9 ">
+                    <label class=" items-center grid  grid-cols-9 ">
                       <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                       </svg>
@@ -356,7 +356,7 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
                         <option value="xml">XML Document (.xml)</option>
                         <option value="svg">SVG Image (.svg)</option>
                       </select>
-                      <input name="File Types" :value="selectFileType${count}" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
+                      <input name="File Types" :value="selectFileType${count}" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
 
                     </label><br>
 

@@ -8,29 +8,29 @@
         </div>
         <div  class="flex space-x-1 sm:space-x-6 justify-end w-full text-base font-medium text-primary ">
 
-          <button onclick="downloadWord()" x-tooltip.placement.bottom="'Download as word document'"  class=" hidden sm:block btn h-12 w-12 rounded-full p-2.5 font-medium text-info bg-slate-150 hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
+          <button onclick="downloadWord()" x-tooltip.placement.bottom="'Download as word document'"  class=" hidden sm:block btn h-12 w-12 rounded-full p-2.5 font-medium text-info card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
             <div class=" flex justify-center">
               <img src="../images/custom/Group 19.png" >
             </div>
           </button>
-          <button onclick="downloadPDF()" x-tooltip.placement.bottom="'Download as pdf'" class="hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium text-white bg-slate-150 hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90">
+          <button onclick="downloadPDF()" x-tooltip.placement.bottom="'Download as pdf'" class="hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90">
             <div class=" flex justify-center">
               <img src="../images/custom/Group 18.png" >
             </div>
           </button>
-          <button onclick="downloadExcel()" x-tooltip.placement.bottom="'Donwload as excell'" class=" hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium text-info bg-slate-150 hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
+          <button onclick="downloadExcel()" x-tooltip.placement.bottom="'Donwload as excell'" class=" hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
             <div class=" flex justify-center">
               <img src="../images/custom/Group 17.png" >
             </div>
           </button>
-          <button onclick="downloadCSV()" x-tooltip.placement.bottom="'Download as csv'" class=" hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium text-info bg-slate-150 hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
+          <button onclick="downloadCSV()" x-tooltip.placement.bottom="'Download as csv'" class=" hidden sm:block justify-center items-center btn h-12 w-12 rounded-full p-2.5 font-medium card shadow-sm  hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
             <div class=" flex justify-center">
               <img src="../images/custom/Group 16.png" >
             </div>
           </button>
 
 
-          <div class="rounded-full w-9 h-9 bg-white border flex justify-center items-center">
+          <div class="rounded-full w-12 h-12 bg-white border flex justify-center items-center">
             <div x-data="usePopper({placement:'bottom-end',offset:4})" @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
               <button x-ref="popperRef" @click="isShowPopper = !isShowPopper" class=" btn h-9 w-9 rounded-full bg-info/10 p-0 font-medium text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
@@ -43,19 +43,24 @@
                     <li>
                       <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">Download .docx</a>
                     </li>
-                    <li>
+                    <li  onclick="downloadExcel()">
                       <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
                         Download .xls
                       </a>
                     </li>
-                    <li>
+                    <li onclick="downloadCSV()">
                       <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
                         Download .csv
                       </a>
                     </li>
-                    <li>
+                    <li onclick="downloadPDF()">
                       <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
                         Download .pdf
+                      </a>
+                    </li>
+                    <li onclick="downloadWord()">
+                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                        Download .doc
                       </a>
                     </li>
                   </ul>
@@ -98,7 +103,7 @@
                   files
                 </th>
                 <th style="min-width:250px;" class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  File Links
+                  Submitted At
                 </th>
                 <th class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
                   Status

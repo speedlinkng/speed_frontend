@@ -16,7 +16,7 @@
                   <span>Destination Folder</span>
                   <span class="relative mt-1.5 flex">
                     <input class="form-input peer w-full hidden rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="select" id="select_folder" value="testing" type="text" />
-                    <input id="chosen_folder_idd" style="display: block;" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
+                    <input id="chosen_folder_idd" class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
 
                     <input id="chosen_folder" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
                     <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
@@ -94,7 +94,8 @@
   <script>
 
     function setOrganizedForm(){
-      console.log(allArray.values)
+     
+      console.log('all array values log: ', allArray.values)
 
    
       
@@ -102,29 +103,28 @@
       if (allArray.values && typeof allArray.values === "object") {
         // Check if 'filesandFolder' exists inside 'values'
         if ("filesandFolder" in allArray.values) {
-          // 'afilesandFolder' exists, retrieve information
-          let { chosen_folder, folder_id, group_by, other_settings } =
-          allArray.values.filesandFolder;
-      
-          // Do something with the retrieved information
-          console.log("Chosen Folder:", chosen_folder);
-          console.log("Folder ID:", folder_id);
-          console.log("Group By:", group_by);
-          console.log("Other Settings:", other_settings);
-          console.log('ccccccccccccccchhhhhhhhhhhhheeeeeeeeeeeeecccccccccck')
+            // 'afilesandFolder' exists, retrieve information
+            let { chosen_folder, folder_id, group_by, other_settings } =
+            allArray.values.filesandFolder;
+        
+            // Do something with the retrieved information
+         //   console.log("Chosen Folder:", chosen_folder);
+           // console.log("Folder ID:", folder_id);
+            //console.log("Group By:", group_by);
+            //console.log("Other Settings:", other_settings);
+            //console.log('ccccccccccccccchhhhhhhhhhhhheeeeeeeeeeeeecccccccccck')
 
-          // Populate fields
-          // $('.selectField').val('')
-          $('#chosen_folder_idd').val(folder_id)
-          $('#chosen_folder').val(chosen_folder)
-
+            // Populate fields
+            // $('.selectField').val('')
+            $('#chosen_folder_idd').val(folder_id)
+            $('#chosen_folder').val(chosen_folder)
         } else {
           $('.gfb').html('');
           // 'afilesandFolder' does not exist, perform some action
           console.log("filesandFolder does not exist. Performing some action...");
         }
       } else {
-        console.error("'values' does not exist or is not an object.");
+        console.error("values does not exist or is not an object.");
       }
 
    
@@ -183,7 +183,7 @@
     }
 
     function saveOrganizedform() {
-      
+    
       // NOW save the new data entry inside resulte array and ALLARRAY.
       console.log($('#replyAsText').val())
       RAS = $('#replyAsText').val()
@@ -206,7 +206,7 @@
       allArray.filesandFolder = newDataset;
 
       console.log(allArray)
-      return
+      
      
       // Log the modified JSON for verification
       // console.log(JSON.stringify(allArray, null, 2));
@@ -227,6 +227,8 @@
         const saveButton = document.getElementById('saveOrganized');
 
           saveButton.innerText = 'Saving...';
+          saveButton.disabled = true;
+          saveButton.classList.add('cursor-wait');
 
         try {
           let fetchResponses = await fetch(`${backendUrl}/api/app/create`, settings);
@@ -234,9 +236,13 @@
           let json = await fetchResponses.json();
 
           if (json.status == 200) {
+           
             localStorage.setItem('upload_id', json.id)
+            showNoti('success', 'Your form request has been submitted successfully', 4000)
             setTimeout(function() {
               saveButton.innerText = 'Save';
+              saveButton.disabled = false;
+              saveButton.classList.remove('cursor-wait');
             }, 1000);
             setTimeout(function() {
               window.location.href = `${baseUrl}/dash`; // redirect to dash, the user will find option to share or copy link address from the dashboard
@@ -247,9 +253,10 @@
             console.log('Going to Login', json.status)
           }
         } catch (e) {
+        
           console.log(e);
         }finally {
-
+       
           setTimeout(function() {
             saveButton.innerText = 'Save';
           }, 1000);
@@ -261,7 +268,7 @@
     
 
     function updateOrganizedform() {
-      
+    
       // NOW save the new data entry inside resulte array and ALLARRAY.
       console.log($('#replyAsText').val())
       RAS = $('#replyAsText').val()
@@ -309,6 +316,7 @@
 
           if (json.status == 200) {
             localStorage.setItem('upload_id', json.id)
+            showNoti('success', 'Your form request has been updated successfully', 4000)
             setTimeout(function() {
               updateButton.innerText = 'Update';
             }, 1000);
@@ -323,7 +331,6 @@
         } catch (e) {
           console.log(e);
         }finally {
-
           setTimeout(function() {
             updateButton.innerText = 'Update';
           }, 1000);

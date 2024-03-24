@@ -117,7 +117,7 @@ console.log(eachPageDivs.length)
     // Increment the resultCount and set the data-count attribute
     let _count = ++resultCount;
 
-   alert(_count)
+  // alert(_count)
 
     const addpage = 1;
 
@@ -201,7 +201,7 @@ console.log(eachPageDivs.length)
   }
 
   function deletepage(e) {
-    alert(e)
+   // alert(e)
         var fieldToDelte = $(`.this_page${e}`)
         fieldToDelte.remove()
   }
@@ -478,13 +478,13 @@ console.log(eachPageDivs.length)
 
   else{
       let storeIns = 0
-      // This else statement handles when the form contains more than one paes
+      // This else statement handles when the form contains more than one pages
       // EACH FORMCLASS Represents each PAGE
       formClassElements.forEach((formClassElement, pageInd) => {
         let ins = 0
         // Try to set pageind to 0 or a number
         // such that a continuous iteration will be enabled ie: 1, 2, 3, 4, 5
-        let pageIndex
+        let pageIndex = 0
         if(pageInd > 0){
            pageIndex = pageInd + 1
         }else{
@@ -529,13 +529,16 @@ console.log(eachPageDivs.length)
           we have to kep track of the previous value of $ins
           this is to enable us increment after the page loops
           */
-       
-          if(pageIndex > 1){
+          
+          if(pageIndex < 1){
+            console.log('truetrue')
+           
             ins = storeIns + index + 1 
 
             console.log(`${storeIns} + 1 + ${index}`)
             console.log(ins)
           }else{
+            console.log('falsefalse')
             console.log(`${index} + 1 + ${pageIndex}`)
             ins = index + 1 + pageIndex
             storeIns = ins
@@ -627,17 +630,20 @@ console.log(eachPageDivs.length)
             
           }  
 
+          console.log('timeing....')
+          console.log(t2Input)
+
           settingInputs.forEach((input, index) => {
             const inputName = input.getAttribute('name');
             let inputValue = ''
             if(input.getAttribute('type') == 'checkbox'){
               const isChecked = input.checked;
                inputValue = isChecked ? 'on' : 'off';
-               console.log(input)
-               console.log('sssssssssssssssssssssssssssssssss')
-               console.log('index'+index)
-               console.log(settingsClassMap[selectOptionValue]+ins)
-               console.log('inputValue'+inputValue)
+               //console.log(input)
+               //console.log('sssssssssssssssssssssssssssssssss')
+               //console.log('index'+index)
+               //console.log(settingsClassMap[selectOptionValue]+ins)
+               //console.log('inputValue'+inputValue)
             }else{
                inputValue =  input.value
                console.log('inputValue'+inputValue)

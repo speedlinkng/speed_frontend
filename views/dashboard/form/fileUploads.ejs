@@ -8,7 +8,7 @@
 
           <template x-for="(set, index) in setting">
             <input x-init="fileSettings[keyComb] = fileSettings[keyComb] || []; fileSettings[keyComb].push({ [set.inputName]: set.inputValue })"
-            class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
+            class="hidden" x-bind:class="'FU_'+(set.inputName ? set.inputName.replace(/\s/g, '').replace(/[()]/g, '') : '')" :value="set.inputValue" />
           </template>
 
              <!-- CONDITIONS -->
@@ -71,20 +71,20 @@
             <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
 
             <input  type="file" class="files" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
-            <!-- This is a trigger button click to start uploading this particular file to google drive -->
-            <button :id="'FileButtonClickfield'+keyComb"  id="" class="uploadToDrive hidden" @click="uploadToDrive()">
-              Upload to Drive
-            </button>    
-            <button  id="" class="fielTofield hidden" @click="fielTofield(field.fieldCount)">
-              file to field
-            </button>        
+              <!-- This is a trigger button click to start uploading this particular file to google drive -->
+              <button :id="'FileButtonClickfield'+keyComb"  id="" class="uploadToDrive " @click="uploadToDrive()">
+                Upload to Drive
+              </button>  
+       
+              <button  id="" class="fielTofield" @click="fielTofield(field.fieldCount)">
+                file to field
+              </button>        
           </div>  
         </div>
   
         <!-- Store the name of the file uploaded here -->
-        <input  x-bind:data-pointId="field.fieldCount"  x-bind:class="'field'+keyComb" value="file" class="" /> 
+        <input  x-bind:data-pointId="field.fieldCount"  x-bind:class="'field'+keyComb" value="" class="hidden" /> 
   
-
       </div>
     </section>
 
@@ -124,7 +124,7 @@
           maxFileSize: maxFile + 'MB', // Maximum file size allowed
           allowReplace: true,
           required: true, // Require at least one file to be added (true/false)
-          styleFilePanelMaxHeight: '60px', // Maximum height of the file panel
+          styleFilePanelMaxHeight: '70px', // Maximum height of the file panel
           acceptedFileTypes: ['image/*', 'application/pdf'], // Array of accepted file types
           labelIdle: drop_zone + ' or <span class="filepond--label-action"> Browse </span>', // Custom label when no files are selected
           // Configuration options go here 
@@ -159,9 +159,11 @@
     async fielTofield(fieldCount){
    
       var uploadFolderId_ = this.uploadFolderId
+      console.log(fieldCount)
+      console.log('uploadFolderId is', uploadFolderId_)
       const fd = new FormData();
       const uploadedFiles = this.pond.getFiles();
-      
+      console.log(uploadedFiles)
 
       if(uploadedFiles.length > 0){
         for (var a = 0; a < this.fileLabel.length; a++) { 
@@ -173,6 +175,8 @@
             name:uploadedFiles[a].source.name
           }
           this.fileSourceName.push(data)
+          console.log('{}{{}{}{}{}{}{}{}}')
+          console.log(this.fileSourceName)
         }
       }else{
         return
@@ -635,13 +639,16 @@
            // alert('it is greater than 0')
             let firstArray = this.fileSourceName
             let secondArray = this.allWebDownloadLink
-      
+      console.log('^^^^^^^^^^^^^^^^^^%%%%%%%%%%%%%%%%%%')
+      console.log(firstArray)
+      console.log(secondArray)
               // Iterate through the second array and add 'label' property from the first array
               secondArray.forEach(secondItem => {
                 const matchingFirstItem = firstArray.find(firstItem =>
                   firstItem.name === secondItem.name && firstItem.time === secondItem.time
                 );
       
+                console.log(matchingFirstItem)
                 if (matchingFirstItem) {
                   secondItem.label = matchingFirstItem.label;
                   secondItem.fieldCount = matchingFirstItem.fieldCount;
@@ -654,7 +661,8 @@
 
 
               function _saveRepliesToDrive() {
-                /* this handles clicking of the downloadToDOc button 
+                /* 
+                  this handles clicking of the downloadToDOc button 
                   its done here because it cant be accessed outside of this function from the holding function
                 */
                 console.log('saveRepliesToDrive')
@@ -665,7 +673,9 @@
 
               async function processLinks() {
                 secondArray.forEach(secondItem => {
+  
                   let fileValueLink = document.querySelector(`.getCount${secondItem.fieldCount}`)
+                  console.log(fileValueLink)
                   if(fileValueLink){
                     // Create a new anchor element
                     const anchorElement = document.createElement('a');
@@ -676,11 +686,10 @@
                     fileValueLink.appendChild(anchorElement);
                     // Create a <br> element
                     const lineBreak = document.createElement('br');
-
                     // Append the <br> element after the anchor element
                     fileValueLink.appendChild(lineBreak);
                   }else{
-                    
+                  
                   }
                 }) // END FOREACH
 

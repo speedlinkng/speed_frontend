@@ -2,7 +2,6 @@
 
 var allUsers; // this will be available everywhere within admin.ejs
 async function getAllUsers() {
-
     let settings = {
       method: 'GET',
       headers: {
@@ -15,7 +14,6 @@ async function getAllUsers() {
       let res = await getAllUsers.json();
       let status = await getAllUsers.status;
         if(status == 400 && res.message == 'invalid token'){
-            console.log('invalid')
             window.location.href = `${baseUrl}/auth`
         }
 
@@ -24,97 +22,26 @@ async function getAllUsers() {
             window.location.href = `${baseUrl}/auth`
         }
 
-        console.log('<<<>>>')
-        console.log(res.data)
-        console.log('<<<>>>')
-        console.log(res.sub_data)
-
-
         if (res.sub_data != '') {
-            let all = res.sub_data
+            let all = (res.sub_data)[0].user
+            allUsers = all
             // let records = res.sub_data.
             let id = 1
             $('#all_users').html('') // EMPTY THE HTML DISPLAY HOLDER
             
-            all.forEach(user => {
-              console.log(user.user)
-              console.log(user.records)
-
-              allUsers = user.user
-              let usr = user.user
-              let rec = user.records
-              usr.forEach(res => {  
-           
-                    $('#all_users').append(
+            all.forEach(res => {
+          
+            $('#all_users').append(
               /*html*/
                     `
                     <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                     <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                         ${id++}
                     </td>
-                    <td
-                        x-data="usePopper({
-                            offset: 12,
-                            placement: 'right-start',
-                            modifiers: [
-                            {name: 'flip', options: {fallbackPlacements: ['bottom','top']}},
-                            {name: 'preventOverflow', options: {padding: 10}}
-                            ]
-                        })"
-                       
-                        x-ref="popperRef"
-                        @mouseover="isShowPopper = !isShowPopper"
-                        @mouseover.outside="if(isShowPopper) isShowPopper = false"
-                         class="whitespace-nowrap px-4 py-3 sm:px-5" x-data="{showRecord:false}">
-                    <div 
-                        x-ref="popperRef"
-                        @mouseover="isShowPopper = !isShowPopper"
-                        class="flex items-center space-x-4">
-
-                        <span 
-                  
-                        class="font-medium text-slate-700 dark:text-navy-100">
-                        ${res.firstName} ${res.lastName} 
-                        </span>
-                        <div x-ref="popperRoot" class="popper-root " :class="isShowPopper && 'show'" >
-                        <div class="popper-box max-w-[700px] w-fits">
-                        <div class="rounded-md border border-slate-150 bg-white py-3 px-4 dark:border-navy-600 dark:bg-navy-700" >
-                        <div class="is-scrollbar-hidden min-w-full h-60 overflow-x-auto">
-                            <table class="w-full text-left">
-                                <thead>
-                                    <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                                        <th
-                                            class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-yellow-800 dark:text-navy-100 lg:px-5">
-                                            #
-                                        </th>
-                                        <th
-                                            class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
-                                            Record Name
-                                        </th>
-                                        <th
-                                            class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
-                                            Size
-                                        </th>
-                                        <th
-                                            class="whitespace-nowrap px-3 py-3 font-semibold uppercase text-slate-800 dark:text-navy-100 lg:px-5">
-                                            Status
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                <tbody class="show_record">
-
-                                </tbody>
-                            </table>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-
-    
-
-                      
-                    </div>
+                    <td> 
+                        <span  class="font-medium text-slate-700 dark:text-navy-100">
+                            ${res.firstname} ${res.lastname} 
+                        </span>                      
                     </td>
                     <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                         ${res.email}
@@ -122,9 +49,7 @@ async function getAllUsers() {
                     <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
                         ${res.number}
                     </td>
-                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                        ${res.count_uploads}
-                    </div>
+              
                     </td>
                     <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                         ${res.plan}
@@ -167,40 +92,48 @@ async function getAllUsers() {
                                 <p>
                                     Edit Allowable user details, this feature is available only for SuperAdmins
                                 </p>
-                                <div class="mt-4 space-y-4">
+                                <div class="mt-4 space-y-4" x-data="{debounceStatus:'',debouncePlan:'',debounceFirstname:'',debounceLastname:''}">
                                     <label class="block">
                                         <span>Change Status </span>
-                                        <select id="edit_status${res.id}"
+                                        <select 
+                                            x-model.debounce="debounceStatus"
                                             class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                                             <option value="Active">Active</option>
                                             <option value="Suspended">Suspended</option>
                                             <option value="Deleted">Deleted</option>
                                             <option value="Denied">Denied</option>
                                         </select>
+                                        <div id="edit_status${res.id}" class="" x-text="debounceStatus">result</div>
                                     </label>
                 
                                     <label class="block">
                                         <span>Change Plan </span>
-                                        <select id="edit_plan${res.id}"
+                                        <select 
+                                            x-model.debounce="debouncePlan"
                                             class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                                             <option value="1">1 (Free)</option>
                                             <option value="2">2 (Paid)</option>
                                             <option value="3">3 (Pro)</option>
                 
                                         </select>
+                                        <input id="edit_plan${res.id}" class="" :value="debouncePlan" />
                                     </label>
                 
                                     <label class="block">
                                         <span>Change firstName</span>
-                                        <input
+                                        <input 
+                                            x-model.debounce="debounceFirstname"
                                             class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                            placeholder="Name" type="text" id="edit_firstName${res.id}" />
+                                            placeholder="Name" type="text"/>
+                                        <div class="" id="edit_firstName${res.id}" x-text="debounceFirstname"></div>
                                     </label>
                                     <label class="block">
                                         <span>Change lastName</span>
-                                        <input
+                                        <input 
+                                            x-model.debounce="debounceLastname"
                                             class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                            placeholder="Name" type="text" id="edit_lastName${res.id}" />
+                                            placeholder="Name" type="text" />
+                                        <div class="" id="edit_lastName${res.id}" x-text="debounceLastname"></div>
                                     </label>
                 
                                     <div class="space-x-2 text-right">
@@ -228,16 +161,17 @@ async function getAllUsers() {
                 <script>
                 async function update(a_id) {
                 let id = 1
-                let e_status = $('#edit_status'+a_id).val()
-                let e_lastname = $('#edit_lastName'+a_id).val()
-                let e_firstname = $('#edit_firstName'+a_id).val()
+                let e_status = $('#edit_status'+a_id).text()
+                let e_lastname = $('#edit_lastName'+a_id).text()
+                let e_firstname = $('#edit_firstName'+a_id).text()
                 let e_plan = $('#edit_plan'+a_id).val()
                 
+                console.log(a_id)
                 console.log(e_status)
                 console.log(e_lastname)
                 console.log(e_firstname)
                 console.log(e_plan)
-                
+            
                     let settings = {
                         method: 'PATCH',
                         headers: {
@@ -274,56 +208,7 @@ async function getAllUsers() {
         
                     )
 
-                    rec.forEach(rec => {
-                        let rec_status = rec.status
-                        if(rec_status == 'completed'){
-                            rec_status = 
-                            `
-                            <div
-                                class="badge space-x-2.5 rounded-full bg-success/10 text-success dark:bg-success-light/15 dark:text-success capitalize">
-                                <div class="h-2 w-2 rounded-full bg-current"></div>
-                                <span>${rec.status}</span>
-                            </div>
-                            
-                            `
-                        }else if(rec_status == 'expired'){
-                           rec_status= `
-                            <div
-                                class="badge space-x-2.5 rounded-full bg-error/10 text-error dark:bg-error-light/15 dark:text-error capitalize">
-                                <div class="h-2 w-2 rounded-full bg-current"></div>
-                                <span>${rec.status}</span>
-                            </div>
-                            `
-                        }else{
-                          rec_status=  `
-                            <div
-                                class="badge space-x-2.5 rounded-full bg-warning/10 text-warning dark:bg-warning-light/15 dark:text-warning capitalize">
-                                <div class="h-2 w-2 rounded-full bg-current"></div>
-                                <span>${rec.status}</span>
-                            </div>
-                            `
-                        }
-                        $('.show_record').append(
-                            `
-                                        
-                                <tr class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">${id++}</td>
-                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                        ${rec.record_name}
-                                    </td>
-                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">${rec.file_size}</td>
-                                    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                                       ${rec_status}
-                                    </td>
-                                </tr>
-                
-                            `
-                        )
-                    })
-
-
-  
-            })
+     
         })
   
           }else{

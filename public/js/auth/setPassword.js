@@ -3,7 +3,7 @@ $(document).ready(function () {
 
 
     async function change_pwd(e) {
-    alert( $('#user_id').val())
+    
       let settings = {
         method: 'POST',
         headers: {

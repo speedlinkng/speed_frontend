@@ -1,83 +1,85 @@
-<div class="card">
-  <!-- Notification -->
-  <div id="onPasswordChanged" @click="$notification({text:'Password changed successfully',variant:'info',duration:3000})"></div>
-  <div class="mt-6 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5 ">
-
-    <div class="card relative h-fit w-full p-4 shadow-sm">
-      <div x-data="accordionItem('item-1')" class="flex flex-col">
-        <span class="text-sm px-2 text-gray-400 dark:text-navy-100">Default Drive</span>
-        <div class="mt-1.5 flex relative w-full justify-between px-2">
-          <div class="left-0 text-slate-800 dark:text-navy-100 drive_mail">drrowly99@gmail.com</div>
-          <div onclick="changeDriveMail()" class="cursor-pointer right-0 mt-[-5px] text-primary text-xs">Change</div>
-        </div>
-
-      </div>
-    </div>
-    <br>
-
-    <div class="card relative h-fit w-full p-4 shadow-sm " >
-      <div x-data="accordionItem('item-1')" class="flex flex-col">
-        <div @click="expanded = !expanded" class="cursor-pointer mt-1 flex relative w-full justify-between px-2">
-          <div class="left-0 text-slate-800 dark:text-navy-100">
-            <span class="text-sm px-2 text-gray-400 dark:text-navy-100">Change User password</span>
+<div>
+  <div class="card">
+    <!-- Notification -->
+    <div id="onPasswordChanged" @click="$notification({text:'Password changed successfully',variant:'info',duration:3000})"></div>
+    <div class="mt-6 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5 ">
+  
+      <div class="card relative h-fit w-full p-4 shadow-sm">
+        <div x-data="accordionItem('item-1')" class="flex flex-col">
+          <span class="text-sm px-2 text-gray-400 dark:text-navy-100">Default Drive</span>
+          <div class="mt-1.5 flex relative w-full justify-between px-2">
+            <div class="left-0 text-slate-800 dark:text-navy-100 drive_mail">drrowly99@gmail.com</div>
+            <div onclick="changeDriveMail()" class="cursor-pointer right-0 mt-[-5px] text-primary text-xs">Change</div>
           </div>
-          <div @click="expanded = !expanded" class="cursor-pointer right-0 mt-1 text-primary text-xs">Change</div>
+  
         </div>
-        <div class="pl-2 mt-3">
-          <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
-            <div class="flex flex-col font-normal">
-              <span class="text-sm text-slate-800 font-light">First search for user's email, before changing their passwords</span>
-
-              <div class="mt-2">
-                <span>User Email</span>
-                <label class="relative flex mt-1">
-                  <input oninput="checkUserPresent()" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-9 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" id="searchEmail" placeholder="Search Email..." type="text" />
-                  <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 transition-colors duration-200" fill="currentColor" viewbox="0 0 24 24">
-                      <path d="M3.316 13.781l.73-.171-.73.171zm0-5.457l.73.171-.73-.171zm15.473 0l.73-.171-.73.171zm0 5.457l.73.171-.73-.171zm-5.008 5.008l-.171-.73.171.73zm-5.457 0l-.171.73.171-.73zm0-15.473l-.171-.73.171.73zm5.457 0l.171-.73-.171.73zM20.47 21.53a.75.75 0 101.06-1.06l-1.06 1.06zM4.046 13.61a11.198 11.198 0 010-5.115l-1.46-.342a12.698 12.698 0 000 5.8l1.46-.343zm14.013-5.115a11.196 11.196 0 010 5.115l1.46.342a12.698 12.698 0 000-5.8l-1.46.343zm-4.45 9.564a11.196 11.196 0 01-5.114 0l-.342 1.46c1.907.448 3.892.448 5.8 0l-.343-1.46zM8.496 4.046a11.198 11.198 0 015.115 0l.342-1.46a12.698 12.698 0 00-5.8 0l.343 1.46zm0 14.013a5.97 5.97 0 01-4.45-4.45l-1.46.343a7.47 7.47 0 005.568 5.568l.342-1.46zm5.457 1.46a7.47 7.47 0 005.568-5.567l-1.46-.342a5.97 5.97 0 01-4.45 4.45l.342 1.46zM13.61 4.046a5.97 5.97 0 014.45 4.45l1.46-.343a7.47 7.47 0 00-5.568-5.567l-.342 1.46zm-5.457-1.46a7.47 7.47 0 00-5.567 5.567l1.46.342a5.97 5.97 0 014.45-4.45l-.343-1.46zm8.652 15.28l3.665 3.664 1.06-1.06-3.665-3.665-1.06 1.06z"></path>
-                    </svg>
-                  </div>
-                  <div class="pointer-events-none absolute right-0 flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                    <div class="hidden spinner h-5 w-5 animate-spin rounded-full border-2 border-slate-150 border-r-slate-400 dark:border-navy-500 dark:border-r-navy-300"></div>
-                  </div>
-                </label>
-              </div>
-              <div class="mt-2 hidden reveal_profile">
-                <div class="flex items-center space-x-4 border rounded-lg p-2">
-                  <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-warning/10 text-warning dark:bg-warning dark:text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
-                      <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p id="disp_name" class="font-medium text-slate-700 dark:text-navy-100">
-                      John Doe
-                    </p>
-                    <p id="disp_number" class="mt-0.5 text-xs text-slate-400 dark:text-navy-300">
-                      09074872738
-                    </p>
+      </div>
+      <br>
+  
+      <div class="card relative h-fit w-full p-4 shadow-sm " >
+        <div x-data="accordionItem('item-1')" class="flex flex-col">
+          <div @click="expanded = !expanded" class="cursor-pointer mt-1 flex relative w-full justify-between px-2">
+            <div class="left-0 text-slate-800 dark:text-navy-100">
+              <span class="text-sm px-2 text-gray-400 dark:text-navy-100">Change User password</span>
+            </div>
+            <div @click="expanded = !expanded" class="cursor-pointer right-0 mt-1 text-primary text-xs">Change</div>
+          </div>
+          <div class="pl-2 mt-3">
+            <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
+              <div class="flex flex-col font-normal">
+                <span class="text-sm text-slate-800 font-light">First search for user's email, before changing their passwords</span>
+  
+                <div class="mt-2">
+                  <span>User Email</span>
+                  <label class="relative flex mt-1">
+                    <input oninput="checkUserPresent()" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-9 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" id="searchEmail" placeholder="Search Email..." type="text" />
+                    <div class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 transition-colors duration-200" fill="currentColor" viewbox="0 0 24 24">
+                        <path d="M3.316 13.781l.73-.171-.73.171zm0-5.457l.73.171-.73-.171zm15.473 0l.73-.171-.73.171zm0 5.457l.73.171-.73-.171zm-5.008 5.008l-.171-.73.171.73zm-5.457 0l-.171.73.171-.73zm0-15.473l-.171-.73.171.73zm5.457 0l.171-.73-.171.73zM20.47 21.53a.75.75 0 101.06-1.06l-1.06 1.06zM4.046 13.61a11.198 11.198 0 010-5.115l-1.46-.342a12.698 12.698 0 000 5.8l1.46-.343zm14.013-5.115a11.196 11.196 0 010 5.115l1.46.342a12.698 12.698 0 000-5.8l-1.46.343zm-4.45 9.564a11.196 11.196 0 01-5.114 0l-.342 1.46c1.907.448 3.892.448 5.8 0l-.343-1.46zM8.496 4.046a11.198 11.198 0 015.115 0l.342-1.46a12.698 12.698 0 00-5.8 0l.343 1.46zm0 14.013a5.97 5.97 0 01-4.45-4.45l-1.46.343a7.47 7.47 0 005.568 5.568l.342-1.46zm5.457 1.46a7.47 7.47 0 005.568-5.567l-1.46-.342a5.97 5.97 0 01-4.45 4.45l.342 1.46zM13.61 4.046a5.97 5.97 0 014.45 4.45l1.46-.343a7.47 7.47 0 00-5.568-5.567l-.342 1.46zm-5.457-1.46a7.47 7.47 0 00-5.567 5.567l1.46.342a5.97 5.97 0 014.45-4.45l-.343-1.46zm8.652 15.28l3.665 3.664 1.06-1.06-3.665-3.665-1.06 1.06z"></path>
+                      </svg>
+                    </div>
+                    <div class="pointer-events-none absolute right-0 flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
+                      <div class="hidden spinner h-5 w-5 animate-spin rounded-full border-2 border-slate-150 border-r-slate-400 dark:border-navy-500 dark:border-r-navy-300"></div>
+                    </div>
+                  </label>
+                </div>
+                <div class="mt-2 hidden reveal_profile">
+                  <div class="flex items-center space-x-4 border rounded-lg p-2">
+                    <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-warning/10 text-warning dark:bg-warning dark:text-white">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5.5 w-5.5" viewbox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p id="disp_name" class="font-medium text-slate-700 dark:text-navy-100">
+                        John Doe
+                      </p>
+                      <p id="disp_number" class="mt-0.5 text-xs text-slate-400 dark:text-navy-300">
+                        09074872738
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <label class=" mt-2 change_user_Password hidden">
+                  <span>Enter New Password</span>
+                  <input class="form-input w-full mt-1 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" id="change_user_password_val" placeholder="Enter your new name" type="text" />
+                  <span class="text-tiny text-blue-800 font-light">Always encourage users to change their passwords after setting it for them</span>
+                </label>
+  
+                <button onclick="updatePwd()"  id="update_pwd_button" class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                  Update
+                </button>
               </div>
-              <label class=" mt-2 change_user_Password hidden">
-                <span>Enter New Password</span>
-                <input class="form-input w-full mt-1 rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" id="change_user_password_val" placeholder="Enter your new name" type="text" />
-                <span class="text-tiny text-blue-800 font-light">Always encourage users to change their passwords after setting it for them</span>
-              </label>
-
-              <button onclick="updatePwd()"  id="update_pwd_button" class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                Update
-              </button>
             </div>
           </div>
+  
         </div>
-
       </div>
+  
+  
     </div>
-
-
+  
   </div>
-
 </div>
 <script>
   setTimeout(function() {

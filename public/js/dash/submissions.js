@@ -58,21 +58,41 @@ function downloadPDF() {
 }
 
 
+async function downloadZip_sub(){
+  let  user_google_id = 12
+  $.ajax({
+    url: `${backendUrl}/api/google/downloadFolderAsZip/${user_google_id}/${folder_id}/${storage_email}`,
+    type: 'GET',
+    beforeSend: function(){
+      alert('loading')
+    },
+    success: function(response) {
+      // Handle successful response
+      $('#output').html(response);
+    },
+    error: function(xhr, status, error) {
+      // Handle error
+      $('#output').html('Error: ' + status);
+    }
+  });
+}
+
 async function backToDashboard() {
 
-    $('.hold_create_button').show()
+   
     console.log($('.hold_create_button'))
     // $('.submission_for').text(subfor)
     $('#dashoard').show()
     $('#submissions').hide()
+    $('#submissionsTable').show()
   }
   // get submitted records
   async function getSubmittedRecords(record_id) {
 
   let settings = {
-  method: 'GET',
-  headers: {
-  "Authorization": `Bearer ${localStorage.getItem('access')}`,
+    method: 'GET',
+    headers: {
+    "Authorization": `Bearer ${localStorage.getItem('access')}`,
   }
   };
   try {
@@ -117,14 +137,19 @@ async function backToDashboard() {
     console.log(submit_data)
     console.log(file_urls)
     if(submit_data != null){
-
+    console.log(rez.submitted_data)
+      let matchingField
       const targetFieldName = "Your Name";
       const formReplies = rez.submitted_data.formReplies['0'];
 
       // Check if targetFieldName exists, case-insensitive
-      const matchingField = Object.values(formReplies).find(field => {
-      return field.fieldName.toLowerCase() === targetFieldName.toLowerCase();
-      });
+      if (formReplies && typeof formReplies === 'object') {
+         matchingField = Object.values(formReplies).find(field => {
+          return field.fieldName.toLowerCase() === targetFieldName.toLowerCase();
+        });
+      
+        console.log(matchingField); // { fieldName: 'firstName', value: 'John' }
+      }
 
       if (matchingField) {
       submittedBy = matchingField.fieldValue;
@@ -208,15 +233,12 @@ async function backToDashboard() {
 
   `
   )
-  async function sound(){
-    alert('sund')
-  }
 
   })
 
   }else{
-  $('.show_submissions_table').html('') // set diaplay to empty
-  console.log($('.tReq').text())
+  $('#submissionsTable').hide() // set diaplay to empty
+ 
   $('.show_submissions_table').append(
   /*html*/
   `

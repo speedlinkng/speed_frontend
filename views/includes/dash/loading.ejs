@@ -1,0 +1,24 @@
+<!-- <div id="loadspinner1" class="hidden">
+    <template x-teleport="#x-teleport-target">
+        <div class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModalLoading" role="dialog" @keydown.window.escape="showModalLoading = false">
+        <div class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300" @click="showModalLoading = false" x-show="showModalLoading" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        <div class="spinner is-grow relative h-28 w-28">
+            <span
+              class="absolute inline-block h-full w-full rounded-full bg-white opacity-75 dark:bg-accent"
+            ></span>
+            <span
+              class="absolute inline-block h-full w-full rounded-full bg-slate-200 opacity-75 dark:bg-accent"
+            ></span>
+          </div>
+        </div>
+    </template>
+</div> -->
+<div id="loadspinner2">
+    <template x-teleport="#x-teleport-target">
+        <div class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModalLoading" role="dialog" @keydown.window.escape="showModalLoading = false">
+        <div class="absolute inset-0 bg-slate-900/20 transition-opacity duration-300" @click="showModalLoading = false" x-show="showModalLoading" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
+        <div
+        class="spinner is-elastic h-28 w-28 animate-spin rounded-full border-[6px] border-slate-600 border-r-white  dark:border-accent/30 dark:border-r-accent"
+      ></div>
+    </template>
+</div>
