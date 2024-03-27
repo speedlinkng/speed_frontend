@@ -65,8 +65,11 @@
                 </div>
           </template>
     
-      <label x-show="showLabel" class="block" style="font-weight: 300;">
-        <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>        
+      <label x-show="showLabel" class="block" style="font-weight: 500;">
+        <div class="flex">
+          <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>  
+          <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>
+        </div>
         <input 
           x-bind:data-pointId="field.fieldCount" 
           x-ref="fieldIndex+''+pageKey"  

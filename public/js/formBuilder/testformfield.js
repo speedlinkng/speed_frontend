@@ -25,8 +25,9 @@ async function adddefaultQ(addpage, res_id = null){
   }
   else{
     var label_ = [ 'Your Name', 'Your Email'] 
+    var fieldType = ['Text', 'Email']
     for(i= 0; i < 2; i++){
-      await addQ(label_[i], null, 'Text')
+      await addQ(label_[i], null, fieldType[i])
    
     }
 

@@ -64,7 +64,7 @@ async function downloadZip_sub(){
     url: `${backendUrl}/api/google/downloadFolderAsZip/${user_google_id}/${folder_id}/${storage_email}`,
     type: 'GET',
     beforeSend: function(){
-      alert('loading')
+ 
     },
     success: function(response) {
       // Handle successful response
@@ -218,9 +218,7 @@ async function backToDashboard() {
     <td class="whitespace-normal px-4 py-3 sm:px-5">
       ${fileLinks}
     </td>
-    <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-      ${moment(rez.created_at).format('lll')}
-    </td>
+
   </tr>
   <script>
   function viewReply(e) {

@@ -14,3 +14,9 @@
 
 
 ### 200 - Success
+
+# To go production, check js/module/global.js, and set the url there toyour domain name url,
+# change urls in backend app.js cors section to allow for your frontend to hit
+# ensure backend_url and frontend_url in .env files are set up correctly
+# ensure PGDB in backend database configuration is set to online postgress record.
+# test the backend to see if it works, you hould get a message saying backend server is running successfully

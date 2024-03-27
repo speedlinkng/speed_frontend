@@ -1,6 +1,7 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const backendUrl = `https://speedlink-backend.onrender.com`;
+    const backendUrl = `http://localhost:5000`;
+    const backendUrl_ = `https://speedlink-backend.onrender.com`;
     const allArray = { 
       values: {},
       preferred: localStorage.getItem('preferred'),

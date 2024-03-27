@@ -15,14 +15,14 @@
                 <label class="block">
                   <span>Destination Folder</span>
                   <span class="relative mt-1.5 flex">
-                    <input class="form-input peer w-full hidden rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="select" id="select_folder" value="testing" type="text" />
-                    <input id="chosen_folder_idd" class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
+                    <input id="chosen_folder_idd" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
 
+                   
                     <input id="chosen_folder" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
                     <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
                       <i class="fa-regular fa-building text-base"></i>
                     </span>
-                    <button id="" onclick="handleAuthClick()" class="btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                    <button onclick=" createPicker()" class="btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                       <span>Select</span>
                       <i class="bi bi-google"></i>
                     </button>
@@ -86,19 +86,41 @@
     </template>
   </div>
   
-  <script src="../../js/selectFolder.js"></script>
-  <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+  <!-- <script src="../../js/selectFolder.js"></script> -->
+  <!-- Load Google API Loader script -->
+  <script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
   <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
   
   <script>
 
+    function setFoldersAndId(){
+    
+      if(localStorage.getItem('preferred') == 0){
+        let email = '<%= data.email %>' 
+        let element =  document.querySelector('#chosen_folder')
+        element.value = email
+        // Define a read-only id property
+        Object.defineProperty(element, 'id', {
+          value: 'chosen_folder',
+          writable: false // Make the property read-only
+        });
+        element.readOnly = true;
+  
+
+      }else if(localStorage.getItem('preferred') == 1){
+       
+       // $('#chosen_folder').val('speedlink')
+      }
+    } 
+    setTimeout(function(){
+      setFoldersAndId()
+    }, 1000)
+
+
     function setOrganizedForm(){
-     
       console.log('all array values log: ', allArray.values)
 
-   
-      
       // Check if 'filesandFolder' already exists
       if (allArray.values && typeof allArray.values === "object") {
         // Check if 'filesandFolder' exists inside 'values'
@@ -116,6 +138,7 @@
 
             //  Populate fields
             //  $('.selectField').val('')
+  
             $('#chosen_folder_idd').val(folder_id)
             $('#chosen_folder').val(chosen_folder)
         } else {
@@ -238,12 +261,12 @@
           if (json.status == 200) {
            
             localStorage.setItem('upload_id', json.id)
-            showNoti('success', 'Your form request has been submitted successfully', 4000)
+            showNoti('success', 'Your form request has been submitted successfully', 5000)
             setTimeout(function() {
               saveButton.innerText = 'Save';
               saveButton.disabled = false;
               saveButton.classList.remove('cursor-wait');
-            }, 1000);
+            }, 4000);
             setTimeout(function() {
               window.location.href = `${baseUrl}/dash`; // redirect to dash, the user will find option to share or copy link address from the dashboard
             }, 5000);
@@ -259,7 +282,7 @@
        
           setTimeout(function() {
             saveButton.innerText = 'Save';
-          }, 1000);
+          }, 4000);
         }
     }
 

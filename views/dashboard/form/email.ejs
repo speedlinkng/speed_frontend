@@ -63,8 +63,11 @@
             </div>
       </template>
 
-      <label x-init=""  x-show="showLabel" class="block" style="font-weight: 100;">
-        <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>
+      <label x-init=""  x-show="showLabel" class="block" style="font-weight: 500;">
+        <div class="flex">
+          <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>
+          <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>
+        </div>
         <template x-for="(set, index) in setting">
           <input class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
         </template>

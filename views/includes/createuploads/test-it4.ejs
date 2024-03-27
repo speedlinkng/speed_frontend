@@ -200,8 +200,7 @@ console.log(eachPageDivs.length)
 
   }
 
-  function deletepage(e) {
-   // alert(e)
+  function deletePage(e) {
         var fieldToDelte = $(`.this_page${e}`)
         fieldToDelte.remove()
   }
@@ -242,6 +241,7 @@ console.log(eachPageDivs.length)
   localStorage.getItem('preferred') //.. initialize this
 
     if($('.page_name').val() == '' || $('.page_url').val() == '' || $('.shearable_link').val() == ''){ 
+      showNoti('warning', 'Kindly fill in the required fields', 4000)
       return
     }
    
@@ -259,6 +259,7 @@ console.log(eachPageDivs.length)
     // end other input data
 
     const formClassElements = document.querySelectorAll('.wholePage .formClass');
+    const EACHPAGE = document.querySelectorAll('.EACHPAGE');
     const formClassCount = formClassElements.length;
     const result = { 
       values: {}, 
@@ -477,10 +478,13 @@ console.log(eachPageDivs.length)
   
 
   else{
+    
       let storeIns = 0
       // This else statement handles when the form contains more than one pages
       // EACH FORMCLASS Represents each PAGE
       formClassElements.forEach((formClassElement, pageInd) => {
+        console.log(EACHPAGE)
+        console.log('Page count : ',EACHPAGE[pageInd].getAttribute('page-count'), )
         let ins = 0
         // Try to set pageind to 0 or a number
         // such that a continuous iteration will be enabled ie: 1, 2, 3, 4, 5
@@ -502,7 +506,7 @@ console.log(eachPageDivs.length)
         const fieldSelectOptions = formClassElement.querySelectorAll('.Field_select_option');
         const fieldNames = formClassElement.querySelectorAll('.fieldName');
         const fieldCounts = formClassElement.querySelectorAll('.Field_count');
-      
+   
         const settingsClassMap = {
           'Text': 'TEXT_SETTING',
           'Dropdown': 'DROPDOWN_SETTING',
@@ -522,14 +526,17 @@ console.log(eachPageDivs.length)
           'page_header': $('.uph_1').val(),
           'page_description': $('.upd_1').val(),
           // Add other properties as needed
-        });*/
+        });
+      */
       
         fieldSelectOptions.forEach((selectOption, index) => {
           /*
-          we have to kep track of the previous value of $ins
-          this is to enable us increment after the page loops
+          field_count gives he exact field number,so even if a deletion
+          occurs it dosnt really affect the call of that field
           */
           
+          console.log('field bettercount: ',fieldCounts[index])
+          let field_count = fieldCounts[index].value
           if(pageIndex < 1){
             console.log('truetrue')
            
@@ -544,6 +551,7 @@ console.log(eachPageDivs.length)
             storeIns = ins
             console.log('storeIns is'+ storeIns)
           }
+          ins = field_count
           const condition = [];
           const fieldType = {};
           const conditionData = [];

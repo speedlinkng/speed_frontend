@@ -100,7 +100,7 @@ const conditionSymbolMap = {
         },
 
         async submitAndUpdate(res){
-
+         
           let settings = {
             method: 'PUT',
             headers: {
@@ -122,7 +122,10 @@ const conditionSymbolMap = {
             let json = await submitResponse.json();
   
             console.log(sta)
+           
             if (sta == 200) {
+              const close_myButton = document.getElementById('close_progress');
+              close_myButton.click();
               
               await this.callSuccess('Form has been submitted successfully..')
               let successModal = document.querySelector('#showModalSuccess')
@@ -149,6 +152,7 @@ const conditionSymbolMap = {
      
 
         async downloadDoc(){
+          alert('clicked downalodDoc')
           var _allReplyLink = this.allReplyLink
           var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
                 var postHtml = "</body></html>";
@@ -175,7 +179,7 @@ const conditionSymbolMap = {
               uint8Array = new Uint8Array(arrayBuffer); 
               totalSize = uint8Array.length
               
-             // console.log(uint8Array)
+             console.log(uint8Array)
 
            };
            
@@ -222,6 +226,9 @@ const conditionSymbolMap = {
                 down = desiredUrl;
             } catch (error) {
                 console.error('Error fetching data:', error);
+                this.errorMesg = error
+                let errorModal = document.querySelector('#showModalError')
+                errorModal.click();
             }
         
             // Use 'web' and 'down' as needed
@@ -272,12 +279,16 @@ const conditionSymbolMap = {
                 }
             } catch (error) {
                 console.error('Error uploading document:', error);
+                this.errorMesg = 'Error uploading document:', error
+                let errorModal = document.querySelector('#showModalError')
+                errorModal.click();
                 // Handle errors here
             }
         }
         
 
 
+   
 
           try {
               // Step 1: Initiate the resumable session
@@ -293,8 +304,9 @@ const conditionSymbolMap = {
                   parents:[ document.querySelector("#defaultParent").value ] // Place the folder ID in an array
                 })
               });
+              
 
-              // console.log(initiateResponse)
+              console.log(initiateResponse)
               if (initiateResponse.status === 200) {
                 const header_res = await initiateResponse.headers.get('location');
                 let status = await initiateResponse.status
@@ -305,10 +317,18 @@ const conditionSymbolMap = {
                   console.log(res)
                    this.submitAndUpdate(res);
                 }
-              } 
+              } else{
+                // console.log('an error occured')
+                this.errorMesg = 'Resumable Error'
+                let errorModal = document.querySelector('#showModalError')
+                errorModal.click();
+              }
 
           }catch (err) {
-            console.log(err)
+           // console.log(err)
+            this.errorMesg = err
+            let errorModal = document.querySelector('#showModalError')
+            errorModal.click();
           }
         
 
@@ -385,6 +405,9 @@ const conditionSymbolMap = {
             } catch (error) {
               // Handle error for each subfolder creation
               // console.error(`Error creating subfolder ${subfolderName}:`, error);
+              this.errorMesg = error
+              let errorModal = document.querySelector('#showModalError')
+              errorModal.click();
             }
           }
         },     
@@ -445,7 +468,6 @@ const conditionSymbolMap = {
             const subfolderNames = Group_by;
             console.log(Group_by)
 
-
           
 
             var result = Group_by.map(fieldName => {
@@ -453,9 +475,15 @@ const conditionSymbolMap = {
               // Check if replies.formReplies[0] exists and is an object
               if (replies.formReplies[0] && typeof replies.formReplies[0] === 'object') {
               
+                function capitalizeFirstLetter(str) {
+                  return str.charAt(0).toUpperCase() + str.slice(1);
+                }
+                const capitalizedFieldName = capitalizeFirstLetter(fieldName)
+                console.log(capitalizedFieldName)
                   // Find the first matching fieldName in formReplies
-                  var matchingField = Object.values(replies.formReplies[0]).find(field => field.fieldName === fieldName);
+                  var matchingField = Object.values(replies.formReplies[0]).find(field => field.fieldName === capitalizedFieldName);
                  
+                console.log(capitalizedFieldName)
                       console.log('matching field'+ matchingField)
                   // Return an object with fieldName and corresponding fieldValue
                   return {
@@ -472,7 +500,7 @@ const conditionSymbolMap = {
               }
             });
           
-            // console.log(result);
+            console.log(result);
             
             await this.createSubFolders(parentFolderId, result);
 
@@ -488,6 +516,7 @@ const conditionSymbolMap = {
             this.ensure = clickClass.length
             this.countDownUpload = clickClass.length // So we can know how many upload were expecting 
               if (clickClass) {
+            
               console.log('other one : '+this.countDownUpload)
                 for (const clickClass_ of clickClass) {
                   promises.push(new Promise(resolve => {
@@ -598,7 +627,10 @@ const conditionSymbolMap = {
              
             } else {
             
-             console.log('something is wrong')
+              this.errorMesg = 'error submiting replies'
+              let errorModal = document.querySelector('#showModalError')
+              errorModal.click();
+              // console.log('something is wrong')
              return
             }
     
@@ -606,6 +638,9 @@ const conditionSymbolMap = {
           catch (err) {
             // console.log('internet error')
             // console.log(err)
+            this.errorMesg = err
+            let errorModal = document.querySelector('#showModalError')
+            errorModal.click();
           } finally{
             $('.app-preloader').hide()
           }
@@ -674,6 +709,7 @@ const conditionSymbolMap = {
                     errors.validation = false    
                     this._errors.push(false) 
                   }else{
+                    showNoti('warning', `"${fieldValue}" field cannot be empty`, 5000)
                     errors.validation = true
                     this._errors.push(true)
                     errors.message=`<li>This field cannot be empty</li>`
@@ -737,6 +773,9 @@ const conditionSymbolMap = {
             // console.log(fieldValue.replace(/\s/g, '')+this._keyComb)
             // console.log(this.inputValue)
           }
+
+
+          // [[[[[[[[[[[[[      EMAIL VALIDATION      ]]]]]]]]]]]]] 
 
           
           

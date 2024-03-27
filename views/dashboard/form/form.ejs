@@ -55,7 +55,7 @@
     <!-- <main x-data x-text="mainData.title" class=" filemanager-app w-full pb-6" > -->
 
     <main x-data="{ jsonData: <%=  JSON.stringify(jsonData.record_data, null, 2) %> }" class=" filemanager-app w-full pb-6">
-
+      <div><%- include('../../includes/notifications.ejs') %></div>
       <!-- OTHR DATA -->
       <div class="hidden">
       
@@ -157,7 +157,7 @@
                             <div x-init="" >
                               <!-- page header -->
                               <div><%- include('./pageHeader.ejs') %></div> 
-                              <div class=""><%- include('./repliesToDoc.ejs')  %> </div>
+                              <div class="hidden"><%- include('./repliesToDoc.ejs')  %> </div>
                               <template x-for="(item, fieldKey) in Object.entries(pageData[1])">
                                 <div x-if="Array.isArray(item[1]) && item[1].length > 0">
 
@@ -196,7 +196,7 @@
                           
                               <div class="relative mt-5 w-full" x-init="console.log (Object.keys(pages).length - 1) ">
                                 <template x-if="pageKey > 0">
-                                  <button @click="prev(pageKey)" class="  text-primary  dark:text-blue-300 inline-flex justify-center bg-transparent border border-blue-700 dark:!border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                  <button @click="prev(pageKey)" class="  text-primary hover:text-white dark:text-blue-300 inline-flex justify-center bg-transparent border border-blue-700 dark:!border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                     Prev
                                   </button> 
                                 </template>
@@ -249,6 +249,7 @@
     
       <div x-data="{showModal:false}" id="progress_bar_section">
         <div @click="showModal = true" id="show_progress" class="hidden"></div>
+        <div @click="showModal = false" id="close_progress" class="hidden"></div>
         <div><%- include('./progress.ejs')  %> </div>
       </div>
     </main>

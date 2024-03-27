@@ -1,8 +1,10 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+<title>Google Picker Folder Selection</title>
+<script>
   let tokenClient;
   let accessToken = null;
-
-
   let pickerInited = false;
   let gisInited = false;
 
@@ -58,20 +60,12 @@
       picker.setVisible(true);
     };
 
-
-    // check if user is using his own or speedlinks drive 
-    // then set the correct access token
-    if(localStorage.getItem('preferred') == 1){
-      accessToken = localStorage.getItem('my_goog_acc');
-    }else{
-        accessToken = null;
-    }
       // Check if accessToken is already set
     if (accessToken !== null) {
-      
+   
       showPicker(); // Call showPicker directly since we already have the access token
     } else {
-     
+      
       // Request access token
       tokenClient.callback = async (response) => {
         if (response.error !== undefined) {
@@ -91,13 +85,17 @@
   function pickerCallback(data) {
     if (data.action === google.picker.Action.PICKED) {
       const folderId = data.docs[0].id;
-      const folderIdName = data.docs[0].name;
       console.log('Selected folder ID:', folderId);
-      console.log('Selected folder Name:', folderIdName);
-      let fold = document.querySelector('#chosen_folder_idd')
-      let folderName = document.querySelector('#chosen_folder')
-      fold.value = folderId
-      folderName.value = folderIdName
-   
+      console.log(data.docs[0])
     }
   }
+</script>
+</head>
+<body>
+  <button onclick="createPicker()">Select Folder</button>
+
+  <!-- Load Google API Loader script -->
+  <script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+</body>
+</html>

@@ -65,8 +65,8 @@ function decode2(this_user_token) {
     res.render(`dashboard/upload.ejs`, { root: 'views/dashboard' });
   });
 
-  router.get('/test', function(req, res) {
-    res.render(`test/test1.ejs`, { root: 'views' });
+  router.get('/testt', function(req, res) {
+    res.render(`test/G_select.ejs`, { root: 'views/dashoard' });
   });
 
   // router.post('/paystack', logout)

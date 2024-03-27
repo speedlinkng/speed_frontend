@@ -52,8 +52,17 @@ $('.app-preloader').show()
     // }
     setActiveItem('Create')
     $(`#cancel_stroage_selec_modal`).trigger('click');
+    // chck if preferred was already set to 1, 
+    // then reload to ensure google selectDrive knows it shouldnt us the 
+    // localstorage accesstoken
+    // Also unset the my_google_acc localstorage
+    if(localStorage.getItem('preferred') == 1){
+      localStorage.setItem('preferred', 0)
+      localStorage.removeItem('my_goog_acc')
+      location.reload() 
+    }
 
-    localStorage.setItem('preferred', 0)
+
   }
 
 
@@ -274,17 +283,17 @@ $('.app-preloader').show()
 
 
   function getGoogleUrlData(){
-  let url = '';
+    let url = '';
 
-  if (localStorage.getItem('temp_newstore') == 1) {
-     url = `${backendUrl}/api/google/newstorage` 
-  }
-  if (localStorage.getItem('temp_newstore') == 2) {
-     url = `${backendUrl}/api/google/changeDriveMail` 
-  }
-  if (localStorage.getItem('temp_newstore') == 0) {
-    return
-  }
+    if (localStorage.getItem('temp_newstore') == 1) {
+      url = `${backendUrl}/api/google/newstorage` 
+    }
+    if (localStorage.getItem('temp_newstore') == 2) {
+      url = `${backendUrl}/api/google/changeDriveMail` 
+    }
+    if (localStorage.getItem('temp_newstore') == 0) {
+      return
+    }
     localStorage.setItem('temp_newstore', 0)
     let url_params = new URLSearchParams(window.location.search)
     console.log(url_params.get('scope'))
@@ -310,7 +319,7 @@ $('.app-preloader').show()
       // open uploader
       $('.app-preloader').show()
       localStorage.setItem('preferred', 1)
-      console.log('pref')
+      startLoader()
       try {
         let fetchResponses = await fetch(`${url}`, settings);
         let staus = await fetchResponses.status
@@ -324,6 +333,7 @@ $('.app-preloader').show()
           //alert('success')
           console.log(res.token)
           localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
+          endLoader()
           setActiveItem('Create')
           $(`#cancel_stroage_selec_modal`).trigger('click');
           // window.location.href = `${baseUrl}/dash/create`

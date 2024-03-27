@@ -15,8 +15,11 @@
   <link rel="stylesheet" href="../css/app.css" />
   <!-- <link rel="stylesheet" href="../css/w3.css" /> -->
   <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet">
-  
+    <!-- GOOGLE DRIVE PICKER -->
+  <script src="../js/selectFolder.js"></script>
 
+  <script async defer src="https://apis.google.com/js/api.js" onload="onApiLoad()"></script>
+  <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
   <!-- Javascript Assets -->
   <script src="../js/app.js" defer></script>
@@ -43,11 +46,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
 
 
-
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+
+
 </head>
 <style>
   th[class="w-[1000px]"] {
@@ -59,9 +64,7 @@
 <body x-data="{ activeItem: 'Zoom', showModalLoading:false }" class="has-min-sidebar is-sidebar-open is-header-blur" x-bind="$store.global.documentBody">
   <!-- App preloader-->
  
-  <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
-    <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
-  </div>
+
 
   <!-- Page Wrapper -->
   <div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
@@ -91,12 +94,11 @@
               <li id="" class="w-full pr-4 mb-2 font-normal">
               
                 <div class="flex space-x-3 rounded-lg bg-slate-100 p-3 dark:bg-navy-500">
-                  <div class="avatar">
-                    <img
-                      class="rounded-full"
-                      src="../images/custom/avatar2.png"
-                      alt="image"
-                    />
+                  <div class="avatar border flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle w-18 h-18" viewBox="0 0 16 16">
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                      <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                    </svg>
                   </div>
                   <div>
                     <p class="text-xs text-slate-500 dark:text-navy-200">Welcome ...</p>
@@ -276,16 +278,15 @@
 
 </html>
 
-
 <script>
-
+  window.chosen_folder_idd = 'me'
  var rut = document.getElementById('root')
  var preloader = document.getElementsByClassName('app-preloader')[0]
  var pre = document.getElementsByClassName('app-preloader-inner')[0]
 
 
   const goAdmin = ()=>{
-    alert('admin')
+
     window.location.href = `${baseUrl}/admin`
   }
   

@@ -42,6 +42,13 @@ async function logMeOut(){
           if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
           }
+          // remove all sessions
+          localStorage.removeItem('access')
+          localStorage.removeItem('drive_email')
+          localStorage.removeItem('submit_id')
+          localStorage.removeItem('preferred')
+          localStorage.removeItem('temp_newstore')
+          localStorage.removeItem('my_goog_acc')
           // Handle successful logout
           window.location.href = `${baseUrl}/auth`
           console.log("Logout successful");

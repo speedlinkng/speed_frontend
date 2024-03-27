@@ -24,8 +24,17 @@ async function getAllRecords() {
           let data = res.data
           let id = 1
           $('#all_records').html('') // EMPTY THE HTML DISPLAY HOLDER
+          console.log('record res', res)
           data.forEach(res => {
 
+
+            // SET RECORD DRIVE
+            let record_drive = ''
+            if(res.preferred_drive == 1){
+               record_drive = `Sppedlink's Drive`
+            }else{
+               record_drive = `User's Drive`
+            }
             let res_status = ''
             if(res.status == 'pending'){
               res_status = `<div class=" badge border  rounded-full border-warning text-warning">${res.status}</div>`
@@ -44,45 +53,22 @@ async function getAllRecords() {
                   ${id++}
               </td>  
             <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.record_name}
+                  ${res.record_data.otherData.page_name}
               </td>
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res_status}
+                  ${record_drive}
               </td>
-              <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
-                  ${res.sender_name}
-              </td>
+            
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.sender_email}
-                </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.description}
-              </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.folder}
-              </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.file_type}
-              </div>
-              </td>
-              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.file_size}
-              </div>
-              </td>  
-              <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                  ${res.drive_email}
-              </div>
+                  ${record_drive}
               </td>  
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                   ${res.record_id}
-              </div>
+     
               </td>  
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                   ${res.user_id}
-              </div>
+      
               </td>                      
               <td class="whitespace-nowrap px-4 py-3 sm:px-5"  x-data="{showModal:false}">
               <button

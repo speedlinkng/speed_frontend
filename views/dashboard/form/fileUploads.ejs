@@ -68,15 +68,17 @@
           </template>
   
           <div x-show="showLabel" x-bind:data-pointId="field.fieldCount" class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
-            <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
-
-            <input  type="file" class="files" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
+            <div class="flex">
+              <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
+              <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>  
+            </div>
+            <input  type="file" class="files mt-1.5" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
               <!-- This is a trigger button click to start uploading this particular file to google drive -->
-              <button :id="'FileButtonClickfield'+keyComb"  id="" class="uploadToDrive " @click="uploadToDrive()">
+              <button :id="'FileButtonClickfield'+keyComb"  id="" class="uploadToDrive hidden" @click="uploadToDrive()">
                 Upload to Drive
               </button>  
        
-              <button  id="" class="fielTofield" @click="fielTofield(field.fieldCount)">
+              <button  id="" class="fielTofield hidden" @click="fielTofield(field.fieldCount)">
                 file to field
               </button>        
           </div>  
@@ -148,7 +150,7 @@
 
 
     async saveRepliesToDrive() {
-      console.log('saveRepliesToDrive')
+      console.log('saveRepliesToDrive ee')
       const downlaodToDoc = document.querySelector(`#downloadToDoc`);
       downlaodToDoc.click();
     
@@ -159,15 +161,15 @@
     async fielTofield(fieldCount){
    
       var uploadFolderId_ = this.uploadFolderId
-      console.log(fieldCount)
-      console.log('uploadFolderId is', uploadFolderId_)
       const fd = new FormData();
       const uploadedFiles = this.pond.getFiles();
       console.log(uploadedFiles)
+      if(!uploadedFiles){
+        return
+      }
 
-      if(uploadedFiles.length > 0){
+      if(uploadedFiles.length > 1){
         for (var a = 0; a < this.fileLabel.length; a++) { 
-       
           let data = {
             fieldCount:fieldCount,
             label:this.fileLabel[this.ii],
@@ -175,11 +177,17 @@
             name:uploadedFiles[a].source.name
           }
           this.fileSourceName.push(data)
-          console.log('{}{{}{}{}{}{}{}{}}')
-          console.log(this.fileSourceName)
+ 
         }
       }else{
-        return
+        let data = {
+          fieldCount:fieldCount,
+          label:this.fileLabel[this.ii],
+          time:uploadedFiles[0].source.lastModified,
+          name:uploadedFiles[0].source.name
+        }
+        this.fileSourceName.push(data)
+      
       }
      
       console.log('file to field')
@@ -639,9 +647,9 @@
            // alert('it is greater than 0')
             let firstArray = this.fileSourceName
             let secondArray = this.allWebDownloadLink
-      console.log('^^^^^^^^^^^^^^^^^^%%%%%%%%%%%%%%%%%%')
-      console.log(firstArray)
-      console.log(secondArray)
+            console.log('^^^^^^^^^^^^^^^^^^%%%%%%%%%%%%%%%%%%')
+            console.log(firstArray)
+            console.log(secondArray)
               // Iterate through the second array and add 'label' property from the first array
               secondArray.forEach(secondItem => {
                 const matchingFirstItem = firstArray.find(firstItem =>
@@ -665,7 +673,7 @@
                   this handles clicking of the downloadToDOc button 
                   its done here because it cant be accessed outside of this function from the holding function
                 */
-                console.log('saveRepliesToDrive')
+                console.log('saveRepliesToDrive ss')
                 const downlaodToDoc = document.querySelector(`#downloadToDoc`);
                 downlaodToDoc.click();
               
