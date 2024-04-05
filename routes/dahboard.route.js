@@ -37,6 +37,7 @@ function decode2(this_user_token) {
   router.get('/', function(req, res) {
     const _data = decode1(req.session.token, res);
       console.log(_data)
+      console.log('_data')
 
     if (_data !== null) {
         // Handle the decoded data and render the response in this route handler.
