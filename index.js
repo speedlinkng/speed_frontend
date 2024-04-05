@@ -45,9 +45,7 @@ app.use("/paystack/", paystack)
 
 
 app.get('/', function(req, res, next) {
-  // req.session.username = 'JohnDoe';
-  console.log('j')
-  res.render("main");
+  res.render("main.ejs");
 });
 
 
