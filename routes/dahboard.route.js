@@ -41,7 +41,7 @@ function decode2(this_user_token) {
 
     if (_data !== null) {
         // Handle the decoded data and render the response in this route handler.
-        res.render("dashboard/home", { title: 'Home page', role: _data.role, data: _data });
+        res.render("dashboard/home.ejs", { title: 'Home page', role: _data.role, data: _data });
     }
   });
 
@@ -55,7 +55,7 @@ function decode2(this_user_token) {
 
   router.get('/todash/:pass', deTokenize, function(req, res) {
     console.log(res.decoded_access)
-    res.render("dashboard/home", { title: 'Home page' });
+    res.render("dashboard/home.ejs", { title: 'Home page' });
   });
 
   router.get('/pricing', function(req, res) {
