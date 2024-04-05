@@ -4,17 +4,8 @@ const path = require('path');
 const serveStatic = require('serve-static');
 const dotenv = require('dotenv');
 const crypto = require('crypto');
-const session = require('express-session');
 dotenv.config(); 
 
-router.use(
-  session({
-    secret: process.env.SESSION, // Change this to a secure secret
-    resave: false,
-    saveUninitialized: true,
-    
-  })
-);
 
 
 
@@ -31,36 +22,36 @@ function decrypt(data, key) {
     res.render("admin/admin", {title:'Speedlink Admin Panel' });
   })
 
-  router.get('/dash/:encryptData/:iv', function(req, res) {
+  // router.get('/dash/:encryptData/:iv', function(req, res) {
     
-    const encryptData = req.params.encryptData;
-    const iv = req.params.iv;
+  //   const encryptData = req.params.encryptData;
+  //   const iv = req.params.iv;
 
-    if (!encryptData || !iv) {
-      return res.status(400).send('Invalid or missing encryption data or initialization vector');
-    }
+  //   if (!encryptData || !iv) {
+  //     return res.status(400).send('Invalid or missing encryption data or initialization vector');
+  //   }
   
-    try {
-        // console.log(encryptData)
-        // Store decrypted data in the session
-        req.session.encryptData = encryptData;
-        req.session.iv = iv;
-        console.log(req.session.iv)
-        console.log(req.session.encryptData)
-        data = 
-          {
-            iv: req.session.iv,
-            encryptedData: req.session.encryptData
-          }
+  //   try {
+  //       // console.log(encryptData)
+  //       // Store decrypted data in the session
+  //       req.session.encryptData = encryptData;
+  //       req.session.iv = iv;
+  //       console.log(req.session.iv)
+  //       console.log(req.session.encryptData)
+  //       data = 
+  //         {
+  //           iv: req.session.iv,
+  //           encryptedData: req.session.encryptData
+  //         }
         
-      const decypted = decrypt(data, process.env.ADMIN_KEY)
-      req.session.decypted = decypted;
-        res.redirect('http://localhost:4000/admin/admin/');  
+  //     const decypted = decrypt(data, process.env.ADMIN_KEY)
+  //     req.session.decypted = decypted;
+  //       res.redirect('http://localhost:4000/admin/admin/');  
         
-    }catch(err){
-      console.log(err)
-    }
-  });
+  //   }catch(err){
+  //     console.log(err)
+  //   }
+  // });
 
 //   router.get('/pricing', function(req, res) {
 //     res.sendFile(`pricing.html`, { root: 'static/dashboard' });

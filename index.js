@@ -42,12 +42,20 @@ app.use("/auth/", auth)
 app.use("/admin/", admin)
 app.use("/paystack/", paystack)
 
+
+
 app.get('/', function(req, res, next) {
   // req.session.username = 'JohnDoe';
   console.log('j')
-  res.send("main");
+  res.render("main");
 });
 
+
+let count = 0
+app.get('/count', function(req, res, next) {
+  count += 1
+  res.send('count is:' + count)
+});
 
 
 // Port Number
