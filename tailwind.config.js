@@ -17,6 +17,7 @@ module.exports = {
     extend: {
       screens: {
         'tab': '760px', // if 768 it will affect tablets, so with a minimum of 760 this should show your screens
+        'mob': '360px', // if 360 it will affect small mobiles
       },
     },
   },

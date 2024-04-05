@@ -591,7 +591,7 @@ $('.app-preloader').show()
                 <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] dark:border-navy-500">
                     <div class="flex items-center space-x-4 justify-center">
                        
-                        <span class="font-medium text-slate-700 dark:text-navy-200">No Record Yet</span>
+                        <span class="font-medium text-slate-700 dark:text-navy-200">No Request Created Yet</span>
                     </div>
                 </div>
                </div>

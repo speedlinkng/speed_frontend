@@ -65,7 +65,7 @@
         <label x-show="showLabel" class="block" x-ref="`${(fieldType.fieldValue).replace(/\s/g, '')}${fieldIndex}`">
           <div class="flex">
             <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue+keyComb).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)">Dropdown?</span>
-            <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>  
+            <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-1">*</span>  
           </div>
           <template x-for="(set, index) in setting">
             <input class="hidden" x-bind:class="'FU_'+(set.inputName).replace(/\s/g, '').replace(/[()]/g, '');" :value="set.inputValue" />
@@ -73,10 +73,10 @@
             <select
               x-bind:data-pointId="field.fieldCount" 
               x-ref="fieldIndex+''+pageKey" 
-              @click="submitForm_ ? checkSettings(dropdownSettings, fieldType.fieldValue, error[0]) : noSubmit"  
+              @click="submitForm_ ? checkSettings(dropdownSettings, fieldType.fieldValue, error[0],fieldType) : noSubmit"  
               x-model="inputValue" 
               :class="[(error[0].validation === true) ? '!border-[#ff5724]' :'',(fieldType.fieldValue).replace(/\s/g, '')+keyComb, 'field'+keyComb]"
-              @change="handleInput(fieldType.fieldValue, fieldIndex);checkSettings(dropdownSettings, fieldType.fieldValue, error[0])" 
+              @change="handleInput(fieldType.fieldValue, fieldIndex);checkSettings(dropdownSettings, fieldType.fieldValue, error[0],fieldType)" 
               class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent placeholder:text-slate-400/70">
               
               <template x-for="(options, optionIndex) in setting[0].inputValue">

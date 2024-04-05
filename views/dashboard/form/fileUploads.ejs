@@ -68,9 +68,9 @@
           </template>
   
           <div x-show="showLabel" x-bind:data-pointId="field.fieldCount" class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
-            <div class="flex">
+            <div class="flex "  style="font-weight: 500;">
               <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
-              <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>  
+              <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-1">*</span>  
             </div>
             <input  type="file" class="files mt-1.5" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
               <!-- This is a trigger button click to start uploading this particular file to google drive -->

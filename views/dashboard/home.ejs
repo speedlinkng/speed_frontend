@@ -58,6 +58,25 @@
   th[class="w-[1000px]"] {
     min-width: 500px;
   }
+
+  .drop-area {
+      border: 2px dashed #ccc;
+      height: 50px;
+      margin-top: 10px;
+  }
+  .item.dragging :where(.details, i){
+      opacity:0;
+  }
+  .hoverDash{
+    border-radius: 10px;
+    border-style: dashed;
+        border-width: 2px; /* Adjust the width of the border */
+        border-spacing: 6px; /* Adjust the spacing between dashes */
+  }
+
+  .draggable-container {
+transition: transform 0.3s ease-in-out;
+}
 </style>
 
 
@@ -107,7 +126,8 @@
                 </div>
               
               </li>
-              <li id="_Dashboard" @click="activeItem = 'Dashboard'">
+              <li class="h-2"></li>
+              <li id="_Dashboard" @click="activeItem = 'Dashboard'; $store.global.isSidebarExpanded = false">
                 <a onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());" @click="activeItem = 'Dashboard'" :class="[activeItem === 'Dashboard' ? 'text-primary dark:text-accent-light ' : '']" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-house w-7 h-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
@@ -117,7 +137,7 @@
                 </a>
               </li>
 
-              <li id="_Plan" @click="activeItem = 'Plan'">
+              <li id="_Plan" @click="activeItem = 'Plan'; $store.global.isSidebarExpanded = false">
                 <a onclick=" localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());" :class="[activeItem === 'Plan' ? 'text-primary dark:text-accent-light ' : '']" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-substack w-7 h-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
                     <path d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z" />
@@ -126,7 +146,7 @@
                   <span :class="[activeItem === 'Plan' ? 'text-primary dark:text-accent-light ' : '']" class="text-slate-800 dark:text-navy-100">Plan</span>
                 </a>
               </li>
-              <li id="_Zoom" @click="activeItem = 'Zoom'">
+              <li id="_Zoom" @click="activeItem = 'Zoom'; $store.global.isSidebarExpanded = false">
                 <a :class="[activeItem === 'Zoom' ? 'text-primary dark:text-accent-light ' : '']" onclick=" localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-camera-video h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z" />
@@ -136,7 +156,7 @@
                   <span :class="[activeItem === 'Zoom' ? 'text-primary dark:text-accent-light ' : '']" class="text-slate-800 dark:text-navy-100">Zoom Recordings</span>
                 </a>
               </li>
-              <li id="_Settings" @click="activeItem = 'Settings'">
+              <li id="_Settings" @click="activeItem = 'Settings'; $store.global.isSidebarExpanded = false">
                 <a :class="[activeItem === 'Settings' ? 'text-primary dark:text-accent-light ' : '']" onclick=" localStorage.setItem('activeItem', 'Settings'), localStorage.setItem('activeItemTimestamp', Date.now());" class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear  h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">
                     <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
@@ -151,7 +171,7 @@
               </li>
 
               <% if(role == 'admin'){ %>
-                <li id="Admin" onclick="goAdmin()">
+                <li id="Admin" onclick="goAdmin()" @click=" $store.global.isSidebarExpanded = false">
                   <a :class="[activeItem === 'Admin' ? 'text-primary dark:text-accent-light ' : '']"  class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-slate-100 focus:bg-slate-100 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600">
           
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-gear h-7 w-7 pr-2 -mt-[2.5px]" viewBox="0 0 16 16">

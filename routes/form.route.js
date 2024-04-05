@@ -6,6 +6,11 @@ const path = require('path');
 const {sign, decode} = require("jsonwebtoken")
 
 
+  router.get('/preview', async function(req, res) {
+
+    console.log('preview')
+    res.render("dashboard/form/preview/preview", { title: 'Preview Page'});
+  })
 
   router.get('/:record_id', async function(req, res) {
    // console.log(req.params.record_id)
@@ -25,9 +30,6 @@ const {sign, decode} = require("jsonwebtoken")
           console.log(err);
           
         }else{
-          // console.log('response')
-       
-          
           let bodyString = body;
           let result = JSON.parse(bodyString);
            console.log(result.data)
@@ -40,9 +42,9 @@ const {sign, decode} = require("jsonwebtoken")
             res.render("dashboard/form/form", { title: 'Form page', data: result, uploadToken: result.data.uploadToken });
           }
           if(result.status == 200){
-            res.render("dashboard/form/form", { title: 'Form page', data: result, uploadToken: result.data.uploadToken, allRepliesFolder: result.data.allReplies });
-        
+            res.render("dashboard/form/form", { title: 'Form page', data: result, uploadToken: result.data.uploadToken, allRepliesFolder: result.data.allReplies }); 
           }  
+
         }
         
       })  

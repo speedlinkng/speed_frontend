@@ -68,14 +68,14 @@
       <label x-show="showLabel" class="block" style="font-weight: 500;">
         <div class="flex">
           <span :class="'Namefield'+keyComb" class="text-sm" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" >Enter Email:</span>  
-          <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>
+          <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-1">*</span>
         </div>
         <input 
           x-bind:data-pointId="field.fieldCount" 
           x-ref="fieldIndex+''+pageKey"  
           x-model="inputValue" 
-          @click="submitForm_ ? checkSettings(textSettings, fieldType.fieldValue, error[0]) : noSubmit" 
-          @blur="handleInput(fieldType.fieldValue, fieldIndex, field.fieldCount);checkSettings(textSettings, fieldType.fieldValue, error[0])" 
+          @click="submitForm_ ? checkSettings(textSettings, fieldType.fieldValue, error[0],fieldType) : noSubmit" 
+          @blur="handleInput(fieldType.fieldValue, fieldIndex, field.fieldCount);checkSettings(textSettings, fieldType.fieldValue, error[0],fieldType)" 
           :class="[(error[0].validation === true) ? '!border-[#ff5724]' :'', (fieldType.fieldValue).replace(/\s/g, '')+keyComb, 'field'+keyComb]" 
           class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent " 
           type="text" 

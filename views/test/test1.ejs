@@ -27,8 +27,14 @@
             margin-top: 10px;
         }
         .item.dragging :where(.details, i){
+        
             opacity:0;
         }
+        .hoverDash{
+            border-style: dashed;
+            border-width: 2px; /* Adjust the width of the border */
+            border-spacing: 6px; /* Adjust the spacing between dashes */
+          }
         .draggable-container {
     transition: transform 0.3s ease-in-out;
 }
@@ -41,13 +47,25 @@
     <div style="border: 1px solid #000; padding: 10px; color: #000;">
         <h1>Form Title</h1>
         <hr>
-        <div style="margin-top: 10px; margin-bottom: 10px;">
-            <h3>Page Title</h3>
+        <div ondragleave="console.log('it left here')" style="margin-top: 10px; margin-bottom: 10px;">
+            <h3 draggable="true" ondragstart="console.log('started')" ondrop="" >Page Title</h3>
             <h5 style="font-size: 1rem;">Page Description</h5>
+        </div>
+
+        <div ondragenter="itEnt()"  class="border" style="margin-top: 10px; margin-bottom: 10px;">
+            <h3 draggable="true" ondragend="console.log('started')">Page Title 2</h3>
+            <h5 style="font-size: 1rem;">Page 2</h5>
         </div>
     
     </div>
-
+<script>
+    function itEnt(e){
+        alert(this.id)
+        item.addEventListener("dragend", ()=>{
+            item.classList.remove("dragging")
+        })
+    }
+</script>
     <div id="sort-all" class="card">
         <div class="item card m-2 cursor-move p-2 text-sm" draggable="true" data-index="1">
             <div class="details">
@@ -60,6 +78,10 @@
                     <p style="padding-left: 5px;">Ny bane is is divine edet</p>
                 </div>
             </div>
+        </div>
+
+        <div  draggable="true">
+            
         </div>
 
         <div draggable="true" data-index="2" class="item card m-2 cursor-move p-2 text-sm">
@@ -106,7 +128,7 @@
 
     </div>
 
-    <div id="drop-area" class="drop-area h-fit card"></div>
+    <div id="drop-area" onclick="addmore()" class="drop-area h-fit card border-dashed ">add more</div>
 
     
 </div>
@@ -115,48 +137,79 @@
 </html>
 
 <script>
-   const sortAll = document.querySelector('#sort-all')
-   const items = document.querySelectorAll('.item')
-   console.log(items)
-   items.forEach(item => {
-        item.addEventListener("dragstart", ()=>{
-            setTimeout(function(){
-                item.classList.add("dragging")
-            },0) 
-        })
-
-        item.addEventListener("dragend", ()=>{
-            item.classList.remove("dragging")
-        })
-   })
-    const initSortable = (e) => {
-    e.preventDefault();
-    const draggingItem = sortAll.querySelector(".dragging");
-    const siblings = [...sortAll.querySelectorAll(".item:not(.dragging)")];
-
-    const mouseY = e.clientY;
-
-    let nextSibling = siblings.find(sibling => {
-        const rect = sibling.getBoundingClientRect();
-        const offset = 10; // Adjust this value to control the trigger point
-        const siblingTriggerY = rect.top + rect.height / (2 + offset);
-        return mouseY <= siblingTriggerY;
-    });
-
-    if (nextSibling === undefined) {
-        sortAll.appendChild(draggingItem); // Append to the end if no next sibling found
-    } else {
-        sortAll.insertBefore(draggingItem, nextSibling);
+    function addmore(){
+        $('#sort-all').append(
+            `
+            <div draggable="true" data-index="5" class=" item card m-2 cursor-move p-2 text-sm hover">
+                <div class="details">
+                    <div style="display: flex;">
+                        <p style="padding-left: 10px; font-weight: bold;">Q 5.</p>
+                        <p style="padding-left: 5px;">ADDED</p>
+                    </div>
+                    <div style="display: flex;">
+                        <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
+                        <p style="padding-left: 5px;">Ny bane is is divine edet</p>
+                    </div>
+                </div>
+            </div>
+            `
+        )
+        drag()
     }
-    console.log(nextSibling);
-};
+    function drag(){
+
+        const sortAll = document.querySelector('#sort-all')
+        const items = document.querySelectorAll('.item')
+        console.log(items)
+        items.forEach(item => {
+                item.addEventListener("dragstart", ()=>{
+                    setTimeout(function(){
+                        item.classList.add("dragging")
+                        item.classList.add("hoverDash");
+                    },0) 
+                })
+
+                item.addEventListener("dragend", ()=>{
+                    item.classList.remove("hoverDash");
+                    item.classList.remove("dragging")
+                })
+        })
+            const initSortable = (e) => {
+            e.preventDefault();
+
+            const draggingItem = sortAll.querySelector(".dragging");
+            const siblings = [...sortAll.querySelectorAll(".item:not(.dragging)")];
+
+            const mouseY = e.clientY;
+
+            let nextSibling = siblings.find(sibling => {
+                const rect = sibling.getBoundingClientRect();
+                const offset = 12; // Adjust this value to control the trigger point
+               // Check if dragging upwards or downwards
+                const direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
+
+                // Calculate trigger point based on direction
+                const siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
+
+                // Trigger move when halfway into the next sibling regardless of direction
+                return mouseY <= siblingTriggerY;
+            });
+
+            if (nextSibling === undefined) {
+                sortAll.appendChild(draggingItem); // Append to the end if no next sibling found
+            } else {
+                sortAll.insertBefore(draggingItem, nextSibling);
+            }
+
+            console.log(nextSibling);
+        };
 
 
+            sortAll.addEventListener("dragover", initSortable);
+            sortAll.addEventListener("dragenter", e => e.preventDefault());
 
-    sortAll.addEventListener("dragover", initSortable);
-    sortAll.addEventListener("dragenter", e => e.preventDefault());
-
-
+}
+drag()
 </script>
    
 

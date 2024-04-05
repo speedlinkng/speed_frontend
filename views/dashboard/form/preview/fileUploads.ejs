@@ -1,0 +1,159 @@
+<template x-data="fileUpload" x-if="field.fieldType && field.fieldType.fieldName === 'File_Upload'">
+
+    <section>
+      <div x-data="{keyComb:''+pageKey+''+fieldKey+'', conditionValue:'', error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}">
+        <!-- IMAGE SECTION  -->
+        <div class="mt-3" id="image_section" style="display: block;">
+          <input class="FU_filekey hidden" :value="'filepond' +pageKey" />
+
+          <template x-for="(set, index) in setting">
+            <input x-init="fileSettings[keyComb] = fileSettings[keyComb] || []; fileSettings[keyComb].push({ [set.inputName]: set.inputValue })"
+            class="hidden" x-bind:class="'FU_'+(set.inputName ? set.inputName.replace(/\s/g, '').replace(/[()]/g, '') : '')" :value="set.inputValue" />
+          </template>
+
+             <!-- CONDITIONS -->
+
+          <template x-if="Object.entries(condition)[0][0] === 'firstCondition'"  x-init="console.log()">
+            <div>
+                <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+                <template x-for="(con, conIndex) in Object.entries(condition)[0][1]">
+                  <div>
+                    <template x-if="con.selectorName === 'hide-show'">
+                      <div class=" hidden"  x-text="con.selectorValue" x-init=" showLabel = con.selectorValue === 'Hide';"></div>
+                    </template>
+                    <template x-if="con.selectorName === 'if'">
+                      <div class=" hidden"  x-text="con.selectorValue" x-init=" _if = con.selectorValue;"></div>
+                    </template>
+                  </div>
+                  
+                    <!-- <div class="border"  x-text="con.selectorValue" x-init="con.selectorName === 'hide-show' ? showLabel = con.selectorValue === 'show' : null; // console.log(showLabel);"></div> -->
+                </template>
+            </div>
+          </template>
+
+          <template  x-init=" console.log(Object.entries(condition)[1][1])" x-if="Object.entries(condition)[1][0] === 'secondCondition'">
+            <div>
+                <!-- <div x-text="Object.keys(conditionType[1]).length"></div> -->
+              <template x-for="(con, conIndex) in Object.entries(condition)[1][1]">
+                  <div x-init=" console.log((Object.entries(condition)[1][1].length)/3)">
+                    <div class=" mt-" x-data="{ countcondition: 0 }" x-init="countcondition = Math.floor(conIndex / 3) + 1">
+                      <template x-if="con.SCL_selectorName === 'matches'">
+                        <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="_matches.push(con.SCL_selectorValue)"></div>
+                      </template>
+                      <template x-if="con.SCL_selectorName === 'condition'">
+                        <div :class="con.SCL_selectorName+conIndex" class="hidden" x-init="conditionPush(con.SCL_selectorValue, _conditions, _conditionsWord)"></div>
+                      </template>
+                      <template x-if="con.SCL_inputName === 'compared'">
+                        <div :class="con.SCL_inputName+conIndex" class="hidden"  x-init="comparedPush(con.SCL_inputValue, _compared, _conditionsWord, countcondition)"></div>
+                      </template>
+              
+                      <template x-if="conIndex % 3 === 2">
+                        <div x-init="checkFor(countcondition, fieldType.fieldValue+keyComb, _matches, _conditions, _compared)"></div>
+                      </template>
+
+                    </div>
+                  </div>
+                </template>
+              
+                <div class="hidden">
+                  <div x-text="JSON.stringify(_matches)"></div>
+                  <div x-text="JSON.stringify(_conditions)"></div>
+                  <div x-text="JSON.stringify(_compared)"></div>
+                </div>
+
+                <!-- Auto click to check if conditions have been mt -->
+                <input :value="_if" :class="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                <input :value="conditionValue" @click="autoClick(showLabel, (fieldType.fieldValue+keyComb).replace(/\s/g, ''))" :id="((fieldType.fieldValue+keyComb).replace(/\s/g, ''))" class="hidden" />
+                </div>
+          </template>
+  
+          <div x-show="showLabel" x-bind:data-pointId="field.fieldCount" class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
+            <div class="flex">
+              <span :class="'Namefield'+keyComb" x-text="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)" class="first-letter-capital text-sm">Images</span>
+              <span x-bind:class="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'block' : 'hidden'" class="text-red-400 ml-2">*</span>  
+            </div>
+            <input  type="file" class="files mt-1.5" name="file" :id="'filepond'+keyComb" x-init="startFilePond(('filepond'+keyComb),keyComb)" />
+              <!-- This is a trigger button click to start uploading this particular file to google drive -->
+              <button :id="'FileButtonClickfield'+keyComb"  id="" class="uploadToDrive hidden" @click="uploadToDrive()">
+                Upload to Drive
+              </button>  
+       
+              <button  id="" class="fielTofield hidden" @click="fielTofield(field.fieldCount)">
+                file to field
+              </button>        
+          </div>  
+        </div>
+  
+        <!-- Store the name of the file uploaded here -->
+        <input  x-bind:data-pointId="field.fieldCount"  x-bind:class="'field'+keyComb" value="" class="hidden" /> 
+  
+      </div>
+    </section>
+
+    
+  </template>
+  
+<script>
+
+Alpine.data('fileUpload', () => ({
+     
+      pond:'',
+
+    startFilePond(filekey, keyComb){
+        let FQ
+        let maxFile
+        let drop_zone
+
+        FQ = (this.fileSettings[keyComb]).find(item => item.hasOwnProperty("File Quantity"))["File Quantity"] || '1';
+        maxFile= (this.fileSettings[keyComb]).find(item => item.hasOwnProperty("Max File Size (MB)"))["Max File Size (MB)"] || '50';
+        
+        if($('.drop_zone').text() !== '' || $('.drop_zone').text()  !== undefined ){
+          drop_zone = $('.drop_zone').text()
+        }else{
+          drop_zone = 'drop all your files here'
+        }
+       
+        
+        const inputElements = document.getElementById(filekey);
+        // Initialize FilePond
+        this.pond = FilePond.create(inputElements, {
+          allowMultiple: true,
+          instantUpload: true,
+          allowProcess: false,
+          dropOnPage: true,
+          maxFiles: parseInt(FQ),
+          // Maximum number of files allowed
+          maxFileSize: maxFile + 'MB', // Maximum file size allowed
+          allowReplace: true,
+          required: true, // Require at least one file to be added (true/false)
+          styleFilePanelMaxHeight: '70px', // Maximum height of the file panel
+          acceptedFileTypes: ['image/*', 'application/pdf'], // Array of accepted file types
+          labelIdle: drop_zone + ' or <span class="filepond--label-action"> Browse </span>', // Custom label when no files are selected
+          // Configuration options go here 
+        });
+
+        // set fileLabel
+        this.fileLabel.push(document.querySelector(`.Namefield${keyComb}`).innerText)
+    
+
+        // Listen for the 'addfile' event
+        this.pond.on('addfile', (error, file) => {
+          if (!error) {
+            const firstFile = file;
+          //  console.log(firstFile.getFiles())
+          } else {
+            // Handle the error
+            console.error('Error adding file:', error);
+          }
+        });
+      },
+
+
+    async saveRepliesToDrive() {
+      console.log('saveRepliesToDrive ee')
+      const downlaodToDoc = document.querySelector(`#downloadToDoc`);
+      downlaodToDoc.click();
+    
+    }
+}))
+</script>

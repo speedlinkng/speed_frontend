@@ -92,75 +92,78 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
     }
 
 // alert(window.typ)
-  newInput = $(
-    /*html*/
-    `
-    <div class="grid grid-cols-12 gap-3 isOpenField${count}" x-data="{ isOpenField${count}: true }" :class="{ 'opacity-0': !isOpenField${count}, 'pointer-events-none': !isOpenField${count} }">
-      <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-5 dark:border-navy-600">
-        <div class="flex space-x-4">
+newInput = $(
+  /*html*/
+  `
+  <div draggable="true" class="item mt-2 cursor-move" ondragstart="getPrevFields(${count}, ${addmore_count}, ${true})">
+  <div  class="details">
+  <div class="grid grid-cols-12 gap-3 isOpenField${count}" x-data="{ isOpenField${count}: true }" :class="{ 'opacity-0': !isOpenField${count}, 'pointer-events-none': !isOpenField${count} }">
+    <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-5 dark:border-navy-600">
+      <div class="flex space-x-4">
 
-          <label class="block w-[55%]" x-data="{selectedOption${count}: $store.selectedOption${count}}" x-init="$store.selectedOption${count} = window.typ">
-            <select x-init="$el._x_tom = new Tom($el,{create: true,sortField: {field: 'text',direction: 'asc'}})" x-bind:value="$store.selectedOption${count}" x-model="$store.selectedOption${count}">
-              <option value="Text">Text</option>
-              <option value="Email">Email</option>
-              <option value="Dropdown">Dropdown</option>
-              <option value="File_Upload">File Upload</option>
+        <label class="block w-[55%]" x-data="{selectedOption${count}: $store.selectedOption${count}}" x-init="$store.selectedOption${count} = window.typ">
+          <select class="form-select mt-1 h-8 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs+ hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent" x-bind:value="$store.selectedOption${count}" x-model="$store.selectedOption${count}">
+            <option value="Text">Text</option>
+            <option value="Email">Email</option>
+            <option value="Dropdown">Dropdown</option>
+            <option value="File_Upload">File Upload</option>
 
-            </select>
+          </select>
 
-            <!-- Result of whatever option was selected -->
-            <input name="Field_select_option" type="text" class="hidden Field_select_option" x-bind:value="$store.selectedOption${count}" />
-            <input name="Field_count" type="text" class="hidden Field_count prime_count${count}" value="${count}" />
-
-
-          </label>
-
-          <input @blur="getPrevFields(${count}, ${addmore_count}, ${true})" class="fieldName form-input w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def" type="text" />
-
-        </div>
+          <!-- Result of whatever option was selected -->
+          <input name="Field_select_option" type="text" class="hidden Field_select_option" x-bind:value="$store.selectedOption${count}" />
+          <input name="Field_count" type="text" class="hidden Field_count prime_count${count}" value="${count}" />
 
 
-        <!-- TEXT DETAILS--->
+        </label>
 
-        <div class="grid grid-cols-12 gap-2">
-          <div class="col-span-10">
-            <!-- Put settings, logic and delete in a grid format or inline -->
-            <!-- COLLAPSIBLA CUSTOMIZATION -->
-            <div x-data="{expanded_condition${count} : $store.expanded_condition${count}}" x-init="$store.expanded_condition${count} = false" class="w-full">
-              <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
-                <p @click="" class="text-sm">Conditional Logic</p>
-                <div :class="$store.expanded_condition${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
-                  <i class="bi bi-chevron-down"></i>
-                </div>
+        <input @blur="getPrevFields(${count}, ${addmore_count}, ${true})" class="fieldName form-input w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def" type="text" />
+
+      </div>
+
+
+      <!-- TEXT DETAILS--->
+
+      <div class="sm:grid sm:grid-cols-12 gap-2">
+        <div class="sm:col-span-12 md:col-span-10">
+          <!-- Put settings, logic and delete in a grid format or inline -->
+          <!-- COLLAPSIBLA CUSTOMIZATION -->
+          <div x-data="{expanded_condition${count} : $store.expanded_condition${count}}" x-init="$store.expanded_condition${count} = false" class="w-full">
+            <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
+              <p @click="" class="text-xs sm:text-sm">Conditional Logic</p>
+              <div :class="$store.expanded_condition${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+                <i class="bi bi-chevron-down"></i>
               </div>
+            </div>
 
-              <div x-collapse x-show="$store.expanded_condition${count}">
-                <div>
+            <div x-collapse x-show="$store.expanded_condition${count}">
+              <div>
 
-                  <div class="CONDITIONAL_LOOP${count} mt-4 mb-2 text-sm dropdown-custom grid grid-col-1 gap-1 py-4 border border-primary dark:border-0 px-2 rounded-lg bg-[#f4f4f5] card shadow">
-                    <div class="FirstCondition${count}">
-                      <label x-data="{ myVariable: null }" x-init="myVariable = window.def" class="sm:flex sm:flex-row text-sm">
+                <div class="CONDITIONAL_LOOP${count} mt-4 mb-2 text-sm dropdown-custom grid grid-col-1 gap-1 py-4 border border-primary dark:border-0 px-2 rounded-lg bg-[#f4f4f5] card shadow">
+                  <div class="FirstCondition${count}">
+                    <label x-data="{ myVariable: null }" x-init="myVariable = window.def" class="sm:flex sm:flex-row text-sm">
 
-                        <select name="hide-show" class="hide-show${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value="Hide">Hide</option>
-                          <option value="Show">Show</option>
-                          <option value="Make Required">Make Required</option>
-                        </select>
+                      <select name="hide-show" class="hide-show${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                        <option value="Hide">Hide</option>
+                        <option value="Show">Show</option>
+                        <option value="Make Required">Make Required</option>
+                      </select>
 
-                        <span class=" mx-2 h-inherit flex items-center w-[25%] text-blue-500">This field (if)</span>
-                      </label>
+                      <span class=" mx-2 h-inherit flex items-center w-[25%] text-blue-500">This field (if)</span>
+                    </label>
 
-                      <label class="sm:flex sm:flex-row">
-                        <select name="if" class="if${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
-                          <option value="All">All</option>
-                          <option value="Any">Any</option>
-                        </select>
-                        <span class=" mx-2 h-inherit flex items-center w-[55%] text-blue-500">of the following rules match</span>
-                      </label>
-                    </div>
-                    <br>
-                    <div id="logicContition${count}" class="SecondCondition${count} w-full relative px-2 pb-8">
-                      <label x-data="{ myVariable: null, selectedCondition: window.selCond }" x-init="myVariable = window.def; selectCondition = window.selCond" class="logicContition${count} sm:flex sm:flex-row sm:space-x-4">
+                    <label class="sm:flex sm:flex-row">
+                      <select name="if" class="if${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
+                        <option value="All">All</option>
+                        <option value="Any">Any</option>
+                      </select>
+                      <span class=" mx-2 h-inherit flex items-center w-[55%] text-blue-500">of the following rules match</span>
+                    </label>
+                  </div>
+                  <br>
+                  <div id="logicContition${count}" class="SecondCondition${count} w-full relative px-2 pb-8">
+                    <div class=" ">
+                      <label x-data="{ myVariable: null, selectedCondition: window.selCond }" x-init="myVariable = window.def; selectCondition = window.selCond" class="logicContition${count} sm:flex sm:flex-row sm:space-x-4 gap-1 sm:gap-0">
 
                         <select name="matches" id="loginSelect${addmore_count}" onchange="checkSelected(${addmore_count})" class="loginSelect${addmore_count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value="" selected></option>
@@ -196,264 +199,267 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
                         </template>
 
                       </label>
-
-                      <div onclick='addmorecondition(${count},window.selCondAll)' class="addmorecondition absolute bottom-0 right-2 text-blue-400 cursor-pointer hover:text-blue-200">Add more</div>
                     </div>
 
-
+                    <div onclick='addmorecondition(${count},window.selCondAll)' class="addmorecondition absolute bottom-0 right-2 text-blue-400 cursor-pointer hover:text-blue-200">Add more</div>
                   </div>
 
+
                 </div>
+
               </div>
             </div>
+          </div>
 
-            <!-- Advanced Settings -->
-            <div x-data="{expanded${count} : $store.expanded${count}}" x-init="$store.expanded${count} = false" class=" w-full">
-              <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
-                <p class="text-sm">Settings</p>
+          <!-- Advanced Settings -->
+          <div x-data="{expanded${count} : $store.expanded${count}}" x-init="$store.expanded${count} = false" class=" w-full">
+            <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
+              <p class="text-xs sm:text-sm">Settings</p>
 
-                <div :class="$store.expanded${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
-                  <i class="bi bi-chevron-down"></i>
-                </div>
-              </div>
-              <div x-collapse x-show="$store.expanded${count}" class="mt-4 mb-2 w-full bg-[#f4f4f5] py-4 px-2 rounded-lg card shadow dark:border-0">
-                <div class="text-sm FIELD_SETTINGS">
-
-                  <!--  TEXT SETTINGS -->
-                  <div class="text-custom TEXT_SETTING${count}" x-show="$store.selectedOption${count} === 'Text'">
-                    <label class=" grid items-center grid-cols-9" x-data="{selectedFruits: ['apple']}">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 invisible " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 ">Required</p>
-                      <input x-model="selectedFruits" name="Required" class="RequiredCheck col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                      <p>Value: <span x-text="selectedFruits"></span></p>
-                      </label><br>
-                    <label class=" grid items-center grid-cols-9 mt-2">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name" class="ADVT col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label><br>
-                    <label class=" grid items-center grid-cols-9 mt-2">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 ">Placeholder</p>
-                      <input name="Placeholder" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
-                    </label><br>
-                    <label class=" grid items-center grid-cols-9 mt-2">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4">Validation Pattern</p>
-                      <input name="Validation Pattern" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
-                    </label><br>
-                    <label class=" grid items-center grid-cols-9 mt-2">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4">Description</p>
-                      <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
-                    </label>
-                  </div>
-
-                  <!--  DROPDOWN SETTINGS -->
-                  <div class="dropdown-custom text-sm DROPDOWN_SETTING${count}" x-show="$store.selectedOption${count} === 'Dropdown'">
-                    <label class=" items-center grid  grid-cols-9 ">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4">Required</p>
-                      <input name="Required" class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 mr-1 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label>
-                    <br>
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-6 lg:col-span-5 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name" class="ADVT col-span-2 lg:col-span-3 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label>
-                    <br>
-                    <label class=" grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 ">Description</p>
-                      <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
-                    </label>
-                    <br>
-                    <label class=" grid grid-cols-9 mt-2">
-
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-
-                      <p class="col-span-4 ">Dropdown List</p>
-                      <textarea name="Dropdown List" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" class="col-span-4 form-textarea w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-transparent dark:hover:border-navy-400 dark:focus:border-accent"></textarea>
-                    </label>
-                  </div>
-
-                  <!--  FILE UPLOAD SETTINGS -->
-                  <div class="dropdown-custom FILEUPLOAD_SETTING${count}" x-show="$store.selectedOption${count} === 'File_Upload'">
-                    <label class="s items-center grid  grid-cols-9 ">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-
-                      <p class="col-span-4">Required</p>
-                      <input name="Required" class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 mr-1 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-
-                    </label>
-                    <br>
-                    <!-- Description -->
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 lg:col-span-3">Description</p>
-                      <input name="Description" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
-                    </label><br>
-
-                    <!-- Rename File As -->
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 lg:col-span-3">Rename File As</p>
-                      <input name="Rename File As" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
-                    </label><br>
-
-                    <!-- File Types -->
-                    <label x-data="{selectFileType${count}:''}" class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 lg:col-span-3">File Types</p>
-
-                      <select x-model="selectFileType${count}" name="File Types" x-init="$el._tom = new Tom($el,{ 
-                                  plugins: ['remove_button'],
-                                  create: true,
-                                  sortField: {field: 'text',direction: 'asc'}
-                                })" class="x-3 py-2 select-tom${count} w-full col-span-4 lg:col-span-5" multiple placeholder="Enter/Select File Types..." autocomplete="off">
-                        <option value="pdf">PDF (.pdf)</option>
-                        <option value="doc">Microsoft Word (.doc, .docx)</option>
-                        <option value="xls">Microsoft Excel (.xls, .xlsx)</option>
-                        <option value="ppt">Microsoft PowerPoint (.ppt, .pptx)</option>
-                        <option value="txt">Plain Text (.txt)</option>
-                        <option value="jpg" >JPEG Image (.jpg, .jpeg)</option>
-                        <option value="png">PNG Image (.png)</option>
-                        <option value="gif">GIF Image (.gif)</option>
-                        <option value="mp3">MP3 Audio (.mp3)</option>
-                        <option value="mp4">MP4 Video (.mp4)</option>
-                        <option value="zip">ZIP Archive (.zip)</option>
-                        <option value="csv">CSV File (.csv)</option>
-                        <option value="html">HTML Document (.html)</option>
-                        <option value="css">CSS Stylesheet (.css)</option>
-                        <option value="js">JavaScript (.js)</option>
-                        <option value="json">JSON File (.json)</option>
-                        <option value="xml">XML Document (.xml)</option>
-                        <option value="svg">SVG Image (.svg)</option>
-                      </select>
-                      <input name="File Types" :value="selectFileType${count}" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
-
-                    </label><br>
-
-                    <!-- Max File Size (MB) -->
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 lg:col-span-3">Max File Size (MB)</p>
-                      <input name="Max File Size (MB)" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
-                    </label><br>
-
-                    <!-- File Quantity -->
-                    <label class="grid items-center grid-cols-9 mt-1">
-                      <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
-                      </svg>
-                      <p class="col-span-4 lg:col-span-3">File Quantity</p>
-                      <input name="File Quantity" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
-                    </label>
-
-                  </div>
-
-
-                  <!--  EMAIL SETTINGS -->
-                  <div class="dropdown-custom EMAIL_SETTING${count}" x-show="$store.selectedOption${count} === 'Email'">
-                    <label class=" grid items-center grid-cols-4" x-data="{selectedFruits: ['apple']}">
-                      <p class="col-span-2 ">Required</p>
-                      <input x-model="selectedFruits" name="Required" class="col-span-2 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                      <p>Value: <span x-text="selectedFruits"></span></p>
-                      </label><br>
-                    <label class=" grid items-center grid-cols-4">
-                      <p class="col-span-2 ">Add field value to the front of the file name </p>
-                      <input name="Add field value to the front of the file name" class="ADVT col-span-2 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    </label><br>
-                    <label class=" grid items-center grid-cols-4">
-                      <p class="col-span-2 ">Placeholder</p>
-                      <input name="Placeholder" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
-                    </label><br>
-
-                    <label class=" grid items-center grid-cols-4">
-                      <p class="col-span-2 ">Validation Pattern</p>
-                      <input name="Validation Pattern" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
-                    </label><br>
-                    <label class=" grid items-center grid-cols-4">
-                      <p class="col-span-2 ">Description</p>
-                      <input name="Description" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
-                    </label>
-                  </div>
-
-                </div>
+              <div :class="$store.expanded${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
+                <i class="bi bi-chevron-down"></i>
               </div>
             </div>
+            <div x-collapse x-show="$store.expanded${count}" class="mt-4 mb-2 w-full bg-[#f4f4f5] py-4 px-2 rounded-lg card shadow dark:border-0">
+              <div class="text-sm FIELD_SETTINGS">
 
+                <!--  TEXT SETTINGS -->
+                <div class="text-custom TEXT_SETTING${count}" x-show="$store.selectedOption${count} === 'Text'">
+                  <label class=" grid items-center grid-cols-9" x-data="{selectedFruits: ['apple']}">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 invisible " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 ">Required</p>
+                    <input x-model="selectedFruits" name="Required" class="RequiredCheck col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                    <p>Value: <span x-text="selectedFruits"></span></p>
+                    </label><br>
+                  <label class=" grid items-center grid-cols-9 mt-2">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 ">Add field value to the front of the file name </p>
+                    <input name="Add field value to the front of the file name" class="ADVT col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                  </label><br>
+                  <label class=" grid items-center grid-cols-9 mt-2">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 ">Placeholder</p>
+                    <input name="Placeholder" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
+                  </label><br>
+                  <label class=" grid items-center grid-cols-9 mt-2">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4">Validation Pattern</p>
+                    <input name="Validation Pattern" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
+                  </label><br>
+                  <label class=" grid items-center grid-cols-9 mt-2">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4">Description</p>
+                    <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                  </label>
+                </div>
+
+                <!--  DROPDOWN SETTINGS -->
+                <div class="dropdown-custom text-sm DROPDOWN_SETTING${count}" x-show="$store.selectedOption${count} === 'Dropdown'">
+                  <label class=" items-center grid  grid-cols-9 ">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4">Required</p>
+                    <input name="Required" class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 mr-1 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                  </label>
+                  <br>
+                  <label class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-6 lg:col-span-5 ">Add field value to the front of the file name </p>
+                    <input name="Add field value to the front of the file name" class="ADVT col-span-2 lg:col-span-3 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                  </label>
+                  <br>
+                  <label class=" grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 ">Description</p>
+                    <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                  </label>
+                  <br>
+                  <label class=" grid grid-cols-9 mt-2">
+
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+
+                    <p class="col-span-4 ">Dropdown List</p>
+                    <textarea name="Dropdown List" rows="4" placeholder="Option 1&#10;Option 2&#10;Option 3" class="col-span-4 form-textarea w-full resize-none rounded-lg border border-slate-300 bg-transparent p-2.5 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-transparent dark:hover:border-navy-400 dark:focus:border-accent"></textarea>
+                  </label>
+                </div>
+
+                <!--  FILE UPLOAD SETTINGS -->
+                <div class="dropdown-custom FILEUPLOAD_SETTING${count}" x-show="$store.selectedOption${count} === 'File_Upload'">
+                  <label class="s items-center grid  grid-cols-9 ">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+
+                    <p class="col-span-4">Required</p>
+                    <input name="Required" class="col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 mr-1 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+
+                  </label>
+                  <br>
+                  <!-- Description -->
+                  <label class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 lg:col-span-3">Description</p>
+                    <input name="Description" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
+                  </label><br>
+
+                  <!-- Rename File As -->
+                  <label class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 lg:col-span-3">Rename File As</p>
+                    <input name="Rename File As" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
+                  </label><br>
+
+                  <!-- File Types -->
+                  <label x-data="{selectFileType${count}:''}" class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 lg:col-span-3">File Types</p>
+
+                    <select x-model="selectFileType${count}" name="File Types" x-init="$el._tom = new Tom($el,{ 
+                                plugins: ['remove_button'],
+                                create: true,
+                                sortField: {field: 'text',direction: 'asc'}
+                              })" class="x-3 text-xs py-2 select-tom${count} w-full col-span-4 lg:col-span-5" multiple placeholder="Enter/Select File Types..." autocomplete="off">
+                      <option value="pdf">PDF (.pdf)</option>
+                      <option value="doc">Microsoft Word (.doc, .docx)</option>
+                      <option value="xls">Microsoft Excel (.xls, .xlsx)</option>
+                      <option value="ppt">Microsoft PowerPoint (.ppt, .pptx)</option>
+                      <option value="txt">Plain Text (.txt)</option>
+                      <option value="jpg" >JPEG Image (.jpg, .jpeg)</option>
+                      <option value="png">PNG Image (.png)</option>
+                      <option value="gif">GIF Image (.gif)</option>
+                      <option value="mp3">MP3 Audio (.mp3)</option>
+                      <option value="mp4">MP4 Video (.mp4)</option>
+                      <option value="zip">ZIP Archive (.zip)</option>
+                      <option value="csv">CSV File (.csv)</option>
+                      <option value="html">HTML Document (.html)</option>
+                      <option value="css">CSS Stylesheet (.css)</option>
+                      <option value="js">JavaScript (.js)</option>
+                      <option value="json">JSON File (.json)</option>
+                      <option value="xml">XML Document (.xml)</option>
+                      <option value="svg">SVG Image (.svg)</option>
+                    </select>
+                    <input name="File Types" :value="selectFileType${count}" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
+
+                  </label><br>
+
+                  <!-- Max File Size (MB) -->
+                  <label class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 lg:col-span-3">Max File Size (MB)</p>
+                    <input name="Max File Size (MB)" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
+                  </label><br>
+
+                  <!-- File Quantity -->
+                  <label class="grid items-center grid-cols-9 mt-1">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
+                    </svg>
+                    <p class="col-span-4 lg:col-span-3">File Quantity</p>
+                    <input name="File Quantity" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
+                  </label>
+
+                </div>
+
+
+                <!--  EMAIL SETTINGS -->
+                <div class="dropdown-custom EMAIL_SETTING${count}" x-show="$store.selectedOption${count} === 'Email'">
+                  <label class=" grid items-center grid-cols-4" x-data="{selectedFruits: ['apple']}">
+                    <p class="col-span-2 ">Required</p>
+                    <input x-model="selectedFruits" name="Required" class="col-span-2 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                    <p>Value: <span x-text="selectedFruits"></span></p>
+                    </label><br>
+                  <label class=" grid items-center grid-cols-4">
+                    <p class="col-span-2 ">Add field value to the front of the file name </p>
+                    <input name="Add field value to the front of the file name" class="ADVT col-span-2 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
+                  </label><br>
+                  <label class=" grid items-center grid-cols-4">
+                    <p class="col-span-2 ">Placeholder</p>
+                    <input name="Placeholder" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
+                  </label><br>
+
+                  <label class=" grid items-center grid-cols-4">
+                    <p class="col-span-2 ">Validation Pattern</p>
+                    <input name="Validation Pattern" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
+                  </label><br>
+                  <label class=" grid items-center grid-cols-4">
+                    <p class="col-span-2 ">Description</p>
+                    <input name="Description" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                  </label>
+                </div>
+
+              </div>
+            </div>
           </div>
 
-          <!-- Delets field button -->
-          <div class="col-span-2">
-            <button onclick="deletefield(${count})" class="col-span-2 btn h-6 w-6 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-              </svg>
-            </button>
-          </div>
         </div>
 
-
-
-
-        <div class="hidden">
-          <button onclick="getId('prime${count}')" class="w-fit text-sm btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-            Add
+        <!-- Delets field button -->
+        <div class=" sm:col-span-12 md:col-span-2">
+          <button onclick="deletefield(${count})" class="col-span-2 btn h-6 w-6 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
           </button>
-          <button onclick="$('.case-prime${count}').remove(), $('#add_question').show()" class="btn border text-sm border-error font-medium text-error hover:bg-error hover:text-white focus:bg-error focus:text-white active:bg-error/90">
-            Cancel
-          </button>
-
         </div>
+      </div>
+
+
+
+
+      <div class="hidden">
+        <button onclick="getId('prime${count}')" class="w-fit text-sm btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+          Add
+        </button>
+        <button onclick="$('.case-prime${count}').remove(), $('#add_question').show()" class="btn border text-sm border-error font-medium text-error hover:bg-error hover:text-white focus:bg-error focus:text-white active:bg-error/90">
+          Cancel
+        </button>
 
       </div>
 
-      <!-- <button onclick="deletefield(${count})" class="col-span-2 mt-2 btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-        </svg>
-      </button> -->
     </div>
 
-    <script>
-      getPrevFields(count)
-      function addmorecondition(e, con) {
-        addMore(e, con)
-      }
-    </script>
+    <!-- <button onclick="deletefield(${count})" class="col-span-2 mt-2 btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+      </svg>
+    </button> -->
+  </div>
+  </div>
+  </div>
 
-    `);
+  <script>
+    getPrevFields(count)
+    function addmorecondition(e, con) {
+      addMore(e, con)
+    }
+  </script>
+ 
+  `);
 
 
   $('.drop_').on('input', () => {
@@ -786,7 +792,7 @@ async function addMore(counted, con = null) {
 
   $(`#logicContition${counted}`).append(
     `
-
+        <div class=" mt-2">
           <label x-data="{myVariable: null,isOpen: true, selectedCondition: window.selCond}" x-init="myVariable = window.def"  x-show="isOpen" class="logicContition${counted}  mt-1 sm:flex sm:flex-row sm:space-x-4">
             <select name="matches" id="loginSelect${addmore_count}" onchange="checkSelected(${addmore_count})" class="loginSelect${addmore_count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                 <option value="" selected></option>
@@ -827,6 +833,7 @@ async function addMore(counted, con = null) {
             </button>
             
         </label>
+        </div>
      
         `)
       await getPrevFields(counted, addmore_count)

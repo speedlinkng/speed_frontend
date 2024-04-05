@@ -57,8 +57,7 @@
     <main x-data="{ jsonData: <%=  JSON.stringify(jsonData.record_data, null, 2) %> }" class=" filemanager-app w-full pb-6">
       <div><%- include('../../includes/notifications.ejs') %></div>
       <!-- OTHR DATA -->
-      <div class="hidden">
-      
+      <div class="hidden">  
         <input id="defaultParent" value="<%= allRepliesFolder %>" class=""/>
         <input id="error_page_text" value="<%= otherData.record_data.otherData.error_page_text %>" class=""/>
         <input id="success_page_text" value="<%= otherData.record_data.otherData.success_page_text %>" class=""/>

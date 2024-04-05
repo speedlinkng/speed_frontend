@@ -66,7 +66,7 @@ function decode2(this_user_token) {
   });
 
   router.get('/testt', function(req, res) {
-    res.render(`test/G_select.ejs`, { root: 'views/dashoard' });
+    res.render(`test/test1.ejs`, { root: 'views/dashoard' });
   });
 
   // router.post('/paystack', logout)

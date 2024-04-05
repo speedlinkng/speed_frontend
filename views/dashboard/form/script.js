@@ -687,7 +687,7 @@ const conditionSymbolMap = {
           this.repliesToJson(this._errors)
         },      
 
-        checkSettings(eachFieldSetting, fieldValue, errors, submit = null){
+        checkSettings(eachFieldSetting, fieldValue, errors, fieldType, submit = null){
           // CHECK AND VALIDAT ALL SETTINGS FOR EVERY INPUT FIELD
           // DONT FORGET TO USE PAGEKEY FOR THE SETTINGS OBJECT
           // _keyComb is a globally accssible keyComb
@@ -777,6 +777,30 @@ const conditionSymbolMap = {
 
           // [[[[[[[[[[[[[      EMAIL VALIDATION      ]]]]]]]]]]]]] 
 
+          if(fieldType.fieldName === 'Email'){
+            if(this.inputValue){
+
+                let email = this.inputValue
+    
+                // Regular expression for validating email
+                let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+                // Test if the input value matches the email pattern
+                if (emailPattern.test(email)) {
+                   // console.log('Valid email address!');
+                   errors.validation = false    
+                   this._errors.push(false) 
+                } else {
+                  showNoti('warning', `"${fieldValue}"field doesnt contain a valid email address`, 5000)
+                  errors.validation = true
+                  this._errors.push(true)
+                  errors.message=`<li>Email address in invalid </li>`
+                  this.submitForm_ = false // disable clicking on input
+                  return
+                }
+              
+            }
+          }
           
           
         },

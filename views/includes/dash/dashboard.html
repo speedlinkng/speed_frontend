@@ -7,7 +7,7 @@
       <!-- reduce span to encourage split screen -->
       <div class="hold_create_button order pr-3 sm:pr-10 py-4 flex justify-between create_button_holder" x-data="{activeTab:'tab-recent'}">
         <div x-show="activeItem === 'Dashboard'">
-          <h2 class="text-3xl sm:text-xl text-blue-600 font-semibold">My Requests</h2>
+          <h2 class="text-xl sm:text-3xl text-blue-600 font-semibold">My Requests</h2>
         </div>
         <div x-data="{showModal:false}" class=" flex space-x-3" x-show="activeItem === 'Dashboard'">
           <button @click="showModal = true" id="another storage" style="display: block;" class="btn border text-black bg-white text-sm h-10 px-3 font-medium hover:bg-black hover:text-white focus:text-white hover:shadow-lg hover:shadow-slate-200/50 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:border-0 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90">
