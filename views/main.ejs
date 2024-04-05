@@ -67,19 +67,19 @@
 
   </nav>
 
-  <main class="my_body bg-transparent lg:grid-cols-2 gap-4 !h-fit w-screen relative z-30 dark:text-white">
+  <main class="!text-black my_body bg-transparent lg:grid-cols-2 gap-4 !h-fit w-screen relative z-30 dark:text-white">
     <div>
       <div class="my_body lg:flex pad sm:px-4 lg:px-24 md:px-14  ">
           <!-- <div class="w-full   w-[80%]">fhfh</div> -->
           <div class=" mt-20 lg:w-1/2 h-fit p-2">
-            <div class="poppin font-normal">
+            <div class="neon font-normal">
               <p class="text-4xl h-20 w-full lg:!w-[80%] mb-4 font-bold young ">Receive large files
                 from <span id="alteText" class="text-blue-600 font-bold neon"></span></p>
-                <div w2-include-html="./qrcode.html"></div> 
-              <p class="lg:text-lg mt-4">No size limits. No credit card required.</p>
-              <p class="lg:text-lg">Web visitors drag&drop files and you get an email.</p>
+            
+              <p class="lg:text-md mt-4 ">No size limits. No credit card required.</p>
+              <p class="lg:text-md">Web visitors drag&drop files and you get an email.</p>
               <br>
-              <p class="lg:text-lg">The data are securely saved in your Google Drive.</p>
+              <p class="lg:text-md">The data are securely saved in your Google Drive.</p>
             </div>
             <br>
             <br>
@@ -98,7 +98,7 @@
           <div id="img-holder" class="p-2 lg:w-1/2 lg:ml-4 lg:h-[500PX] flex justify-center items-center">
             <img id="displayedImage" class="rounded-md image-resize lg:!h-[470px] h-fit object-cover  object-center " />
           </div>
-        </div>
+      </div>
     
     
       </div>
@@ -117,12 +117,12 @@
     
   </main>
 
-
+<div class="spacer lg:h-40 sm:h-20 w-full "></div>
   <footer
-    class=" bg-slate-700 lg:fixed md:relative sm:relative bottom-0 right-0 left-0 lg:h-[61px] h-fit w-full h-50 z-[22]">
+    class="neon bg-slate-700 text-slate-200 font-light lg:fixed md:relative sm:relative bottom-0 right-0 left-0 lg:h-[100px] h-fit w-full h-50 z-[22]">
     <div class="grid grid-cols-10 tab:gap-0 gap-4 place-items-center  ">
       <div class="col-span-10 lg:col-span-4 xl:col-span-4 "> <!-- 4 parts -->
-        <div class="flex justify-center">
+        <div class="flex justify-center ">
           <div class="p-2">Privacy</div>
           <div class="p-2">Terms</div>
           <div class="p-2">FAQ</div>
@@ -154,9 +154,10 @@
           </svg>
         </div>
       </div>
-      <div class="grid place-content-center col-span-10 lg:col-span-1 xl:col-span-1 "> <!-- 1 part -->
-        © 2023
-      </div>
+    </div>
+    <br>
+    <div class="grid place-content-center col-span-10 lg:col-span-1 xl:col-span-1 "> <!-- 1 part -->
+      © speedlink.com 2023
     </div>
   </footer>
 
