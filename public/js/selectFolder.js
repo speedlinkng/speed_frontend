@@ -2,7 +2,6 @@
   let tokenClient;
   let accessToken = null;
 
-
   let pickerInited = false;
   let gisInited = false;
 
@@ -10,6 +9,7 @@
   const clientId = '74500727848-c69s6kfbg7lrplkteia00ne0nurvnurp.apps.googleusercontent.com';
   const scopes ='https://www.googleapis.com/auth/drive';
   const APP_ID = '74500727848';
+
   // Load Google APIs
   function onApiLoad() {
     gapi.load('picker', onPickerApiLoad);
@@ -40,7 +40,7 @@
 
     const docsView = new google.picker.DocsView()
     .setIncludeFolders(true) 
-    //   .setOwnedByMe(true)
+    // .setOwnedByMe(true)
     .setMimeTypes('application/vnd.google-apps.folder')
     .setSelectFolderEnabled(true);
 
@@ -64,27 +64,28 @@
     if(localStorage.getItem('preferred') == 1){
       accessToken = localStorage.getItem('my_goog_acc');
     }else{
-        accessToken = null;
+      accessToken = null;
     }
-      // Check if accessToken is already set
-    if (accessToken !== null) {
-      
+
+    // Check if accessToken is already set
+    if (accessToken !== null) { 
       showPicker(); // Call showPicker directly since we already have the access token
     } else {
-     
-      // Request access token
-      tokenClient.callback = async (response) => {
-        if (response.error !== undefined) {
-          throw response;
-        }
-        accessToken = response.access_token;
-        console.log(accessToken)
-        showPicker();
-      };
+    
+    // Request access token
+    tokenClient.callback = async (response) => {
+      if (response.error !== undefined) {
+        throw response;
+      }
+      accessToken = response.access_token;
+      console.log(accessToken)
+      showPicker();
+    };
       
-      // Prompt the user to select an account and grant consent
-      tokenClient.requestAccessToken({ prompt: 'consent' });
+    // Prompt the user to select an account and grant consent
+    tokenClient.requestAccessToken({ prompt: 'consent' });
     }
+
   }
 
   // Handle Google Picker callback
@@ -97,7 +98,6 @@
       let fold = document.querySelector('#chosen_folder_idd')
       let folderName = document.querySelector('#chosen_folder')
       fold.value = folderId
-      folderName.value = folderIdName
-   
+      folderName.value = folderIdName  
     }
   }
