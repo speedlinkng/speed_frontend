@@ -7,7 +7,7 @@ const form = require('./routes/form.route');
 const admin = require('./routes/admin.route');
 const auth = require('./routes/auth.route');
 const paystack = require('./routes/paystack.route');
-
+const session = require('express-session');
 const {sign, decode} = require("jsonwebtoken")
 const dotenv = require('dotenv');
 const cors=require("cors");
@@ -16,7 +16,16 @@ const corsOptions ={
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
-
+app.use(
+  session({
+    secret: process.env.SESSION,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 20 * 60 * 1000, // 2 minutes in milliseconds
+    },
+  })
+);
 
 app.set('view engine', 'ejs');
 
@@ -43,12 +52,6 @@ app.use("/admin/", admin)
 app.use("/paystack/", paystack)
 
 
-
-app.get('/', function(req, res, next) {
-  res.render("main.ejs");
-});
-
-
 app.get('/exchange', function(req, res, next) {
   console.log('exch')
   // TOKENIZE BACKEN USER ACCESS TOKEN, FOR FRONTEND SERVERSIDE ACCESS
@@ -64,6 +67,9 @@ app.get('/exchange', function(req, res, next) {
   })
  //  console.log(accessToken)
   req.session.token = accessToken
+  console.log(req.sessionID)
+  console.log('id up')
+  console.log(req.session.token)
   req.session.save()
   return res.status(200).json({
      token:accessToken
@@ -71,6 +77,14 @@ app.get('/exchange', function(req, res, next) {
 
 
 })
+app.get('/', function(req, res, next) {
+  // req.session.username = 'JohnDoe';
+
+  // req.session.save()
+  console.log(req.sessionID)
+  console.log(req.session.token)
+  res.render("main");
+});
 
 // Port Number
 const PORT = process.env.PORT ||4000;
