@@ -49,12 +49,28 @@ app.get('/', function(req, res, next) {
 });
 
 
-let count = 0
-app.get('/count', function(req, res, next) {
-  count += 1
-  res.send('count is:' + count)
-});
+app.get('/exchange', function(req, res, next) {
+  console.log('exch')
+  // TOKENIZE BACKEN USER ACCESS TOKEN, FOR FRONTEND SERVERSIDE ACCESS
+  let token = req.headers.authorization; // Assuming the token is in the request headers
+  if (!token) {
+      return res.status(701).json({ message: 'Unauthorized' });
+  }
+  token = token && token.split(' ')[1];
+  //  const decodedToken = decode(token);
+  //  console.log(decodedToken)
+  const accessToken = sign({this_user_token : token}, process.env.REFRESH_TOK_SEC, {
+      expiresIn: "58m"
+  })
+ //  console.log(accessToken)
+  req.session.token = accessToken
+  req.session.save()
+  return res.status(200).json({
+     token:accessToken
+  })
 
+
+})
 
 // Port Number
 const PORT = process.env.PORT ||4000;
