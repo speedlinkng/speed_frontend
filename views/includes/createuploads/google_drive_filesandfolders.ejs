@@ -7,22 +7,20 @@
   
             <div>
               <div class="h-16 p-2 border-slate-300 dark:border-navy-500  mb-1 flex justify-start items-center">
-                <h3>Google Drive</h3>
+                <h3 class="font-bold text-2xl !text-black">Google Drive</h3>
               </div>
   
               <div class="card border border-slate-300 dark:border-navy-500  min-h-40 text-sm p-2">
-                <p class="text-sm">Write or choose the folder with which you want all your files to be stored inside</p>
+                <p class="text-sm !text-black">Write or choose the folder with which you want all your files to be stored inside</p>
                 <label class="block">
-                  <span>Destination Folder</span>
+                  <span >Destination Folder</span>
                   <span class="relative mt-1.5 flex">
                     <input id="chosen_folder_idd" class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
 
                    
                     <input id="chosen_folder" class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Speedlink" value="Speedlink" type="text" id="create_folder" />
-                    <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent">
-                      <i class="fa-regular fa-building text-base"></i>
-                    </span>
-                    <button onclick=" createPicker()" class="btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+             
+                    <button onclick=" createPicker()" class=" google_select_button btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
                       <span>Select</span>
                       <i class="bi bi-google"></i>
                     </button>
@@ -34,7 +32,7 @@
   
   
               <div class="card border border-slate-300 dark:border-navy-500  h-auto text-sm p-2">
-                <h4 class="">Automatically organise your files</h4>
+                <h4 class="text-sm !text-black font-semibold">Automatically organise your files</h4>
                 <p class="text-sm">
                   You can create subfolders based on your form responses.
                   Kindly note that the options available to you are options of fields with mandatory/required option, to avoid errors.
@@ -48,9 +46,9 @@
               <br>
   
               <div class="card border border-slate-300 dark:border-navy-500 h-auto text-sm p-2">
-                <h4 class="">Other Settings</h4>
+                <h4 class="!text-black font-semibold">Other Settings</h4>
                 <p class="text-sm">Save form field as a text file in my drive</p>
-                <p class="text-xs mt-2">Click this checkbox to receive your replies as a text file in the google drive folder you selected</p>
+                <p class="text-xs mt-2 text-primary">Click this checkbox to receive your replies as a text file in the google drive folder you selected</p>
                 <label class="py-3 grid items-center grid-cols-9">
   
   
@@ -93,6 +91,8 @@
 
   
   <script>
+
+
 
     function setFoldersAndId(){
     

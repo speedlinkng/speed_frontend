@@ -296,10 +296,10 @@ $('.app-preloader').show()
     }
     localStorage.setItem('temp_newstore', 0)
     let url_params = new URLSearchParams(window.location.search)
-    console.log(url_params.get('scope'))
-    console.log(url_params.get('code'))
-    console.log(url_params.get('prompt'))
-    console.log(url_params.get('authuser'))
+    // console.log(url_params.get('scope'))
+    // console.log(url_params.get('code'))
+    // console.log(url_params.get('prompt'))
+    // console.log(url_params.get('authuser'))
 
     async function sendData() {
       let settings = {
@@ -320,6 +320,7 @@ $('.app-preloader').show()
       $('.app-preloader').show()
       localStorage.setItem('preferred', 1)
       startLoader()
+      alert('working')
       try {
         let fetchResponses = await fetch(`${url}`, settings);
         let staus = await fetchResponses.status

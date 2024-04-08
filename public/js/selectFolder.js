@@ -65,6 +65,9 @@
       accessToken = localStorage.getItem('my_goog_acc');
     }else{
       accessToken = null;
+      // show notification message
+      showNoti('error', `You are using speedlink's default drive`, 5000)
+      return;
     }
 
     // Check if accessToken is already set
@@ -93,8 +96,8 @@
     if (data.action === google.picker.Action.PICKED) {
       const folderId = data.docs[0].id;
       const folderIdName = data.docs[0].name;
-      console.log('Selected folder ID:', folderId);
-      console.log('Selected folder Name:', folderIdName);
+      // console.log('Selected folder ID:', folderId);
+      // console.log('Selected folder Name:', folderIdName);
       let fold = document.querySelector('#chosen_folder_idd')
       let folderName = document.querySelector('#chosen_folder')
       fold.value = folderId
