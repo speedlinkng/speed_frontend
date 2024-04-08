@@ -320,7 +320,8 @@ $('.app-preloader').show()
       $('.app-preloader').show()
       localStorage.setItem('preferred', 1)
       startLoader()
-      alert('working')
+      alert(baseUrl)
+
       try {
         let fetchResponses = await fetch(`${url}`, settings);
         let staus = await fetchResponses.status
