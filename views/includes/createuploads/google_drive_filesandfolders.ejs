@@ -98,9 +98,11 @@
     
       if(localStorage.getItem('preferred') == 0){
         alert('its on 0')
-        let email = '<%= data.email %>' 
+        let email_ = '<%= data.email %>' 
         let element =  document.querySelector('#chosen_folder')
-        element.value = email
+        element.value = email_
+
+        console.log(document.querySelector('#chosen_folder').value)
         // Define a read-only id property
         Object.defineProperty(element, 'id', {
           value: 'chosen_folder',
