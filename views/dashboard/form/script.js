@@ -362,6 +362,7 @@ const conditionSymbolMap = {
 
         async createSubFolders(parentFolderId, subfolderNames) {
           console.log('subfoldernames', subfolderNames)
+          console.log(`parents is: ${parentFolderId}, sub is: ${subfolderNames}`)
           const accessToken = (document.getElementById('uploadToken')).value; // Replace with the actual access token
           // alert(accessToken)
           let currentParentFolderId = parentFolderId;
