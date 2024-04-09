@@ -347,8 +347,11 @@ $('.app-preloader').show()
 
       }
       catch (err) {
+        // An error occured
+        endLoader()
         console.log('internet error')
         console.log(err)
+        showNoti('error', err, 3000)
       } finally{
         $('.app-preloader').hide()
       }
