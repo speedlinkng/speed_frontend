@@ -132,7 +132,7 @@ const conditionSymbolMap = {
               successModal.click();
              
               // RELOAD PAGE AFTER ALL
-              location.reload();
+              // location.reload();
               return false;
             }else{
               await this.callSuccess('ERROR Happened')
