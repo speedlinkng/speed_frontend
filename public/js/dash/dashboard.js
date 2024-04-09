@@ -286,10 +286,10 @@ $('.app-preloader').show()
     let url = '';
 
     if (localStorage.getItem('temp_newstore') == 1) {
-      url = `${backendUrl}/api/google/newstorage` 
+      url = backendUrl+'/api/google/newstorage' 
     }
     if (localStorage.getItem('temp_newstore') == 2) {
-      url = `${backendUrl}/api/google/changeDriveMail` 
+      url = backendUrl+'/api/google/changeDriveMail' 
     }
     if (localStorage.getItem('temp_newstore') == 0) {
       return
@@ -324,7 +324,7 @@ $('.app-preloader').show()
 
       try {
         let fetchResponses = await fetch(`${url}`, settings);
-        let staus = await fetchResponses.status
+
         let res = await fetchResponses.json();
 
         if (res.error == 1) {
