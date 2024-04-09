@@ -105,11 +105,12 @@
         console.log(document.querySelector('#chosen_folder'))
         console.log('[[[[[[[[[[[]]]]]]]]]]]')
         // Define a read-only id property
-        Object.defineProperty(element, 'id', {
+      /* Object.defineProperty(element, 'id', {
           value: 'chosen_folder',
           writable: false // Make the property read-only
         });
         element.readOnly = true;
+      */
   
 
       }else if(localStorage.getItem('preferred') == 1){
