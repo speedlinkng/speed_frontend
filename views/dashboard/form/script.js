@@ -617,7 +617,7 @@ const conditionSymbolMap = {
             } else if (res.success == 1) {
 
               // Set SUBMIT_ID
-              
+              console.log('SUBMIT ID IS; ', res.submit_id)
               localStorage.setItem('submit_id',  res.submit_id)
              
             } else {
