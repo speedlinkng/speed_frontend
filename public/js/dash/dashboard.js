@@ -319,6 +319,7 @@ $('.app-preloader').show()
       // open uploader
       $('.app-preloader').show()
       localStorage.setItem('preferred', 1)
+      showNoti('primary', 'Hold on were initiating your request', 3000)
       startLoader()
 
       try {
@@ -357,7 +358,9 @@ $('.app-preloader').show()
       }
     }
     // myStorage()
-    sendData()
+    setTimeout(function(){
+      sendData()
+    }, 5000)
   } 
 
   getGoogleUrlData()
