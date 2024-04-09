@@ -172,124 +172,117 @@ const conditionSymbolMap = {
            var fileReader = new FileReader();
 
            fileReader.onload = function(event) {
-               // Access the Blob data as an ArrayBuffer
+              // Access the Blob data as an ArrayBuffer
               var arrayBuffer = event.target.result;
-
-               // Convert the ArrayBuffer to a Uint8Array
+              // Convert the ArrayBuffer to a Uint8Array
               uint8Array = new Uint8Array(arrayBuffer); 
               totalSize = uint8Array.length
-              
-             console.log(uint8Array)
-
+              console.log(uint8Array)
            };
-           
-           fileReader.readAsArrayBuffer(blob);
+          fileReader.readAsArrayBuffer(blob);
 
 
 
-           async function getMeta(fileId) {
+          async function getMeta(fileId) {
+            
+              let web = '';
+              let down = '';
+
+              const webLink = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
+              const webContent = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webContentLink`;
           
-            let web = '';
-            let down = '';
+              try {
+                  const [linkResponse, linkContent] = await Promise.all([
+                      fetch(webLink, {
+                          method: 'GET',
+                          headers: {
+                              'Authorization': `Bearer ${document.querySelector("#uploadToken").value}`,
+                              'Accept': 'application/json',
+                          },
+                      }),
+                      fetch(webContent, {
+                          method: 'GET',
+                          headers: {
+                              'Authorization': `Bearer ${document.querySelector("#uploadToken").value}`,
+                              'Accept': 'application/json',
+                          },
+                      })
+                  ]);
+          
+                  if (linkResponse.status === 200) {
+                      const link = await linkResponse.json();
+                      web = link.webViewLink;
+                  }
+          
+                  const content = await linkContent.json();      
+                  const newUrl = content.webContentLink.replace(/&authuser=0/, "");
+                  const id = content.webContentLink.match(/id=([^&]+)/)[1];
+                  const desiredUrl = `https://drive.usercontent.google.com/u/1/uc?id=${id}&export=download`;
+                  down = desiredUrl;
+              } catch (error) {
+                  console.error('Error fetching data:', error);
+                  this.errorMesg = error
+                  let errorModal = document.querySelector('#showModalError')
+                  errorModal.click();
+              }
+          
+              // Use 'web' and 'down' as needed
+              console.log('Web Link:', web);
+              console.log('Download Link:', down);
+              const links = {
+                name: 'Form Reply',
+                webViewLink: web,
+                downloadLink: down
+            };
+            _allReplyLink.push(links);
+            console.log(_allReplyLink);
+            return _allReplyLink
+              
 
-            const webLink = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
-            const webContent = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webContentLink`;
-        
-            try {
-                const [linkResponse, linkContent] = await Promise.all([
-                    fetch(webLink, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${document.querySelector("#uploadToken").value}`,
-                            'Accept': 'application/json',
-                        },
-                    }),
-                    fetch(webContent, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${document.querySelector("#uploadToken").value}`,
-                            'Accept': 'application/json',
-                        },
-                    })
-                ]);
-        
-                if (linkResponse.status === 200) {
-                    const link = await linkResponse.json();
-                    web = link.webViewLink;
-                }
-        
-                const content = await linkContent.json();
-        
-                const newUrl = content.webContentLink.replace(/&authuser=0/, "");
-                const id = content.webContentLink.match(/id=([^&]+)/)[1];
-                const desiredUrl = `https://drive.usercontent.google.com/u/1/uc?id=${id}&export=download`;
-                down = desiredUrl;
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                this.errorMesg = error
-                let errorModal = document.querySelector('#showModalError')
-                errorModal.click();
-            }
-        
-            // Use 'web' and 'down' as needed
-            console.log('Web Link:', web);
-            console.log('Download Link:', down);
-            const links = {
-              name: 'Form Reply',
-              webViewLink: web,
-              downloadLink: down
-          };
-          _allReplyLink.push(links);
-          console.log(_allReplyLink);
-          return _allReplyLink
-             
+          }
+          
 
-        }
-        
-
-        
           async function uploadDoc(header_res) {
-            try {
-                const response = await axios({
-                    method: "PUT",
-                    url: header_res,
-                    headers: {
-                        'Content-Range': `bytes ${start}-${totalSize - 1}/${totalSize}`,
-                        'Content-Type': blob.type, // Specify the MIME type
-                    },
-                    data: uint8Array,
-                });
-        
-                console.log(response);
-        
-                if (response.status === 200) {
-                    console.log('Upload successful');
-        
-                    // Extract fileId from the response, assuming it's a JSON response
-                    const data = response.data;
-                    // const fileId = data.files[0].id;
-                    let fileId = data.id;
-                  
-        
-                    // Call getMeta function with fileId (replace 'fileIds' with the actual variable)
-                    let allReplyLink_ = await getMeta(fileId);
-                    console.log(allReplyLink_)
-                    // Return fileId or perform other actions with fileId as needed
-                    return allReplyLink_;
-                }
-            } catch (error) {
-                console.error('Error uploading document:', error);
-                this.errorMesg = 'Error uploading document:', error
-                let errorModal = document.querySelector('#showModalError')
-                errorModal.click();
-                // Handle errors here
-            }
-        }
+              try {
+                  const response = await axios({
+                      method: "PUT",
+                      url: header_res,
+                      headers: {
+                          'Content-Range': `bytes ${start}-${totalSize - 1}/${totalSize}`,
+                          'Content-Type': blob.type, // Specify the MIME type
+                      },
+                      data: uint8Array,
+                  });
+          
+                  console.log(response);
+          
+                  if (response.status === 200) {
+                      console.log('Upload successful');
+          
+                      // Extract fileId from the response, assuming it's a JSON response
+                      const data = response.data;
+                      // const fileId = data.files[0].id;
+                      let fileId = data.id;
+                    
+          
+                      // Call getMeta function with fileId (replace 'fileIds' with the actual variable)
+                      let allReplyLink_ = await getMeta(fileId);
+                      console.log(allReplyLink_)
+                      // Return fileId or perform other actions with fileId as needed
+                      return allReplyLink_;
+                  }
+              } catch (error) {
+                  console.error('Error uploading document:', error);
+                  this.errorMesg = 'Error uploading document:', error
+                  let errorModal = document.querySelector('#showModalError')
+                  errorModal.click();
+                  // Handle errors here
+              }
+          }
         
 
 
-   
-
+          alert(document.querySelector("#defaultParent").value)
           try {
               // Step 1: Initiate the resumable session
               const initiateResponse = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable', {
