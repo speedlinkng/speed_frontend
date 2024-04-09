@@ -12,8 +12,8 @@
   
               <div class="card border border-slate-300 dark:border-navy-500  min-h-40 text-sm p-2">
                 <p class="text-sm !text-black">Write or choose the folder with which you want all your files to be stored inside</p>
-                <label class="block">
-                  <span >Destination Folder</span>
+                <label class="block mt-2">
+                  <span class="font-semibold">Destination Folder</span>
                   <span class="relative mt-1.5 flex">
                     <input id="chosen_folder_idd" class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="" value="" type="text" />
 
@@ -154,7 +154,7 @@
       // Create the select element
       let $_select = `
         <label class="block">
-          <span class="pl-1 font-bold text-base">Group files by</span>
+          <span class="pl-1 font-semibold text-base">Group files by</span>
           <select class="selectField mt-1 w-full px-1 py-2" multiple placeholder="Select group field" autocomplete="off" x-init="$el._tom = new Tom($el,{ plugins: ['remove_button'],create: true,sortField: {field: 'text',direction: 'asc'}})">
           </select>
         </label>

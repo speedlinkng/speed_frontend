@@ -1,5 +1,5 @@
 <div class="px-[var(--margin-x)] ">
-<div class="card shadow-none mt-3 sm:mt-4 md:mt-5 lg:mt-6 py-4">
+<div class="card  mt-3 sm:mt-4 md:mt-5 lg:mt-6 py-4">
   <div x-data="{expandedItem:null, notificationText: 'hello there'}" class=" mt-4 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5 ">
     <div id="showPasswordChangedNotifiaction" x-data="{ onShowNoti: () => { $notification({ text: window.noti, variant: window.variant, position: 'center-top', duration: 3000 }) } }" @click="onShowNoti()"></div>
     <!-- <div id="setNotiTxt" @click="notificationText = window.noti"></div> -->

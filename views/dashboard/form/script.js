@@ -116,7 +116,7 @@ const conditionSymbolMap = {
           // console.log(settings)
    
           try {
-            let submitResponse = await fetch(`http://localhost:5000/api/app/submitAndUpdate`, settings);
+            let submitResponse = await fetch(`${backendUrl}/api/app/submitAndUpdate`, settings);
             // let head = await fetchResponses.headers
             let sta = await submitResponse.status
             let json = await submitResponse.json();
@@ -456,6 +456,7 @@ const conditionSymbolMap = {
               
             })
             
+            
             /* {{{{{{{{{{{{{{{{{{{{{{{{{{{{REPLIES TO DOC }}}}}}}}}}}}}}}}}}}}}}}}}}}}*/
 
             // call repliesToDoc to convert the results into a document of choice
@@ -611,7 +612,7 @@ const conditionSymbolMap = {
   
    
           try {
-            let fetchResponses = await fetch(`http://localhost:5000/api/app/submitReplies`, settings);
+            let fetchResponses = await fetch(`${backendUrl}/api/app/submitReplies`, settings);
             let staus = await fetchResponses.status
             let res = await fetchResponses.json();
     
