@@ -100,7 +100,7 @@ const conditionSymbolMap = {
         },
 
         async submitAndUpdate(res){
-         
+         console.log('*********************8', res)
           let settings = {
             method: 'PUT',
             headers: {
