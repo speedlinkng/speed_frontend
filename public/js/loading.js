@@ -13,7 +13,6 @@ function end_loading(myButton, name){
     myButton.innerHTML = name;
 }
  function startLoader(){
-    alert('start')
     $('#root').append(`
     <div id="startloader" @click="showModalLoading = true"></div>
     `)
