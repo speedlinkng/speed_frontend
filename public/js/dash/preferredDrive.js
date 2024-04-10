@@ -84,14 +84,14 @@ function getGoogleUrlData(){
         })
         alert(url)
         $.ajax({
-            url: 'http://sftsadmin.speedlinkng.com/api/google/newstorage',
-            method: 'POST',
+            url: 'http://sftsadmin.speedlinkng.com/api/google/newstorage_get/888877/5566655',
+            method: 'GET',
             dataType: 'json', 
             headers: {
                 "Content-Type": "application/json; charset=UTF-8",
                 "Authorization": `Bearer ${localStorage.getItem('access')}`,
             },
-            data: body,
+            // data: body,
             beforeSend: function(){
                 showNoti('primary', 'Hold on were initiating your request', 3000)
                 startLoader()
