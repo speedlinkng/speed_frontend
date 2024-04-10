@@ -116,7 +116,9 @@ function getGoogleUrlData(){
                 }
             },
             error: function(xhr, status, error) {
-              console.error('Error:', error);
+                showNoti('error', `Error: ${error}`, 3000)
+                endLoader()
+                console.error('Error:', error);
             }
         });
           
