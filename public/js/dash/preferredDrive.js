@@ -33,7 +33,7 @@ function getGoogleUrlData(){
         startLoader()
 
         try {
-            let fetchResponses = await fetch(`http://localhost:5000/api/google/newstorage_get/code/39`, settings);
+            let fetchResponses = await fetch(`http://sfts.speedlinkng.com/api/google/newstorage_get/code/39`, settings);
 
             let res = await fetchResponses.json();
 
