@@ -19,11 +19,17 @@ function getGoogleUrlData(){
 
     async function sendData() {
       let settings = {
-        method: 'GET',
+        method: 'POST',
         headers: {
           "Content-Type": "application/json; charset=UTF-8",
           "Authorization": `Bearer ${localStorage.getItem('access')}`,
-        }
+        },
+        body: JSON.stringify({
+          scope: url_params.get('scope'),
+          code: url_params.get('code'),
+          prompt: url_params.get('prompt'),
+          authuser: url_params.get('authuser'),
+        })
       };
 
         // open uploader
@@ -33,7 +39,7 @@ function getGoogleUrlData(){
         startLoader()
 
         try {
-            let fetchResponses = await fetch(`http://sfts.speedlinkng.com/api/google/newstorage_get/code/39`, settings);
+            let fetchResponses = await fetch(`http://sfts.speedlinkng.com/api/google/newstorage/code/39`, settings);
 
             let res = await fetchResponses.json();
 
