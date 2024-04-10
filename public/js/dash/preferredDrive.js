@@ -84,7 +84,7 @@ function getGoogleUrlData(){
         })
         alert(url)
         $.ajax({
-            url: 'http://sfts.speedlinkng.com/newstorage',
+            url: 'http://sfts.speedlinkng.com/api/google/newstorage',
             method: 'POST',
             dataType: 'json', 
             headers: {
@@ -118,6 +118,8 @@ function getGoogleUrlData(){
             },
             error: function(xhr, status, error) {
               console.error('Error:', error);
+              showNoti('error', error, 3000)
+              endLoader()
             }
         });
           
