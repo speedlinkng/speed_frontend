@@ -1,5 +1,6 @@
+let url = backendUrl+'/api/google/newstorage';
 function getGoogleUrlData(){
-    let url = '';
+   
 
     if (localStorage.getItem('temp_newstore') == 1) {
       url = backendUrl+'/api/google/newstorage' 
@@ -13,6 +14,9 @@ function getGoogleUrlData(){
     localStorage.setItem('temp_newstore', 0)
     let url_params = new URLSearchParams(window.location.search)
  
+
+
+
 
 
 
@@ -83,43 +87,45 @@ function getGoogleUrlData(){
             authuser: authuser,
         }
         $.ajax({
-            url: url,
-            method: 'POST',
-            dataType: 'json', 
-            headers: {
-                "Content-Type": "application/json; charset=UTF-8",
-                "Authorization": `Bearer ${localStorage.getItem('access')}`,
-            },
-            data: body,
-            beforeSend: function(){
-                showNoti('primary', 'Hold on were initiating your request', 3000)
-                startLoader()
-            },
-            success: function(res) {
-            
-              console.log('Success:', res);
-
-                if (res.error == 1) {
-
-                } else if (res.error == 2) {
-                   window.location.href = `${baseUrl}/auth`
-                } else if (res.success == 1) {
-                    //alert('success')
-                    console.log(res.token)
-                    localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
-                    endLoader()
-                    setActiveItem('Create')
-                    $(`#cancel_stroage_selec_modal`).trigger('click');
-                
-                } else {
-
-                }
-            },
-            error: function(xhr, status, error) {
-                showNoti('error', `Error: ${error}`, 3000)
-                endLoader()
-                console.error('Error:', error);
-            }
+          url: url,
+          method: 'POST',
+          dataType: 'json', 
+          headers: {
+              "Authorization": `Bearer ${localStorage.getItem('access')}`,
+          },
+          data: {scope:scope, code:code, prompt:prompt, authuser:authuser},
+          beforeSend: function(){
+              showNoti('primary', 'Hold on were initiating your request', 3000)
+              startLoader()
+           
+          },
+          success: function(res) {
+          
+            console.log('Success:', res);
+        
+              if (res.error == 1) {
+        
+              } else if (res.error == 2) {
+                 window.location.href = `${baseUrl}/auth`
+              } else if (res.success == 1) {
+                  //alert('success')
+                  console.log(res.token)
+                  localStorage.setItem('my_goog_acc', res.token) // google access token for users second time
+                  endLoader()
+                  setActiveItem('Create')
+                  $(`#cancel_stroage_selec_modal`).trigger('click');
+              
+              } else {
+        
+              }
+          },
+          error: function(xhr, status, error) {
+              showNoti('error', `Error: ${error}`, 3000)
+              endLoader()
+              console.error('Error:', error);
+              console.error('Error:', xhr);
+              console.error('Error:', status);
+          }
         });
           
     }
