@@ -76,12 +76,12 @@ function getGoogleUrlData(){
         let prompt = url_params.get('prompt');
         let authuser = url_params.get('authuser');
 
-        let body = JSON.stringify({
+        let body = {
             scope: scope,
             code: code,
             prompt: prompt,
             authuser: authuser,
-        })
+        }
         $.ajax({
             url: url,
             method: 'POST',

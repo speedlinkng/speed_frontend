@@ -17,7 +17,7 @@ async function integrateZoom() {
       } else if (res.error == 2) {
         window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1 && status == 200) {
-        console.log(res.data)
+        // console.log(res.data)
         window.location.href = res.data
       }
 
@@ -40,7 +40,7 @@ async function integrateZoom() {
       let fetchResponses = await fetch(`${backendUrl}/api/zoom/refresh`, settings);
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
-      console.log(status)
+      // console.log(status)
       if (res.success == 1 && status == 200) {
       // console.log(res.success)
         $('.loader_skeleton').hide()
@@ -123,9 +123,9 @@ download.forEach((eachdownload, index) => {
       let res = await fetchResponses.json();
       // console.log(status)
       if (res.success == 1 && status == 200) {
-        console.log(res.data.meetings)
+        // console.log(res.data.meetings)
         let records = res.data.meetings
-        console.log('recordings retrieved successfully')
+        // console.log('recordings retrieved successfully')
 
 
      
@@ -147,11 +147,11 @@ download.forEach((eachdownload, index) => {
         }
 
         playUrl = playUrl.join(',');
-        console.log(playUrl)
+        // console.log(playUrl)
         downloadUrl = downloadUrl.join(',');
-        console.log(downloadUrl)
+        // console.log(downloadUrl)
 
-        console.log('0000000000000000000000000')
+        // console.log('0000000000000000000000000')
         let _url = '';
           function formatFileSize(totalSize) {
             if (totalSize < 1024) {
