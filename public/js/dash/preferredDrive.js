@@ -3,7 +3,7 @@ function getGoogleUrlData(){
    
 
     if (localStorage.getItem('temp_newstore') == 1) {
-      url = 'https://localhost:5000/api/google/newstorage' 
+      url = 'http://localhost:5000/api/google/newstorage' 
     }
     if (localStorage.getItem('temp_newstore') == 2) {
       url = backendUrl+'/api/google/changeDriveMail' 
