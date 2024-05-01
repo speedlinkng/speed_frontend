@@ -13,7 +13,9 @@
         b_token: localStorage.getItem('b_token')
     };
     var editFormRecordId;
-    var addPage  =  0;
+    var addPage = 0;
+    var RecordDataDashboard = [];
+  
 
     async function start(){
         var w2 = {};

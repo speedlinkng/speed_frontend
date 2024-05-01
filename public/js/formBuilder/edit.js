@@ -44,7 +44,7 @@ function callEdit(req_index){
         }
 
         const wholePageHTML = `
-        <div page-count="${pageIndex}" class=" this_page${pageIndex} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
+        <div page-count="${pageIndex}" class="EACHPAGE this_page${pageIndex} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
 
             <div class="grid grid-cols-12 "  x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
               <!-- INPUT TITLE -->

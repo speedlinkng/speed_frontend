@@ -14,3 +14,52 @@
     }
     /* ... */
   }
+  .active-sidebar {
+    @apply bg-[rgb(176,172,242)] !text-white hover:!text-slate-800 ;
+  }
+  .active-text {
+    @apply hover:!text-slate-800 !text-white focus:text-slate-800 ;
+  }
+
+ 
+
+ /* Hide the default scrollbar */
+ ::-webkit-scrollbar {
+  width: 15px; /* Set the width of the scrollbar */
+  height: 15px; /* Set the height of the scrollbar */
+  @apply bg-yellow-400; /* Set the background color of the scrollbar track */
+}
+
+/* Customize the scrollbar thumb (handle) */
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 /* Set the color of the scrollbar thumb */
+ rounded-md /* Set the border radius to make the thumb round */
+}
+
+/* Customize the scrollbar track (container) */
+::-webkit-scrollbar-track {
+  @apply bg-slate-100; /* Set the background color of the scrollbar track */
+}
+
+/* Show the scrollbar only when hovered */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400; /* Set the color of the scrollbar thumb on hover */
+}
+
+/* Customize the scrollbar within the div with class is-sc */
+.is-sc::-webkit-scrollbar {
+@apply h-[5px] w-[5px]
+}
+/* Customize the scrollbar thumb (handle) */
+.is-sc::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 /* Set the color of the scrollbar thumb */
+ rounded-md /* Set the border radius to make the thumb round */
+}
+.is-sc::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-500; /* Set the color of the scrollbar thumb on hover */
+}
+
+
+
+
+

@@ -129,10 +129,10 @@ newInput = $(
           <!-- Put settings, logic and delete in a grid format or inline -->
           <!-- COLLAPSIBLA CUSTOMIZATION -->
           <div x-data="{expanded_condition${count} : $store.expanded_condition${count}}" x-init="$store.expanded_condition${count} = false" class="w-full">
-            <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
+            <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary dark:text-navy-100 hover:p-1">
               <p @click="" class="text-xs sm:text-sm">Conditional Logic</p>
               <div :class="$store.expanded_condition${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
-                <i class="bi bi-chevron-down"></i>
+                <i class="bi bi-chevron-down mt-[1px]"></i>
               </div>
             </div>
 
@@ -141,7 +141,7 @@ newInput = $(
 
                 <div class="CONDITIONAL_LOOP${count} mt-4 mb-2 text-sm dropdown-custom grid grid-col-1 gap-1 py-4 border border-primary dark:border-0 px-2 rounded-lg bg-[#f4f4f5] card shadow">
                   <div class="FirstCondition${count}">
-                    <label x-data="{ myVariable: null }" x-init="myVariable = window.def" class="sm:flex sm:flex-row text-sm">
+                    <label x-data="{ myVariable: null }" x-init="myVariable = window.def" class=" sm:flex sm:flex-row text-sm">
 
                       <select name="hide-show" class="hide-show${count} form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                         <option value="Hide">Hide</option>
@@ -149,7 +149,7 @@ newInput = $(
                         <option value="Make Required">Make Required</option>
                       </select>
 
-                      <span class=" mx-2 h-inherit flex items-center w-[25%] text-blue-500">This field (if)</span>
+                      <span class=" mx-2 h-inherit flex items-center w-fit text-xs sm:text-sm text-primary">This field (if)</span>
                     </label>
 
                     <label class="sm:flex sm:flex-row">
@@ -157,13 +157,13 @@ newInput = $(
                         <option value="All">All</option>
                         <option value="Any">Any</option>
                       </select>
-                      <span class=" mx-2 h-inherit flex items-center w-[55%] text-blue-500">of the following rules match</span>
+                      <span class=" mx-2 h-inherit flex items-center w-fit text-xs sm:text-sm text-primary">of the following rules match</span>
                     </label>
                   </div>
                   <br>
                   <div id="logicContition${count}" class="SecondCondition${count} w-full relative px-2 pb-8">
                     <div class=" ">
-                      <label x-data="{ myVariable: null, selectedCondition: window.selCond }" x-init="myVariable = window.def; selectCondition = window.selCond" class="logicContition${count} sm:flex sm:flex-row sm:space-x-4 gap-1 sm:gap-0">
+                      <label x-data="{ myVariable: null, selectedCondition: window.selCond }" x-init="myVariable = window.def; selectCondition = window.selCond" class="logicContition${count} sm:flex sm:flex-row  space-y-1 sm:space-x-4 gap-1 sm:gap-0">
 
                         <select name="matches" id="loginSelect${addmore_count}" onchange="checkSelected(${addmore_count})" class="loginSelect${addmore_count} conditionSelect form-select w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent">
                           <option value="" selected></option>
@@ -201,7 +201,7 @@ newInput = $(
                       </label>
                     </div>
 
-                    <div onclick='addmorecondition(${count},window.selCondAll)' class="addmorecondition absolute bottom-0 right-2 text-blue-400 cursor-pointer hover:text-blue-200">Add more</div>
+                    <div onclick='addmorecondition(${count},window.selCondAll)' class="addmorecondition absolute bottom-0 right-2 text-primary cursor-pointer hover:text-blue-200">Add more</div>
                   </div>
 
 
@@ -213,7 +213,7 @@ newInput = $(
 
           <!-- Advanced Settings -->
           <div x-data="{expanded${count} : $store.expanded${count}}" x-init="$store.expanded${count} = false" class=" w-full">
-            <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between  text-base font-medium text-slate-700 dark:text-navy-100">
+            <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary  hover:p-1 hover:rounded-md dark:text-navy-100">
               <p class="text-xs sm:text-sm">Settings</p>
 
               <div :class="$store.expanded${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
@@ -226,38 +226,58 @@ newInput = $(
                 <!--  TEXT SETTINGS -->
                 <div class="text-custom TEXT_SETTING${count}" x-show="$store.selectedOption${count} === 'Text'">
                   <label class=" grid items-center grid-cols-9" x-data="{selectedFruits: ['apple']}">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 invisible " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 invisible " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 ">Required</p>
                     <input x-model="selectedFruits" name="Required" class="RequiredCheck col-span-4 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    <p>Value: <span x-text="selectedFruits"></span></p>
+                    <p class="hidden">Value: <span x-text="selectedFruits"></span></p>
                     </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content7'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                    <template id="content7">
+                      <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 dark:bg-navy-500 w-fit max-w-[150px]">
+                        <p>When enabled, the value of this field will be prepended to the upload files name.</p>
+                      </div>
+                    </template> 
                     <p class="col-span-4 ">Add field value to the front of the file name </p>
                     <input name="Add field value to the front of the file name" class="ADVT col-span-4 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
                   </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content8'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                    <template id="content8">
+                      <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 dark:bg-navy-500 w-fit max-w-[150px]">
+                        <p>Text or data that helps the user enter the correct type of information.</p>
+                      </div>
+                    </template>
                     <p class="col-span-4 ">Placeholder</p>
                     <input name="Placeholder" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
                   </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content9'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                    <template id="content9">
+                      <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 dark:bg-navy-500 w-fit max-w-[150px]">
+                        <p>Set up custom validations. When specified, it is a regular expression that the input's value must match in order for the value to pass constraint validation.</p>
+                      </div>
+                    </template>
                     <p class="col-span-4">Validation Pattern</p>
                     <input name="Validation Pattern" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
                   </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content10'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                    <template id="content10">
+                      <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 dark:bg-navy-500 w-fit max-w-[150px]">
+                        <p>Text or data that helps the user enter the correct type of information.</p>
+                      </div>
+                    </template>
                     <p class="col-span-4">Description</p>
                     <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
                   </label>
@@ -266,7 +286,7 @@ newInput = $(
                 <!--  DROPDOWN SETTINGS -->
                 <div class="dropdown-custom text-sm DROPDOWN_SETTING${count}" x-show="$store.selectedOption${count} === 'Dropdown'">
                   <label class=" items-center grid  grid-cols-9 ">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 invisible" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4">Required</p>
@@ -274,24 +294,26 @@ newInput = $(
                   </label>
                   <br>
                   <label class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content7'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                   
                     <p class="col-span-6 lg:col-span-5 ">Add field value to the front of the file name </p>
                     <input name="Add field value to the front of the file name" class="ADVT col-span-2 lg:col-span-3 required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
                   </label>
                   <br>
                   <label class=" grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg x-tooltip.placement.right.interactive.content="'#content10'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
+                  
                     <p class="col-span-4 ">Description</p>
                     <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
                   </label>
                   <br>
                   <label class=" grid grid-cols-9 mt-2">
 
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
 
@@ -303,7 +325,7 @@ newInput = $(
                 <!--  FILE UPLOAD SETTINGS -->
                 <div class="dropdown-custom FILEUPLOAD_SETTING${count}" x-show="$store.selectedOption${count} === 'File_Upload'">
                   <label class="s items-center grid  grid-cols-9 ">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
 
@@ -314,7 +336,7 @@ newInput = $(
                   <br>
                   <!-- Description -->
                   <label class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Description</p>
@@ -323,7 +345,7 @@ newInput = $(
 
                   <!-- Rename File As -->
                   <label class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Rename File As</p>
@@ -332,7 +354,7 @@ newInput = $(
 
                   <!-- File Types -->
                   <label x-data="{selectFileType${count}:''}" class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">File Types</p>
@@ -367,7 +389,7 @@ newInput = $(
 
                   <!-- Max File Size (MB) -->
                   <label class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 lg:col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Max File Size (MB)</p>
@@ -376,7 +398,7 @@ newInput = $(
 
                   <!-- File Quantity -->
                   <label class="grid items-center grid-cols-9 mt-1">
-                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">File Quantity</p>
@@ -391,7 +413,7 @@ newInput = $(
                   <label class=" grid items-center grid-cols-4" x-data="{selectedFruits: ['apple']}">
                     <p class="col-span-2 ">Required</p>
                     <input x-model="selectedFruits" name="Required" class="col-span-2 border required-checkbox${count} form-checkbox is-basic h-5 w-5 ml-2 rounded bg-slate-100 border-slate-400/70 checked:!bg-success checked:!border-success hover:!border-success focus:!border-success dark:bg-navy-900 dark:border-navy-500" type="checkbox" />
-                    <p>Value: <span x-text="selectedFruits"></span></p>
+                    <p class="hidden">Value: <span x-text="selectedFruits"></span></p>
                     </label><br>
                   <label class=" grid items-center grid-cols-4">
                     <p class="col-span-2 ">Add field value to the front of the file name </p>
@@ -875,7 +897,7 @@ function getId(e) {
                         <div
                           class="mask is-squircle text-success flex h-14 w-14 items-center font-bold  justify-center bg-success/10"
                         >
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
                           </svg>                              
                      
@@ -893,7 +915,7 @@ function getId(e) {
                 </div>
         
                 <button onclick="onDelete('added-prime${count_}')" class="btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25" >
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>
                 </button>

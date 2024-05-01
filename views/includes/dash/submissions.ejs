@@ -1,135 +1,171 @@
 <div>
-  <div class=" mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6">
+  <div
+    class="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:gap-6"
+  >
     <div class="col-span-12 lg:col-span-12">
-
-      <div class="  py-2 px-3 dark:border-navy-450 flex space-x-1 items-center justify-between">
-        <div onclick="backToDashboard()" class="s w-2/6 text-base tracking-wide font-light  hover:text-black cursor-pointer line-clamp-1  dark:text-accent-light">
+      <div
+        class="py-2 px-3 dark:border-navy-450 flex space-x-1 items-center justify-between"
+      >
+        <div
+          onclick="backToDashboard()"
+          class="s w-2/6 text-base tracking-wide font-light hover:text-black cursor-pointer line-clamp-1 dark:text-accent-light"
+        >
           <i class="bi bi-chevron-left"></i> Back
         </div>
-        <div  class="flex font-light space-x-1 sm:space-x-6 justify-end w-full h-12 text-base text-primary ">
-
-          <button onclick="downloadWord()" x-tooltip.placement.bottom="'Download as word document'"  class=" hidden sm:flex justify-center items-center w-fit px-2.5 font-medium text-info card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
-           
-            <div class="px-2 w-fit h-fit text-sm  p-1.5">
+        <div
+          class="flex font-light space-x-1 sm:space-x-6 justify-end w-full h-12 text-base text-primary"
+        >
+          <button
+            onclick="downloadWord()"
+            x-tooltip.placement.bottom="'Download as word document'"
+            class="hidden sm:flex justify-center items-center w-fit px-2.5 font-medium text-info card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+          >
+            <div class="px-2 w-fit h-fit text-sm p-1.5">
               <span>.doc</span>
             </div>
           </button>
-          <button onclick="downloadPDF()" x-tooltip.placement.bottom="'Download as pdf'" class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90">
-            <div class="px-2 w-fit h-fit text-sm  p-1.5">
+          <button
+            onclick="downloadPDF()"
+            x-tooltip.placement.bottom="'Download as pdf'"
+            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90"
+          >
+            <div class="px-2 w-fit h-fit text-sm p-1.5">
               <span>.pdf</span>
             </div>
           </button>
- 
-          <button onclick="downloadExcel()" x-tooltip.placement.bottom="'Donwload as excell'" class=" hidden sm:flex  justify-center items-center  px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
-            <div class="px-2 w-fit h-fit text-sm  p-1.5">
+
+          <button
+            onclick="downloadExcel('submissionsTable',)"
+            x-tooltip.placement.bottom="'Donwload as excell'"
+            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+          >
+            <div class="px-2 w-fit h-fit text-sm p-1.5">
               <span>.xls</span>
             </div>
-          
           </button>
-          <button onclick="downloadCSV()" x-tooltip.placement.bottom="'Download as csv'" class=" hidden sm:flex  justify-center items-center  px-2.5 font-medium card shadow-sm  hover:bg-slate-200 focus:bg-info/20 active:bg-info/25">
-           
-            <div class="px-2 w-fit h-fit text-sm  p-1.5">
+          <button
+            onclick="downloadCSV()"
+            x-tooltip.placement.bottom="'Download as csv'"
+            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+          >
+            <div class="px-2 w-fit h-fit text-sm p-1.5">
               <span>.csv</span>
             </div>
-     
           </button>
 
-
-          <div class="rounded-full w-12 h-12 bg-white border flex justify-center items-center">
-            <div x-data="usePopper({placement:'bottom-end',offset:4})" @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
-              <button x-ref="popperRef" @click="isShowPopper = !isShowPopper" class=" btn h-9 w-9 rounded-full p-0 font-medium text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          <div
+            class="rounded-full w-12 h-12 bg-white border flex justify-center items-center"
+          >
+            <div
+              x-data="usePopper({placement:'bottom-end',offset:4})"
+              @click.outside="if(isShowPopper) isShowPopper = false"
+              class="inline-flex"
+            >
+              <button
+                x-ref="popperRef"
+                @click="isShowPopper = !isShowPopper"
+                class="btn h-9 w-9 rounded-full p-0 font-medium text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4.5 w-4.5"
+                  fill="none"
+                  viewbox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
+                  />
                 </svg>
               </button>
-              <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
-                <div class="popper-box rounded-md border border-slate-150 text-sm bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
+              <div
+                x-ref="popperRoot"
+                class="popper-root"
+                :class="isShowPopper && 'show'"
+              >
+                <div
+                  class="popper-box rounded-md border border-slate-150 text-sm bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700"
+                >
                   <ul>
                     <li>
-                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">Download .docx</a>
+                      <a
+                        href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                        >Download .docx</a
+                      >
                     </li>
-                    <li  onclick="downloadExcel()">
-                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                    <li onclick="downloadExcel()">
+                      <a
+                        href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                      >
                         Download .xls
                       </a>
                     </li>
                     <li onclick="downloadCSV()">
-                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      <a
+                        href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                      >
                         Download .csv
                       </a>
                     </li>
                     <li onclick="downloadPDF()">
-                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      <a
+                        href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                      >
                         Download .pdf
                       </a>
                     </li>
                     <li onclick="downloadWord()">
-                      <a href="#" class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
+                      <a
+                        href="#"
+                        class="flex h-8 items-center px-3 pr-8 font-normal tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                      >
                         Download .doc
                       </a>
                     </li>
                   </ul>
                   <div class="my-1 h-px bg-slate-150 dark:bg-navy-500"></div>
-
                 </div>
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
       <!-- reduce span to encourage split screen -->
 
       <div class="card shadow-none mt-3">
         <div class="px-3 p-4 flex items-center justify-between">
-          <h2 class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">
+          <h2
+            class="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100"
+          >
             Submissions For <span class="submission_for"></span>
           </h2>
-
         </div>
-        <div class="is-scrollbar-hidden min-w-full max-h-96 overflow-x-auto show_submissions_table">
-          <table id="submissionsTable" class=" w-full text-left poppin">
+        <div
+          class="is-scrollbar-hidden min-w-full max-h-96 overflow-x-auto show_submissions_table"
+        >
+          <table
+            id="submissionsTable"
+            class="w-full text-left poppin !text-black"
+          >
             <thead>
-              <tr>
-                <th class="whitespace-nowrap rounded-tl-lg  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  No
-                </th>
-                <th class="whitespace-nowrap  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Submitted By
-                </th>
-                <th class=" whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Submitted At
-                </th>
-                <th class=" w-1/4 whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Form Replies
-                </th>
-                <th class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  files
-                </th>
-                <th class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Status
-                </th>
-
-
-
-
-              </tr>
+              <tr id="display_submission_head"></tr>
             </thead>
-            <tbody id="displaySubmit">
-
-            </tbody>
+            <tbody id="displaySubmit"></tbody>
           </table>
         </div>
       </div>
     </div>
-
   </div>
 </div>
 
-
 <script>
   window.jsPDF = window.jspdf.jsPDF;
-
 </script>
 <script src="../js/dash/submissions.js"></script>

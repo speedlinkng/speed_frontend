@@ -1,50 +1,126 @@
-<script src="../../js/pond.js" ></script>
+<script src="../../js/pond.js"></script>
 <script src="../js/formBuilder/testformfield.js"></script>
 <div><%- include('./rightPanel.ejs') %></div>
 <div x-data class="wholePage" id="sort-all">
-  <div class=" mt-5" >
-    <div page-count="1" class="EACHPAGE place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative">
-      <div class="grid grid-cols-12 "  x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
+  <div class="mt-5">
+    <div
+      page-count="1"
+      class="EACHPAGE place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative"
+    >
+      <div
+        class="grid grid-cols-12"
+        x-data="{ isOpenTitle: true }"
+        x-show="isOpenTitle"
+      >
         <!-- INPUT TITLE -->
-        <input class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Page Header" type="text" />    
+        <input
+          class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+          placeholder="Upload Page Header"
+          type="text"
+        />
         <!-- EDIT PENCIL BUTTON -->
-        <div class=" col-span-2 sm:col-span-2 p-2 mt-2 ">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+        <div class="col-span-2 sm:col-span-2 p-2 mt-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            data-slot="icon"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+            />
           </svg>
         </div>
         <!-- DELETE BUTTON -->
-        <button @click="isOpenTitle = false" class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        <button
+          @click="isOpenTitle = false"
+          class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h4 w-4"
+            fill="none"
+            viewbox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
           </svg>
         </button>
       </div>
-  
-      <div class="grid grid-cols-12 gap-[] " x-data="{ isOpenDesc: true }" x-show="isOpenDesc">
+
+      <div
+        class="grid grid-cols-12 gap-[]"
+        x-data="{ isOpenDesc: true }"
+        x-show="isOpenDesc"
+      >
         <!-- INPUT DESCRIPTION -->
-        <input class="upd_1 form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Page Description" type="text" />    
+        <input
+          class="upd_1 form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+          placeholder="Upload Page Description"
+          type="text"
+        />
         <!-- EDIT PENCIL BUTTON -->
-        <div class=" col-span-2 sm:col-span-2 p-2 mt-2 ">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
+        <div class="col-span-2 sm:col-span-2 p-2 mt-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            data-slot="icon"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+            />
           </svg>
         </div>
         <!-- DELETE BUTTON -->
-        <button @click="isOpenDesc = false" class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        <button
+          @click="isOpenDesc = false"
+          class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h4 w-4"
+            fill="none"
+            viewbox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            />
           </svg>
         </button>
-        
       </div>
-  
-      <div x-data id="showResult_" class="showResult_ formClass p-2 grid grid-cols-1 place-content-center w-[100%]">
+
+      <div
+        x-data
+        id="showResult_"
+        class="showResult_ formClass p-2 grid grid-cols-1 place-content-center w-[100%]"
+      >
         <!-- Your existing code for showResult_ -->
-        
       </div>
-  
-      <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
+
+      <div
+        x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }"
+        class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90"
+      >
         <span
           x-on:input="inputHasValue = $event.target.innerText"
           contenteditable="true"
@@ -52,7 +128,7 @@
           x-on:keyup="inputEntered = true"
           @blur="inputEntered = false"
           class="edit_submit_field1 text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"
-          style="display: inline-block; border: 0; outline: none;"
+          style="display: inline-block; border: 0; outline: none"
         ></span>
         <input
           x-model="inputHasValue"
@@ -79,44 +155,53 @@
           </svg>
         </div>
       </div>
-      
-      <br>
+
+      <br />
       <div>
         <div class="flex">
-          <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(), drag()" id="add_question" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+          <button
+            :class="$store.expanded_condition && 'border'"
+            @click="falsifyAllExpanded()"
+            onclick="addQ(), drag()"
+            id="add_question"
+            class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+          >
             Add Field
           </button>
-  
-        </div><br>
+        </div>
+        <br />
       </div>
     </div>
   </div>
-
 </div>
 
-<br>
+<br />
 <div class="w-full flex space-x-3 justify-center items-center">
-  <button onclick="addPage()" data-count="" class="rounded-lg  w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+  <button
+    onclick="addPage()"
+    data-count=""
+    class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+  >
     Add Page
   </button>
-  <button onclick="getFieldValues('preview')" data-count="" class="rounded-lg  w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+  <button
+    onclick="getFieldValues('preview')"
+    data-count=""
+    class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+  >
     Preview
   </button>
 </div>
 
-
-
 <script>
-
-  const eachPageDivs =  document.querySelectorAll('.wholePage'); // how many pages currently *resent 6n screen
-
+  const eachPageDivs = document.querySelectorAll(".wholePage"); // how many pages currently *resent 6n screen
 
   const eachPageDivs_ = eachPageDivs.length;
 
   var resultCount = eachPageDivs_; // Initialize the count outside the function
 
   function addPage() {
-   // alert(resultCount)
+    // alert(resultCount)
     // Increment the resultCount and set the data-count attribute
     let _count = ++resultCount;
 
@@ -167,7 +252,9 @@
               
               </div>
               <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
-                <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${_count+1} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
+                <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${
+                  _count + 1
+                } text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
                 </span>
                 <input x-model="inputHasValue" class=" hidden edit_submit_field${_count} hidden text-lg btn !p-0 border-0 bg-transparent !w-fit" />
                 <div x-show="!inputEntered" class="grid place-content-center">
@@ -196,107 +283,144 @@
               </div>
             </div>`;
 
-    $('.wholePage').append(`<div draggable="true" class=" cursor-move wholePage_ mt-5">${wholePageHTML}</div>`);
+    $(".wholePage").append(
+      `<div class=" cursor-move wholePage_ mt-5">${wholePageHTML}</div>`
+    );
     // alert(count)
     adddefaultQ(addpage, _count);
-
-
   }
 
   function deletePage(e) {
-        var fieldToDelte = $(`.this_page${e}`)
-        fieldToDelte.remove()
+    var fieldToDelte = $(`.this_page${e}`);
+    fieldToDelte.remove();
   }
 
   function falsifyAllExpanded() {
     for (let i = 0; i <= count; i++) {
       // Update the global state directly
-      Alpine.store('expanded_condition' + i, false);
-      Alpine.store('expanded' + i, false);
+      Alpine.store("expanded_condition" + i, false);
+      Alpine.store("expanded" + i, false);
     }
-
   }
-
-  
-  
 </script>
 
 <script>
+  function downloadJson(result) {
+    // Convert the JSON to a string
+    const resultJsonString = JSON.stringify(result, null, 2);
 
-  function downloadJson(result){
-     // Convert the JSON to a string
-     const resultJsonString = JSON.stringify(result, null, 2);
+    // Create a Blob with the JSON string
+    const blob = new Blob([resultJsonString], { type: "application/json" });
 
-     // Create a Blob with the JSON string
-     const blob = new Blob([resultJsonString], { type: 'application/json' });
+    // Create a download link
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.download = "result.json";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 
-     // Create a download link
-     const link = document.createElement('a');
-     link.href = window.URL.createObjectURL(blob);
-     link.download = 'result.json';
-     document.body.appendChild(link);
-     link.click();
-     document.body.removeChild(link);
-  } 
+  async function checkRequestId(input) {
+    let valueOf = input.value || $(".page_url").val();
+    alert(valueOf);
+    const res = await fetch(`${backendUrl}/api/app/checkId/${valueOf}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+      },
+    });
+
+    const data = await res.json();
+    if (data.bool === false) {
+      $(".page_url_parent").removeClass("border-red-500");
+      $(".page_url_parent").addClass("border-green-500");
+      $(".check_url").show();
+      $(".cancel_url").hide();
+      return false;
+    } else {
+      $(".check_url").hide();
+      $(".cancel_url").show();
+      $(".page_url_parent").removeClass("border-green-500");
+      $(".page_url_parent").removeClass("border-slate-300");
+      $(".page_url_parent").addClass("border-red-500");
+      showNoti("error", "This url code has already been used", 4000);
+      return true;
+    }
+  }
 
   async function getFieldValues(e = null) {
     // other input data
-  localStorage.getItem('preferred') //.. initialize this
+    localStorage.getItem("preferred"); //.. initialize this
 
-    if($('.page_name').val() == '' || $('.page_url').val() == '' || $('.shearable_link').val() == ''){ 
-      showNoti('warning', 'Kindly fill in the required fields', 4000)
-      return
+    if (e.innerText && e.innerText.toLowerCase() === "save") {
+      if (
+        $(".page_name").val() == "" ||
+        $(".page_url").val() == "" ||
+        $(".shearable_link").val() == ""
+      ) {
+        showNoti("warning", "Kindly fill in the required fields", 4000);
+        return;
+      }
+      let checkPageUrl = await checkRequestId("");
+      if (checkPageUrl == false) {
+      }
+      if (checkPageUrl == true) {
+        return;
+      }
     }
-   
-
 
     let otherData = {
-      drop_zone:$('.drop_zone').val(),
-      success_page_text:$('.success_page_text').val(),
-      error_page_text:$('.error_page_text').val(),
-      shearable_link:$('.shearable_link').val(),
-      page_url:$('.page_url').val(),
-      page_name:$('.page_name').val(),
-    }
+      drop_zone: $(".drop_zone").val(),
+      success_page_text: $(".success_page_text").val(),
+      error_page_text: $(".error_page_text").val(),
+      shearable_link: $(".shearable_link").val(),
+      page_url: $(".page_url").val(),
+      page_name: $(".page_name").val(),
+    };
 
     // end other input data
 
-    const formClassElements = document.querySelectorAll('.wholePage .formClass');
-    const EACHPAGE = document.querySelectorAll('.EACHPAGE');
+    const formClassElements = document.querySelectorAll(
+      ".wholePage .formClass"
+    );
+    const EACHPAGE = document.querySelectorAll(".EACHPAGE");
+
+    console.log("&&&&&&&&&&&&&&&&&&&&&&&", EACHPAGE);
     const formClassCount = formClassElements.length;
-    const result = { 
-      values: {}, 
-      preferred: localStorage.getItem('preferred'),
-      b_token: localStorage.getItem('b_token'),
-      otherData:otherData
+    const result = {
+      values: {},
+      preferred: localStorage.getItem("preferred"),
+      b_token: localStorage.getItem("b_token"),
+      otherData: otherData,
     };
 
     allArray.otherData = otherData;
 
-
     if (formClassElements.length < 2) {
-      const formClassElement = document.querySelector('.wholePage .formClass');
-      let pageIndex = 0
+      const formClassElement = document.querySelector(".wholePage .formClass");
+      let pageIndex = 0;
 
-    
       // JSON PAGE
       result.values["page1"] = [];
       // set global json
-      allArray.values['page1'] = [];
+      allArray.values["page1"] = [];
       // console.log(result)
-      
+
       // console.log('{{{{{{{{{}}}}}}}}')
-  
+
       // ADD THE pageIndex TO NORMAL INDEX TO DETERMINT IF NEW PAGE
-      const fieldSelectOptions = formClassElement.querySelectorAll('.Field_select_option');
-      console.log(fieldSelectOptions)
-      const fieldNames = formClassElement.querySelectorAll('.fieldName');   
-      const fieldCounts = formClassElement.querySelectorAll('.Field_count');   
+      const fieldSelectOptions = formClassElement.querySelectorAll(
+        ".Field_select_option"
+      );
+      console.log(fieldSelectOptions);
+      const fieldNames = formClassElement.querySelectorAll(".fieldName");
+      const fieldCounts = formClassElement.querySelectorAll(".Field_count");
       const settingsClassMap = {
-        'Text': 'TEXT_SETTING',
-        'Dropdown': 'DROPDOWN_SETTING',
-        'File_Upload': 'FILEUPLOAD_SETTING',
-        'Email': 'EMAIL_SETTING',
+        Text: "TEXT_SETTING",
+        Dropdown: "DROPDOWN_SETTING",
+        File_Upload: "FILEUPLOAD_SETTING",
+        Email: "EMAIL_SETTING",
         // Add more mappings as needed
       };
 
@@ -307,220 +431,234 @@
         const firstCondition = [];
         const secondCondition = [];
         const settingsArray = [];
-          let ins = index + 1 + pageIndex
-          console.log(`${index},${pageIndex} then the end result is ${ins}`)
-          const fieldName = fieldNames[index].value;
-          const fieldCount = fieldCounts[index].value;
-          const selectOptionValue = selectOption.value;
-  
+        let ins = index + 1 + pageIndex;
+        console.log(`${index},${pageIndex} then the end result is ${ins}`);
+        const fieldName = fieldNames[index].value;
+        const fieldCount = fieldCounts[index].value;
+        const selectOptionValue = selectOption.value;
 
-          // set ins truely
-          ins = fieldCount
-          // PUSH DATATYPE AND VALUE
-         
-          fieldType.fieldName = selectOptionValue;
-          fieldType.fieldValue = fieldName;
-          /*
+        // set ins truely
+        ins = fieldCount;
+        // PUSH DATATYPE AND VALUE
+
+        fieldType.fieldName = selectOptionValue;
+        fieldType.fieldValue = fieldName;
+        /*
           fieldType.push({
             fieldName: selectOptionValue,
             fieldValue: fieldName
           });*/
 
-          // FIND INPUTS INSIDE OF CONDITIONS
-          const conditionsLoopData = document.querySelector(`.CONDITIONAL_LOOP${ins}`);
-          console.log(conditionsLoopData)
+        // FIND INPUTS INSIDE OF CONDITIONS
+        const conditionsLoopData = document.querySelector(
+          `.CONDITIONAL_LOOP${ins}`
+        );
+        console.log(conditionsLoopData);
 
-          const FirstCondition = conditionsLoopData.querySelector(`.FirstCondition${ins}`);
-          const FC_correspondingSelect = FirstCondition.querySelectorAll(`select`);
-  
-          FC_correspondingSelect.forEach((selector) => {
-              const selectorName = selector.getAttribute('name');
-              const selectorValue = selector.value;
-              firstCondition.push({
-                  selectorName: selectorName,
-                  selectorValue: selectorValue
-              });
+        const FirstCondition = conditionsLoopData.querySelector(
+          `.FirstCondition${ins}`
+        );
+        const FC_correspondingSelect =
+          FirstCondition.querySelectorAll(`select`);
+
+        FC_correspondingSelect.forEach((selector) => {
+          const selectorName = selector.getAttribute("name");
+          const selectorValue = selector.value;
+          firstCondition.push({
+            selectorName: selectorName,
+            selectorValue: selectorValue,
           });
-  
-          const SecondCondition = conditionsLoopData.querySelector(`.SecondCondition${ins}`);
-          const SC_correspondinglabel = SecondCondition.querySelectorAll(`label`);
-  
-          SC_correspondinglabel.forEach((label) => {
-              const SCL_correspondingSelect = label.querySelectorAll(`select`);
-              const SCL_correspondingInput = label.querySelector(`input`);
-              const SCL_inputName = SCL_correspondingInput.getAttribute('name');
-              const SCL_inputValue = SCL_correspondingInput.value;
-  
-              SCL_correspondingSelect.forEach((selector) => {
-                  const SCL_selectorName = selector.getAttribute('name');
-                  const SCL_selectorValue = selector.value;
-                  secondCondition.push({
-                      SCL_selectorName: SCL_selectorName,
-                      SCL_selectorValue: SCL_selectorValue
-                  });
-              });
-  
-              secondCondition.push({
-                  SCL_inputName: SCL_inputName,
-                  SCL_inputValue: SCL_inputValue
-              });
+        });
+
+        const SecondCondition = conditionsLoopData.querySelector(
+          `.SecondCondition${ins}`
+        );
+        const SC_correspondinglabel = SecondCondition.querySelectorAll(`label`);
+
+        SC_correspondinglabel.forEach((label) => {
+          const SCL_correspondingSelect = label.querySelectorAll(`select`);
+          const SCL_correspondingInput = label.querySelector(`input`);
+          const SCL_inputName = SCL_correspondingInput.getAttribute("name");
+          const SCL_inputValue = SCL_correspondingInput.value;
+
+          SCL_correspondingSelect.forEach((selector) => {
+            const SCL_selectorName = selector.getAttribute("name");
+            const SCL_selectorValue = selector.value;
+            secondCondition.push({
+              SCL_selectorName: SCL_selectorName,
+              SCL_selectorValue: SCL_selectorValue,
+            });
           });
-  
-          // FIND INPUTS INSIDE OF SETTINGS
-          const settingsData = document.querySelectorAll(`.FIELD_SETTINGS`);
-          const t2Input = document.querySelector(`.FIELD_SETTINGS .${settingsClassMap[selectOptionValue] + ins}`);
-          const settingInputs = Array.from(t2Input.querySelectorAll('input'));
 
-       
+          secondCondition.push({
+            SCL_inputName: SCL_inputName,
+            SCL_inputValue: SCL_inputValue,
+          });
+        });
 
-          if(settingsClassMap[selectOptionValue] == 'DROPDOWN_SETTING'){
-            const settingTextarea = t2Input.querySelector('textarea');
-            inputValue = settingTextarea.value.split('\n');
-            inputName = settingTextarea.getAttribute('name')
-            /*
+        // FIND INPUTS INSIDE OF SETTINGS
+        const settingsData = document.querySelectorAll(`.FIELD_SETTINGS`);
+        const t2Input = document.querySelector(
+          `.FIELD_SETTINGS .${settingsClassMap[selectOptionValue] + ins}`
+        );
+        const settingInputs = Array.from(t2Input.querySelectorAll("input"));
+
+        if (settingsClassMap[selectOptionValue] == "DROPDOWN_SETTING") {
+          const settingTextarea = t2Input.querySelector("textarea");
+          inputValue = settingTextarea.value.split("\n");
+          inputName = settingTextarea.getAttribute("name");
+          /*
             STV.forEach((value, index) => {
               console.log(`Option ${index + 1}: ${value.trim()}`);
             });*/
-            settingsArray.push({
-              inputName: inputName,
-              inputValue: inputValue
-            });
-
-          }  
-
- 
-          settingInputs.forEach((input) => {
-         
-              const inputName = input.getAttribute('name');
-              let inputValue = ''
-              if(input.getAttribute('type') == 'checkbox'){
-                const isChecked = input.checked;
-                 inputValue = isChecked ? 'on' : 'off';
-                 console.log('inputValue'+inputValue)
-              }else{
-                 inputValue =  input.value
-                 console.log('inputValue'+inputValue)
-              }
-     
-              settingsArray.push({
-                inputName: inputName,
-                inputValue: inputValue
-              });
+          settingsArray.push({
+            inputName: inputName,
+            inputValue: inputValue,
           });
-  
-          if(index > 0){
-            result.values['page1'].push({
-              ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
-                    firstCondition: firstCondition,
-                    secondCondition: secondCondition
-                },
-                'settings': settingsArray
-              }
-            });
-      
-            allArray.values['page1'].push({
-              ['field' + ins]: {
-                  'other_data': otherData,
-                  'fieldType': fieldType,
-                  'fieldCount': fieldCount,
-                  'conditions': {
-                      firstCondition: firstCondition,
-                      secondCondition: secondCondition
-                  },
-                  'settings': settingsArray
-              }
-            });
+        }
+
+        settingInputs.forEach((input) => {
+          const inputName = input.getAttribute("name");
+          let inputValue = "";
+          if (input.getAttribute("type") == "checkbox") {
+            const isChecked = input.checked;
+            inputValue = isChecked ? "on" : "off";
+            console.log("inputValue" + inputValue);
+          } else {
+            inputValue = input.value;
+            console.log("inputValue" + inputValue);
           }
-          // JSON FIELDS
-          else{
-            result.values['page1'].push({
-              'header':[{         
-              'edit_submit_field': $('.edit_submit_field1').val(),
-              'page_header': $('.uph_1').val(),
-              'page_description': $('.upd_1').val(),
-              // Add other properties as needed    
-            }]},{
-              ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
-                    firstCondition: firstCondition,
-                    secondCondition: secondCondition
-                },
-                'settings': settingsArray
-              }
-            });
-      
-            allArray.values['page1'].push(
-            {'header':[{         
-              'edit_submit_field': $('.edit_submit_field1').val(),
-              'page_header': $('.uph_1').val(),
-              'page_description': $('.upd_1').val(),
-              // Add other properties as needed    
-          }]},{
-            ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
-                    firstCondition: firstCondition,
-                    secondCondition: secondCondition
-                },
-                'settings': settingsArray
-            }
+
+          settingsArray.push({
+            inputName: inputName,
+            inputValue: inputValue,
           });
-          }
-        
         });
 
-      console.log(result)
-      console.log(allArray)
-  }
-  
+        if (index > 0) {
+          result.values["page1"].push({
+            ["field" + ins]: {
+              other_data: otherData,
+              fieldType: fieldType,
+              fieldCount: fieldCount,
+              conditions: {
+                firstCondition: firstCondition,
+                secondCondition: secondCondition,
+              },
+              settings: settingsArray,
+            },
+          });
 
-  else{
-    
-      let storeIns = 0
+          allArray.values["page1"].push({
+            ["field" + ins]: {
+              other_data: otherData,
+              fieldType: fieldType,
+              fieldCount: fieldCount,
+              conditions: {
+                firstCondition: firstCondition,
+                secondCondition: secondCondition,
+              },
+              settings: settingsArray,
+            },
+          });
+        }
+        // JSON FIELDS
+        else {
+          result.values["page1"].push(
+            {
+              header: [
+                {
+                  edit_submit_field: $(".edit_submit_field1").val(),
+                  page_header: $(".uph_1").val(),
+                  page_description: $(".upd_1").val(),
+                  // Add other properties as needed
+                },
+              ],
+            },
+            {
+              ["field" + ins]: {
+                other_data: otherData,
+                fieldType: fieldType,
+                fieldCount: fieldCount,
+                conditions: {
+                  firstCondition: firstCondition,
+                  secondCondition: secondCondition,
+                },
+                settings: settingsArray,
+              },
+            }
+          );
+
+          allArray.values["page1"].push(
+            {
+              header: [
+                {
+                  edit_submit_field: $(".edit_submit_field1").val(),
+                  page_header: $(".uph_1").val(),
+                  page_description: $(".upd_1").val(),
+                  // Add other properties as needed
+                },
+              ],
+            },
+            {
+              ["field" + ins]: {
+                other_data: otherData,
+                fieldType: fieldType,
+                fieldCount: fieldCount,
+                conditions: {
+                  firstCondition: firstCondition,
+                  secondCondition: secondCondition,
+                },
+                settings: settingsArray,
+              },
+            }
+          );
+        }
+      });
+
+      console.log(result);
+      console.log(allArray);
+    } else {
+      let storeIns = 0;
       // This else statement handles when the form contains more than one pages
       // EACH FORMCLASS Represents each PAGE
       formClassElements.forEach((formClassElement, pageInd) => {
-        console.log(EACHPAGE)
-        console.log('Page count : ',EACHPAGE[pageInd].getAttribute('page-count'), )
-        let ins = 0
+        console.log(EACHPAGE);
+        console.log(
+          "Page count : ",
+          EACHPAGE[pageInd].getAttribute("page-count")
+        );
+        let ins = 0;
         // Try to set pageind to 0 or a number
         // such that a continuous iteration will be enabled ie: 1, 2, 3, 4, 5
-        let pageIndex = 0
-        if(pageInd > 0){
-           pageIndex = pageInd + 1
-        }else{
-           pageIndex = 0
+        let pageIndex = 0;
+        if (pageInd > 0) {
+          pageIndex = pageInd + 1;
+        } else {
+          pageIndex = 0;
         }
-   
 
         // set result json
-        result.values['page'+(Number(pageInd)+1)] = [];
+        result.values["page" + (Number(pageInd) + 1)] = [];
         // set global json
-        allArray.values['page'+(Number(pageInd)+1)] = [];
-        console.log(result)
+        allArray.values["page" + (Number(pageInd) + 1)] = [];
+        console.log(result);
 
         // ADD THE pageIndex TO NORMAL INDEX TO DETERMINT IF NEW PAGE
-        const fieldSelectOptions = formClassElement.querySelectorAll('.Field_select_option');
-        const fieldNames = formClassElement.querySelectorAll('.fieldName');
-        const fieldCounts = formClassElement.querySelectorAll('.Field_count');
-   
+        const fieldSelectOptions = formClassElement.querySelectorAll(
+          ".Field_select_option"
+        );
+        const fieldNames = formClassElement.querySelectorAll(".fieldName");
+        const fieldCounts = formClassElement.querySelectorAll(".Field_count");
+
         const settingsClassMap = {
-          'Text': 'TEXT_SETTING',
-          'Dropdown': 'DROPDOWN_SETTING',
-          'File_Upload': 'FILEUPLOAD_SETTING',
-          'Email': 'EMAIL_SETTING',
+          Text: "TEXT_SETTING",
+          Dropdown: "DROPDOWN_SETTING",
+          File_Upload: "FILEUPLOAD_SETTING",
+          Email: "EMAIL_SETTING",
           // Add more mappings as needed
         };
-      /*
+        /*
         result.values['page1'+(Number(pageInd)+1)].push({
           'edit_submit_field': $('.edit_submit_field1').val(),
           'page_header': $('.uph_1').val(),
@@ -534,30 +672,30 @@
           // Add other properties as needed
         });
       */
-      
+
         fieldSelectOptions.forEach((selectOption, index) => {
           /*
           field_count gives he exact field number,so even if a deletion
           occurs it dosnt really affect the call of that field
           */
-          
-          console.log('field bettercount: ',fieldCounts[index])
-          let field_count = fieldCounts[index].value
-          if(pageIndex < 1){
-            console.log('truetrue')
-           
-            ins = storeIns + index + 1 
 
-            console.log(`${storeIns} + 1 + ${index}`)
-            console.log(ins)
-          }else{
-            console.log('falsefalse')
-            console.log(`${index} + 1 + ${pageIndex}`)
-            ins = index + 1 + pageIndex
-            storeIns = ins
-            console.log('storeIns is'+ storeIns)
+          console.log("field bettercount: ", fieldCounts[index]);
+          let field_count = fieldCounts[index].value;
+          if (pageIndex < 1) {
+            console.log("truetrue");
+
+            ins = storeIns + index + 1;
+
+            console.log(`${storeIns} + 1 + ${index}`);
+            console.log(ins);
+          } else {
+            console.log("falsefalse");
+            console.log(`${index} + 1 + ${pageIndex}`);
+            ins = index + 1 + pageIndex;
+            storeIns = ins;
+            console.log("storeIns is" + storeIns);
           }
-          ins = field_count
+          ins = field_count;
           const condition = [];
           const fieldType = {};
           const conditionData = [];
@@ -568,9 +706,9 @@
           const fieldName = fieldNames[index].value;
           const fieldCount = fieldCounts[index].value;
           const selectOptionValue = selectOption.value;
-         
+
           // PUSH DATATYPE AND VALUE
-    
+
           fieldType.fieldName = selectOptionValue;
           fieldType.fieldValue = fieldName;
           /*  
@@ -580,198 +718,206 @@
             });
           */
 
-            // FIND INPUTS INSIDE OF CONDITIONS
+          // FIND INPUTS INSIDE OF CONDITIONS
 
-            const conditionsLoopData = document.querySelector(`.CONDITIONAL_LOOP${ins}`);
-            const FirstCondition = conditionsLoopData.querySelector(`.FirstCondition${ins}`);
-            const FC_correspondingSelect = FirstCondition.querySelectorAll(`select`);
-    
-            FC_correspondingSelect.forEach((selector) => {
-                const selectorName = selector.getAttribute('name');
-                const selectorValue = selector.value;
-                firstCondition.push({
-                    selectorName: selectorName,
-                    selectorValue: selectorValue
-                });
+          const conditionsLoopData = document.querySelector(
+            `.CONDITIONAL_LOOP${ins}`
+          );
+          const FirstCondition = conditionsLoopData.querySelector(
+            `.FirstCondition${ins}`
+          );
+          const FC_correspondingSelect =
+            FirstCondition.querySelectorAll(`select`);
+
+          FC_correspondingSelect.forEach((selector) => {
+            const selectorName = selector.getAttribute("name");
+            const selectorValue = selector.value;
+            firstCondition.push({
+              selectorName: selectorName,
+              selectorValue: selectorValue,
             });
-    
-            const SecondCondition = conditionsLoopData.querySelector(`.SecondCondition${ins}`);
-            const SC_correspondinglabel = SecondCondition.querySelectorAll(`label`);
-    
-            SC_correspondinglabel.forEach((label) => {
-                const SCL_correspondingSelect = label.querySelectorAll(`select`);
-                const SCL_correspondingInput = label.querySelector(`input`);
-                const SCL_inputName = SCL_correspondingInput.getAttribute('name');
-                const SCL_inputValue = SCL_correspondingInput.value;
-    
-                SCL_correspondingSelect.forEach((selector) => {
-                    const SCL_selectorName = selector.getAttribute('name');
-                    const SCL_selectorValue = selector.value;
-                    secondCondition.push({
-                        SCL_selectorName: SCL_selectorName,
-                        SCL_selectorValue: SCL_selectorValue
-                    });
-                });
-    
-                secondCondition.push({
-                    SCL_inputName: SCL_inputName,
-                    SCL_inputValue: SCL_inputValue
-                });
+          });
+
+          const SecondCondition = conditionsLoopData.querySelector(
+            `.SecondCondition${ins}`
+          );
+          const SC_correspondinglabel =
+            SecondCondition.querySelectorAll(`label`);
+
+          SC_correspondinglabel.forEach((label) => {
+            const SCL_correspondingSelect = label.querySelectorAll(`select`);
+            const SCL_correspondingInput = label.querySelector(`input`);
+            const SCL_inputName = SCL_correspondingInput.getAttribute("name");
+            const SCL_inputValue = SCL_correspondingInput.value;
+
+            SCL_correspondingSelect.forEach((selector) => {
+              const SCL_selectorName = selector.getAttribute("name");
+              const SCL_selectorValue = selector.value;
+              secondCondition.push({
+                SCL_selectorName: SCL_selectorName,
+                SCL_selectorValue: SCL_selectorValue,
+              });
             });
-    
 
-
-
-
+            secondCondition.push({
+              SCL_inputName: SCL_inputName,
+              SCL_inputValue: SCL_inputValue,
+            });
+          });
 
           // FIND INPUTS INSIDE OF SETTINGS
           const settingsData = document.querySelectorAll(`.FIELD_SETTINGS`);
-          const t2Input = document.querySelector(`.FIELD_SETTINGS .${settingsClassMap[selectOptionValue]+ins}`);
-          const settingInputs = Array.from(t2Input.querySelectorAll('input'));
+          const t2Input = document.querySelector(
+            `.FIELD_SETTINGS .${settingsClassMap[selectOptionValue] + ins}`
+          );
+          const settingInputs = Array.from(t2Input.querySelectorAll("input"));
           // let STV = ''
-          if(settingsClassMap[selectOptionValue] == 'DROPDOWN_SETTING'){
-            const settingTextarea = t2Input.querySelector('textarea');
-            inputValue = settingTextarea.value.split('\n');
-            inputName = settingTextarea.getAttribute('name')
+          if (settingsClassMap[selectOptionValue] == "DROPDOWN_SETTING") {
+            const settingTextarea = t2Input.querySelector("textarea");
+            inputValue = settingTextarea.value.split("\n");
+            inputName = settingTextarea.getAttribute("name");
             /*
             STV.forEach((value, index) => {
               console.log(`Option ${index + 1}: ${value.trim()}`);
             });*/
             settingsArray.push({
               inputName: inputName,
-              inputValue: inputValue
+              inputValue: inputValue,
             });
-            
-          }  
+          }
 
-          console.log('timeing....')
-          console.log(t2Input)
+          console.log("timeing....");
+          console.log(t2Input);
 
           settingInputs.forEach((input, index) => {
-            const inputName = input.getAttribute('name');
-            let inputValue = ''
-            if(input.getAttribute('type') == 'checkbox'){
+            const inputName = input.getAttribute("name");
+            let inputValue = "";
+            if (input.getAttribute("type") == "checkbox") {
               const isChecked = input.checked;
-               inputValue = isChecked ? 'on' : 'off';
-               //console.log(input)
-               //console.log('sssssssssssssssssssssssssssssssss')
-               //console.log('index'+index)
-               //console.log(settingsClassMap[selectOptionValue]+ins)
-               //console.log('inputValue'+inputValue)
-            }else{
-               inputValue =  input.value
-               console.log('inputValue'+inputValue)
+              inputValue = isChecked ? "on" : "off";
+              //console.log(input)
+              //console.log('sssssssssssssssssssssssssssssssss')
+              //console.log('index'+index)
+              //console.log(settingsClassMap[selectOptionValue]+ins)
+              //console.log('inputValue'+inputValue)
+            } else {
+              inputValue = input.value;
+              console.log("inputValue" + inputValue);
             }
-            
-          
-          
+
             settingsArray.push({
               inputName: inputName,
-              inputValue: inputValue
+              inputValue: inputValue,
             });
           });
 
-          console.log(settingsArray)
-          if(index > 0){
-            result.values['page'+(Number(pageInd)+1)].push({
-              ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
-                    firstCondition: firstCondition,
-                    secondCondition: secondCondition
+          console.log(settingsArray);
+          if (index > 0) {
+            result.values["page" + (Number(pageInd) + 1)].push({
+              ["field" + ins]: {
+                other_data: otherData,
+                fieldType: fieldType,
+                fieldCount: fieldCount,
+                conditions: {
+                  firstCondition: firstCondition,
+                  secondCondition: secondCondition,
                 },
-                'settings': settingsArray
-              }
+                settings: settingsArray,
+              },
             });
-      
-            allArray.values['page'+(Number(pageInd)+1)].push({
-              ['field' + ins]: {
-                  'other_data': otherData,
-                  'fieldType': fieldType,
-                  'fieldCount': fieldCount,
-                  'conditions': {
-                      firstCondition: firstCondition,
-                      secondCondition: secondCondition
-                  },
-                  'settings': settingsArray
-              }
+
+            allArray.values["page" + (Number(pageInd) + 1)].push({
+              ["field" + ins]: {
+                other_data: otherData,
+                fieldType: fieldType,
+                fieldCount: fieldCount,
+                conditions: {
+                  firstCondition: firstCondition,
+                  secondCondition: secondCondition,
+                },
+                settings: settingsArray,
+              },
             });
           }
           // JSON FIELDS
-          else{
-            result.values['page'+(Number(pageInd)+1)].push({
-              'header':[{         
-              'edit_submit_field': $(`.edit_submit_field${(Number(pageInd)+1)}`).val(),
-              'page_header': $(`.uph_${(Number(pageInd)+1)}`).val(),
-              'page_description': $(`.upd_${(Number(pageInd)+1)}`).val(),
-              // Add other properties as needed    
-            }]},{
-              ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
+          else {
+            result.values["page" + (Number(pageInd) + 1)].push(
+              {
+                header: [
+                  {
+                    edit_submit_field: $(
+                      `.edit_submit_field${Number(pageInd) + 1}`
+                    ).val(),
+                    page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
+                    page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
+                    // Add other properties as needed
+                  },
+                ],
+              },
+              {
+                ["field" + ins]: {
+                  other_data: otherData,
+                  fieldType: fieldType,
+                  fieldCount: fieldCount,
+                  conditions: {
                     firstCondition: firstCondition,
-                    secondCondition: secondCondition
+                    secondCondition: secondCondition,
+                  },
+                  settings: settingsArray,
                 },
-                'settings': settingsArray
               }
-            });
-      
-            allArray.values['page'+(Number(pageInd)+1)].push(
-            {'header':[{         
-              'edit_submit_field': $(`.edit_submit_field${(Number(pageInd)+1)}`).val(),
-              'page_header': $(`.uph_${(Number(pageInd)+1)}`).val(),
-              'page_description': $(`.upd_${(Number(pageInd)+1)}`).val(),
-              // Add other properties as needed    
-          }]},{
-            ['field' + ins]: {
-                'other_data': otherData,
-                'fieldType': fieldType,
-                'fieldCount': fieldCount,
-                'conditions': {
+            );
+
+            allArray.values["page" + (Number(pageInd) + 1)].push(
+              {
+                header: [
+                  {
+                    edit_submit_field: $(
+                      `.edit_submit_field${Number(pageInd) + 1}`
+                    ).val(),
+                    page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
+                    page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
+                    // Add other properties as needed
+                  },
+                ],
+              },
+              {
+                ["field" + ins]: {
+                  other_data: otherData,
+                  fieldType: fieldType,
+                  fieldCount: fieldCount,
+                  conditions: {
                     firstCondition: firstCondition,
-                    secondCondition: secondCondition
+                    secondCondition: secondCondition,
+                  },
+                  settings: settingsArray,
                 },
-                'settings': settingsArray
-            }
-          });
+              }
+            );
           }
-        
-          console.log(allArray)
-      
-          return
-  
+
+          console.log(allArray);
+
+          return;
         });
-       
       });
 
-     // downloadJson(result)
+      // downloadJson(result)
     }
-  
 
-
-
-    if(e.innerText && e.innerText.toLowerCase() === 'update'){
-      window.showModal3 = true
-      saveOrganizedform_('update')
-
-    }else if(e.innerText && e.innerText.toLowerCase() === 'save'){
-      window.showModal3 = true
-      saveOrganizedform_('save')
-
-    }else if(e === 'preview'){
+    if (e.innerText && e.innerText.toLowerCase() === "update") {
+      window.showModal3 = true;
+      saveOrganizedform_("update");
+    } else if (e.innerText && e.innerText.toLowerCase() === "save") {
+      window.showModal3 = true;
+      saveOrganizedform_("save");
+    } else if (e === "preview") {
       // save allArray in a localstorage
-      localStorage.setItem('previewAllArray', JSON.stringify(allArray))
+      localStorage.setItem("previewAllArray", JSON.stringify(allArray));
       window.open(`${baseUrl}/form/preview`);
-    }
-    else{
-      
+    } else {
       // CHECK OF OPTION SELECTED WAS GOOGLE DRIVE OR SOMETHING ELSE
     }
   }
-  
 </script>
-<script  src="../../js/formBuilder/dragNdrop.js" ></script>
+<script src="../../js/formBuilder/dragNdrop.js"></script>

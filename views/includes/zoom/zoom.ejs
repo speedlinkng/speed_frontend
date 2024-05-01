@@ -1,26 +1,44 @@
 <section class="p-2 px-5 mt-5">
   <div class="loader_skeleton block flex flex-col">
-    <div class="skeleton animate-wave h-48 w-full rounded-lg bg-slate-300 dark:bg-navy-500"></div>
+    <div
+      class="skeleton animate-wave h-48 w-full rounded-lg bg-slate-300 dark:bg-navy-500"
+    ></div>
     <div class="flex space-x-5 py-4">
-      <div class="skeleton animate-wave h-16 w-16 rounded-full bg-slate-150 dark:bg-navy-500"></div>
+      <div
+        class="skeleton animate-wave h-16 w-16 rounded-full bg-slate-150 dark:bg-navy-500"
+      ></div>
       <div class="flex flex-1 flex-col justify-between py-2">
-        <div class="skeleton animate-wave h-3 w-10/12 rounded bg-slate-150 dark:bg-navy-500"></div>
-        <div class="skeleton animate-wave h-6 w-full rounded bg-slate-150 dark:bg-navy-500"></div>
+        <div
+          class="skeleton animate-wave h-3 w-10/12 rounded bg-slate-150 dark:bg-navy-500"
+        ></div>
+        <div
+          class="skeleton animate-wave h-6 w-full rounded bg-slate-150 dark:bg-navy-500"
+        ></div>
       </div>
     </div>
   </div>
 
   <div id="integrate_zoom" class="hidden">
-    <div class="mt-4 flex items-center justify-center gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5" style="height:85vh;">
+    <div
+      class="mt-4 flex items-center justify-center gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5"
+      style="height: 85vh"
+    >
       <div class="p-5 grid w-full card shadow h-fit">
-        <div class="text-center ">Save all your zoom recordings on our drive and access them easily anytime.</div>
+        <div class="text-center">
+          Save all your zoom recordings on our drive and access them easily
+          anytime.
+        </div>
         <div class="flex justify-center items-center space-x-2">
-
-          <button class="btn mt-2 hidden space-x-2 bg-primary font-medium bg-primary px-4 py-3 text-white hover:bg-primary-focus dark:bg-accent sm:px-3">
+          <button
+            class="btn mt-2 hidden space-x-2 bg-primary font-medium bg-primary px-4 py-3 text-white hover:bg-primary-focus dark:bg-accent sm:px-3"
+          >
             <i class="bi bi-plus-lg"></i>
             <span>Start meet</span>
           </button>
-          <button onclick="integrateZoom()" class="btn mt-2 space-x-2 font-medium bg-secondary/10 py-3 px-4 text-secondary hover:bg-secondary/20 dark:bg-secondary-light/15 dark:text-secondary-light sm:px-3">
+          <button
+            onclick="integrateZoom()"
+            class="btn mt-2 space-x-2 font-medium bg-secondary/10 py-3 px-4 text-secondary hover:bg-secondary/20 dark:bg-secondary-light/15 dark:text-secondary-light sm:px-3"
+          >
             <i class="bi bi-plus-lg"></i>
             <span>Integrate Recordings</span>
           </button>
@@ -31,45 +49,56 @@
 
   <div id="display_zoom_table" class="hidden">
     <div class="mb-5 py-4">
-      <div class="text-3xl text-blue-600 font-semibold ">Zoom Recordings</div>
+      <div class="text-3xl text-blue-600 font-semibold">Zoom Recordings</div>
     </div>
-    <div class="is-scrollbar-hidden min-w-full max-h-96 overflow-x-auto show_submissions_table">
+    <div
+      class="is-sc min-w-full max-h-96 overflow-x-scroll show_submissions_table"
+    >
       <table id="" class="bg-white w-full text-left poppin">
         <thead>
           <tr>
-            <th class="whitespace-nowrap rounded-tl-lg  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               S/N
             </th>
-            <th class="whitespace-nowrap  bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               Topic
             </th>
-            <th class=" whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               ID
             </th>
-            <th class=" min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               Start Time
             </th>
-            <th class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               files
             </th>
-            <th class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+            <th
+              class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
               Action
             </th>
           </tr>
         </thead>
-        <tbody id="zoom_table_content">
-
-        </tbody>
+        <tbody id="zoom_table_content"></tbody>
       </table>
     </div>
-    <div class="bg-white flex flex-col justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5">
+    <div
+      class="bg-white flex flex-col justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5"
+    >
       <div class="text-xs+">1 - 10 of 10 entries</div>
-
     </div>
   </div>
 </section>
-
-
 
 <script src="../js/loading.js"></script>
 <script src="../js/dash/zoom.js" defer></script>

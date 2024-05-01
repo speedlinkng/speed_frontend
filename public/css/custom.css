@@ -111,6 +111,7 @@ button[disabled]::after {
     top: 0;
     z-index: 2;
   }
+  
 
   thead th {
     position: sticky;
@@ -126,4 +127,24 @@ button[disabled]::after {
     z-index: 1;
   }
 
+  active-color{
+    background-color: rgba(79,70,229,.1);
+  }
+  pre {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    overflow: auto;
+  }
+  
+  code {
+    font-family: inherit;
+  }
 
+  pre code {
+    font-family: inherit; /* Use the font of the parent element */
+  }
+
+
+
+  

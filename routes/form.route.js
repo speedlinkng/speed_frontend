@@ -33,7 +33,7 @@ const {sign, decode} = require("jsonwebtoken")
           let bodyString = body;
           let result = JSON.parse(bodyString);
            console.log(result.data)
-           console.log(result.data.recordData.status)
+          //  console.log(result.data.recordData.status)
            console.log(result.data.allReplies)
            console.log('#####################')
            

@@ -23,6 +23,10 @@ async function integrateZoom() {
 
     }
     catch (err) {
+      console.log('nam')
+      $('.loader_skeleton').hide()
+      $('#integrate_zoom').show()
+      $('#display_zoom_table').hide()
       console.log('internet error')
       console.log(err)
     }
@@ -40,9 +44,9 @@ async function integrateZoom() {
       let fetchResponses = await fetch(`${backendUrl}/api/zoom/refresh`, settings);
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
-      // console.log(status)
+      console.log(status)
       if (res.success == 1 && status == 200) {
-      // console.log(res.success)
+      console.log(res.success)
         $('.loader_skeleton').hide()
         $('#integrate_zoom').hide()
         $('#display_zoom_table').show()
@@ -57,8 +61,12 @@ async function integrateZoom() {
 
     }
     catch (err) {
+      console.log('nam')
+      $('.loader_skeleton').hide()
+      $('#integrate_zoom').show()
+      $('#display_zoom_table').hide()
       console.log('internet error')
-      // console.log(err)
+      console.log(err)
     }
   }
   function formatFileSize(totalSize) {
@@ -110,6 +118,23 @@ download.forEach((eachdownload, index) => {
 }
 
   async function getRecordingsData() {
+    let allFilesize = 0
+    function formatFileSize(totalSize) {
+      if (totalSize < 1024) {
+          return totalSize + ' bytes';
+      } else if (totalSize < 1024 * 1024) {
+          return (totalSize / 1024).toFixed(2) + ' KB';
+      } else if (totalSize < 1024 * 1024 * 1024) {
+          return (totalSize / (1024 * 1024)).toFixed(2) + ' MB';
+      } else if (totalSize < 1024 * 1024 * 1024 * 1024) {
+          return (totalSize / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
+      } else if (totalSize < 1024 * 1024 * 1024 * 1024 * 1024) {
+          return (totalSize / (1024 * 1024 * 1024 * 1024)).toFixed(2) + ' TB';
+      } else {
+          return (totalSize / (1024 * 1024 * 1024 * 1024 * 1024)).toFixed(2) + ' PB';
+      }
+  }
+  
 
     let settings = {
       method: 'GET',
@@ -124,7 +149,7 @@ download.forEach((eachdownload, index) => {
       // console.log(status)
       if (res.success == 1 && status == 200) {
         // console.log(res.data.meetings)
-        let records = res.data.meetings
+        let records = res.data
         // console.log('recordings retrieved successfully')
 
 
@@ -163,7 +188,8 @@ download.forEach((eachdownload, index) => {
             } else {
                 return (totalSize / (1024 * 1024 * 1024)).toFixed(2) + ' GB';
             }
-        }
+          }
+       allFilesize += record.total_size
        let size = formatFileSize(record.total_size)
           $('#zoom_table_content').append(
               /*html*/
@@ -210,8 +236,16 @@ download.forEach((eachdownload, index) => {
           `
           )
         })
-      }else{
-        $('#zoom_table_content').append(
+        console.log('The total size for this file is ',   console.log(formatFileSize(allFilesize)))
+      }
+      else if (status == 400) { 
+        console.log('nam')
+        $('.loader_skeleton').hide()
+        $('#integrate_zoom').show()
+        $('#display_zoom_table').hide()
+      }
+      else {
+        $('#zoom_table_content').html(
           `
           <div class="p-2 text-center text-xl text-black">No Record Yet</div>
           `
@@ -225,7 +259,7 @@ download.forEach((eachdownload, index) => {
   }
 
   
-  setInterval(async ()=>{
+  setTimeout(async () => {
      refresh()
   }, 5000)
 
@@ -233,6 +267,6 @@ download.forEach((eachdownload, index) => {
     getRecordingsData()
   }, 5000)
   setInterval(async ()=>{
-     getRecordingsData()
-  }, 120000)
+    //  getRecordingsData()
+  }, 10000)
 

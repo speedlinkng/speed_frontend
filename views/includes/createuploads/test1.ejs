@@ -14,9 +14,14 @@
 
         <div class=" flex space-x-4 mt-4">
           <div class="flex-initial w-[10%] flex items-center justify-center">
-            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg x-tooltip.placement.right.interactive.content="'#content1'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
             </svg>
+            <template id="content1">
+              <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 dark:bg-navy-500 w-fit max-w-[150px]">
+                <p>This name won't be visible on your upload page. It is so you can quickly identify different upload pages.</p>
+              </div>
+            </template>
           </div>
           <div class="flex-grow w-full ">
             <!-- <input class="shearable_link form-input border w-[70%] md:w-[80%] rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" /> -->
@@ -30,16 +35,26 @@
 
         <div class=" flex space-x-4 mt-4">
           <div class="flex-initial w-[10%] flex items-center justify-center">
-            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg x-tooltip.placement.right.interactive.content="'#content2'"  fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
             </svg>
+            <template id="content2">
+              <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 w-fit dark:bg-navy-500 max-w-[150px]">
+                <p>This is the web adddress for your upload page. Send it to clients so they can upload content and files. You can fully customise your page domain. See the 'Page branding' section below.</p>              </div>
+            </template>
           </div>
           <div class="flex-grow w-full ">
             <label class="block">
               <span class="w-fit flex justify-left items-center">Request URL <span class="text-red-400">*</span> </span>
-              <div class="w-full border mt-1.5 flex items-center justify-left rounded-l-lg rounded-r-lg border-slate-300 px-3.5 font-inter dark:border-navy-450 focus:border-primary hover:border-slate-400 ">
+              <div class="page_url_parent w-full border mt-1.5 flex items-center justify-left rounded-l-lg rounded-r-lg border-slate-300 px-3.5 font-inter dark:border-navy-450 focus:border-primary hover:border-slate-400 ">
                 <span class="w-fit">speedlink.com/page/</span>
-                <input class="page_url form-input w-full border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="your unique url code" type="text" />
+                <input onchange="checkRequestId(this)" class="page_url form-input w-full border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="your unique url code" type="text" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill check_url hidden text-green-600" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill cancel_url text-error hidden" viewBox="0 0 16 16">
+                  <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+                </svg>
               </div>
             </label>
           </div>
@@ -47,9 +62,14 @@
 
         <div class=" flex space-x-4 mt-4">
           <div class="flex-initial w-[10%] flex items-center justify-center">
-            <svg fill="none" stroke="currentColor" stroke-width="1.7" class="w-6 h-6 " viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <svg x-tooltip.placement.right.interactive.content="'#content3'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
             </svg>
+            <template id="content3">
+              <div class="flex rounded-lg bg-black bg-opacity-50 text-xs backdrop-blur-md  text-slate-100 p-3 w-fit dark:bg-navy-500 max-w-[150px]">
+                <p>Choose whether your upload page should be publicly available, password-protected or only accessible by people with a link.</p>
+              </div>
+            </template>
           </div>
           <div class="flex-grow w-full ">
             <!-- <input class="shearable_link form-input border w-[70%] md:w-[80%] rounded-lg border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Username" type="text" /> -->
@@ -197,6 +217,7 @@
 
 <script>
   window.showModal3 = false
+ 
   function saveOrganizedform_(e){
    
     if(e == 'save'){
@@ -216,8 +237,4 @@
 </script>
 
 
-
-<!-- <script  src="../../js/upload/u_form.js"></script> -->
-<!-- <script  src="../../js/upload/u_fetchData.js"></script>
-<script  src="../../js/upload/u_resume.js"></script> -->
-<script  src="../../js/formBuilder/edit.js" ></script>
+<script  src="../../js/formBuilder/edit.js" defer></script>
