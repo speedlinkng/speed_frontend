@@ -323,7 +323,7 @@
 
   async function checkRequestId(input) {
     let valueOf = input.value || $(".page_url").val();
-    alert(valueOf);
+
     const res = await fetch(`${backendUrl}/api/app/checkId/${valueOf}`, {
       method: "GET",
       headers: {
@@ -339,6 +339,7 @@
       $(".cancel_url").hide();
       return false;
     } else {
+      $(".page_url").val("");
       $(".check_url").hide();
       $(".cancel_url").show();
       $(".page_url_parent").removeClass("border-green-500");
@@ -362,12 +363,17 @@
         showNoti("warning", "Kindly fill in the required fields", 4000);
         return;
       }
+      /*
+      This was meant to fetch the match for this record_id again
       let checkPageUrl = await checkRequestId("");
+      alert(checkPageUrl);
       if (checkPageUrl == false) {
+        alert("false");
       }
       if (checkPageUrl == true) {
+        alert("true");
         return;
-      }
+      }*/
     }
 
     let otherData = {
@@ -378,6 +384,7 @@
       page_url: $(".page_url").val(),
       page_name: $(".page_name").val(),
     };
+    console.log(otherData, "already clicker");
 
     // end other input data
 

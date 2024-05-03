@@ -115,6 +115,7 @@
     <label
       x-show="showLabel"
       class="block"
+      style="font-weight: 500"
       x-ref="`${(fieldType.fieldValue).replace(/\s/g, '')}${fieldIndex}`"
     >
       <div class="flex">
@@ -146,6 +147,7 @@
         @change="handleInput(fieldType.fieldValue, fieldIndex);checkSettings(dropdownSettings, fieldType.fieldValue, error[0],fieldType)"
         class="form-select mt-1.5 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:bg-navy-700 dark:hover:border-navy-400 dark:focus:border-accent placeholder:text-slate-400/70"
       >
+        <option x-init="" :value="">--</option>
         <template x-for="(options, optionIndex) in setting[0].inputValue">
           <option x-init="" :value="options" x-text="options"></option>
         </template>
@@ -153,7 +155,7 @@
       <span
         :class="'description'+keyComb"
         x-text="(setting.find(item => item.inputName === 'Description') || {}).inputValue || ''"
-        class="text-tiny+ text-slate-400 dark:text-navy-300"
+        class="capitalize text-tiny+ text-slate-400 dark:text-navy-300"
         >This is a help text</span
       >
       <span

@@ -53,6 +53,7 @@ document.addEventListener("alpine:init", () => {
   }
 
   Alpine.data("dropdown", () => ({
+    watermark_div:false,
     isLoading: false,
     open: false,
     items: [],
@@ -160,6 +161,7 @@ document.addEventListener("alpine:init", () => {
           errorModal.click();
         }
       } catch (err) {
+        this.isLoading = true
         console.log(err);
         this.errorMesg = err;
         let errorModal = document.querySelector("#showModalError");
@@ -461,7 +463,41 @@ document.addEventListener("alpine:init", () => {
     },
 
     async repliesToJson(_errors) {
-      console.log(_errors);
+   
+
+
+      this.allInputFields.forEach((field) => {
+        const spanAbove = document.querySelector(`.Name${field}`);
+        const fieldValue = document.querySelector(`.${field}`);
+        const dataPointIdValue = fieldValue.getAttribute("data-pointId");
+ 
+        let isUploadError = false
+        if (fieldValue.name === "file") {
+          console.log(`uploads${field}`)
+          const getUploadFieldValue = document.querySelector(`.uploads${field}`);
+          if (getUploadFieldValue.value == 'true') {
+            const filePresent = document.querySelector(`#filePresent${field}`);
+            console.log(filePresent);
+           
+            if (filePresent.value > 0 || filePresent.value != '') {
+              
+            } else {
+              const fieldName = document.querySelector(`data-fieldName`)
+              showNoti("error", `"${fieldName}" field requires a file`, 5000);
+              this.isLoading = true
+              this.preFileName = '' // reset prefileName as it will keep incrementing on each error
+              _errors.push(true);
+                
+            }
+
+          }
+
+        }
+   
+      })
+
+
+
       if (_errors.every((element) => element === false)) {
         // Do something if all elements are false
         const replies = {
@@ -475,8 +511,6 @@ document.addEventListener("alpine:init", () => {
           const spanAbove = document.querySelector(`.Name${field}`);
           const fieldValue = document.querySelector(`.${field}`);
           const dataPointIdValue = fieldValue.getAttribute("data-pointId");
-          if (fieldValue.value === "file") {
-          }
 
           // let spanAbove = (inputElement.previousElementSibling).innerText;
 
@@ -715,28 +749,28 @@ document.addEventListener("alpine:init", () => {
       this.repliesToJson(this._errors);
     },
 
-    PreFileName(eachFieldSetting) {
+    // PreFileName(eachFieldSetting) {
      
-      // [[[[[[[[[[[[[      ADD FIELD TO FILE NAME VALIDATION      ]]]]]]]]]]]]]
+    //   // [[[[[[[[[[[[[      ADD FIELD TO FILE NAME VALIDATION      ]]]]]]]]]]]]]
 
-      let foundAddField = (eachFieldSetting[this._keyComb] || []).find((item) =>
-        item.hasOwnProperty("Add field value to the front of the file name")
-      );
-      if (foundAddField) {
-        addField =
-          foundAddField["Add field value to the front of the file name"];
-        if (addField == "on") {
-          this.preFileName += this.inputValue + "_";
-          this.$notification({
-            text: `${this.preFileName}`,
-            variant: "secondary",
-            position: "right-bottom",
-            duration: 3000,
-          });
-        } else {
-        }
-      }
-    },
+    //   let foundAddField = (eachFieldSetting[this._keyComb] || []).find((item) =>
+    //     item.hasOwnProperty("Add field value to the front of the file name")
+    //   );
+    //   if (foundAddField) {
+    //     addField =
+    //       foundAddField["Add field value to the front of the file name"];
+    //     if (addField == "on") {
+    //       this.preFileName += this.inputValue + "_";
+    //       this.$notification({
+    //         text: `${this.preFileName}`,
+    //         variant: "green-500",
+    //         position: "right-bottom",
+    //         duration: 3000,
+    //       });
+    //     } else {
+    //     }
+    //   }
+    // },
 
     checkSettings(
       eachFieldSetting,
@@ -755,6 +789,7 @@ document.addEventListener("alpine:init", () => {
 
       // [[[[[[[[[[[[[      REQUIRED VALIDATION      ]]]]]]]]]]]]]
 
+
       let foundRequired = (eachFieldSetting[this._keyComb] || []).find((item) =>
         item.hasOwnProperty("Required")
       );
@@ -765,7 +800,7 @@ document.addEventListener("alpine:init", () => {
             errors.validation = false;
             this._errors.push(false);
           } else {
-            showNoti("warning", `"${fieldValue}" field cannot be empty`, 5000);
+            showNoti("warning", `"${fieldValue}" field cannot be empty`, 3000);
             errors.validation = true;
             this._errors.push(true);
             errors.message = `<li>This field cannot be empty</li>`;
@@ -810,12 +845,13 @@ document.addEventListener("alpine:init", () => {
             errors.message = `<li>the this field is invalid</li>`;
             // console.log('Input does not match the pattern.');
             this.submitForm_ = false; // disable clicking on input
-            this.$notification({
-              text: "Error: certain fields are not valid",
-              variant: "error",
-              position: "right-bottom",
-              duration: 3000,
-            });
+            // this.$notification({
+            //   text: "Error: certain fields are not valid",
+            //   variant: "light",
+            //   position: "right-bottom",
+            //   duration: 3000,
+            // });
+            showNoti("error", "Error: certain fields are not valid", 5000);
             return;
           }
         } catch (error) {
@@ -843,12 +879,12 @@ document.addEventListener("alpine:init", () => {
           if (addField == "on") {
             if (this.inputValue) {
               this.preFileName += this.inputValue + "_";
-              this.$notification({
-                text: `${this.preFileName}`,
-                variant: "secondary",
-                position: "right-bottom",
-                duration: 3000,
-              });
+              // this.$notification({
+              //   content:'#custom_preFileName',
+              //   position: "right-bottom",
+              //   duration: 3000,
+              // });
+              // showNoti("error", "Error: certain fields are not valid", 5000);
             }
           } else {
           }
@@ -893,6 +929,11 @@ document.addEventListener("alpine:init", () => {
             this runs as each field loads in the file during loading state,
             it checks to see if to display a field or not and initializes certain data 
           */
+      
+      // show watermark div
+      setTimeout(() => {
+        this.watermark_div = true
+      }, 1200)
 
       let keyComb = `${this.pageKey}${this.fieldKey}`;
 

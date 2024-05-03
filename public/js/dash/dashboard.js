@@ -516,7 +516,7 @@ async function getRecordList() {
       window.location.href = `${baseUrl}/auth`;
     } else if (res.success == 1 && staus == 200) {
       console.log("{{{{{{{{{{{{{{{{{{{{{{{{success}}}}}}}}}}}}}}}}}}}}}}}}");
-      console.log(res);
+      // console.log(res);
       if (res.data != "") {
         let jsonString = JSON.stringify(res.data);
 
@@ -526,10 +526,10 @@ async function getRecordList() {
         console.log(data);
 
         data.forEach((rez, req_index) => {
+          // console.log(rez);
           console.log(rez);
-          console.log(rez.record_data);
-          console.log(rez.record_data.otherData);
-          console.log(rez.record_data.otherData.drop_zone);
+          // console.log(rez.record_data.otherData);
+          // console.log(rez.record_data.otherData.page_url);
 
           RecordDataDashboard.push(rez); // this can be used when filtering in submission.js
           allres = rez.record_data;
@@ -542,11 +542,10 @@ async function getRecordList() {
           } else {
             res_status = `<div class="badge border rounded-full border-error text-error">${rez.status}</div>`;
           }
-
           $("#display").append(
             /*html*/
             `
-                <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+              <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
                 <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                   <div class="flex items-center space-x-4">
                     <svg
@@ -658,9 +657,7 @@ src='http://localhost:4000/form/${rez.record_id}' &gt;
                     </div>
 
                     <button @click="$clipboard({
-                      content:document.querySelector('#clipboardContent${
-                        rez.record_id
-                      }').innerText,
+                      content:'${baseUrl}/form/${rez.record_id.replace(/\s/g, "")}',
                       success:()=>$notification({text:'Link copied',variant:'success'}),
                       error:()=>$notification({text:'Error',variant:'error'})
                     })" class="btn h-9 w-9 border border-primary p-0 font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">

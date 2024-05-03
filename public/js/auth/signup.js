@@ -36,7 +36,7 @@
           $('#call_success_').append('Signup Successful')
           localStorage.setItem('access', json.token);
           localStorage.getItem('access');
-          window.location.href = `${baseUrl}/auth`
+          window.location.href = `${baseUrl}/auth/activate`
 
 
         }
@@ -66,6 +66,9 @@
 
         }
         else {
+          $('#call_error_').hide()
+          $('#call_success_').hide()
+          $('#call_error_').text('')
           console.log(sta)
 
         }

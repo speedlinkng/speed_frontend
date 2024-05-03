@@ -1,27 +1,58 @@
-    <div 
-        x-data="{notificationText: 'hello there'}" >
+<div x-data="{notificationText: 'hello there'}">
+  <div
+    x-data="{ onShowNoti: () => { $notification({ content:window.content,  position: 'right-bottom', duration: window.duration }) } }"
+    @click
+  >
+    <p id="allNotifications" x-on:click="onShowNoti()"></p>
+  </div>
+</div>
 
-            <div 
-                x-data="{ onShowNoti: () => { $notification({ text: window.noti, variant: window.variant, position: 'center-top', duration: window.duration }) } }" 
-                @click>
-                <p id="allNotifications" x-on:click="onShowNoti()"></p>
-            </div>
+<template id="show_success">
+  <div
+    x-text="window.noti"
+    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-success/10 text-success border border-success card font-normal"
+  ></div>
+</template>
 
-    </div>
+<template id="show_error">
+  <div
+    x-text="window.noti"
+    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-error/10 text-error border border-error card font-normal"
+  >
+    NOTI ERROR
+  </div>
+</template>
+
+<template id="show_warning">
+  <div
+    x-text="window.noti"
+    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-warning/10 text-warning border border-warning card font-normal"
+  >
+    NOTI ERROR
+  </div>
+</template>
 
 <script>
-function showNoti(variant, message, duration){
+  function showNoti(variant, message, duration) {
+    window.variant = `${variant}`;
+    window.noti = `${message}`;
+    window.duration = duration;
+    let noti = document.querySelector("#allNotifications");
 
-        window.variant = `${variant}`
-        window.noti = `${message}`
-        window.duration  = duration     
-        let noti = document.querySelector('#allNotifications')
-        noti.click()
-        
-}
-/* how to call notification
-setTimeout(function(){
-    showNoti('primary', 'how are you', 5000)
-}, 3000)
-*/
+    if (variant == "error") {
+      window.content = "#show_error";
+    }
+    if (variant == "warning") {
+      window.content = "#show_warning";
+    }
+    if (variant == "success") {
+      window.content = "#show_success";
+    }
+    noti.click();
+  }
+  /* how to call notification
+  setTimeout(function(){
+      showNoti('primary', 'how are you', 5000)
+  }, 3000)
+  */
 </script>

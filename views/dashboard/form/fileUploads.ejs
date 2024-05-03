@@ -4,7 +4,7 @@
 >
   <section>
     <div
-      x-data="{keyComb:''+pageKey+''+fieldKey+'', conditionValue:'', error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}"
+      x-data="{thisFile:'', keyComb:''+pageKey+''+fieldKey+'', conditionValue:'', error:[{validation:false, required:false, message:''}], completeCondition:[], showLabel: true, _if:'all', _matches:[], _conditions:[], _conditionsWord:[], _compared:[]}"
     >
       <!-- IMAGE SECTION  -->
       <div class="mt-3" id="image_section" style="display: block">
@@ -141,12 +141,21 @@
           </div>
           <input
             type="file"
-            class="files mt-1.5"
+            class="files mt-1.5 text-xs"
             name="file"
             :id="'filepond'+keyComb"
             x-init="startFilePond(('filepond'+keyComb),keyComb)"
           />
-          <div class="absolute right bg-white z-50 h-5 -mt-3 w-full"></div>
+          <div
+            x-show="watermark_div"
+            class="absolute right-0 bg-white z-50 min-h-4 h-4 -mt-3 w-[35%]"
+          ></div>
+          <span
+            :class="'description'+keyComb"
+            x-text="(setting.find(item => item.inputName === 'Description') || {}).inputValue || ''"
+            class="capitalize absolute h-fit w-[65%] left-0 -mt-3 text-tiny+ text-slate-400 dark:text-navy-300 sm:w-[50%]"
+            >This is a help text</span
+          >
           <!-- This is a trigger button click to start uploading this particular file to google drive -->
           <button
             :id="'FileButtonClickfield'+keyComb"
@@ -159,11 +168,12 @@
 
           <button
             id=""
-            class="fielTofield hidden"
+            class="fielTofield text-black hidden"
             @click="fielTofield(field.fieldCount)"
           >
             file to field
           </button>
+          <br />
         </div>
       </div>
 
@@ -171,8 +181,24 @@
       <input
         x-bind:data-pointId="field.fieldCount"
         x-bind:class="'field'+keyComb"
+        name="file"
         value=""
         class="hidden"
+      />
+
+      <!-- if required -->
+      <input
+        type=""
+        class="hidden"
+        x-bind:class="'uploadsfield'+keyComb"
+        x-bind:value="setting.find(item => item.inputName === 'Required' && item.inputValue === 'on') ? 'true' : 'false'"
+      />
+      <!-- if file is present -->
+      <input
+        x-bind:data-fieldName="(fieldType.fieldValue).charAt(0).toUpperCase() + (fieldType.fieldValue).slice(1)"
+        class="hidden"
+        x-bind:id="'filePresentfield'+keyComb"
+        x-bind:value="thisFile"
       />
     </div>
   </section>
@@ -220,8 +246,9 @@
         styleFilePanelMaxHeight: "70px", // Maximum height of the file panel
         acceptedFileTypes: ["image/*", "application/pdf"], // Array of accepted file types
         labelIdle:
+          '<span style="font-size:11px;" >' +
           drop_zone +
-          ' or <span class="filepond--label-action"> Browse </span>', // Custom label when no files are selected
+          '</span> or <span style="font-size:11px;" class="filepond--label-action"> Browse </span>', // Custom label when no files are selected
         // Configuration options go here
       });
 
@@ -234,10 +261,22 @@
       this.pond.on("addfile", (error, file) => {
         if (!error) {
           const firstFile = file;
-          //  console.log(firstFile.getFiles())
+          console.log(firstFile);
+          this.thisFile = this.pond.getFiles().length;
         } else {
           // Handle the error
           console.error("Error adding file:", error);
+        }
+      });
+
+      // Listen for the 'removefile' event
+      this.pond.on("removefile", (error, file) => {
+        if (!error) {
+          console.log("File removed:", file.filename);
+          this.thisFile = this.pond.getFiles().length;
+        } else {
+          // Handle the error
+          console.error("Error removing file:", error);
         }
       });
     },
@@ -259,7 +298,7 @@
         return;
       }
 
-      alert(uploadedFiles.length);
+      //  alert(uploadedFiles.length);
       if (uploadedFiles.length > 1) {
         for (var a = 0; a < this.fileLabel.length; a++) {
           let data = {

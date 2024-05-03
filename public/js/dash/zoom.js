@@ -210,6 +210,9 @@ download.forEach((eachdownload, index) => {
                   <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
                 ${record.recording_count} Files (${size})
               </td>
+              <td class="raw_size">
+              ${record.total_size}
+              </td>
               <td class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5">
             <div class="flex space-x-1">
                     <div onclick="share('${record.share_url}')" class="p-2 w-fit rounded-md flex justify-center items-center bg-primary/10 text-primary hover:bg-primary/20">
