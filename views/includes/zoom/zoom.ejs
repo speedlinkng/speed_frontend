@@ -1,4 +1,7 @@
-<section class="p-2 px-5 mt-5">
+<section
+  class="p-2 px-5 mt-5"
+  x-data="{showModalError:false, chooseBackupDrive:false}"
+>
   <div class="loader_skeleton block flex flex-col">
     <div
       class="skeleton animate-wave h-48 w-full rounded-lg bg-slate-300 dark:bg-navy-500"
@@ -23,9 +26,12 @@
       class="mt-4 flex items-center justify-center gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5"
       style="height: 85vh"
     >
+      <div class="hidden"><%- include('./error.ejs') %></div>
+      <div class="hidden"><%- include('./backupPrompt.ejs') %></div>
+
       <div class="p-5 grid w-full card shadow h-fit">
         <div class="text-center">
-          Save all your zoom recordings on our drive and access them easily
+          Backup all your zoom recordings on our drive and access them easily
           anytime.
         </div>
         <div class="flex justify-center items-center space-x-2">
@@ -48,8 +54,20 @@
   </div>
 
   <div id="display_zoom_table" class="hidden">
-    <div class="mb-5 py-4">
+    <div class="py-4 flex">
       <div class="text-3xl text-blue-600 font-semibold">Zoom Recordings</div>
+    </div>
+    <div class="space-x-1 mb-5 py-1 flex justify-start items-center text-black">
+      <button
+        @click="chooseBackupDrive = true"
+        class="relative border shadow-none inline-block px-2 py-1 text-gray-900 bg-gradient-to-tr from-gray-300 to-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
+      >
+        <span
+          class="absolute inset-0 border-2 border-[#f6f8fc] rounded-md"
+        ></span>
+        Backup
+      </button>
+      <div>Total size: <span class="sizeMGB"> 0</span></div>
     </div>
     <div
       class="is-sc min-w-full max-h-96 overflow-x-scroll show_submissions_table"
@@ -104,6 +122,9 @@
     </div>
   </div>
 </section>
-
+<script>
+  window.zoomError = "no message";
+</script>
 <script src="../js/loading.js"></script>
 <script src="../js/dash/zoom.js" defer></script>
+<script src="../js/dash/preferredBackup.js" defer></script>

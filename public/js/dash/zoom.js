@@ -1,3 +1,12 @@
+async function bkup_mygoogle() { 
+  localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
+  window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
+    "access"
+  )}`; 
+}
+async function bkup_speedlink() { 
+  localStorage.setItem("backup_stroage", 1);
+}
 async function integrateZoom() {
 
     let settings = {
@@ -239,13 +248,17 @@ download.forEach((eachdownload, index) => {
           `
           )
         })
+        $('.sizeMGB').text(formatFileSize(allFilesize))
         console.log('The total size for this file is ',   console.log(formatFileSize(allFilesize)))
       }
       else if (status == 400) { 
         console.log('nam')
-        $('.loader_skeleton').hide()
-        $('#integrate_zoom').show()
-        $('#display_zoom_table').hide()
+        window.zoomError = res.message
+        $('#showModalError').click()
+        $('.errMesg').text(window.zoomError)
+        // $('.loader_skeleton').hide()
+        // $('#integrate_zoom').show()
+        // $('#display_zoom_table').hide()
       }
       else {
         $('#zoom_table_content').html(
@@ -269,7 +282,5 @@ download.forEach((eachdownload, index) => {
   setTimeout(()=>{
     getRecordingsData()
   }, 5000)
-  setInterval(async ()=>{
-    //  getRecordingsData()
-  }, 10000)
+
 

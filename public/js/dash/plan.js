@@ -1,4 +1,4 @@
-async function getPlan() {
+  async function getPlan() {
     //alert('working')
     let settings = {
       method: 'GET',
@@ -37,7 +37,7 @@ async function getPlan() {
     }
   }
 
-  async function cancelPlan2() {
+  async function cancelPlan() {
     //alert('working')
     let settings = {
       method: 'GET',
@@ -47,8 +47,7 @@ async function getPlan() {
     };
 
     const myButton = document.getElementById('cancelPlan2');
-    // Call losding function
-    start_loading(myButton)
+    startLoader();
     try {
       let cancel = await fetch(`${backendUrl}/api/pay/cancel`, settings);
       let staus = await cancel.status
@@ -75,9 +74,44 @@ async function getPlan() {
       console.log(err)
     }finally {
         setTimeout(function () {
-         end_loading(myButton, 'Cancel')
+          endLoader();
         }, 1000)
       }
+  }
+
+  function buyPlan(){
+
+    // Firsttime payment on paystack
+    async function startPaystack(){
+      let settings = {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('access')}`,
+        }
+      };
+      
+      
+      const myButton = document.getElementById('.plus_plan');
+      // Call losding function
+      startLoader();
+
+      try {
+        let pay = await fetch(`http://localhost:5000/api/pay`, settings);
+        let status = await pay.status
+        let json = await pay.json();
+        console.log(json)
+        if (status == 200) {
+          window.location.href = json.data
+        }
+      }catch(err){
+        console.log(err)
+      }finally{
+        setTimeout(function () {
+          endLoader()
+          }, 1000)
+      }
+    }
+    startPaystack()
   }
 
   getPlan()

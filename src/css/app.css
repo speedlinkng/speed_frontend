@@ -27,7 +27,7 @@
  ::-webkit-scrollbar {
   width: 15px; /* Set the width of the scrollbar */
   height: 15px; /* Set the height of the scrollbar */
-  @apply bg-yellow-400; /* Set the background color of the scrollbar track */
+  @apply p-10/* Set the background color of the scrollbar track */
 }
 
 /* Customize the scrollbar thumb (handle) */
@@ -38,7 +38,7 @@
 
 /* Customize the scrollbar track (container) */
 ::-webkit-scrollbar-track {
-  @apply bg-slate-100; /* Set the background color of the scrollbar track */
+  @apply bg-gray-100 /* Set the background color of the scrollbar track */
 }
 
 /* Show the scrollbar only when hovered */

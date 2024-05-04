@@ -207,6 +207,7 @@
 <script>
   Alpine.data("fileUpload", () => ({
     pond: "",
+    renameAs: "",
 
     startFilePond(filekey, keyComb) {
       let FQ;
@@ -261,8 +262,15 @@
       this.pond.on("addfile", (error, file) => {
         if (!error) {
           const firstFile = file;
-          console.log(firstFile);
+          console.log(firstFile.fileExtension);
           this.thisFile = this.pond.getFiles().length;
+
+          // Assuming keyComb and fileSettings are defined elsewhere
+          this.renameAs =
+            this.fileSettings[keyComb]
+              .find((item) => item.hasOwnProperty("Rename File As"))
+              ["Rename File As"].trim() + `.${firstFile.fileExtension.trim()}`; // Access fileExtension directly
+          console.log("rename", this.renameAs.trim());
         } else {
           // Handle the error
           console.error("Error adding file:", error);
@@ -435,7 +443,7 @@
                     "Content-Type": "application/json; charset=UTF-8",
                   },
                   body: JSON.stringify({
-                    name: `${preFileName}${selectedFile.name}`, // RENAME FILE HERE
+                    name: `${preFileName}${this.renameAs.trim()}`, // RENAME FILE HERE
                     mimeType: selectedFile.type,
                     parents: [folderId], // Place the folder ID in an array
                   }),
