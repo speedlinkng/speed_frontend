@@ -1,12 +1,52 @@
 async function bkup_mygoogle() { 
   localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
+  localStorage.setItem("backup_preferred", 1);
   window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
     "access"
   )}`; 
 }
+
 async function bkup_speedlink() { 
   localStorage.setItem("backup_stroage", 1);
+  localStorage.setItem("backup_preferred", 0);
 }
+
+async function backup() {
+  data = {
+    preferred:localStorage.getItem("backup_preferred")
+  }
+
+  let settings = {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("access")}`,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(data),
+  };
+  try {
+    let fetchResponses = await fetch(`${backendUrl}/api/zoom/backup`, settings);
+    let status = await fetchResponses.status
+    let res = await fetchResponses.json();
+
+    console.log(status)
+    if (res.error == 1) {
+      
+   
+    } else if (res.success == 1 && status == 200) {
+      // console.log(res.data)
+      // window.location.href = res.data
+    }
+
+  }
+  catch (err) {
+    console.log('nam')
+
+    console.log('internet error')
+    console.log(err)
+  }
+}
+
 async function integrateZoom() {
 
     let settings = {
