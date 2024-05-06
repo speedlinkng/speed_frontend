@@ -26,16 +26,16 @@ function getGoogleUrlData_bk() {
         },
         success: function (res) {
           console.log("Success:", res);
-          alert('returned')
+          
   
           if (res.error == 1) {
           } else if (res.error == 2) {
             window.location.href = `${baseUrl}/auth`;
           } else if (res.success == 1) {
-            alert('success')
+            
            
       
-            localStorage.setItem("my_goog_acc", res.token); // google access token for users second time
+          // localStorage.setItem("my_goog_acc", res.token); // google access token for users second time
             endLoader();
             setActiveItem("Zoom");
             $(`#cancel_stroage_selec_modal`).trigger("click");
@@ -43,6 +43,8 @@ function getGoogleUrlData_bk() {
           }
       
           localStorage.setItem("backup_stroage", 0);
+          localStorage.setItem("backup_preferred", 0);
+          backup()
         },
         error: function (xhr, status, error) {
           localStorage.setItem("backup_stroage", 0);

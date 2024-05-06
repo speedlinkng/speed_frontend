@@ -147,7 +147,7 @@
   </style>
 
   <body
-    x-data="{ activeItem: 'Dashboard', showModalLoading:false }"
+    x-data="{ activeItem: 'Dashboard', showModalLoading:false, bkupfile:0 }"
     class="has-min-sidebar is-sidebar-open is-header-blur"
     x-bind="$store.global.documentBody"
   >
@@ -298,7 +298,7 @@
                 >
                   <a
                     :class="[activeItem === 'Zoom' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
-                    onclick=" localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());"
+                    onclick=" refresh('refresh'),localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <svg

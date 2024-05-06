@@ -663,6 +663,7 @@ document.addEventListener("alpine:init", () => {
         },
         body: JSON.stringify({
           json_replies: replies,
+          title: document.querySelector(".FORM_HEADER").value,
           record_id: document.querySelector("#record_id").value,
           expiry_date: document.querySelector("#expiry_date").value,
           status: submitStatus,

@@ -18,7 +18,7 @@
         x-transition:leave-end="opacity-0"
       ></div>
       <div
-        class="relative max-w-md rounded-lg bg-white pt-10 pb-4 text-center transition-all duration-300 dark:bg-navy-700"
+        class="relative max-w-md rounded-lg bg-white h-[370px] pt-10 pb-4 text-center transition-all duration-300 dark:bg-navy-700"
         x-show="chooseBackupDrive"
         x-transition:enter="easy-out"
         x-transition:enter-start="opacity-0 [transform:translate3d(0,1rem,0)]"
@@ -32,10 +32,11 @@
             Which drive do you want us to backup your data to ?
           </h3>
         </div>
-        <div class="my-4 mt-4 h-px bg-slate-200 dark:bg-navy-500"></div>
+        <div class="my-4 mt-3 h-px bg-slate-200 dark:bg-navy-500"></div>
 
         <div class="flex space-x-3 px-2 sm:px-12">
           <div
+            @click="chooseBackupDrive = false"
             onclick="bkup_speedlink()"
             class="relative speedlink_storage_bk w-full card py-3 hover:border-4 hover:border-gray-100"
           >
@@ -57,6 +58,7 @@
             <p class="shrink-0 te">Speedlink's storage</p>
           </div>
           <div
+            @click="chooseBackupDrive = false"
             onclick="bkup_mygoogle()"
             class="my_drive_bk w-full card py-3 hover:border-4 hover:border-gray-100"
           >

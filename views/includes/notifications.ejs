@@ -1,6 +1,6 @@
 <div x-data="{notificationText: 'hello there'}">
   <div
-    x-data="{ onShowNoti: () => { $notification({ content:window.content,  position: 'right-bottom', duration: window.duration }) } }"
+    x-data="{ onShowNoti: () => { $notification({ content:window.content,  position: window.position, duration: window.duration }) } }"
     @click
   >
     <p id="allNotifications" x-on:click="onShowNoti()"></p>
@@ -32,11 +32,28 @@
   </div>
 </template>
 
+<template id="show_whiteCard">
+  <div
+    x-text="window.noti"
+    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 card bg-white text-success shadown-md font-normal"
+  >
+    NOTI ERROR
+  </div>
+</template>
+<template id="show_whiteSlateCard">
+  <div
+    x-text="window.noti"
+    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 card bg-white text-slate-500 shadown-md font-normal"
+  >
+    NOTI ERROR
+  </div>
+</template>
 <script>
   function showNoti(variant, message, duration) {
     window.variant = `${variant}`;
     window.noti = `${message}`;
     window.duration = duration;
+    window.position = "right-bottom";
     let noti = document.querySelector("#allNotifications");
 
     if (variant == "error") {
@@ -47,6 +64,14 @@
     }
     if (variant == "success") {
       window.content = "#show_success";
+    }
+    if (variant == "white") {
+      window.position = "center-top";
+      window.content = "#show_whiteCard";
+    }
+    if (variant == "white-slate") {
+      window.position = "center-top";
+      window.content = "#show_whiteSlateCard";
     }
     noti.click();
   }

@@ -57,6 +57,8 @@ function getGoogleUrlData() {
         console.error("Error:", error);
         console.error("Error:", xhr);
         console.error("Error:", status);
+        localStorage.setItem("preferred", 0);
+        localStorage.setItem("temp_newstore", 0);
       },
     });
   }

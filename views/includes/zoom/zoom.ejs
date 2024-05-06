@@ -57,17 +57,64 @@
     <div class="py-4 flex">
       <div class="text-3xl text-blue-600 font-semibold">Zoom Recordings</div>
     </div>
-    <div class="space-x-1 mb-5 py-1 flex justify-start items-center text-black">
+    <div
+      class="space-x-1 mb-5 py-1 flex justify-start items-center text-black w-full"
+    >
+      <% if(data.backup_in_progress != true){ %>
       <button
+        id="backup_btn"
         @click="chooseBackupDrive = true"
-        class="relative border shadow-none inline-block px-2 py-1 text-gray-900 bg-gradient-to-tr from-gray-300 to-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
+        class="text-sm relative border shadow-none inline-block px-2 py-1 text-gray-900 bg-gradient-to-tr from-gray-300 to-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
       >
         <span
-          class="absolute inset-0 border-2 border-[#f6f8fc] rounded-md"
+          class="absolute inset-0 border-1 border-[#f6f8fc] border-slat-300 rounded-md"
         ></span>
         Backup
       </button>
-      <div>Total size: <span class="sizeMGB"> 0</span></div>
+      <% }else{ %>
+      <button
+        id="backingup_btn"
+        @click="chooseBackupDrive = true"
+        disabled="true"
+        class="hidden w-40 text-sm relative border shadow-none inline-block px-2 py-1 text-gray-900 opacity-30 bg-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
+      >
+        <span
+          class="absolute inset-0 border-1 border-[#f6f8fc] border-slat-300 rounded-md"
+        ></span>
+        Backing up
+      </button>
+      <% } %>
+      <button
+        onclick="refresh('refresh')"
+        class="relative border shadow-none inline-block px-2 py-1.5 text-gray-900 bg-gradient-to-tr from-gray-300 to-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-arrow-clockwise"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z"
+          />
+          <path
+            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"
+          />
+        </svg>
+      </button>
+
+      <div class="text-sm">
+        Total size: <span class="sizeMGB"> 0</span>
+        <span class="text-xs font-light text-slate-400"> | </span>
+      </div>
+      <!-- <div>Total files: <span class="totFiles"> 0</span></div> -->
+      <div class="hidden backingUpFileCount text-sm">
+        Backing up: <span class="bkupFiles">0</span> /
+        <span class="totFiles">0</span>
+      </div>
     </div>
     <div
       class="is-sc min-w-full max-h-96 overflow-x-scroll show_submissions_table"
@@ -115,6 +162,11 @@
         <tbody id="zoom_table_content"></tbody>
       </table>
     </div>
+    <div class="record_skeleton bg-white h-fit -mt-1.5 p-2">
+      <div
+        class="h-1.5 mt-1.5 skeleton animate-wave rounded-md w-full bg-slate-300 dark:bg-navy-500"
+      ></div>
+    </div>
     <div
       class="bg-white flex flex-col justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5"
     >
@@ -124,6 +176,8 @@
 </section>
 <script>
   window.zoomError = "no message";
+  localStorage.setItem("backupInProgress", "<%= data.backup_in_progress %>");
+  window.backupInProgress = "<%= data.backup_in_progress %>";
 </script>
 <script src="../js/loading.js"></script>
 <script src="../js/dash/zoom.js" defer></script>

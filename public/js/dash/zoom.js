@@ -1,51 +1,4 @@
-async function bkup_mygoogle() { 
-  localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
-  localStorage.setItem("backup_preferred", 1);
-  window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
-    "access"
-  )}`; 
-}
 
-async function bkup_speedlink() { 
-  localStorage.setItem("backup_stroage", 1);
-  localStorage.setItem("backup_preferred", 0);
-}
-
-async function backup() {
-  data = {
-    preferred:localStorage.getItem("backup_preferred")
-  }
-
-  let settings = {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("access")}`,
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(data),
-  };
-  try {
-    let fetchResponses = await fetch(`${backendUrl}/api/zoom/backup`, settings);
-    let status = await fetchResponses.status
-    let res = await fetchResponses.json();
-
-    console.log(status)
-    if (res.error == 1) {
-      
-   
-    } else if (res.success == 1 && status == 200) {
-      // console.log(res.data)
-      // window.location.href = res.data
-    }
-
-  }
-  catch (err) {
-    console.log('nam')
-
-    console.log('internet error')
-    console.log(err)
-  }
-}
 
 async function integrateZoom() {
 
@@ -81,8 +34,13 @@ async function integrateZoom() {
     }
   }
 
-  async function refresh() {
-
+  async function refresh(refresh = null) {
+    if (refresh != null) {
+      $('.loader_skeleton').show()
+      $('#integrate_zoom').hide()
+      $('#display_zoom_table').hide()
+      showNoti("white", "Refreshing", 2000);
+    }
     let settings = {
       method: 'GET',
       headers: {
@@ -99,6 +57,9 @@ async function integrateZoom() {
         $('.loader_skeleton').hide()
         $('#integrate_zoom').hide()
         $('#display_zoom_table').show()
+        // -------------------------------------
+        // Call to get recordings data from zoom
+        getRecordingsData(refresh)
         
       }else{
         console.log('nam')
@@ -166,7 +127,12 @@ download.forEach((eachdownload, index) => {
 
 }
 
-  async function getRecordingsData() {
+async function getRecordingsData(refresh = null) {
+  if (refresh != null) { 
+    $('#zoom_table_content').html('')
+    $('.record_skeleton').show()
+  }
+
     let allFilesize = 0
     function formatFileSize(totalSize) {
       if (totalSize < 1024) {
@@ -197,6 +163,9 @@ download.forEach((eachdownload, index) => {
       let res = await fetchResponses.json();
       // console.log(status)
       if (res.success == 1 && status == 200) {
+        // --------------------------------
+        // Remove skeleton
+        $('.record_skeleton').hide()
         // console.log(res.data.meetings)
         let records = res.data
         // console.log('recordings retrieved successfully')
@@ -312,15 +281,113 @@ download.forEach((eachdownload, index) => {
       // console.log('inter')
       console.log(err)
     }
+}
+
+
+  setTimeout(async () => {
+    if (localStorage.getItem('activeItem') == 'Zoom') {
+      refresh()
+    }
+  }, 3000)
+  
+  // setTimeout(async () => {
+  //   window.backupInProgress = true
+  // }, 20000)
+
+  // setTimeout(()=>{
+  //   getRecordingsData()
+  // }, 5000)
+
+
+  async function bkup_mygoogle() { 
+    localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
+    localStorage.setItem("backup_preferred", 1);
+    window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
+      "access"
+    )}`; 
   }
+  
+  async function bkup_speedlink() { 
+    localStorage.setItem("backup_stroage", 1);
+    localStorage.setItem("backup_preferred", 0);
+    backup()
+  }
+  
 
   
-  setTimeout(async () => {
-     refresh()
-  }, 5000)
+const fetchData = async () => {
+  let oldCount = 0
+  // alert(localStorage.getItem('backupInProgress'))
+  if (localStorage.getItem('backupInProgress')) {
+    // alert('woring')
+      let settings = {
+        method: 'GET',
+        headers: {
+          "Authorization": `Bearer ${localStorage.getItem('access')}`,
+        }
+      };
+      try {
+        const response = await fetch('http://localhost:5000/api/zoom/fetchBackupEvent', settings);
+        const data = await response.json();
+        // Process the fetched data here (e.g., update UI)
+        // console.log(data.data);
+        if (oldCount != data.data) {
 
-  setTimeout(()=>{
-    getRecordingsData()
-  }, 5000)
+          oldCount = data.data
+          $('.backingUpFileCount').show()
+          $('.bkupFiles').text(data.data)
+          window.bkupfile = data
+        }
+      
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+};
+  
+setInterval(function () {
+  fetchData()
+ }, 5000);
 
+  async function backup() {
+    data = {
+      preferred:localStorage.getItem("backup_preferred")
+    }
+  
+    let settings = {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+    };
+    try {
+      // hide backup button
+      $('#backup_btn').hide()
+      $('#backingup_btn').show()
+      showNoti("white-slate", "We are backing up your data, this might take a while. Kindly avoid clicking the backup button until this process is complete", 10000);
+      localStorage.setItem('backupInProgress', true)
+      let fetchResponses = await fetch(`${backendUrl}/api/zoom/backup`, settings);
+      let status = await fetchResponses.status
+      let res = await fetchResponses.json();
+  
+      console.log(status)
+      if (res.error == 1) {
+        
+     
+      } else if (res.success == 1 && status == 200) {
+        // console.log(res.data)
+        // window.location.href = res.data
+      }
+  
+    }
+    catch (err) {
+      // Show backup button
+      $('#backup_btn').hide()
+      $('#backingup_btn').show()
+      showNoti("error", "An error occured", 3000)
+      localStorage.setItem('backupInProgress', false)
+    }
+  }
 
