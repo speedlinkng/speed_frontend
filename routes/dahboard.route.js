@@ -32,16 +32,66 @@ function decode2(this_user_token) {
   return data;
   // Handle the decoded data as needed
 }
+async function fetchUser(token) {
+  return new Promise((resolve, reject) => {
+    const decodedToken = decode(token);
 
+    const decodedToken_ = decode(decodedToken.this_user_token);
+    const data = decodedToken_.result
+  
+    request(
+      {
+        method: "GET",
+        url: process.env.BACKEND_URL + `/api/app/checkonrefresh`,
+        headers: {
+          "Authorization": `Bearer ${decodedToken.this_user_token}`
+        }
+      },
+      (err, response, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          let status = response.statusCode;
 
-  router.get('/', function(req, res) {
+          if (status == 200) {
+            const parsedBody = JSON.parse(body); 
+            console.log(parsedBody.results)
+            resolve(parsedBody.results);
+          } else {
+            reject(new Error(`Unexpected status code: ${status}`));
+          }
+        }
+      }
+    );
+  });
+}
+
+  router.get('/', async function(req, res) {
+
+    // fetch data again
+    // ------------------------
+
+    let userData;
+    console.log(req.session.token)
+    try {
+      userData = await fetchUser(req.session.token)
+      // console.log('@@@@@@@@@@@@@@@')
+      // console.log(userData); // Do something with the response
+     
+    } catch (error) {
+      console.error(error);
+    }
+
     const _data = decode1(req.session.token, res);
-      console.log(_data)
-      console.log('_data')
+  
+    // console.log('&&&&&&&&&&&7')
+
+      // console.log(_data)
+      // console.log('_data')
 
     if (_data !== null) {
         // Handle the decoded data and render the response in this route handler.
-        res.render("dashboard/home.ejs", { title: 'Home page', role: _data.role, data: _data });
+        res.render("dashboard/home.ejs", { title: 'Home page', role: userData.role, data: userData });
     }
   });
 

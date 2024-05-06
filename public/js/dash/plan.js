@@ -19,6 +19,7 @@
         window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1 && staus == 200) {
         console.log(res.data)
+        // showNoti("success", "Your plan has been created succesfully", 4000);
       
 
         if (res.data.plan == 1) {
@@ -60,10 +61,11 @@
         //alert('wrong 2')
         window.location.href = `${baseUrl}/auth`
       } else if (res.success == 1 && staus == 200) {
+        showNoti("error", "Your plan has been canceled", 6000);
             $('.sub_canceled').show()
             setTimeout(function(){
-                $('#paid_plan').hide()
-                $('#free_plan').show()
+                // $('plus_plan').hide()
+                // $('#free_plan').show()
             }, 3000)
       
         }
@@ -101,6 +103,7 @@
         let json = await pay.json();
         console.log(json)
         if (status == 200) {
+          showNoti("success", "You will be redirected to make payment", 4000);
           window.location.href = json.data
         }
       }catch(err){

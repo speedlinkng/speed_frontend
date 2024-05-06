@@ -67,9 +67,9 @@ app.get('/exchange', function(req, res, next) {
   })
  //  console.log(accessToken)
   req.session.token = accessToken
-  console.log(req.sessionID)
-  console.log('id up')
-  console.log(req.session.token)
+  // console.log(req.sessionID)
+  // console.log('id up')
+  // console.log(req.session.token)
   req.session.save()
   return res.status(200).json({
      token:accessToken
@@ -81,8 +81,8 @@ app.get('/', function(req, res, next) {
   // req.session.username = 'JohnDoe';
 
   // req.session.save()
-  console.log(req.sessionID)
-  console.log(req.session.token)
+  // console.log(req.sessionID)
+  // console.log(req.session.token)
   res.render("main");
 });
 
