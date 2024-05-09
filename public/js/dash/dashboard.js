@@ -484,17 +484,36 @@ async function downloadZip(record_id, u, f, s) {
     } catch (error) {
         console.error("Error fetching files and subfolders:", error);
     }
-}
-
-  
-  
-  
-  
+} 
   
 }
 
-// GET LIS OFALL RECORDS
+
+
+// GET COUNTS FOR EACH FILE RECORDS
+async function getSubmissionCount() {
+  let settings = {
+    method: 'GET',
+    headers: {
+      "Authorization": `Bearer ${localStorage.getItem('access')}`,
+    }
+  }
+  try {
+      const response = await fetch(`${backendUrl}/api/app/getSubmissionCount`, settings);
+      if (!response.ok) {
+          throw new Error('Failed to fetch data');
+      }
+    const data = await response.json();
+    console.log(data)
+      return data.message;
+  } catch (error) {
+      console.error('Error fetching data:', error);
+      throw error;
+  }
+}
+// GET LIS OF ALL RECORDS
 async function getRecordList() {
+  let submissionCount = await getSubmissionCount();
   let settings = {
     method: "GET",
     headers: {
@@ -515,8 +534,7 @@ async function getRecordList() {
       // alert('wrong 2')
       window.location.href = `${baseUrl}/auth`;
     } else if (res.success == 1 && staus == 200) {
-      console.log("{{{{{{{{{{{{{{{{{{{{{{{{success}}}}}}}}}}}}}}}}}}}}}}}}");
-      // console.log(res);
+
       if (res.data != "") {
         let jsonString = JSON.stringify(res.data);
 
@@ -570,13 +588,13 @@ async function getRecordList() {
                 <td
                   class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
                 >
-                  <span>50</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
+                  <span>${submissionCount[req_index]}</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
                     rez.record_id
                   }', '${
               allres.otherData.page_name
-            }')" class="text-primary lowercase pl-3 cursor-pointer ">View all</span>
+            }')" class="text-primary normal-case pl-3 cursor-pointer ">View all</span>
                 </td>
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class="whitespace-nowrap normal-case px-4 py-3 sm:px-5">
                   <div class="flex -space-x-2">
                     <div class=""> <a id="clipboardContent${
                       rez.record_id
@@ -629,7 +647,7 @@ async function getRecordList() {
                               Copy and embed in your own code base 
                           </h4>
                           <div>
-<pre class="mt-2"><code id="htmlCode" class="language-html code-block${req_index}">
+<pre class="mt-2"><code id="htmlCode" class="language-html normal-case code-block${req_index}">
 &lt;iframe
 style="width: 100%; height: 500px"
 frameborder="0"
@@ -640,7 +658,7 @@ src='http://localhost:4000/form/${rez.record_id}' &gt;
                           class="btn mt-2 h-6 border shrink-0 rounded bg-white/20 px-2 text-xs text-black active:bg-white/25"
                           @click="$clipboard({
                             content:document.querySelector('.code-block${req_index}').innerText,
-                            success:()=>$notification({text:'Text Copied',variant:'success'}),
+                            success:()=>$notification({text:'Iframe Copied',variant:'success'}),
                             error:()=>$notification({text:'Error',variant:'error'})
                           })"
                         >

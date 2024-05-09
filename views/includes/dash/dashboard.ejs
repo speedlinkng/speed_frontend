@@ -5,7 +5,7 @@
     <div class="col-span-12 lg:col-span-12">
       <!-- reduce span to encourage split screen -->
       <div
-        class="hold_create_button order pr-3 sm:pr-10 py-4 flex justify-between create_button_holder"
+        class="hold_create_button pr-3 sm:pr-10 py-2 flex justify-between items-center create_button_holder"
         x-data="{activeTab:'tab-recent'}"
       >
         <div x-show="activeItem === 'Dashboard'">
@@ -20,16 +20,15 @@
         >
           <button
             @click="showModal = true"
-            id="another storage"
+            id=""
             style="display: block"
-            class="relative border shadow-none inline-block px-3 py-3 text-gray-900 bg-gradient-to-tr from-gray-300 to-gray-400 rounded-md hover:from-gray-400 hover:to-gray-300 focus:from-slate-500 focus:to-slate-300 focus:border-2 focus:border-gray-600"
+            class="relative inline-block rounded-lg bg-slate-150 py-3 px-4 text-slate-700 focus:border-2 focus:border-slate-800 dark:bg-navy-700"
           >
             <span
-              class="absolute inset-0 border-2 border-[#f6f8fc] rounded-md"
+              class="absolute inset-0 border-1 border-[#f6f8fc] rounded-md"
             ></span>
             Create Request
           </button>
-
           <template x-teleport="#x-teleport-target">
             <div
               class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"

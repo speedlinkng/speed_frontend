@@ -19,6 +19,7 @@ function getGoogleUrlData() {
       prompt: prompt,
       authuser: authuser,
     };
+    console.log('ACCESS', localStorage.getItem("access"))
     $.ajax({
       url: urll,
       method: "POST",

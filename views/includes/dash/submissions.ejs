@@ -4,57 +4,64 @@
   >
     <div class="col-span-12 lg:col-span-12">
       <div
-        class="py-2 px-3 dark:border-navy-450 flex space-x-1 items-center justify-between"
+        class="py-1 px-3 dark:border-navy-450 flex space-x-1 items-center justify-between"
       >
         <div
           onclick="backToDashboard()"
-          class="s w-2/6 text-base tracking-wide font-light hover:text-black cursor-pointer line-clamp-1 dark:text-accent-light"
+          class="bg-slate-150 px-2 py-1 rounded text-xs+ flex space-x-1 w-fit tracking-wide font-light hover:text-black cursor-pointer dark:text-accent-light"
         >
-          <i class="bi bi-chevron-left"></i> Back
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-arrow-left"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+              />
+            </svg>
+          </span>
+          <span>Back</span>
         </div>
         <div
-          class="flex font-light space-x-1 sm:space-x-6 justify-end w-full h-12 text-base text-primary"
+          class="flex font-light space-x-1 sm:space-x-6 justify-end w-full h-fit text-base text-primary"
         >
           <button
             onclick="downloadWord()"
             x-tooltip.placement.bottom="'Download as word document'"
-            class="hidden sm:flex justify-center items-center w-fit px-2.5 font-medium text-info card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+            class="hidden text-xs+ px-2 py-1 sm:flex justify-center items-center w-fit h-fit font-medium bg-slate-150 shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
           >
-            <div class="px-2 w-fit h-fit text-sm p-1.5">
-              <span>.doc</span>
-            </div>
+            doc
           </button>
           <button
             onclick="downloadPDF()"
             x-tooltip.placement.bottom="'Download as pdf'"
-            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90"
+            class="hidden text-xs+ px-2 py-1 w-fit h-fit sm:flex justify-center items-center font-medium bg-slate-150 shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-secondary/90"
           >
-            <div class="px-2 w-fit h-fit text-sm p-1.5">
-              <span>.pdf</span>
-            </div>
+            pdf
           </button>
 
           <button
             onclick="downloadExcel('submissionsTable',)"
             x-tooltip.placement.bottom="'Donwload as excell'"
-            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+            class="hidden text-xs+ py-1 w-fit h-fit sm:flex justify-center items-center px-2.5 font-medium bg-slate-150 shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
           >
-            <div class="px-2 w-fit h-fit text-sm p-1.5">
-              <span>.xls</span>
-            </div>
+            xls
           </button>
           <button
             onclick="downloadCSV()"
             x-tooltip.placement.bottom="'Download as csv'"
-            class="hidden sm:flex justify-center items-center px-2.5 font-medium card shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
+            class="hidden text-xs+ py-1 w-fit h-fit sm:flex justify-center items-center px-2.5 font-medium bg-slate-150 shadow-sm hover:bg-slate-200 focus:bg-info/20 active:bg-info/25"
           >
-            <div class="px-2 w-fit h-fit text-sm p-1.5">
-              <span>.csv</span>
-            </div>
+            csv
           </button>
 
           <div
-            class="rounded-full w-12 h-12 bg-white border flex justify-center items-center"
+            class="sm:hidden flex rounded-full w-10 h-10 justify-center items-center"
           >
             <div
               x-data="usePopper({placement:'bottom-end',offset:4})"
@@ -64,7 +71,7 @@
               <button
                 x-ref="popperRef"
                 @click="isShowPopper = !isShowPopper"
-                class="btn h-9 w-9 rounded-full p-0 font-medium text-info hover:bg-info/20 focus:bg-info/20 active:bg-info/25"
+                class="btn h-9 w-9 rounded-full p-0 font-medium text-info hover:bg-slate-150 focus:bg-info/20 active:bg-info/25"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
