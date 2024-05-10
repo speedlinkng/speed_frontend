@@ -1,111 +1,195 @@
-<div class="px-[var(--margin-x)] ">
-<div class="card  mt-3 sm:mt-4 md:mt-5 lg:mt-6 py-4">
-  <div x-data="{expandedItem:null, notificationText: 'hello there'}" class=" mt-4 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5 ">
-    <div id="showPasswordChangedNotifiaction" x-data="{ onShowNoti: () => { $notification({ text: window.noti, variant: window.variant, position: 'center-top', duration: 3000 }) } }" @click="onShowNoti()"></div>
-    <!-- <div id="setNotiTxt" @click="notificationText = window.noti"></div> -->
-    <div class="card shadow-none  rounded-none relative h-fit w-full p-2 ">
-      <div x-data="accordionItem('item-1')" class="cursor-not-allowed  flex flex-col">
-        <span class="text-sm px-2 text-black font-semibold">Your name</span>
-        <div class="mt-1.5 flex relative w-full justify-between px-2">
-          <div class="left-0"><%= data.firstname %> <%= data.lastname %> </div>
-          <div class=" hidden cursor-pointer right-0 text-blue-400 text-xs">change</div>
-        </div>
-        <div class="pl-2 mt-3">
-            <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
-                <div class="flex flex-col">
-                  <label class="block">
-                    <span></span>
-                    <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new name" type="text" />
-                  </label>
-                  <button class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                    Update
-                  </button>
-                </div>
-              </div>
-        </div>
-
-      </div>
-    </div>
-    <br>
-    <div class="card shadow-none  rounded-none relative h-fit w-full p-2 ">
-      <div x-data="accordionItem('item-1')" class="cursor-not-allowed  flex flex-col">
-        <span class="text-sm px-2 text-black font-semibold">Your email address</span>
-        <div class="mt-1.5 flex relative w-full justify-between px-2">
-          <div class="left-0"><%= data.email %> </div>
-          <div class=" hidden cursor-pointer right-0 text-blue-400 text-xs">change</div>
-        </div>
-        <div class="pl-2 mt-3">
-            <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
-                <div class="flex flex-col">
-                  <label class="block">
-                    <span></span>
-                    <input class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new name" type="text" />
-                  </label>
-                  <button class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                    Update
-                  </button>
-                </div>
-              </div>
-        </div>
-
-      </div>
-    </div>
-    <br>
-    <div class="card shadow relative h-fit w-full p-2">
-        <div x-data="accordionItem('item-2')" class="cursor-pointer flex flex-col">
-          <span class="text-sm px-2" @click="expanded = !expanded">Change your phone number</span>
+<div class="px-[var(--margin-x)]">
+  <div class="card mt-3 sm:mt-4 md:mt-5 lg:mt-6 py-4">
+    <div
+      x-data="{expandedItem:null, notificationText: 'hello there'}"
+      class="mt-4 px-[var(--margin-x)] w-full transition-all duration-[.25s] sm:mt-5"
+    >
+      <div
+        id="showPasswordChangedNotifiaction"
+        x-data="{ onShowNoti: () => { $notification({ text: window.noti, variant: window.variant, position: 'center-top', duration: 3000 }) } }"
+        @click="onShowNoti()"
+      ></div>
+      <!-- <div id="setNotiTxt" @click="notificationText = window.noti"></div> -->
+      <div class="card shadow-none rounded-none relative h-fit w-full p-2">
+        <div
+          x-data="accordionItem('item-1')"
+          class="cursor-not-allowed flex flex-col"
+        >
+          <span class="text-sm px-2 text-black font-semibold">Your name</span>
           <div class="mt-1.5 flex relative w-full justify-between px-2">
-            <div class="left-0 user_phone"><%= data.number %> </div>
-            <div @click="expanded = !expanded" class="cursor-pointer right-0 text-blue-400 text-xs">change</div>
+            <div class="left-0"><%= data.firstname %> <%= data.lastname %></div>
+            <div class="hidden cursor-pointer right-0 text-blue-400 text-xs">
+              change
+            </div>
           </div>
           <div class="pl-2 mt-3">
-              <div x-collapse x-show="expanded" class="px-3 py-3 rounded-md border dark:border-navy-450 border-slate-300">
-                  <div class="flex flex-col">
-                    <label class="block">
-                    
-                      <input id="set_newPhoneNumber" class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new phone number" type="tel" />
-                      <span class="text-xs text-error error_newPhoneNumber"></span>
-                    </label>
-                    <button id="setNewPhoneNumber" onclick="setNewPhoneNumber()" class="mt-2 w-fit px-2.5 btn bg-primary font-normal text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                      Update
-                    </button>
-                  </div>
-                </div>
+            <div
+              x-collapse
+              x-show="expanded"
+              class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300"
+            >
+              <div class="flex flex-col">
+                <label class="block">
+                  <span></span>
+                  <input
+                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter your new name"
+                    type="text"
+                  />
+                </label>
+                <button
+                  class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
           </div>
-  
         </div>
       </div>
-    <br>
-    <div class="card shadow relative h-fit w-full p-2">
-        <div x-data="accordionItem('item-3')"  class="cursor-pointer flex flex-col">
-          <span class="text-sm px-2" @click="expanded = !expanded">Change your password</span>
+      <br />
+      <div class="card shadow-none rounded-none relative h-fit w-full p-2">
+        <div
+          x-data="accordionItem('item-1')"
+          class="cursor-not-allowed flex flex-col"
+        >
+          <span class="text-sm px-2 text-black font-semibold"
+            >Your email address</span
+          >
+          <div class="mt-1.5 flex relative w-full justify-between px-2">
+            <div class="left-0"><%= data.email %></div>
+            <div class="hidden cursor-pointer right-0 text-blue-400 text-xs">
+              change
+            </div>
+          </div>
+          <div class="pl-2 mt-3">
+            <div
+              x-collapse
+              x-show="expanded"
+              class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300"
+            >
+              <div class="flex flex-col">
+                <label class="block">
+                  <span></span>
+                  <input
+                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter your new name"
+                    type="text"
+                  />
+                </label>
+                <button
+                  class="mt-2 w-24 btn bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="card shadow relative h-fit w-full p-2">
+        <div
+          x-data="accordionItem('item-2')"
+          class="cursor-pointer flex flex-col"
+        >
+          <span class="text-sm px-2" @click="expanded = !expanded"
+            >Change your phone number</span
+          >
+          <div class="mt-1.5 flex relative w-full justify-between px-2">
+            <div class="left-0 user_phone"><%= data.number %></div>
+            <div
+              @click="expanded = !expanded"
+              class="cursor-pointer right-0 text-blue-400 text-xs"
+            >
+              change
+            </div>
+          </div>
+          <div class="pl-2 mt-3">
+            <div
+              x-collapse
+              x-show="expanded"
+              class="px-3 py-3 rounded-md border dark:border-navy-450 border-slate-300"
+            >
+              <div class="flex flex-col">
+                <label class="block">
+                  <input
+                    value=""
+                    id="set_newPhoneNumber"
+                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter your new phone number"
+                    type="tel"
+                  />
+                  <span class="text-xs text-error error_newPhoneNumber"></span>
+                </label>
+                <button
+                  id="setNewPhoneNumber"
+                  onclick="setNewPhoneNumber()"
+                  class="mt-2 w-fit px-2.5 btn bg-primary font-normal text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="card shadow relative h-fit w-full p-2">
+        <div
+          x-data="accordionItem('item-3')"
+          class="cursor-pointer flex flex-col"
+        >
+          <span class="text-sm px-2" @click="expanded = !expanded"
+            >Change your password</span
+          >
           <div class="mt-1.5 flex relative w-full justify-between px-2">
             <div class="left-0">*******</div>
-            <div @click="expanded = !expanded" class="cursor-pointer right-0 text-blue-400 text-xs">change</div>
+            <div
+              @click="expanded = !expanded"
+              class="cursor-pointer right-0 text-blue-400 text-xs"
+            >
+              change
+            </div>
           </div>
           <div class="pl-2 mt-3">
-              <div x-collapse x-show="expanded" class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300">
-                  <div class="flex flex-col">
-                    <label class="block">
-                      <span>Enter old password</span>
-                      <input id="set_oldPassword" class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your old password" type="password" />
-                    </label>
-                    <label class="block mt-2">
-                      <span>Enter new password</span>
-                      <input id="set_newPassword" class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Enter your new password" type="password" />
-                    </label>
-                    <button onclick="setNewPwd()" class="mt-2 w-fit px-2.5 btn bg-primary font-normal text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                      Update Password
-                    </button>
-                  </div>
-                </div>
+            <div
+              x-collapse
+              x-show="expanded"
+              class="px-3 py-2 rounded-md border dark:border-navy-450 border-slate-300"
+            >
+              <div class="flex flex-col">
+                <label class="block">
+                  <span>Enter old password</span>
+                  <input
+                    id="set_oldPassword"
+                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter your old password"
+                    type="password"
+                  />
+                </label>
+                <label class="block mt-2">
+                  <span>Enter new password</span>
+                  <input
+                    id="set_newPassword"
+                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-3 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    placeholder="Enter your new password"
+                    type="password"
+                  />
+                </label>
+                <button
+                  onclick="setNewPwd()"
+                  class="mt-2 w-fit px-2.5 btn bg-primary font-normal text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                >
+                  Update Password
+                </button>
+              </div>
+            </div>
           </div>
-  
         </div>
+      </div>
     </div>
-
   </div>
-</div>
 </div>
 
 <script src="../js/dash/settings.js"></script>

@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'views/includes')));
 app.use(express.static(path.join(__dirname, 'views/dashboard')));
+app.use(express.static(path.join(__dirname, 'views/admin')));
 app.use('/auth', express.static(path.join(__dirname, 'public')));
 
 

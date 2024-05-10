@@ -37,7 +37,7 @@
             <div
               class="card border border-slate-300 dark:border-navy-500 min-h-40 text-sm p-2"
             >
-              <p class="text-sm !text-black">
+              <p class="text-xs !text-black">
                 Write or choose the folder with which you want all your files to
                 be stored inside
               </p>
@@ -46,7 +46,7 @@
                 <span class="relative mt-2 flex">
                   <input
                     id="chosen_folder_idd"
-                    class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder=""
                     value=""
                     type="text"
@@ -79,7 +79,7 @@
               <h4 class="text-sm !text-black font-semibold">
                 Automatically organise your files
               </h4>
-              <p class="text-sm !text-">
+              <p class="text-xs !text-">
                 You can create subfolders based on your form responses. Kindly
                 note that the options available to you are options of fields
                 with mandatory/required option, to avoid errors.
@@ -94,7 +94,7 @@
               class="card border border-slate-300 dark:border-navy-500 h-auto text-sm p-2"
             >
               <h4 class="!text-black font-semibold">Expiry Date</h4>
-              <p class="text-sm">
+              <p class="text-xs">
                 Set the time with which you want this form link to expire.
               </p>
               <label class="relative flex">
@@ -130,17 +130,17 @@
             <br />
             <% }else{ %>
             <div
-              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-sm p-2 bg-primary opacity-75"
+              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-sm p-2 bg-error"
             >
               <h4 class="!text-slate-100 font-semibold">Expiry Date</h4>
-              <p class="text-sm !text-slate-100">
+              <p class="text-xs !text-slate-100">
                 This form link will automatically expire after 1 day.
                 <a
-                  class="text-green-700 cursor-pointer"
+                  class="border-b cursor-pointer"
                   onclick=" setActiveItem('Plan')"
                   >Upgrade to plus</a
                 >
-                to set your expiry time.
+                to set your expiry date.
               </p>
             </div>
             <br />
@@ -149,7 +149,7 @@
               class="card border border-slate-300 dark:border-navy-500 h-auto text-sm p-2"
             >
               <h4 class="!text-black font-semibold">Other Settings</h4>
-              <p class="text-sm !text-">
+              <p class="text-xs !text-">
                 Save form field as a text file in my drive
               </p>
               <p class="text-xs mt-2 text-primary">
@@ -241,7 +241,7 @@
   }
   setTimeout(function () {
     setFoldersAndId();
-  }, 5000);
+  }, 3000);
 
   function setOrganizedForm() {
     console.log("all array values log: ", allArray.values);
@@ -330,6 +330,17 @@
   }
 
   function saveOrganizedform() {
+    // First check if this user is and Admin or just a normal user
+    let userRole = "<%= data.role %>";
+    if (userRole == "admin") {
+      showNoti(
+        "error",
+        "You cannot submit a for , youre and administrator ",
+        5000
+      );
+      return;
+    }
+
     // NOW save the new data entry inside resulte array and ALLARRAY.
     console.log($("#replyAsText").val());
     RAS = $("#replyAsText").val();
@@ -353,14 +364,17 @@
 
     console.log(allArray);
 
-    // Log the modified JSON for verification
-    // console.log(JSON.stringify(allArray, null, 2));
-
     // NOW SAVE TO DATABASE
     async function saveThisForm() {
+      let ex_time = document.querySelector("#expiry_time").value;
+      if (ex_time != "") {
+        ex_time = ex_time;
+      } else {
+        ex_time = null;
+      }
       const requestData = {
         allArray: allArray,
-        expiry_time: document.querySelector("#expiry_time"),
+        expiry_time: ex_time,
       };
       let settings = {
         method: "POST",
@@ -446,6 +460,12 @@
 
     // NOW SAVE TO DATABASE
     async function updateThisForm() {
+      let ex_time = document.querySelector("#expiry_time").value;
+      if (ex_time != "") {
+        ex_time = ex_time;
+      } else {
+        ex_time = null;
+      }
       let settings = {
         method: "PUT",
         headers: {
@@ -455,7 +475,7 @@
         body: JSON.stringify({
           json: allArray,
           record_id: editFormRecordId,
-          expiry_time: document.querySelector("#expiry_time"),
+          expiry_time: ex_time,
         }),
       };
 

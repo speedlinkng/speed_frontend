@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redirecting...</title>
+    <script src="../js/module/global.js"></script>
+  </head>
+  <body></body>
+</html>
+
+<script>
+  // Retrieve the value from localStorage and parse it as a number
+  var temp_newstore = parseInt(localStorage.getItem("temp_newstore"));
+
+  if (temp_newstore === 2) {
+    // GO TO ADMIN PAGE
+    var url_params = new URLSearchParams(window.location.search);
+    var scope = url_params.get("scope");
+    var code = url_params.get("code");
+    var prompt = url_params.get("prompt");
+    var authuser = url_params.get("authuser");
+    var path = `/admin/${localStorage.getItem("access")}`;
+
+    // Construct the query parameters
+    var queryParams = new URLSearchParams({
+      code: code,
+      scope: scope,
+      authuser: authuser,
+      prompt: prompt,
+    });
+    // Construct the full URL
+    var redirectUrl = baseUrl + path + "?" + queryParams.toString();
+    window.location.href = `${redirectUrl}`;
+  } else {
+    // GO TO DASHBOARD PAGE
+    var url_params = new URLSearchParams(window.location.search);
+    var scope = url_params.get("scope");
+    var code = url_params.get("code");
+    var prompt = url_params.get("prompt");
+    var authuser = url_params.get("authuser");
+    var path = `/dash`;
+
+    // Construct the query parameters
+    var queryParams = new URLSearchParams({
+      code: code,
+      scope: scope,
+      authuser: authuser,
+      prompt: prompt,
+    });
+    var redirectUrl = baseUrl + path + "?" + queryParams.toString();
+    window.location.href = `${redirectUrl}`;
+  }
+</script>

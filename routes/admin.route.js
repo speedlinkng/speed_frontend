@@ -1,13 +1,43 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const request = require("request");
 const serveStatic = require('serve-static');
 const dotenv = require('dotenv');
 const crypto = require('crypto');
+const {sign, decode} = require("jsonwebtoken")
 dotenv.config(); 
 
 
+async function fetchAdminGoogle(token) {
+  return new Promise((resolve, reject) => {
 
+  
+    request(
+      {
+        method: "GET",
+        url: process.env.BACKEND_URL + `/api/admin/getAdminDrive`,
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      },
+      (err, response, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          let status = response.statusCode;
+          if (status == 200) {
+            const parsedBody = JSON.parse(body); 
+            console.log(parsedBody.admin_drive)
+            resolve(parsedBody);
+          } else {
+            reject(new Error(`Unexpected status code: ${status}`));
+          }
+        }
+      }
+    );
+  });
+}
 
 function decrypt(data, key) {
   const iv = Buffer.from(data.iv, 'hex');
@@ -16,10 +46,30 @@ function decrypt(data, key) {
   decrypted += decipher.final('utf8');
   return decrypted;
 }
+  router.get('/:encryptData', async function(req, res) {
+    // console.log('render admin panel')
+    let adminData = ''
+    const encryptData = req.params.encryptData;
+    if (!encryptData) {
+      return res.status(701).json({ message: 'Unauthorized' });
+    }
 
-  router.get('/', function(req, res) {
-    console.log('render admin panel')
-    res.render("admin/admin", {title:'Speedlink Admin Panel' });
+    req.session.encryptData = encryptData
+    // console.log(req.session.encryptData)
+    req.session.save()
+
+    
+    try {
+      adminData = await fetchAdminGoogle(encryptData)
+      // console.log(adminData) 
+    } catch (error) {
+      console.error(error);
+    }
+    const decodedToken = decode(encryptData);
+    const data = decodedToken.result
+
+
+    res.render("admin/admin.ejs", {title:'Speedlink Admin Panel', drive:adminData.admin_drive, data: data});
   })
 
   // router.get('/dash/:encryptData/:iv', function(req, res) {

@@ -594,7 +594,7 @@
   var pre = document.getElementsByClassName("app-preloader-inner")[0];
 
   const goAdmin = () => {
-    window.location.href = `${baseUrl}/admin`;
+    window.location.href = `${baseUrl}/admin/${localStorage.getItem("access")}`;
   };
 
   $(document).ready(function () {

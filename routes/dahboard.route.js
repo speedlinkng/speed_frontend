@@ -95,6 +95,10 @@ async function fetchUser(token) {
     }
   });
 
+  router.get('/bridge', function(req, res) {
+    res.render(`dashboard/bridge.ejs`, { totle: 'Share Link' });
+  });
+
   router.get('/share', function(req, res) {
     res.render(`dashboard/share.ejs`, { totle: 'Share Link' });
   });
