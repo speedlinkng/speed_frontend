@@ -41,7 +41,7 @@ app.use('/auth', express.static(path.join(__dirname, 'public')));
 
 
 
-app.use(cors(corsOptions))
+// app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 
 
@@ -84,7 +84,7 @@ app.get('/', function(req, res, next) {
   // req.session.save()
   // console.log(req.sessionID)
   // console.log(req.session.token)
-  res.render("main");
+  res.render("main.ejs");
 });
 
 // Port Number
