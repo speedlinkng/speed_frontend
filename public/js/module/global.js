@@ -1,9 +1,8 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const backendUrl = `https://speedbankend-production.up.railway.app/`;
-    const backendUrl_ = `https://speedbankend-production.up.railway.app/`;
-window.bkupfile = 0
-    alert(baseUrl)
+    const backendUrl = `https://speedbankend-production.up.railway.app`;
+    const backendUrl_ = `https://speedbankend-production.up.railway.app`;
+    window.bkupfile = 0
     const allArray = { 
       values: {},
       preferred: localStorage.getItem('preferred'),
