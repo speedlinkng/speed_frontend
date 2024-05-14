@@ -1,8 +1,9 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    const backendUrl = `http://localhost:5000`;
-    const backendUrl_ = `https://speedlink-backend.onrender.com`;
-    window.bkupfile = 0
+    const backendUrl = `https://speedbankend-production.up.railway.app/`;
+    const backendUrl_ = `https://speedbankend-production.up.railway.app/`;
+window.bkupfile = 0
+    alert(baseUrl)
     const allArray = { 
       values: {},
       preferred: localStorage.getItem('preferred'),
