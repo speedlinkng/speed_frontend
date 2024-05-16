@@ -56,7 +56,7 @@ function getGoogleUrlData() {
           }
         } else {
         }
-        localStorage.setItem("preferred", 0);
+        // localStorage.setItem("preferred", 0);
         localStorage.setItem("temp_newstore", 0);
       },
       error: function (xhr, status, error) {
