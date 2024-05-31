@@ -190,7 +190,7 @@
                   <div
                     class="flex space-x-3 rounded-lg bg-slate-100 p-3 dark:bg-navy-500"
                   >
-                    <div class="avatar border flex items-center justify-center">
+                    <div class="avatar flex items-center justify-center">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="16"
@@ -228,7 +228,7 @@
                     onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     @click="activeItem = 'Dashboard'"
                     :class="[activeItem === 'Dashboard' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="duration-200 cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b duration-200 cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -253,7 +253,7 @@
                     onclick="localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     @click="activeItem = 'Plan'"
                     :class="[activeItem === 'Plan' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -276,7 +276,7 @@
                   <a
                     :class="[activeItem === 'Zoom' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
                     onclick=" refresh('refresh'),localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -305,7 +305,7 @@
                   <a
                     :class="[activeItem === 'Settings' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
                     onclick=" localStorage.setItem('activeItem', 'Settings'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -330,7 +330,7 @@
                 >
                   <a
                     :class="[activeItem === 'Admin' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
-                    class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -384,7 +384,7 @@
                   <a
                     @click="showModal2 = true"
                     :class="[activeItem === 'Logout' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
-                    class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all dark:text-red-500 dark:hover:bg-navy-600 hover:text-primary dark:focus:bg-navy-600"
+                    class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all dark:text-red-500 dark:hover:bg-navy-600 hover:text-error dark:focus:bg-navy-600"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

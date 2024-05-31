@@ -655,7 +655,7 @@ async function getRecordingsData(refresh = null) {
 const fetchData = async () => {
   let oldCount = 0
   // alert(localStorage.getItem('backupInProgress'))
-  if (localStorage.getItem('backupInProgress')) {
+  if (localStorage.getItem('backupInProgress') == 'true') {
     // alert('woring')
       let settings = {
         method: 'GET',
