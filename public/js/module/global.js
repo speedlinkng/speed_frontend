@@ -1,7 +1,7 @@
 
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
     const backendUrl = `https://speedbankend-production.up.railway.app`;
-    const backendUrl_ = `https://speedbankend-production.up.railway.app`; 
+    const backendUrl_ = `http://localhost:5000`; 
     window.bkupfile = 0
     const allArray = { 
       values: {},
