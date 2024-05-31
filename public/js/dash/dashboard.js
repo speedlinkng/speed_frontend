@@ -417,7 +417,8 @@ async function downloadZip(record_id, u, f, s) {
   async function createZipFile(accessToken) {
     // Create a zip file.
     const zip = new JSZip();
-
+    showNoti("white", `your zip file is being creted. This might take a while epending on how large the files submitted are`, 8000);
+    
     // Get the parent folder's ID.
     const folderId = f; // Assuming you want to start from the root folder
 
@@ -564,7 +565,7 @@ async function getRecordList() {
             /*html*/
             `
               <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                   <div class="flex items-center space-x-4">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -582,11 +583,11 @@ async function getRecordList() {
                     >
                   </div>
                 </td>
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                   ${moment(rez.expiry_date).format("lll")} 
                 </td>
                 <td
-                  class="whitespace-nowrap px-4 py-3 text-slate-700 dark:text-navy-100 sm:px-5"
+                  class=" whitespace-nowrap px-4 py-3 max-h-8 text-slate-700 dark:text-navy-100 sm:px-5"
                 >
                   <span>${submissionCount[req_index]}</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
                     rez.record_id
@@ -594,7 +595,7 @@ async function getRecordList() {
               allres.otherData.page_name
             }')" class="text-primary normal-case pl-3 cursor-pointer ">View all</span>
                 </td>
-                <td class="whitespace-nowrap normal-case px-4 py-3 sm:px-5">
+                <td class="whitespace-nowrap normal-case px-4 py-3 max-h-8 sm:px-5">
                   <div class="flex -space-x-2">
                     <div class=""> <a id="clipboardContent${
                       rez.record_id
@@ -604,7 +605,7 @@ async function getRecordList() {
             )}">${baseUrl}/form/${rez.record_id.replace(/\s/g, "")}</a></div>
                   </div>
                 </td>
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
                   <div class="flex space-x-4">
                     <button onclick="customButtonClick('${
@@ -651,7 +652,7 @@ async function getRecordList() {
 &lt;iframe
 style="width: 100%; height: 500px"
 frameborder="0"
-src='http://localhost:4000/form/${rez.record_id}' &gt;
+src='${baseUrl}/form/${rez.record_id}' &gt;
 &lt;/iframe&gt;</code></pre>
 
                           <button
@@ -687,13 +688,13 @@ src='http://localhost:4000/form/${rez.record_id}' &gt;
                   </div>
                 </div>
               </td>
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
                     ${rez.status}
                   </div>
                 </td>
 
-                <td class="whitespace-nowrap px-4 py-3 sm:px-5">
+                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                   <div class="flex -space-x-2">
                     <div>
                     <div x-data="usePopper({placement:'bottom-end',offset:4})"
@@ -806,6 +807,19 @@ src='http://localhost:4000/form/${rez.record_id}' &gt;
                `
         );
       }
+
+
+   
+        var table = new DataTable(".allTable_req", {
+                info: false,
+                ordering: false,
+                paging: false,
+                fixedHeader: false,
+                scrollY: '300px', // Vertical scrolling height
+                scrollX: true, // Enable horizontal scrolling
+                scrollCollapse: true // Allow DataTable to shrink to fit if needed
+            });
+    
     } else {
       console.log("something is wrong");
       window.location.href = `${baseUrl}/auth`;

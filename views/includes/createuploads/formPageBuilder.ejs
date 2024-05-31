@@ -112,7 +112,7 @@
       <div
         x-data
         id="showResult_"
-        class="showResult_ formClass p-2 grid grid-cols-1 place-content-center w-[100%]"
+        class="showResult_ use_drag formClass p-2 grid grid-cols-1 place-content-center w-[100%]"
       >
         <!-- Your existing code for showResult_ -->
       </div>
@@ -248,10 +248,10 @@
                   
                 </div>
           
-              <div x-data class="showResult_${_count} formClass p-2 grid grid-cols-1 place-content-center w-full">
+              <div x-data class="showResult_${_count} use_drag2 formClass p-2 grid grid-cols-1 place-content-center w-full">
               
               </div>
-              <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
+              <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="hidden ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
                 <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${
                   _count + 1
                 } text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
@@ -263,6 +263,24 @@
                   </svg>
                 </div>
               </div>
+
+              <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90" >
+              <span x-on:input="inputHasValue = $event.target.innerText"  contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class="content_edit_submit_field${
+                _count + 1
+              } text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]" style="display: inline-block; border: 0; outline: none"></span>
+              <input x-model="inputHasValue" x-on:keyup="inputEntered = true"  @blur="inputEntered = false" class="hidden edit_submit_field${_count} text-lg btn !p-0 border-0 bg-transparent !w-fit"
+                value=""
+              />
+              <div x-show="!inputEntered" class="grid place-content-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4" >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
+                  />
+                </svg>
+              </div>
+            </div>
               <br>
               <div>
                 <div class="flex space-x-2">
@@ -288,6 +306,63 @@
     );
     // alert(count)
     adddefaultQ(addpage, _count);
+
+    function dragNewPage() {
+      const sortAll2 = document.querySelector(".use_drag2");
+      // const sortAll2 = document.querySelector('.showResult_')
+      let items = sortAll2.querySelectorAll(".item");
+      console.log("ALL ITEMS", items);
+      console.log("sortAll2", sortAll2);
+      items.forEach((item) => {
+        item.addEventListener("dragstart", () => {
+          setTimeout(function () {
+            item.classList.add("dragging");
+            item.classList.add("hoverDash");
+          }, 0);
+        });
+
+        item.addEventListener("dragend", () => {
+          item.classList.remove("hoverDash");
+          item.classList.remove("dragging");
+        });
+      });
+      let initSortable2 = (e) => {
+        e.preventDefault();
+        let draggingItem = sortAll2.querySelector(".dragging");
+        let siblings = [...sortAll2.querySelectorAll(".item:not(.dragging)")];
+
+        let mouseY = e.clientY;
+
+        let nextSibling = siblings.find((sibling) => {
+          // console.log(sibling)
+          let rect = sibling.getBoundingClientRect();
+          let offset = 12; // Adjust this value to control the trigger point
+          // Check if dragging upwards or downwards
+          let direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
+
+          // Calculate trigger point based on direction
+          let siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
+
+          // Trigger move when halfway into the next sibling regardless of direction
+          return mouseY <= siblingTriggerY;
+        });
+
+        console.log("NEXT SIBBLING", nextSibling);
+        console.log("dragging Item", draggingItem);
+        if (nextSibling === undefined) {
+          sortAll2.appendChild(draggingItem); // Append to the end if no next sibling found
+        } else {
+          sortAll2.insertBefore(draggingItem, nextSibling);
+        }
+        console.log(nextSibling);
+      };
+
+      sortAll2.addEventListener("dragover", initSortable2);
+      sortAll2.addEventListener("dragenter", (e) => e.preventDefault());
+    }
+    setTimeout(() => {
+      dragNewPage();
+    }, 3000);
   }
 
   function deletePage(e) {
@@ -397,7 +472,9 @@
     const formClassCount = formClassElements.length;
     const result = {
       values: {},
-      preferred: localStorage.getItem("preferred"),
+      preferred:
+        localStorage.getItem("preferred") ||
+        localStorage.getItem("edit_preferred"),
       b_token: localStorage.getItem("b_token"),
       otherData: otherData,
     };
@@ -927,4 +1004,4 @@
     }
   }
 </script>
-<script src="../../js/formBuilder/dragNdrop.js"></script>
+<!-- <script src="../../js/formBuilder/dragNdrop.js"></script> -->

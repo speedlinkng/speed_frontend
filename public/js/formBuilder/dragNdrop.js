@@ -1,8 +1,9 @@
 function drag(){
 
-   const sortAll = document.querySelector('.showResult_')
-   const items = sortAll.querySelectorAll('.item')
-   console.log(items)
+   const sortAll = document.querySelector('.use_drag')
+//    let sortAll = document.querySelector('.showResult_')
+   let items = sortAll.querySelectorAll('.item')
+   console.log('ALL ITEMS', items)
    console.log('sortAll', sortAll)
     items.forEach(item => {
         item.addEventListener("dragstart", ()=>{
@@ -17,21 +18,22 @@ function drag(){
             item.classList.remove("dragging")
         })
     })
-    const initSortable = (e) => {
+    let initSortable = (e) => {
         e.preventDefault();
-        const draggingItem = sortAll.querySelector(".dragging");
-        const siblings = [...sortAll.querySelectorAll(".item:not(.dragging)")];
+        let draggingItem = sortAll.querySelector(".dragging");
+        let siblings = [...sortAll.querySelectorAll(".item:not(.dragging)")];
 
-        const mouseY = e.clientY;
+        let mouseY = e.clientY;
 
         let nextSibling = siblings.find(sibling => {
-            const rect = sibling.getBoundingClientRect();
-            const offset = 12; // Adjust this value to control the trigger point
+            // console.log(sibling)
+            let rect = sibling.getBoundingClientRect();
+            let offset = 12; // Adjust this value to control the trigger point
            // Check if dragging upwards or downwards
-            const direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
+            let direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
 
             // Calculate trigger point based on direction
-            const siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
+            let siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
 
             // Trigger move when halfway into the next sibling regardless of direction
             return mouseY <= siblingTriggerY;
@@ -54,3 +56,5 @@ function drag(){
 setTimeout(()=>{
     drag()
 },5000)
+
+

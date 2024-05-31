@@ -10,14 +10,14 @@
 <template id="show_success">
   <div
     x-text="window.noti"
-    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-success/10 text-success border border-success card font-normal"
+    class="flex text-[#121212] max-w-lg text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-green-200 bg-opacity-80 text-success border border-success shadow-sm font-normal"
   ></div>
 </template>
 
 <template id="show_error">
   <div
     x-text="window.noti"
-    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-red-200 bg-opacity- text-error font-normal"
+    class="flex max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-red-200 bg-opacity- text-error font-normal"
   >
     NOTI ERROR
   </div>
@@ -26,26 +26,40 @@
 <template id="show_warning">
   <div
     x-text="window.noti"
-    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 bg-warning/10 text-warning border border-warning card font-normal"
+    class="flex max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-warning/10 text-warning border border-warning shadow-sm font-normal"
   >
     NOTI ERROR
   </div>
 </template>
 
 <template id="show_whiteCard">
-  <div
-    x-text="window.noti"
-    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 card bg-white text-success shadown-md font-normal"
-  >
-    NOTI ERROR
+  <div class="flex w-full bg-white shadow-md p-1 rounded-sm">
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-success/10 text-success"
+    >
+      <i class="bi bi-patch-check text-success"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex roboto max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 font-normal"
+    >
+      NOTI ERROR
+    </div>
   </div>
 </template>
 <template id="show_whiteSlateCard">
-  <div
-    x-text="window.noti"
-    class="flex max-w-lg text-sm sm:text-base overflow-hidden rounded-md p-2 card bg-white text-slate-500 shadown-md font-normal"
-  >
-    NOTI ERROR
+  <div class="flex w-full bg-white shadow-sm p-1 rounded-sm">
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-success/10 text-success"
+    >
+      <i class="bi bi-patch-check text-success"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex max-w-lg text-black-cus text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-white font-normal"
+    >
+      NOTI ERROR
+    </div>
   </div>
 </template>
 <script>

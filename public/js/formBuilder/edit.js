@@ -1,5 +1,65 @@
-function callEdit(req_index){
 
+function callEdit(req_index) {
+  localStorage.setItem('editting', true)
+
+
+  
+  function dragNewPage() {
+    const sortAll2 = document.querySelector(".use_drag_edit");
+    // const sortAll2 = document.querySelector('.showResult_')
+    let items = sortAll2.querySelectorAll(".item");
+    console.log("ALL ITEMS", items);
+    console.log("sortAll2", sortAll2);
+    items.forEach((item) => {
+      item.addEventListener("dragstart", () => {
+        setTimeout(function () {
+          item.classList.add("dragging");
+          item.classList.add("hoverDash");
+        }, 0);
+      });
+
+      item.addEventListener("dragend", () => {
+        item.classList.remove("hoverDash");
+        item.classList.remove("dragging");
+      });
+    });
+    let initSortable2 = (e) => {
+      e.preventDefault();
+      let draggingItem = sortAll2.querySelector(".dragging");
+      let siblings = [...sortAll2.querySelectorAll(".item:not(.dragging)")];
+
+      let mouseY = e.clientY;
+
+      let nextSibling = siblings.find((sibling) => {
+        // console.log(sibling)
+        let rect = sibling.getBoundingClientRect();
+        let offset = 12; // Adjust this value to control the trigger point
+        // Check if dragging upwards or downwards
+        let direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
+
+        // Calculate trigger point based on direction
+        let siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
+
+        // Trigger move when halfway into the next sibling regardless of direction
+        return mouseY <= siblingTriggerY;
+      });
+
+      console.log("NEXT SIBBLING", nextSibling);
+      console.log("dragging Item", draggingItem);
+      if (nextSibling === undefined) {
+        sortAll2.appendChild(draggingItem); // Append to the end if no next sibling found
+      } else {
+        sortAll2.insertBefore(draggingItem, nextSibling);
+      }
+      console.log(nextSibling);
+    };
+
+    sortAll2.addEventListener("dragover", initSortable2);
+    sortAll2.addEventListener("dragenter", (e) => e.preventDefault());
+  }
+  setTimeout(() => {
+    dragNewPage();
+  }, 3000);
   
   // RESET THESE VALUES
   count = 0;
@@ -14,7 +74,7 @@ function callEdit(req_index){
    allArrayEdit = JSON.parse(allArrayEdit)
    editFormRecordId = allArrayEdit[req_index].record_id
    // console.log(allArrayEdit[req_index].record_data.values)
-    // use this JSON data to edit and populate the main form Builder
+   // use this JSON data to edit and populate the main form Builder
 
     // {{{{{ OTHER DATA }}}}}
     $('.drop_zone').val(allArrayEdit[req_index].record_data.otherData.drop_zone)
@@ -27,8 +87,72 @@ function callEdit(req_index){
 
     // {{{{{ PAGES }}}}}
     // loop each page
-    //  console.log(allArrayEdit[req_index].record_data.values)
+    console.log('THIS PAGE IS PAGING ')
+     console.log(allArrayEdit[req_index])
     let values = allArrayEdit[req_index].record_data.values
+
+  
+  // UPDATING THE google_drive_files page
+  // use setTimeout to make his wait as this is loaded after some time 
+  function edit_google_drive_files() {
+    console.log(allArrayEdit[req_index].folder_id)
+    console.log(allArrayEdit[req_index].record_data.filesandFolder.chosen_folder)
+    console.log(allArrayEdit[req_index].expiry_date)
+    localStorage.setItem('edit_preferred', allArrayEdit[req_index].record_data.preferred)
+
+      // Retrieve values from the elements
+      const folderId = allArrayEdit[req_index].folder_id;
+      const chosenFolder = allArrayEdit[req_index].record_data.filesandFolder.chosen_folder;
+      const expiryTime = allArrayEdit[req_index].expiry_date;
+      const edit_preferred = allArrayEdit[req_index].record_data.preferred 
+      const groupByArray =  allArrayEdit[req_index].record_data.filesandFolder.group_by 
+
+      // Create an object with these values
+      const editData = {
+        folderId: folderId,
+        chosenFolder: chosenFolder,
+        expiryTime: expiryTime,
+        preferred: edit_preferred,
+        groupByArray: groupByArray,
+      };
+    
+      // Convert the object to a JSON string
+      const editDataJson = JSON.stringify(editData);
+
+      // Store the JSON string in localStorage
+    localStorage.setItem('edit_data', editDataJson);
+    
+    // ARRANGE GROUP_BY
+  
+    // Array of options to select
+    // const selectElement = document.querySelector('.selectField');
+    // console.log(selectElement)
+    //     const options = selectElement.options;
+  
+    //     groupByArray.forEach(item => {
+    //       for (let i = 0; i < options.length; i++) {
+    //         if (options[i].value === item) {
+    //           options[i].selected = true;
+    //           // Trigger change event if necessary
+    //           const event = new Event('change', { bubbles: true });
+    //           options[i].dispatchEvent(event);
+    //         }
+    //       }
+    //     });
+    
+    //     // Get the select element
+    // let $select = $(".selectField");
+    
+    // $('#chosen_folder').val()
+    // localStorage.setItem('edit_data', true)
+  }
+
+  setTimeout(function () {
+    edit_google_drive_files()
+  }, 1000)
+
+  
+
     $('.wholePage').html('')
 
     Object.entries(values).forEach(([pageInd, pageFields], index) => {
@@ -40,9 +164,9 @@ function callEdit(req_index){
         // Display page header information
         const header = pageFields.find(field => field.hasOwnProperty("header"));
         if (header) {
-            // console.log("Page Header:", header.header[0]);
+            console.log("Page Header:", header.header[0]);
         }
-
+        window.submit_field = header.header[0].edit_submit_field
         const wholePageHTML = `
         <div page-count="${pageIndex}" class="EACHPAGE this_page${pageIndex} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
 
@@ -81,13 +205,14 @@ function callEdit(req_index){
               
             </div>
       
-          <div x-data class="showResult_${pageIndex} formClass p-2 grid grid-cols-1 place-content-center w-full">
+          <div x-data class="showResult_${pageIndex} use_drag_edit formClass p-2 grid grid-cols-1 place-content-center w-full">
           
           </div>
-          <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
-            <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${pageIndex} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
+          <div x-data="{ inputEntered: false, inputHasValue:  window.submit_field }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
+            <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false"
+              class=" content_edit_submit_field${pageIndex} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]" style="display: inline-block; border:0; outline:none;">
             </span>
-            <input x-model="inputHasValue" class=" hidden edit_submit_field${pageIndex} text-lg btn !p-0 border-0 bg-transparent !w-fit" value="${header.header[0].page_header}" />
+            <input x-model="inputHasValue" class=" hidden edit_submit_field${pageIndex} text-lg btn !p-0 border-0 bg-transparent !w-fit" value="${header.header[0].edit_submit_field}" />
             <div x-show="!inputEntered" class="grid place-content-center">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
@@ -103,7 +228,7 @@ function callEdit(req_index){
               <button @click="deletePage(${pageIndex})" id="delete_page" class="btn text-sm text-error border border-error hover:bg-error/20 font-medium focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:border-error">
                 Delete Page app
               </button>
-              <button @click="openPageSetings()" id="page_settings" class="btn text-sm text-error border-warning hover:bg-warning/20 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+              <button @click="openPageSetings()" id="page_settings" class="hidden  btn text-sm text-error border-warning hover:bg-warning/20 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -124,7 +249,7 @@ function callEdit(req_index){
             let fieldTypes = fieldData.fieldType.fieldName;
          
             $('.holdbuttons').append(`
-            <button id="add_question_edit${pageIndex}${fieldIndex}" class="btn" >
+            <button id="add_question_edit${pageIndex}${fieldIndex}" class="btn hidden" >
                 ${fieldTypes}
             </button>    
             `)
@@ -167,7 +292,7 @@ function callEdit(req_index){
     
         }
 
-       async function editConditions(res_id, fieldIndex, conditions, counts){
+        async function editConditions(res_id, fieldIndex, conditions, counts){
       
           // {{{{{{{{{EDIT CONDITIONS DATA}}}}}}}}}
             let conditions_ = JSON.parse(conditions) // gotten from edit function
@@ -227,6 +352,7 @@ function callEdit(req_index){
             }
             
         }
+      
         async function editSettings(res_id, fieldIndex, settings, counts, fieldTypes){
 
 
@@ -269,32 +395,37 @@ function callEdit(req_index){
 
             // END TEXT SETTINGS
             }            
-            if(fieldTypes == 'Dropdown'){
+            if (fieldTypes == 'Dropdown') {
+              // alert('this is a dropdown')
               let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count} .DROPDOWN_SETTING${count}`)
 
-              if(settArray[0].inputValue == 'on'){
+              console.log('ALL DROPDOWN DATA', settArray)
+              if(settArray[1].inputValue == 'on'){
                 getPage.querySelector(`[name="Required"]`).checked = true
               }
 
-              if(settArray[1].inputValue == 'on'){
+              if(settArray[2].inputValue == 'on'){
                 getPage.querySelector(`.ADVT`).checked = true
               }
 
-              if(settArray[2].inputValue !== ''){
+              if(settArray[3].inputValue != ''){
                 getPage.querySelector(`[name="Description"]`).value = settArray[2].inputValue
               }
 
               // DROPSDOWN OPTIONS
               
-              if(settArray[3].inputValue !== ''){
-                const options = settArray[3].inputValue;
+              if(settArray[0].inputValue != ''){
+                // console.log(`DROPDOWN OPTIONS`,settArray[0].inputValue)
+                const options = settArray[0].inputValue;
                 const formattedOptions = options.join('\n');
-                getPage.querySelector(`[name="Validation Pattern"]`).value = formattedOptionss
+                // alert(formattedOptions)
+                console.log('NOW NOW',formattedOptions)
+                getPage.querySelector(`[name="Dropdown List"]`).value = formattedOptions
             
               }
 
               
-            }            
+            }               
             if(fieldTypes == 'Email'){
               
               let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count} .EMAIL_SETTING${count}`)
@@ -375,8 +506,8 @@ function callEdit(req_index){
           }
 
         }
-      });
-
+        
+    });
 
 }
 
