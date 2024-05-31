@@ -23,10 +23,13 @@
 
  
 
+  .text-black-cus {
+    @apply text-[#121212]
+  }
  /* Hide the default scrollbar */
  ::-webkit-scrollbar {
-  width: 15px; /* Set the width of the scrollbar */
-  height: 15px; /* Set the height of the scrollbar */
+  width: 10px; /* Set the width of the scrollbar */
+  height: 10px; /* Set the height of the scrollbar */
   @apply p-10/* Set the background color of the scrollbar track */
 }
 
@@ -48,13 +51,15 @@
 
 /* Customize the scrollbar within the div with class is-sc */
 .is-sc::-webkit-scrollbar {
-@apply h-[5px] w-[5px]
+@apply h-[5px] w-[2px]
 }
+
 /* Customize the scrollbar thumb (handle) */
 .is-sc::-webkit-scrollbar-thumb {
   @apply bg-slate-300 /* Set the color of the scrollbar thumb */
  rounded-md /* Set the border radius to make the thumb round */
 }
+
 .is-sc::-webkit-scrollbar-thumb:hover {
   @apply bg-slate-500; /* Set the color of the scrollbar thumb on hover */
 }

@@ -9,8 +9,7 @@ const {deTokenize} = require('../middlewars/FunctionsController');
 
 router.get('/test0', function(req, res) {
   console.log('its done')
-  console.log(req.session.token)
-  console.log(req.sessionID)
+  res.render(`dashboard/testTable.ejs`, { totle: 'Test Tables' });
   
 });
 

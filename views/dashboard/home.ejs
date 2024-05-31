@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="../css/custom.css" />
     <link rel="stylesheet" href="../css/app.css" />
     <link rel="stylesheet" href="../css/prism.css" />
+    <link rel="stylesheet" href="../css/dataTables.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+    />
+
     <!-- <link rel="stylesheet" href="../css/w3.css" /> -->
     <link
       href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css"
@@ -26,7 +32,9 @@
     />
     <!-- GOOGLE DRIVE PICKER -->
     <script src="../js/selectFolder.js"></script>
+    <script src="../js/cdn/socket.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script src="../js/formBuilder/dragNdrop.js"></script>
 
     <script
       async
@@ -45,6 +53,14 @@
 
     <script src="../js/app.js" defer></script>
     <script src="../js/jquery.js"></script>
+    <script src="../js/cdn/dataTables.js"></script>
+    <!-- <script src="../js/cdn/store.js"></script> -->
+    <!-- <script src="../js/custom.js" defer></script> -->
+    <!-- <script src="../js/cdn/jquery-dataTable.js"></script>
+    <script src="../js/cdn/dataTables-fixedHeader.js"></script>  -->
+    <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/fixedheader/3.2.2/js/dataTables.fixedHeader.min.js"></script> -->
+
     <script
       src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
       defer
@@ -76,43 +92,6 @@
       defer
     ></script>
 
-    <!-- <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"
-      integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      defer
-    ></script>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"
-      defer
-    ></script>
-
-    <script
-      src="https://rawgit.com/evidenceprime/html-docx-js/master/dist/html-docx.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"
-      defer
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"
-      defer
-    ></script>
-  remove these
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.16/jspdf.plugin.autotable.min.js"></script> 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"
-      defer
-    ></script> -->
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -121,6 +100,7 @@
       rel="stylesheet"
     />
   </head>
+
   <style>
     th[class="w-[1000px]"] {
       min-width: 500px;
@@ -143,6 +123,10 @@
 
     .draggable-container {
       transition: transform 0.3s ease-in-out;
+    }
+
+    .highlight {
+      background-color: #f0f9ff !important; /* Light blue color for highlighting */
     }
   </style>
 
@@ -235,6 +219,7 @@
                   </div>
                 </li>
                 <li class="h-2"></li>
+                <% if(role == 'admin'){ %>
                 <li
                   id="_Dashboard"
                   @click="activeItem = 'Dashboard'; $store.global.isSidebarExpanded = false"
@@ -243,19 +228,15 @@
                     onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     @click="activeItem = 'Dashboard'"
                     :class="[activeItem === 'Dashboard' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="duration-200 cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="duration-200 cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      class="bi bi-house w-7 h-7 pr-2 -mt-[2.5px]"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"
-                      />
-                    </svg>
-
+                    <div class="flex p-1 w-7 h-7 justify-center items-center">
+                      <i
+                        class="text-xl"
+                        :class="activeItem === 'Dashboard' ? 'bi bi-house-fill text-primary' : 'bi bi-house  '"
+                      >
+                      </i>
+                    </div>
                     <span
                       :class="[activeItem === 'Dashboard' ? 'text-primary dark:text-accent-light' : '']"
                       class="dark:text-navy-100 mt-[2px]"
@@ -269,21 +250,17 @@
                   @click="activeItem = 'Plan'; $store.global.isSidebarExpanded = false"
                 >
                   <a
-                    onclick=" localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());"
+                    onclick="localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());"
+                    @click="activeItem = 'Plan'"
                     :class="[activeItem === 'Plan' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      class="bi bi-substack w-7 h-7 pr-2 -mt-[2.5px]"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M15 3.604H1v1.891h14v-1.89ZM1 7.208V16l7-3.926L15 16V7.208zM15 0H1v1.89h14z"
-                      />
-                    </svg>
-
+                    <div class="flex p-1 w-7 h-7 justify-center items-center">
+                      <i
+                        class="text-xl"
+                        :class="activeItem === 'Plan' ? 'bi bi-calendar2-week-fill text-primary': 'bi bi-calendar2-week '"
+                      ></i>
+                    </div>
                     <span
                       :class="[activeItem === 'Plan' ? 'text-primary dark:text-accent-light' : '']"
                       class="dark:text-navy-100 mt-[2px]"
@@ -299,19 +276,14 @@
                   <a
                     :class="[activeItem === 'Zoom' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
                     onclick=" refresh('refresh'),localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="currentColor"
-                      class="bi bi-camera-video h-7 w-7 pr-2 -mt-[2.5px]"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M0 5a2 2 0 0 1 2-2h7.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 4.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 13H2a2 2 0 0 1-2-2zm11.5 5.175 3.5 1.556V4.269l-3.5 1.556zM2 4a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"
-                      />
-                    </svg>
+                    <div class="flex p-1 w-7 h-7 justify-center items-center">
+                      <i
+                        class="text-xl"
+                        :class="activeItem === 'Zoom' ? 'bi bi-camera-video-fill text-primary': 'bi bi-camera-video '"
+                      ></i>
+                    </div>
 
                     <span
                       :class="[activeItem === 'Zoom' ? 'text-primary dark:text-accent-light' : '']"
@@ -325,6 +297,7 @@
                     </span>
                   </a>
                 </li>
+
                 <li
                   id="_Settings"
                   @click="activeItem = 'Settings'; $store.global.isSidebarExpanded = false"
@@ -332,23 +305,14 @@
                   <a
                     :class="[activeItem === 'Settings' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
                     onclick=" localStorage.setItem('activeItem', 'Settings'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="cursor-pointer group flex space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-gear h-7 w-7 pr-2 -mt-[2.5px]"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0"
-                      />
-                      <path
-                        d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
-                      />
-                    </svg>
+                    <div class="flex p-1 w-7 h-7 justify-center items-center">
+                      <i
+                        class="text-xl"
+                        :class="activeItem === 'Settings' ? 'bi bi-gear-fill text-primary': 'bi bi-gear'"
+                      ></i>
+                    </div>
 
                     <span
                       :class="[activeItem === 'Settings' ? 'text-primary dark:text-accent-light ' : '']"
@@ -358,8 +322,7 @@
                     </span>
                   </a>
                 </li>
-
-                <% if(role == 'admin'){ %>
+                <% } %> <% if(role == 'admin'){ %>
                 <li
                   id="Admin"
                   onclick="goAdmin()"
@@ -367,20 +330,39 @@
                 >
                   <a
                     :class="[activeItem === 'Admin' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
-                    class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      fill="currentColor"
-                      class="bi bi-person-gear h-7 w-7 pr-2 -mt-[2.5px]"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"
-                      />
-                    </svg>
+                    <div class="flex p-1 w-7 h-7 justify-center items-center">
+                      <i
+                        class="text-xl"
+                        :class="activeItem === 'Admin' ? 'bi bi-person-fill-gear text-primary': 'bi bi-person-gear'"
+                      ></i>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-person-gear h-7 w-7 icon-outline"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"
+                        />
+                      </svg>
+
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-person-fill-gear w-7 h-7 icon-filled"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0"
+                        />
+                      </svg>
+                    </div>
 
                     <span
                       :class="[activeItem === 'Settings' ? 'text-primary dark:text-accent-light ' : '']"
@@ -402,7 +384,7 @@
                   <a
                     @click="showModal2 = true"
                     :class="[activeItem === 'Logout' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
-                    class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all dark:text-red-500 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="w-[100%] relative cursor-pointer group flex space-x-2 rounded-lg p-2 tracking-wide text-red-500 outline-none transition-all dark:text-red-500 dark:hover:bg-navy-600 hover:text-primary dark:focus:bg-navy-600"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

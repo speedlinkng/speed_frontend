@@ -95,10 +95,15 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
 newInput = $(
   /*html*/
   `
-  <div draggable="true" class="item mt-2 cursor-move" ondragstart="getPrevFields(${count}, ${addmore_count}, ${true})">
+  <div draggable="true" class="item mt-2 ">
   <div  class="details">
   <div class="grid grid-cols-12 gap-3 isOpenField${count}" x-data="{ isOpenField${count}: true }" :class="{ 'opacity-0': !isOpenField${count}, 'pointer-events-none': !isOpenField${count} }">
-    <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-5 dark:border-navy-600">
+    <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-4 dark:border-navy-600">
+     <div class="cursor-move w-fit" ondragstart="getPrevFields(${count}, ${addmore_count}, ${true})">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-grip-vertical" viewBox="0 0 16 16">
+          <path d="M7 2a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 5a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0M7 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-3 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0m3 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+        </svg>
+      </div>
       <div class="flex space-x-4">
 
         <label class="block w-[55%]" x-data="{selectedOption${count}: $store.selectedOption${count}}" x-init="$store.selectedOption${count} = window.typ">
@@ -129,7 +134,7 @@ newInput = $(
           <!-- Put settings, logic and delete in a grid format or inline -->
           <!-- COLLAPSIBLA CUSTOMIZATION -->
           <div x-data="{expanded_condition${count} : $store.expanded_condition${count}}" x-init="$store.expanded_condition${count} = false" class="w-full">
-            <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary dark:text-navy-100 hover:p-1">
+            <div @click="$store.expanded_condition${count} = !$store.expanded_condition${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary dark:text-navy-100 hover:p-[1px]">
               <p @click="" class="text-xs sm:text-sm">Conditional Logic</p>
               <div :class="$store.expanded_condition${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">
                 <i class="bi bi-chevron-down mt-[1px]"></i>
@@ -213,7 +218,7 @@ newInput = $(
 
           <!-- Advanced Settings -->
           <div x-data="{expanded${count} : $store.expanded${count}}" x-init="$store.expanded${count} = false" class=" w-full">
-            <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary  hover:p-1 hover:rounded-md dark:text-navy-100">
+            <div @click="$store.expanded${count} = !$store.expanded${count}" class="flex cursor-pointer items-center justify-between text-base font-semibold text-primary  hover:p-[1px] hover:rounded-md dark:text-navy-100">
               <p class="text-xs sm:text-sm">Settings</p>
 
               <div :class="$store.expanded${count} && '-rotate-180'" class="text-sm font-normal leading-none text-slate-400 transition-transform duration-300 dark:text-navy-300">

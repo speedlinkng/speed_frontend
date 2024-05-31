@@ -146,5 +146,45 @@ button[disabled]::after {
   }
 
 
-
+  .icon-filled {
+    display: none;
+  }
   
+  .group:hover .icon-outline,
+  .group:focus .icon-outline {
+    display: none;
+  }
+  
+  .group:hover .icon-filled,
+  .group:focus .icon-filled {
+    display: block;
+  }
+
+  .progress {
+    position: relative;
+    width: 100%; /* Ensure progress bar takes full width */
+  }
+  
+  #progressBar {
+    transition: width 0.1s linear; /* Smooth and fast transition */
+    height: 100%; /* Match parent height */
+  }
+  
+  #floatingDiv {
+    transform: translateX(-50%); /* Center horizontally */
+    white-space: nowrap; /* Prevent text wrapping */
+    padding: 2px;
+    font-size: 10px; /* Adjust as needed */
+    height: 100%; /* Match parent height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .dataTables_filter {
+    display: flex;
+    align-items: center;
+}
+.dataTables_filter select {
+    margin-left: 10px;
+}

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- CSS Assets -->
+    <link rel="stylesheet" href="../css/output.css" />
+    <link rel="stylesheet" href="../css/app.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+    <link rel="stylesheet" href="../css/w3.css" />
+    <link rel="stylesheet" href="../css/dataTables.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/gridjs/dist/theme/mermaid.min.css"
+      rel="stylesheet"
+    />
+    <!-- Javascript Assets -->
+    <script src="https://unpkg.com/doc@latest/dist/doc.min.js"></script>
+    <script src="../js/app.js" defer></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/cdn/dataTables.js"></script>
+    <script src="../js/cdn/socket.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gridjs/dist/gridjs.umd.js"></script>
+  </head>
+  <style>
+    .highlight {
+      background-color: #f0f9ff !important; /* Light blue color for highlighting */
+    }
+  </style>
+  <body class="slabo">
+    <main>
+      <h1>Socket io Test</h1>
+      <button id="sendMessageButton">Send Message</button>
+      <div class="bg-white p-3">
+        <h2>how are you</h2>
+        <button
+          id="getSelectedData"
+          class="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Get Selected Data
+        </button>
+        <div class="is-scrollbar-hidden min-w-full overflow-x-auto">
+          <table
+            id="examples"
+            class="is- hover w-full text-left"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th class="py-2 px-4 bg-gray-200">
+                  <input
+                    id="selectAllCheckbox"
+                    class="form-checkbox is-basic bg-slate-100 h-4 w-4 rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                    type="checkbox"
+                  />
+                </th>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input
+                    class="row-checkbox form-checkbox is-basic h-4 w-4 rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                    type="checkbox"
+                  />
+                </td>
+                <td>Tiger Nixon</td>
+                <td>System Architect</td>
+                <td>Edinburgh</td>
+                <td>61</td>
+                <td>$320,800</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Garrett Winters</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>63</td>
+                <td>$170,750</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Ashton Cox</td>
+                <td>Junior Technical Author</td>
+                <td>San Francisco</td>
+                <td>66</td>
+                <td>$86,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Cedric Kelly</td>
+                <td>Senior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>$433,060</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Airi Satou</td>
+                <td>Accountant</td>
+                <td>Tokyo</td>
+                <td>33</td>
+                <td>$162,700</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Brielle Williamson</td>
+                <td>Integration Specialist</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>$372,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Herrod Chandler</td>
+                <td>Sales Assistant</td>
+                <td>San Francisco</td>
+                <td>59</td>
+                <td>$137,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Rhona Davidson</td>
+                <td>Integration Specialist</td>
+                <td>Tokyo</td>
+                <td>55</td>
+                <td>$327,900</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Colleen Hurst</td>
+                <td>Javascript Developer</td>
+                <td>San Francisco</td>
+                <td>39</td>
+                <td>$205,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Sonya Frost</td>
+                <td>Software Engineer</td>
+                <td>Edinburgh</td>
+                <td>23</td>
+                <td>$103,600</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jena Gaines</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>30</td>
+                <td>$90,560</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Quinn Flynn</td>
+                <td>Support Lead</td>
+                <td>Edinburgh</td>
+                <td>22</td>
+                <td>$342,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Charde Marshall</td>
+                <td>Regional Director</td>
+                <td>San Francisco</td>
+                <td>36</td>
+                <td>$470,600</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Haley Kennedy</td>
+                <td>Senior Marketing Designer</td>
+                <td>London</td>
+                <td>43</td>
+                <td>$313,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Tatyana Fitzpatrick</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>19</td>
+                <td>$385,750</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Michael Silva</td>
+                <td>Marketing Designer</td>
+                <td>London</td>
+                <td>66</td>
+                <td>$198,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Paul Byrd</td>
+                <td>Chief Financial Officer (CFO)</td>
+                <td>New York</td>
+                <td>64</td>
+                <td>$725,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Gloria Little</td>
+                <td>Systems Administrator</td>
+                <td>New York</td>
+                <td>59</td>
+                <td>$237,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Bradley Greer</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>41</td>
+                <td>$132,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Dai Rios</td>
+                <td>Personnel Lead</td>
+                <td>Edinburgh</td>
+                <td>35</td>
+                <td>$217,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jenette Caldwell</td>
+                <td>Development Lead</td>
+                <td>New York</td>
+                <td>30</td>
+                <td>$345,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Yuri Berry</td>
+                <td>Chief Marketing Officer (CMO)</td>
+                <td>New York</td>
+                <td>40</td>
+                <td>$675,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Caesar Vance</td>
+                <td>Pre-Sales Support</td>
+                <td>New York</td>
+                <td>21</td>
+                <td>$106,450</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Doris Wilder</td>
+                <td>Sales Assistant</td>
+                <td>Sydney</td>
+                <td>23</td>
+                <td>$85,600</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Angelica Ramos</td>
+                <td>Chief Executive Officer (CEO)</td>
+                <td>London</td>
+                <td>47</td>
+                <td>$1,200,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Gavin Joyce</td>
+                <td>Developer</td>
+                <td>Edinburgh</td>
+                <td>42</td>
+                <td>$92,575</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jennifer Chang</td>
+                <td>Regional Director</td>
+                <td>Singapore</td>
+                <td>28</td>
+                <td>$357,650</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Brenden Wagner</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>28</td>
+                <td>$206,850</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Fiona Green</td>
+                <td>Chief Operating Officer (COO)</td>
+                <td>San Francisco</td>
+                <td>48</td>
+                <td>$850,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Shou Itou</td>
+                <td>Regional Marketing</td>
+                <td>Tokyo</td>
+                <td>20</td>
+                <td>$163,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Michelle House</td>
+                <td>Integration Specialist</td>
+                <td>Sydney</td>
+                <td>37</td>
+                <td>$95,400</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Suki Burks</td>
+                <td>Developer</td>
+                <td>London</td>
+                <td>53</td>
+                <td>$114,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Prescott Bartlett</td>
+                <td>Technical Author</td>
+                <td>London</td>
+                <td>27</td>
+                <td>$145,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Gavin Cortez</td>
+                <td>Team Leader</td>
+                <td>San Francisco</td>
+                <td>22</td>
+                <td>$235,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Martena Mccray</td>
+                <td>Post-Sales support</td>
+                <td>Edinburgh</td>
+                <td>46</td>
+                <td>$324,050</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Unity Butler</td>
+                <td>Marketing Designer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>$85,675</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Howard Hatfield</td>
+                <td>Office Manager</td>
+                <td>San Francisco</td>
+                <td>51</td>
+                <td>$164,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Hope Fuentes</td>
+                <td>Secretary</td>
+                <td>San Francisco</td>
+                <td>41</td>
+                <td>$109,850</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Vivian Harrell</td>
+                <td>Financial Controller</td>
+                <td>San Francisco</td>
+                <td>62</td>
+                <td>$452,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Timothy Mooney</td>
+                <td>Office Manager</td>
+                <td>London</td>
+                <td>37</td>
+                <td>$136,200</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jackson Bradshaw</td>
+                <td>Director</td>
+                <td>New York</td>
+                <td>65</td>
+                <td>$645,750</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Olivia Liang</td>
+                <td>Support Engineer</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>$234,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Bruno Nash</td>
+                <td>Software Engineer</td>
+                <td>London</td>
+                <td>38</td>
+                <td>$163,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Sakura Yamamoto</td>
+                <td>Support Engineer</td>
+                <td>Tokyo</td>
+                <td>37</td>
+                <td>$139,575</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Thor Walton</td>
+                <td>Developer</td>
+                <td>New York</td>
+                <td>61</td>
+                <td>$98,540</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Finn Camacho</td>
+                <td>Support Engineer</td>
+                <td>San Francisco</td>
+                <td>47</td>
+                <td>$87,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Serge Baldwin</td>
+                <td>Data Coordinator</td>
+                <td>Singapore</td>
+                <td>64</td>
+                <td>$138,575</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Zenaida Frank</td>
+                <td>Software Engineer</td>
+                <td>New York</td>
+                <td>63</td>
+                <td>$125,250</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Zorita Serrano</td>
+                <td>Software Engineer</td>
+                <td>San Francisco</td>
+                <td>56</td>
+                <td>$115,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jennifer Acosta</td>
+                <td>Junior Javascript Developer</td>
+                <td>Edinburgh</td>
+                <td>43</td>
+                <td>$75,650</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Cara Stevens</td>
+                <td>Sales Assistant</td>
+                <td>New York</td>
+                <td>46</td>
+                <td>$145,600</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Hermione Butler</td>
+                <td>Regional Director</td>
+                <td>London</td>
+                <td>47</td>
+                <td>$356,250</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Lael Greer</td>
+                <td>Systems Administrator</td>
+                <td>London</td>
+                <td>21</td>
+                <td>$103,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Jonas Alexander</td>
+                <td>Developer</td>
+                <td>San Francisco</td>
+                <td>30</td>
+                <td>$86,500</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Shad Decker</td>
+                <td>Regional Director</td>
+                <td>Edinburgh</td>
+                <td>51</td>
+                <td>$183,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Michael Bruce</td>
+                <td>Javascript Developer</td>
+                <td>Singapore</td>
+                <td>29</td>
+                <td>$183,000</td>
+              </tr>
+              <tr>
+                <td class="border px-4 py-2">
+                  <input type="checkbox" class="row-checkbox" />
+                </td>
+                <td>Donna Snider</td>
+                <td>Customer Support</td>
+                <td>New York</td>
+                <td>27</td>
+                <td>$112,000</td>
+              </tr>
+            </tbody>
+            <!-- <tfoot>
+              <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+              </tr>
+            </tfoot> -->
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+<script>
+  $("#examples").DataTable({
+    info: false,
+    ordering: false,
+    paging: false,
+  });
+</script>
+
+<script>
+  // Get the "Select All" checkbox and all row checkboxes
+  const selectAllCheckbox = document.getElementById("selectAllCheckbox");
+  const rowCheckboxes = document.querySelectorAll(".row-checkbox");
+  const tbody = document.querySelector("tbody");
+
+  // Add event listener to "Select All" checkbox
+  selectAllCheckbox.addEventListener("change", function () {
+    rowCheckboxes.forEach((checkbox) => {
+      checkbox.checked = this.checked;
+      toggleHighlight(checkbox.closest("tr"), this.checked);
+    });
+  });
+
+  // Add event listener to each row checkbox
+  rowCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+      toggleHighlight(this.closest("tr"), this.checked);
+    });
+  });
+
+  // Function to toggle the highlight class
+  function toggleHighlight(row, highlight) {
+    if (highlight) {
+      row.classList.add("highlight");
+    } else {
+      row.classList.remove("highlight");
+    }
+  }
+
+  // Add event listener to "Get Selected Data" button
+  document
+    .getElementById("getSelectedData")
+    .addEventListener("click", function () {
+      const selectedData = [];
+      rowCheckboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+          const row = checkbox.closest("tr");
+          const rowData = {
+            name: row.cells[1].innerText,
+            position: row.cells[2].innerText,
+            office: row.cells[3].innerText,
+            age: row.cells[4].innerText,
+            startDate: row.cells[5].innerText,
+          };
+          selectedData.push(rowData);
+        }
+      });
+
+      console.log(selectedData);
+    });
+</script>
+
+<script>
+  // Connect to the WebSocket server
+  const socket = io("http://localhost:5000");
+
+  // Connection opened
+  socket.on("connect", () => {
+    console.log("Connected to WebSocket server");
+  });
+
+  // Listen for messages
+  socket.on("message", (data) => {
+    console.log("Message from server:", data);
+  });
+
+  // Handle connection close
+  socket.on("disconnect", () => {
+    console.log("WebSocket connection closed");
+  });
+
+  // Handle errors
+  socket.on("error", (error) => {
+    console.error("WebSocket error:", error);
+  });
+
+  // Send a message to the server
+  document.getElementById("sendMessageButton").addEventListener("click", () => {
+    socket.send("Hello from the frontend!");
+  });
+</script>

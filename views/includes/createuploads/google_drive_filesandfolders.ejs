@@ -35,7 +35,7 @@
             </div>
 
             <div
-              class="card border border-slate-300 dark:border-navy-500 min-h-40 text-sm p-2"
+              class="card border border-slate-300 dark:border-navy-500 min-h-40 text-sm p-2 choose_Folder"
             >
               <p class="text-xs !text-black">
                 Write or choose the folder with which you want all your files to
@@ -46,7 +46,7 @@
                 <span class="relative mt-2 flex">
                   <input
                     id="chosen_folder_idd"
-                    class="hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    class="choose_Folder_id hidden form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder=""
                     value=""
                     type="text"
@@ -54,7 +54,7 @@
 
                   <input
                     id="chosen_folder"
-                    class="form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                    class="choose_Folder_input form-input peer w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
                     placeholder="Speedlink"
                     value="Speedlink"
                     type="text"
@@ -63,7 +63,7 @@
 
                   <button
                     onclick=" createPicker()"
-                    class="google_select_button btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                    class="choose_Folder_button google_select_button btn ml-2 space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
                   >
                     <span>Select</span>
                     <i class="bi bi-google"></i>
@@ -95,7 +95,7 @@
             >
               <h4 class="!text-black font-semibold">Expiry Date</h4>
               <p class="text-xs">
-                Set the time with which you want this form link to expire.
+                Set the time with which you want this form link to expire. <p onclick="addTime()">test Add</p>
               </p>
               <label class="relative flex">
                 <input
@@ -184,7 +184,7 @@
               <button
                 @click="setOrganizedForm"
                 id="setOrganizedForm"
-                class="btn h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                class="btn opa  h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
               >
                 Set
               </button>
@@ -219,9 +219,23 @@
   onload="gisLoaded()"
 ></script>
 
+
+
 <script>
+  function addTime(){
+    alert('time added')
+    alert($("#expiry_time").val())
+    $("#expiry_time").val('05/26/2024 10:12 AM');
+  }
+</script>
+
+<script>
+  var storedEditData;
   function setFoldersAndId() {
-    if (localStorage.getItem("preferred") == 0) {
+    if (
+      localStorage.getItem("preferred") == 0 ||
+      storedEditData?.preferred == 0
+    ) {
       let email_ = "<%= data.email %>";
       let element = document.querySelector("#chosen_folder");
       element.value = email_;
@@ -243,16 +257,28 @@
     setFoldersAndId();
   }, 3000);
 
-  function setOrganizedForm() {
+  async function setOrganizedForm() {
+    const storedEditDataJson = localStorage.getItem("edit_data");
+    console.log(storedEditDataJson);
+
+    var storedEditData;
+    if (localStorage.getItem("editting") === "true") {
+      await setFoldersAndId();
+      storedEditData = JSON.parse(storedEditDataJson);
+    }
     console.log("all array values log: ", allArray.values);
 
     // Check if 'filesandFolder' already exists
     if (allArray.values && typeof allArray.values === "object") {
       // Check if 'filesandFolder' exists inside 'values'
-      if ("filesandFolder" in allArray.values) {
+
+      console.log(allArray.values);
+
+      if (
+        "filesandFolder" in allArray.values ||
+        localStorage.getItem("editting") === "true"
+      ) {
         // 'afilesandFolder' exists, retrieve information
-        let { chosen_folder, folder_id, group_by, other_settings } =
-          allArray.values.filesandFolder;
 
         //  Do something with the retrieved information
         //  console.log("Chosen Folder:", chosen_folder);
@@ -263,9 +289,27 @@
 
         //  Populate fields
         //  $('.selectField').val('')
+        //  alert(storedEditData?.folderId);
+        // set choose_Folder section to disabled
+        $(".choose_Folder").addClass("bg-slate-100 opacity-70");
 
-        $("#chosen_folder_idd").val(folder_id);
-        $("#chosen_folder").val(chosen_folder);
+        $(".choose_Folder_button").addClass("hidden");
+
+        $(".choose_Folder_button").prop("disabled", true);
+
+        $(".choose_Folder_input").prop("readonly", true);
+
+        if (localStorage.getItem("editting") === "true") {
+          $("#chosen_folder_idd").val(storedEditData.folderId);
+          $("#chosen_folder").val(storedEditData.chosenFolder);
+          $("#expiry_time").val(storedEditData.expiryTime);
+        } else {
+          let { chosen_folder, folder_id, group_by, other_settings } =
+            allArray.values.filesandFolder;
+          $("#chosen_folder_idd").val(folder_id);
+          $("#chosen_folder").val(chosen_folder);
+          $("#expiry_time").val("");
+        }
       } else {
         $(".gfb").html("");
         // 'afilesandFolder' does not exist, perform some action
@@ -275,6 +319,7 @@
       console.error("values does not exist or is not an object.");
     }
 
+    $(".gfb").html("");
     // Create the select element
     let $_select = `
         <label class="block">
@@ -313,12 +358,14 @@
       });
     });
 
-    // auto select data for select field
-    let dataFields = [];
+    // auto add options data for select field
+    /*  let dataFields = [];
+
     dataFields.forEach((fieldValue_) => {
       $select.append(`<option value="${fieldValue_}">${fieldValue_}</option>`);
     });
 
+    // auto select data for select field if edit is true
     let selectElement = document.querySelector(".selectField");
     for (let i = 0; i < dataFields.length; i++) {
       let option = selectElement.options[i];
@@ -326,7 +373,7 @@
         option.selected = true;
       }
     }
-    // End auto select
+    // End auto select*/
   }
 
   function saveOrganizedform() {
@@ -473,7 +520,8 @@
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify({
-          json: allArray,
+
+          allArray: allArray,
           record_id: editFormRecordId,
           expiry_time: ex_time,
         }),
@@ -492,6 +540,7 @@
         let json = await fetchResponses.json();
 
         if (json.status == 200) {
+          localStorage.removeItem('edit_preferred')
           localStorage.setItem("upload_id", json.id);
           showNoti(
             "success",

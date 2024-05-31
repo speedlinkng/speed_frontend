@@ -55,11 +55,17 @@
 
   <div id="display_zoom_table" class="hidden">
     <div class="py-4 flex">
-      <div class="text-3xl text-blue-600 font-semibold">Zoom Recordings</div>
+      <div class="text-3xl text-blue-600 font-semibold z_r">Zoom Recordings</div>
     </div>
     <div
       class="space-x-1 mb-5 py-1 flex justify-start items-center text-black w-full"
     >
+      <!-- <button
+        id="getSelectedData"
+        class="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+      >
+        Get Selected Data
+      </button> -->
       <% if(data.backup_in_progress != true){ %>
       <button
         id="backup_btn"
@@ -106,36 +112,81 @@
         </svg>
       </button>
 
-      <div class="text-sm">
+      <div class="text-xs sm:text-sm">
         Total size: <span class="sizeMGB"> 0</span>
         <span class="text-xs font-light text-slate-400"> | </span>
       </div>
       <!-- <div>Total files: <span class="totFiles"> 0</span></div> -->
-      <div class="hidden backingUpFileCount text-sm">
-        Backing up: <span class="bkupFiles">0</span> /
+      <div class="hidden backingUpFileCount text-xs sm:text-sm">
+        Backing up: <span class="bkupFiles"></span>/
         <span class="totFiles">0</span>
       </div>
     </div>
-    <div
-      class="is-sc min-w-full max-h-96 overflow-x-scroll show_submissions_table"
-    >
-      <table id="" class="bg-white w-full text-left poppin">
-        <thead>
+    <div class="bg-white min-w-full h-auto show_submissions_table">
+      <div class="h-fit relative backup_progress hidden">
+        <div
+          id="floatingDiv"
+          class="floating-div absolute top-[-20px] left-0 text-slate-800 w-6 h-6 rounded-full flex items-center justify-center"
+        ></div>
+        <div
+          class="progress h-2 bg-secondary/15 dark:bg-secondary-light/25 relative"
+        >
+          <div
+            id="progressBar"
+            class="is-active absolute left-0 h-full overflow-hidden rounded-full bg-secondary"
+          ></div>
+        </div>
+      </div>
+      <select id="filterSelect">
+        <option value="">Filter</option>
+        <option value="Backup pending">Backup pending</option>
+        <option value="Backup completed">Backup completed</option>
+        <option value="Backup in progress">Backup in progress</option>
+      </select>
+      <table
+        id="zoom_table"
+        class="allTable hover bg-tranparent w-full text-left poppin is-sc"
+      >
+        <thead class="bg-white">
           <tr>
             <th
-              class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="rounded-tl-lg whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
+              <input
+                id="selectAllCheckbox"
+                class="form-checkbox is-basic bg-slate-100 h-4 w-4 rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                type="checkbox"
+              />
+            </th>
+            <th
+              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               S/N
             </th>
             <th
-              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
+              id
+            </th>
+            <th
+              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
+              Status
+            </th>
+            <th
+              class="hidden whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+            >
+              count
+            </th>
+            <th
+              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               Topic
             </th>
             <th
-              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="hidden whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
-              ID
+              UUID
             </th>
             <th
               class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
@@ -152,6 +203,7 @@
             >
               raw_size
             </th>
+
             <th
               class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
@@ -159,7 +211,7 @@
             </th>
           </tr>
         </thead>
-        <tbody id="zoom_table_content"></tbody>
+        <tbody class="bg-white" id="zoom_table_content"></tbody>
       </table>
     </div>
     <div class="record_skeleton bg-white h-fit -mt-1.5 p-2">
@@ -168,17 +220,92 @@
       ></div>
     </div>
     <div
-      class="bg-white flex flex-col justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5"
+      class="hidden bg-white flex flex-col justify-between space-y-4 px-4 py-4 sm:flex-row sm:items-center sm:space-y-0 sm:px-5"
     >
       <div class="text-xs+">1 - 10 of 10 entries</div>
     </div>
   </div>
 </section>
+
+<div x-data="{firstzoommodal:false}">
+  <button
+    id="firstButtonModal"
+    @click="firstzoommodal = true"
+    class="btn hidden bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
+  >
+    first
+  </button>
+  <template x-teleport="#x-teleport-target">
+    <div
+      class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
+      x-show="firstzoommodal"
+      role="dialog"
+      @keydown.window.escape="firstzoommodal = false"
+    >
+      <div
+        class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"
+        @click="firstzoommodal = false"
+        x-show="firstzoommodal"
+        x-transition:enter="ease-out"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="ease-in"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+      ></div>
+      <div
+        class="relative max-w-lg rounded-lg bg-white px-4 py-10 text-center transition-opacity duration-300 dark:bg-navy-700 sm:px-5"
+        x-show="firstzoommodal"
+        x-transition:enter="easy-out"
+        x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]"
+        x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]"
+        x-transition:leave="easy-in"
+        x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]"
+        x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]"
+      >
+  
+       <div class="w-full flex justify-center items-center">
+        <div
+        class="mt-2 flex justify-center items-center p-2 w-20 h-20 rounded-full bg-warning/10"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="currentColor"
+          class="bi bi-exclamation-octagon-fill text-warning"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"
+          />
+        </svg>
+      </div>
+       </div>
+        <div class="mt-4 text-[13px] text-black-cus px-4">
+          <p class="mt-2 ">
+            Kindly note that backing up a file might take some time depending on how large the file size is 
+            <p class="mt-2">As such you will be required to not close this browser tab whuile a backup process is running</p>
+          </p>
+        </div>
+        <button
+        @click="firstzoommodal = false"
+        class="mt-4 btn w-1/2 bg-warning/10 font-medium text-warning hover:bg-warning/20 focus:bg-warning/20 active:bg-warning/25"
+      >
+        Noted
+      </button>
+      </div>
+  
+    </div>
+  </template>
+</div>
+<section class="keep_script"></section>
 <script>
   window.zoomError = "no message";
   localStorage.setItem("backupInProgress", "<%= data.backup_in_progress %>");
   window.backupInProgress = "<%= data.backup_in_progress %>";
 </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="../js/loading.js"></script>
 <script src="../js/dash/zoom.js" defer></script>
 <script src="../js/dash/preferredBackup.js" defer></script>
