@@ -203,7 +203,7 @@ let Sub_res = await fetchResponses.json();
       // add the last field to the table
       $('#display_submission_head').append(
         /*html*/
-        `<th class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"  >
+        `<th class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"  >
         Action
         </th>`
       )

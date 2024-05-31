@@ -26,6 +26,14 @@ $(document).ready(function () {
 
         if (sta == 200) {
 
+          // unset all localstorage
+
+          localStorage.removeItem('access', 'Dashboard')
+          localStorage.removeItem('previewAllArray', {})
+          localStorage.removeItem('activeItemTimestamp', 0)
+          localStorage.removeItem('drive_email', '')
+          localStorage.removeItem('firstzoommodal', '')
+
           // call backend
 
           let options = {

@@ -8,10 +8,19 @@
 </div>
 
 <template id="show_success">
-  <div
-    x-text="window.noti"
-    class="flex text-[#121212] max-w-lg text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-green-200 bg-opacity-80 text-success border border-success shadow-sm font-normal"
-  ></div>
+  <div class="flex w-full bg-white shadow-md p-1 rounded-sm">
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-success text-white"
+    >
+      <i class="bi bi-patch-check text-success"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex roboto max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 font-normal"
+    >
+      NOTI ERROR
+    </div>
+  </div>
 </template>
 
 <template id="show_error">
