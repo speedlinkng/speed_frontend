@@ -219,7 +219,7 @@
                   </div>
                 </li>
                 <li class="h-2"></li>
-                <% if(role != 'admin'){ %>
+                <% if(role == 'user'){ %>
                 <li
                   id="_Dashboard"
                   @click="activeItem = 'Dashboard'; $store.global.isSidebarExpanded = false"
