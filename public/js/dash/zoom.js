@@ -691,7 +691,7 @@ var totalBackupSize = 0;
 var totalBytesTransferred = 0;
 let fileProgress = {};
 let socketId
-const socket = io('http://localhost:5000');
+const socket = io(backendUrl);
 socket.on('connect', () => {
   console.log('Connected to server');
   socketId = socket.id; // Get socket ID after connection
