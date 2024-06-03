@@ -90,7 +90,7 @@ async function getAllRecords() {
               )
 
               setTimeout(function () { 
-                tableConfig()
+             
                 if (table) {
                   table.search('').draw();
                 } else {

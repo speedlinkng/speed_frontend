@@ -17,7 +17,7 @@ async function getAllSubscribers() {
       console.log(res.data)
       
       setTimeout(function () { 
-        tableConfig()
+      
         if (table) {
           table.search('').draw();
         } else {

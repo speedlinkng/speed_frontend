@@ -208,7 +208,7 @@ async function getAllUsers() {
         
                 )
                 setTimeout(function () { 
-                    tableConfig()
+              
                     if (table) {
                       table.search('').draw();
                     } else {
