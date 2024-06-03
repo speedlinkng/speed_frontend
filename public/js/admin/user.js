@@ -206,7 +206,34 @@ async function getAllUsers() {
             
                     `
         
-                    )
+                )
+                setTimeout(function () { 
+                    tableConfig()
+                    if (table) {
+                      table.search('').draw();
+                    } else {
+                      table = new DataTable("#users_table", {
+                        info: false,
+                        ordering: true,
+                        paging: true,
+                        fixedHeader: true,
+                        // searching: false,    // Disable search functionality
+                        lengthChange: false,  // Disable "entries per page" option
+                        scrollY: '500px', // Vertical scrolling height
+                        // scrollX: true, // Enable horizontal scrolling
+                        scrollCollapse: true, // Allow DataTable to shrink to fit if needed
+                        columnDefs: [
+                          { orderable: false, targets: 0 }, // Disable ordering for the first column (index 0)
+                        //   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
+                        ]
+                      });
+              
+          
+               
+                   }
+         
+                  },500)
+        
 
      
         })

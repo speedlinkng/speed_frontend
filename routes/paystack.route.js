@@ -121,22 +121,22 @@ router.post('/webhook', function(req, res){
 
 
         // Append the 'body' variable to package.json
-fs.appendFile('package.json', body, (err) => {
-    if (err) {
-      console.error('Error appending to package.json:', err);
-    } else {
-      console.log('Appended to package.json');
-      // Now, let's read the content from package.json
-      fs.readFile('package.json', 'utf8', (readErr, data) => {
-        if (readErr) {
-          console.error('Error reading package.json:', readErr);
-        } else {
-          console.log('Content of package.json:');
-          console.log(data);
-        }
-      });
-    }
-  });
+        fs.appendFile('paystack.json', body, (err) => {
+            if (err) {
+            console.error('Error appending to package.json:', err);
+            } else {
+            console.log('Appended to package.json');
+            // Now, let's read the content from package.json
+            fs.readFile('paystack.json', 'utf8', (readErr, data) => {
+                if (readErr) {
+                console.error('Error reading paystack.json:', readErr);
+                } else {
+                console.log('Content of paystack.json:');
+                console.log(data);
+                }
+            });
+            }
+        });
 
     
     //   // Save the request body to a file (optional)
