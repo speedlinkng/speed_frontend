@@ -150,7 +150,7 @@ app.post('/webhook', function(req, res) {
                     }
                 });
             }
-        });
+        }); 
     } else {
         console.log('Event is not charge.success, ignoring.');
     }
