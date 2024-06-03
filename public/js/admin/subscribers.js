@@ -1,5 +1,5 @@
 async function getAllSubscribers() {
-  var table;
+  let table;
     let settings = {
       method: 'GET',
       headers: {
