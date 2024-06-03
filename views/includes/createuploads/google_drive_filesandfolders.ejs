@@ -130,7 +130,7 @@
             <br />
             <% }else{ %>
             <div
-              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-error p-2 bg-red-500 opacity-30"
+              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-error p-2 bg-red-500 bg-opacity-70"
             >
               <h4 class="!text-slate-100 font-semibold">Expiry Date</h4>
               <p class="text-xs !text-slate-100">
@@ -414,8 +414,8 @@
     // NOW SAVE TO DATABASE
     async function saveThisForm() {
       
-      const expiryTimeElement = document.querySelector("#expiry_time");
-      const ex_time = expiryTimeElement?.value ?? null;
+      let expiryTimeElement = document.querySelector("#expiry_time");
+      let ex_time = expiryTimeElement?.value ?? null;
 
       const requestData = {
         allArray: allArray,
@@ -505,12 +505,8 @@
 
     // NOW SAVE TO DATABASE
     async function updateThisForm() {
-      let ex_time = document.querySelector("#expiry_time").value;
-      if (ex_time != "") {
-        ex_time = ex_time;
-      } else {
-        ex_time = null;
-      }
+      let expiryTimeElement = document.querySelector("#expiry_time");
+      let ex_time = expiryTimeElement?.value ?? null;
       let settings = {
         method: "PUT",
         headers: {
