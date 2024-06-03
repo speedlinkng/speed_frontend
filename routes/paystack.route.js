@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path'); // Import the path module
+
     
 router.use(bodyParser.raw({ type: 'application/json' }));
     
@@ -75,15 +76,92 @@ router.get('/cancel', function(req, res){
     
 })
 
+app.post('/webhook', function(req, res) {
+    console.log('Webhook received');
+
+    // Get the signature from the headers
+    const signatureHeader = req.get('X-Paystack-Signature');
+    if (!signatureHeader) {
+        return res.status(400).send('No signature header');
+    }
+
+    // Get the raw request body
+    let body = req.body;
+
+    // Ensure that 'body' is a buffer or a string
+    if (!Buffer.isBuffer(body)) {
+        // If 'body' is an object, convert it to a string using JSON.stringify
+        if (typeof body === 'object') {
+            body = JSON.stringify(body);
+        } else {
+            return res.status(400).end(); // Handle other data types
+        }
+    }
+
+    // Validate the signature
+    const computedSignature = crypto
+        .createHmac('sha512', PAYSTACK_SECRET_KEY)
+        .update(body)
+        .digest('hex');
+
+    if (computedSignature !== signatureHeader) {
+        return res.status(403).send('Invalid signature');
+    }
+
+    // Parse the request body as JSON
+    const event = JSON.parse(body);
+    console.log('Received event:', event);
 
 
-router.post('/webhook', function(req, res){
+    
+    if (event.event === 'subscription.create') { 
+        console.log('Charge was successful and subscription was created: ', event.data);
+    }
+    if (event.event === 'invoice.create') { 
+        console.log('An invoice was crested ', event.data);
+    }
+    if (event.event === 'invoice.payment_failed') { 
+        console.log('An invoice to be sent failed: ', event.data);
+    }
+    if (event.event === 'subscription.not_renew') { 
+        console.log('subscription.not_renew : ', event.data);
+    }
+
+    if (event.event === 'invoice.update') { 
+        console.log('invoice.updated : ', event.data);
+        console.log(event.data.subscription.status)
+    }
+    // Check if the event is "charge.success"
+    if (event.event === 'charge.success') {
+        console.log('Charge was successful:', event.data);
+
+        // Save the event data to a file (for logging purposes)
+        fs.appendFile('paystack.json', body, (err) => {
+            if (err) {
+                console.error('Error appending to paystack.json:', err);
+            } else {
+                console.log('Appended to paystack.json');
+                fs.readFile('paystack.json', 'utf8', (readErr, data) => {
+                    if (readErr) {
+                        console.error('Error reading paystack.json:', readErr);
+                    } else {
+                        console.log('Content of paystack.json:');
+                        console.log(data);
+                    }
+                });
+            }
+        });
+    } else {
+        console.log('Event is not charge.success, ignoring.');
+    }
+
+    res.status(200).send('Webhook processed successfully');
+});
+
+router.post('/webhooks', function(req, res){
     console.log('webhook running')
-    const express = require('express');
-    const crypto = require('crypto');
-    const fs = require('fs');
-    const bodyParser = require('body-parser');
-    const app = express();
+
+
     
     // Replace with your Paystack secret key
     const PAYSTACK_SECRET_KEY = 'sk_test_143c3d3f8f72daacfcbbefadc281ad757f884686';
