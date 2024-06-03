@@ -443,7 +443,9 @@
                     "Content-Type": "application/json; charset=UTF-8",
                   },
                   body: JSON.stringify({
-                    name: `${preFileName}${this.renameAs.trim()}`, // RENAME FILE HERE
+                    name: this.renameAs.trim()
+                      ? `${preFileName}${this.renameAs.trim()}`
+                      : selectedFile.name, // RENAME FILE HERE
                     mimeType: selectedFile.type,
                     parents: [folderId], // Place the folder ID in an array
                   }),
