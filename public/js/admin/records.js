@@ -1,5 +1,5 @@
 async function getAllRecords() {
-
+  var table;
     let settings = {
       method: 'GET',
       headers: {

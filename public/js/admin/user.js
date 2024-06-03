@@ -2,6 +2,7 @@
 
 var allUsers; // this will be available everywhere within admin.ejs
 async function getAllUsers() {
+    var table;
     let settings = {
       method: 'GET',
       headers: {
