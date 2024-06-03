@@ -435,6 +435,7 @@
               console.log(this.renameAs.trim(), "TRIM");
               console.log(selectedFile.name, "select name");
               console.log(preFileName, "pref name");
+
               // Step 1: Initiate the resumable session
               const initiateResponse = await fetch(
                 "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",

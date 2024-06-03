@@ -12,6 +12,11 @@ const {sign, decode} = require("jsonwebtoken")
     res.render("dashboard/form/preview/preview", { title: 'Preview Page'});
   })
 
+router.get('/expired', async function (req, res) {
+  res.render("dashboard/form/expired", { 
+    title: 'EXPIRED page', 
+});
+  })
   router.get('/:record_id', async function(req, res) {
     // console.log(req.params.record_id)
     // GET RECORD_ID
