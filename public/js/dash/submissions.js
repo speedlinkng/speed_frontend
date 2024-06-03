@@ -145,6 +145,7 @@ async function backToDashboard() {
 async function getSubmittedRecords(record_id) {
 
   $('#display_submission_head').html('')
+  
 
 let settings = {
   method: 'GET', 
@@ -155,7 +156,8 @@ let settings = {
 try {
 let fetchResponses = await fetch(`${backendUrl}/api/app/getSubmissionById/${record_id}`, settings);
 let Sub_staus = await fetchResponses.status
-let Sub_res = await fetchResponses.json();
+  let Sub_res = await fetchResponses.json();
+  $('.no-submission').remove(); 
 
   console.log('{{{{{{{{{{{{{{{{{{{{{{{{success}}}}}}}}}}}}}}}}}}}}}}}}')
   // console.log(RecordDataDashboard)
@@ -415,7 +417,7 @@ $('#submissionsTable').hide() // set diaplay to empty
 $('.show_submissions_table').append(
 /*html*/
 `
-<div class="border-y border-dotted border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
+<div class="no-submission border-y border-dotted border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
   <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] dark:border-navy-500">
     <div class="flex items-center space-x-4 justify-center">
 
