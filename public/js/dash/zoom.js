@@ -362,6 +362,12 @@ async function getRecordingsData(refresh = null) {
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
       // console.log(status)
+      if (res.success == 1 && status == 201) {
+        if (res?.reason == 'not_subscribed_to_zoom') {
+        
+          showNoti("error", res.message, 7000)
+        }
+       }
       if (res.success == 1 && status == 200) {
         // --------------------------------
         // Remove skeleton
@@ -570,14 +576,8 @@ async function getRecordingsData(refresh = null) {
 
         }
 
-
-  
-    
-
       }
       else if (status == 400) { 
-        console.log('nam')
-        console.log(res)
        
         if (res?.reason == 'invalid_grant') {
           // ---------------------------------
