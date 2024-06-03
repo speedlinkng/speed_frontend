@@ -76,7 +76,7 @@ router.get('/cancel', function(req, res){
     
 })
 
-app.post('/webhook', function(req, res) {
+router.post('/webhook', function(req, res) {
     console.log('Webhook received');
 
     // Get the signature from the headers
