@@ -509,6 +509,7 @@ async function getRecordingsData(refresh = null) {
             if (table) {
               table.search('').draw();
             } else {
+              $('#filterSelect').show()
               table = new DataTable("#zoom_table", {
                 info: false,
                 ordering: true,
