@@ -361,8 +361,9 @@ async function getRecordingsData(refresh = null) {
       let fetchResponses = await fetch(`${backendUrl}/api/zoom/recordings`, settings);
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
-      // console.log(status)
+      console.log(status)
       if (status == 201) {
+        console.log(res.reason)
         if (res?.reason == 'not_subscribed_to_zoom') {
         
           showNoti("error", res.message, 7000)
