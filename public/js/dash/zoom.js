@@ -362,7 +362,7 @@ async function getRecordingsData(refresh = null) {
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
       // console.log(status)
-      if (res.success == 1 && status == 201) {
+      if (status == 201) {
         if (res?.reason == 'not_subscribed_to_zoom') {
         
           showNoti("error", res.message, 7000)
