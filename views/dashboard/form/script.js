@@ -152,7 +152,7 @@ document.addEventListener("alpine:init", () => {
           this.isLoading = false;
 
           // RELOAD PAGE AFTER ALL
-          location.reload();
+          // location.reload();
           return false;
         } else {
           await this.callSuccess("ERROR Happened");
