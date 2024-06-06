@@ -389,9 +389,9 @@ async function getRecordingsData(refresh = null) {
           // Also save fields like the id, etc in hidden columns
           let recordsDB = resDB.data
           console.log(resDB.data , 'this db is...')
-          if (recordsDB == '' || recordsDB == null || recordsDB == []) {
-            showNoti("error", res.message, 7000)
-          }
+          // if (recordsDB == '' || recordsDB == null || recordsDB == []) {
+          //   showNoti("error", res.message, 7000)
+          // }
           // -----------------------------
           // Clear or destroy the table before appending data again
           if (table) {
