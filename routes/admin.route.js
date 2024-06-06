@@ -47,7 +47,7 @@ function decrypt(data, key) {
   return decrypted;
 }
   router.get('/:encryptData', async function(req, res) {
-    // console.log('render admin panel')
+    console.log('render admin panel')
     let adminData = ''
     const encryptData = req.params.encryptData;
     if (!encryptData) {
@@ -55,13 +55,13 @@ function decrypt(data, key) {
     }
 
     req.session.encryptData = encryptData
-    // console.log(req.session.encryptData)
+    console.log(req.session.encryptData)
     req.session.save()
 
     
     try {
       adminData = await fetchAdminGoogle(encryptData)
-      // console.log(adminData) 
+      console.log('ADMIN DATA',adminData) 
     } catch (error) {
       console.error(error);
     }
