@@ -388,7 +388,7 @@ async function getRecordingsData(refresh = null) {
           // -----------------------------
           // Also save fields like the id, etc in hidden columns
           let recordsDB = resDB.data
-          console.log(recordsBD , 'this db is...')
+          console.log(resDB.data , 'this db is...')
           if (recordsDB == '' || recordsDB == null || recordsDB == []) {
             showNoti("error", res.message, 7000)
           }
