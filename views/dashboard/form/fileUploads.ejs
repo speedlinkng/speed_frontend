@@ -427,6 +427,12 @@
           // GET GOOGLE LOCATION URL FOR THIS FILE UPLOAD
           const getlocations = async (selectedFile) => {
             // console.log('SLECTED FILE' + selectedFile)
+            let useName = "file_name";
+            if (this.renameAs != "") {
+              useName = this.renameAs.trim();
+            } else {
+              useName = selectedFile.name;
+            }
             let accssToken = "<%= uploadToken %>";
             try {
               const folderId = uploadFolderId_; // Replace with the actual folder ID
@@ -446,9 +452,7 @@
                     "Content-Type": "application/json; charset=UTF-8",
                   },
                   body: JSON.stringify({
-                    name: this.renameAs.trim()
-                      ? `${preFileName}${this.renameAs.trim()}`
-                      : selectedFile.name, // RENAME FILE HERE
+                    name: `${preFileName}${useName}`, // RENAME FILE HERE
                     mimeType: selectedFile.type,
                     parents: [folderId], // Place the folder ID in an array
                   }),

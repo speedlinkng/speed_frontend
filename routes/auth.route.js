@@ -12,7 +12,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
   router.get('/signin', saveUserSession);
 
   router.get('/signup', function(req, res) {
-    res.sendFile(`auth.html`, { root: 'views/auth' });
+    res.sendFile(`auth.html`, {urls: {backend: process.env.BACKEND_URL}, root: 'views/auth' });
   });
 
   router.get('/verify/:verifyId', function(req, res) {
@@ -35,7 +35,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
           if(status == 200){
             let result = JSON.parse(body);
             console.log(result.data.user_id)
-            res.render(`auth/auth.ejs`, {data: result.data.user_id});
+            res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id});
           }
    
         }
@@ -47,12 +47,12 @@ const {saveUserSession} = require('../handlers/Session_handler');
 
 
   router.get('/', function(req, res) {
-    res.render(`auth/auth.ejs`, {data: null});
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},data: null});
   });
 
   
   router.get('/activate', function (req, res) {
-      res.render(`auth/activate.ejs`, {data: null,  error: null, baseUrl: process.env.BASE_URL});
+      res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL},data: null,  error: null, baseUrl: process.env.BASE_URL});
   });
 
 
@@ -66,7 +66,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
       jwt.verify(activateToken, 'your_refresh_token_secret', (err, decoded) => {
         if (err) {
           // console.log(err)
-          res.render(`auth/activate.ejs`, { data: null, error: err, baseUrl: process.env.BASE_URL});
+          res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, data: null, error: err, baseUrl: process.env.BASE_URL});
         } 
         let decodedToken = decoded
         const decodedUser = decodedToken.result.user_id;
@@ -86,7 +86,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
                 // then no match was found
               }
               if (status == 200) {
-                res.render(`auth/auth.ejs`, { data: null, error: null, baseUrl: process.env.BASE_URL });
+                res.render(`auth/auth.ejs`, { urls: {backend: process.env.BACKEND_URL},data: null, error: null, baseUrl: process.env.BASE_URL });
               }
       
             }

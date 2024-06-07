@@ -69,7 +69,7 @@ function decrypt(data, key) {
     const data = decodedToken.result
 
 
-    res.render("admin/admin.ejs", {title:'Speedlink Admin Panel', drive:adminData.admin_drive, data: data});
+    res.render("admin/admin.ejs", {urls: {backend: process.env.BACKEND_URL},title:'Speedlink Admin Panel', drive:adminData.admin_drive, data: data});
   })
 
   // router.get('/dash/:encryptData/:iv', function(req, res) {

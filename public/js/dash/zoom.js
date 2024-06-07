@@ -567,7 +567,7 @@ async function getRecordingsData(refresh = null) {
               }
               setTimeout(function () {
                 moveFilterSelect();
-               },200)
+               },1000)
               
               
         

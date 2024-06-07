@@ -9,12 +9,13 @@ const {sign, decode} = require("jsonwebtoken")
   router.get('/preview', async function(req, res) {
 
     console.log('preview')
-    res.render("dashboard/form/preview/preview", { title: 'Preview Page'});
+    res.render("dashboard/form/preview/preview", {urls: {backend: process.env.BACKEND_URL}, title: 'Preview Page'});
   })
 
 router.get('/expired', async function (req, res) {
   res.render("dashboard/form/expired", { 
     title: 'EXPIRED page', 
+    urls: {backend: process.env.BACKEND_URL}
 });
   })
   router.get('/:record_id', async function(req, res) {
