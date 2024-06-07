@@ -20,10 +20,11 @@ async function getAllRecords() {
           window.location.href = `${baseUrl}/auth`
         }
 
-        if (res.data != '') {
+        if (res.data != undefined) {
           let data = res.data
           let id = 1
           $('#all_records').html('') // EMPTY THE HTML DISPLAY HOLDER
+          alert(res.data, 'data is')
           console.log('record res', res)
           data.forEach(res => {
 

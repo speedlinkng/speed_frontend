@@ -47,7 +47,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
 
 
   router.get('/', function(req, res) {
-    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},data: null});
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},data: null, title: "Authorization"});
   });
 
   

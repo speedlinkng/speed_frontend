@@ -46,9 +46,9 @@
             return 'record not found';
         }
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
-        console.log(res.data[0])
+        // console.log(res.data[0])
 
 
     }
@@ -94,7 +94,7 @@
       let res = await getTotalRecordCount.json();
         $('#record_count').text(res.data)
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // // window.location.href = `${baseUrl}/auth`
         }
 
     }
