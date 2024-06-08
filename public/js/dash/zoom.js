@@ -532,10 +532,13 @@ async function getRecordingsData(refresh = null) {
                 ]
               });
 
-              const inputsDataTables = document.querySelectorAll('.dt-input');
-              inputsDataTables.forEach(inputsDataTable => {
-                inputsDataTable.setAttribute('autocomplete', 'off');
+              setTimeout(function () { 
+                const inputsDataTables = document.querySelectorAll('.dt-input');
+                inputsDataTables.forEach(inputsDataTable => {
+                  inputsDataTable.setAttribute('autocomplete', 'off');
+                  inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
                 });
+              }, 1500)
               
               function moveFilterSelect() {
               
@@ -652,14 +655,26 @@ async function getRecordingsData(refresh = null) {
   async function bkup_mygoogle() { 
     localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
     localStorage.setItem("backup_preferred", 1);
-    window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
-      "access"
-    )}`; 
+
+    if (localStorage.setItem("my_goog_backup_storage") != "") {
+      // check if the my_goog_backup_storage is set
+      // Show notification go ahead to select what he wants to backup
+      backup()
+    } else {
+      window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
+        "access"
+      )}`; 
+    }
+  
   }
   
   async function bkup_speedlink() { 
     localStorage.setItem("backup_stroage", 1);
     localStorage.setItem("backup_preferred", 0);
+    // --------------------------------
+    // St this to 0 because onc you change option, you will be prompter to still signin again
+    // and select youe new storage account
+    localStorage.setItem("my_goog_backup_storage", 0);
     backup()
   }
   
@@ -782,6 +797,12 @@ socket.on('error', (data) => {
 
 
 async function backup() {
+
+  if (selectedDataForBackup.length === 0) {
+    showNoti("red-slate", "Select the recordings you wiash to backup", 5000);
+    return;
+  }
+
   data = {
     selectedDataForBackup: selectedDataForBackup,
     preferred: localStorage.getItem("backup_preferred"),

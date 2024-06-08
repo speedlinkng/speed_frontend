@@ -56,6 +56,25 @@
     </div>
   </div>
 </template>
+
+<template id="show_redCard">
+  <div
+    class="flex w-full bg-white shadow-md p-1 rounded-sm border border-red-200"
+  >
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-rror/10 text-error"
+    >
+      <i class="bi bi-exclamation-triangle-fill text-error"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex roboto max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 font-normal"
+    >
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
 <template id="show_whiteSlateCard">
   <div class="flex w-full bg-white shadow-sm p-1 rounded-sm">
     <div
@@ -95,6 +114,10 @@
     if (variant == "white-slate") {
       window.position = "center-top";
       window.content = "#show_whiteSlateCard";
+    }
+    if (variant == "white-slate") {
+      window.position = "center-top";
+      window.content = "#show_redCard";
     }
     noti.click();
   }
