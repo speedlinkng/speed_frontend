@@ -7,7 +7,7 @@ async function protectAdminroute() {
       },
     };
     try {
-      let getTotalAmount = await fetch(`http://localhost:5000/api/admin/checkAdminRoute`, settings);
+      let getTotalAmount = await fetch(`${backendUrl}/api/admin/checkAdminRoute`, settings);
       let status = await getTotalAmount.status;
 
   

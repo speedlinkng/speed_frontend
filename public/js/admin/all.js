@@ -14,7 +14,7 @@
       let res = await searchUser.json();
       let status = await searchUser.status;
       console.log(status)
-      console.log(res.data[0])
+      // console.log(res.data[0])
       if(status == 305){
         // window.location.href = `${baseUrl}/auth`
       }
