@@ -540,7 +540,7 @@ async function getRecordingsData(refresh = null) {
                   inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
                   console.log(inputsDataTable.value)
                   alert('set input')
-                  inputsDataTable.value = 'divine';
+                  inputsDataTable.value = '';
                 });
               }, 1500)
               
