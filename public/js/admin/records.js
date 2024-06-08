@@ -12,12 +12,12 @@ async function getAllRecords() {
       let status = await getAllRecords.status;
 
         if(status == 403 && res.message == 'invalid token'){
-            window.location.href = `${baseUrl}/auth`
+            // window.location.href = `${baseUrl}/auth`
         }
 
         if(status == 400 && res.message == 'invalid token'){
           console.log('invalid')
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
 
         if (res.data != undefined) {

@@ -16,7 +16,7 @@
       console.log(status)
       console.log(res.data[0])
       if(status == 305){
-        window.location.href = `${baseUrl}/auth`
+        // window.location.href = `${baseUrl}/auth`
       }
 
     }
@@ -72,7 +72,7 @@
         $('#total_users').text(res.data)
 
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
     }
     catch (err) {
