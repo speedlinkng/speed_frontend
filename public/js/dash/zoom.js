@@ -539,7 +539,7 @@ async function getRecordingsData(refresh = null) {
                   inputsDataTable.setAttribute('autocomplete', 'off');
                   inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
                   console.log(inputsDataTable.value)
-                  alert('set input')
+            
                   inputsDataTable.value = '';
                 });
               }, 1500)
