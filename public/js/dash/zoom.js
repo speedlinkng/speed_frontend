@@ -513,6 +513,7 @@ async function getRecordingsData(refresh = null) {
             tableConfig()
             if (table) {
               table.search('').draw();
+              const inputField = document.querySelector(".dt-input");
             } else {
               // $('#filterSelect').show()
               table = new DataTable("#zoom_table", {
@@ -530,6 +531,12 @@ async function getRecordingsData(refresh = null) {
                   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
                 ]
               });
+
+              const inputsDataTables = document.querySelectorAll('.dt-input');
+              inputsDataTables.forEach(inputsDataTable => {
+                inputsDataTable.setAttribute('autocomplete', 'off');
+                });
+              
               function moveFilterSelect() {
               
                     var filterSelect = document.getElementById('filterSelect');
@@ -575,7 +582,6 @@ async function getRecordingsData(refresh = null) {
                 // Event listener for filter select change
                 $('#filterSelect').on('change', function() {
                     table.draw();
-                    table = ''
                 });
            }
  
