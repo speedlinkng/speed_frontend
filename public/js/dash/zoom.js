@@ -512,7 +512,7 @@ async function getRecordingsData(refresh = null) {
           setTimeout(function () { 
             tableConfig()
             if (table) {
-              // table.search('').draw();
+              table.search('').draw();
             } else {
               // $('#filterSelect').show()
               table = new DataTable("#zoom_table", {
@@ -567,7 +567,7 @@ async function getRecordingsData(refresh = null) {
               }
               setTimeout(function () {
                 moveFilterSelect();
-               },7000)
+               },1000)
               
               
         
@@ -575,6 +575,7 @@ async function getRecordingsData(refresh = null) {
                 // Event listener for filter select change
                 $('#filterSelect').on('change', function() {
                     table.draw();
+                    table = ''
                 });
            }
  
