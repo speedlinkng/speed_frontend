@@ -33,7 +33,6 @@ function getGoogleUrlData_bk() {
             window.location.href = `${baseUrl}/auth`;
           } else if (res.success == 1) {
             
-           
       
           localStorage.setItem("my_goog_backup_storage", res.token); // google access token for users second time
             endLoader();

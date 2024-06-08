@@ -533,10 +533,14 @@ async function getRecordingsData(refresh = null) {
               });
 
               setTimeout(function () { 
+             
                 const inputsDataTables = document.querySelectorAll('.dt-input');
                 inputsDataTables.forEach(inputsDataTable => {
                   inputsDataTable.setAttribute('autocomplete', 'off');
                   inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
+                  console.log(inputsDataTable.value)
+                  alert('set input')
+                  inputsDataTable.value = 'divine';
                 });
               }, 1500)
               
@@ -656,7 +660,7 @@ async function getRecordingsData(refresh = null) {
     localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
     localStorage.setItem("backup_preferred", 1);
 
-    if (localStorage.setItem("my_goog_backup_storage") != "") {
+    if (localStorage.getItem("my_goog_backup_storage") != "") {
       // check if the my_goog_backup_storage is set
       // Show notification go ahead to select what he wants to backup
       backup()
