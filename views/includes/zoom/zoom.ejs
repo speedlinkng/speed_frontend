@@ -139,14 +139,17 @@
       </div>
       <label class="flex w-fit " id="filter-select-wrapper">
        
-        <select id="filterSelect" class="form-input focus:ring  ring-primary/50 pl-9 py-3 px-3">
+        <select id="filterSelect" class="form-input focus:ring  ring-primary/50 pl-9 py-2 px-2">
             <option value="">Filter</option>
             <option value="Backup pending">Backup pending</option>
             <option value="Backup completed">Backup completed</option>
             <option value="Backup in progress">Backup in progress</option>
         </select>
+        <span
+        class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+      >
         <i class="bi bi-funnel text-slate-700 peer-focus:text-primary transition-colors duration-200"></i>
-
+        </span>
     </div>
       <table
         id="zoom_table"
