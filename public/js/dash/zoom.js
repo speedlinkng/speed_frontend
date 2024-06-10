@@ -542,7 +542,7 @@ async function getRecordingsData(refresh = null) {
       
                   inputsDataTable.value = "&nbsp;";
                 });
-              },0)
+              },1000)
               
               function moveFilterSelect() {
               
