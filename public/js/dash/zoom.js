@@ -600,6 +600,7 @@ async function getRecordingsData(refresh = null) {
 
       }
       else if (status == 400) { 
+        $('.backup_progress').hide()
        
         if (res?.reason == 'invalid_grant') {
           // ---------------------------------
