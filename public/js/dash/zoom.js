@@ -442,9 +442,9 @@ async function getRecordingsData(refresh = null) {
             /*html*/
           `
           <tr class="capitalize border-y border-transparent border-b-slate-200 !text-black dark:border-b-navy-500" style="color:black;">
-            <td class="border px-4 py-2">
+            <td class="px-4 py-2">
               <input
-                class="row-checkbox form-checkbox is-basic h-4 w-4 border-b rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                class="row-checkbox form-checkbox is-basic h-4 w-4 border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
                 type="checkbox"
               />
             </td>
@@ -538,8 +538,9 @@ async function getRecordingsData(refresh = null) {
                   inputsDataTable.setAttribute('autocomplete', 'new-password');
                   inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
                   console.log(inputsDataTable.value)
+                  inputsDataTable.classList('form-input focus:ring ring-primary/50 !min-w-[1px]')
       
-                  inputsDataTable.value = "&nbsp;";
+                  inputsDataTable.value = "d";
                   alert('insert')
                 });
               },1000)
