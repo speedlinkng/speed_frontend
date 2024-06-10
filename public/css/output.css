@@ -1604,7 +1604,9 @@ video {
   gap: 0.5rem;
 }
 
-
+.gap-\[\] {
+  gap: ;
+}
 
 .gap-3 {
   gap: 0.75rem;
