@@ -14,8 +14,8 @@
       </p>
     </a>
   </div>
-  <div class="hidden w-full place-items-center lg:grid">
-    <div class="w-full max-w-[480px] p-6">
+  <div class="w-full place-items-center lg:grid">
+    <div class="w-full max-w-[480px] p-6 relative">
       <img
         class="w-full"
         x-show="!$store.global.isDarkModeEnabled"
@@ -74,7 +74,7 @@
             id="signin_email"
           />
           <span
-            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -92,20 +92,21 @@
             </svg>
           </span>
         </label>
-        <label class="relative flex">
-          <div x-data="{ show: false }" class="relative w-full max-w-xs">
-            <input
-              :type="show ? 'text' : 'password'"
-              class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-slate-700 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
-              placeholder="Password"
-              id="signin_password"
-            />
-            <div @click="show = !show" class="icon-wrapper border">
-              <i :class="show ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
-            </div>
+        <label x-data="{ show: false }" class="relative flex">
+          <input
+            :type="show ? 'text' : 'password'"
+            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-slate-700 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+            placeholder="Password"
+            id="signin_password"
+          />
+          <div @click="show = !show" class="icon-wrapper">
+            <i
+              class="w-5 h-5"
+              :class="show ? 'bi bi-eye-slash' : 'bi bi-eye'"
+            ></i>
           </div>
           <span
-            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -150,5 +151,7 @@
     </div>
   </main>
 </div>
-
+<script>
+  alert("hit");
+</script>
 <script src="../js/auth/signin.js"></script>
