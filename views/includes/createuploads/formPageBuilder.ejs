@@ -307,12 +307,12 @@
     // alert(count)
     adddefaultQ(addpage, _count);
 
-    function dragNewPage() {
-      const sortAll2 = document.querySelector(".use_drag2");
+    function dragNewPage2() {
+      const sortAll3 = document.querySelector(".use_drag2");
       // const sortAll2 = document.querySelector('.showResult_')
       let items = sortAll2.querySelectorAll(".item");
       console.log("ALL ITEMS", items);
-      console.log("sortAll2", sortAll2);
+      console.log("sortAll2", sortAll23);
       items.forEach((item) => {
         item.addEventListener("dragstart", () => {
           setTimeout(function () {
@@ -326,7 +326,7 @@
           item.classList.remove("dragging");
         });
       });
-      let initSortable2 = (e) => {
+      let initSortable3 = (e) => {
         e.preventDefault();
         let draggingItem = sortAll2.querySelector(".dragging");
         let siblings = [...sortAll2.querySelectorAll(".item:not(.dragging)")];
@@ -350,18 +350,18 @@
         console.log("NEXT SIBBLING", nextSibling);
         console.log("dragging Item", draggingItem);
         if (nextSibling === undefined) {
-          sortAll2.appendChild(draggingItem); // Append to the end if no next sibling found
+          sortAll23.appendChild(draggingItem); // Append to the end if no next sibling found
         } else {
-          sortAll2.insertBefore(draggingItem, nextSibling);
+          sortAll23.insertBefore(draggingItem, nextSibling);
         }
         console.log(nextSibling);
       };
 
-      sortAll2.addEventListener("dragover", initSortable2);
-      sortAll2.addEventListener("dragenter", (e) => e.preventDefault());
+      sortAll23.addEventListener("dragover", initSortable3);
+      sortAll23.addEventListener("dragenter", (e) => e.preventDefault());
     }
     setTimeout(() => {
-      dragNewPage();
+      dragNewPage2();
     }, 3000);
   }
 

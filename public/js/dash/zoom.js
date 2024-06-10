@@ -444,7 +444,7 @@ async function getRecordingsData(refresh = null) {
           <tr class="capitalize border-y border-transparent border-b-slate-200 !text-black dark:border-b-navy-500" style="color:black;">
             <td class="border px-4 py-2">
               <input
-                class="row-checkbox form-checkbox is-basic h-4 w-4 rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                class="row-checkbox form-checkbox is-basic h-4 w-4 border-b rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
                 type="checkbox"
               />
             </td>
@@ -515,7 +515,6 @@ async function getRecordingsData(refresh = null) {
               table.search('').draw();
               const inputField = document.querySelector(".dt-input");
             } else {
-              // $('#filterSelect').show()
               table = new DataTable("#zoom_table", {
                 info: false,
                 ordering: true,
@@ -531,6 +530,7 @@ async function getRecordingsData(refresh = null) {
                   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
                 ]
               });
+              table.search.fixed('citySearch', 'Paris');
 
               setTimeout(function () { 
              
@@ -542,11 +542,11 @@ async function getRecordingsData(refresh = null) {
             
                   inputsDataTable.value = '';
                 });
-              }, 1500)
+              }, 1000)
               
               function moveFilterSelect() {
               
-                    var filterSelect = document.getElementById('filterSelect');
+                    var filterSelect = document.getElementById('filter-select-wrapper');
                     var searchContainer = document.querySelector('.dt-search');
   
                     if (searchContainer && filterSelect) {
@@ -803,7 +803,7 @@ socket.on('error', (data) => {
 async function backup() {
 
   if (selectedDataForBackup.length === 0) {
-    showNoti("red-slate", "Select the recordings you wiash to backup", 5000);
+    showNoti("red-slate", "Select the recording you wish to backup", 5000);
     return;
   }
 

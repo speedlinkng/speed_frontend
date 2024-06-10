@@ -4,7 +4,7 @@ function callEdit(req_index) {
 
 
   
-  function dragNewPage() {
+  function dragNewPage1() {
     const sortAll2 = document.querySelector(".use_drag_edit");
     // const sortAll2 = document.querySelector('.showResult_')
     let items = sortAll2.querySelectorAll(".item");
@@ -58,7 +58,7 @@ function callEdit(req_index) {
     sortAll2.addEventListener("dragenter", (e) => e.preventDefault());
   }
   setTimeout(() => {
-    dragNewPage();
+    dragNewPage1();
   }, 3000);
   
   // RESET THESE VALUES

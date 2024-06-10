@@ -137,17 +137,20 @@
           ></div>
         </div>
       </div>
-      <select id="filterSelect" class=" p-2 outline-none w-4 text-black-cus">
-        <option value="">Filter</option>
-        <option value="Backup pending">Backup pending</option>
-        <option value="Backup completed">Backup completed</option>
-        <option value="Backup in progress">Backup in progress</option>
-      </select>
+      <div class="filter-select-wrapper">
+        <i class="fas fa-filter filter-select-icon"></i>
+        <select id="filterSelect" class="filter-select">
+            <option value="">Filter</option>
+            <option value="Backup pending">Backup pending</option>
+            <option value="Backup completed">Backup completed</option>
+            <option value="Backup in progress">Backup in progress</option>
+        </select>
+    </div>
       <table
         id="zoom_table"
-        class="allTable hover bg-tranparent w-full text-left poppin is-sc"
+        class="allTable hover order-column stripe bg-tranparent w-full text-left poppin is-sc"
       >
-        <thead class="bg-white">
+        <thead class="!bg-white">
           <tr>
             <th
               class="rounded-tl-lg whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
