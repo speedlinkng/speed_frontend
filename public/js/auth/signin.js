@@ -33,6 +33,9 @@ $(document).ready(function () {
           localStorage.removeItem('activeItemTimestamp', 0)
           localStorage.removeItem('drive_email', '')
           localStorage.removeItem('firstzoommodal', '')
+          localStorage.removeItem('my_goog_backup_storage', '')
+          localStorage.removeItem('backup_stroage', 0)
+          localStorage.removeItem('backup_preferred', 0)
 
           // call backend
 
