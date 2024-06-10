@@ -530,7 +530,6 @@ async function getRecordingsData(refresh = null) {
                   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
                 ]
               });
-              table.search.fixed('citySearch', 'Paris');
 
               setTimeout(function () { 
              
@@ -541,6 +540,7 @@ async function getRecordingsData(refresh = null) {
                   console.log(inputsDataTable.value)
       
                   inputsDataTable.value = "&nbsp;";
+                  alert('insert')
                 });
               },1000)
               
