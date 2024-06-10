@@ -536,13 +536,13 @@ async function getRecordingsData(refresh = null) {
              
                 const inputsDataTables = document.querySelectorAll('.dt-input');
                 inputsDataTables.forEach(inputsDataTable => {
-                  inputsDataTable.setAttribute('autocomplete', 'off');
+                  inputsDataTable.setAttribute('autocomplete', 'new-password');
                   inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
                   console.log(inputsDataTable.value)
-            
-                  inputsDataTable.value = '';
+      
+                  inputsDataTable.value = "&nbsp;";
                 });
-              }, 1000)
+              },0)
               
               function moveFilterSelect() {
               

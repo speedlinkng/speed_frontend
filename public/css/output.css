@@ -3029,6 +3029,16 @@ video {
   color: rgb(148 163 184 / var(--tw-text-opacity));
 }
 
+.placeholder\:text-slate-700::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-slate-700::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(51 65 85 / var(--tw-text-opacity));
+}
+
 .hover\:z-10:hover {
   z-index: 10;
 }
