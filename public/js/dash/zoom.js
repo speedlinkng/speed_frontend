@@ -536,7 +536,8 @@ async function getRecordingsData(refresh = null) {
                 const inputsDataTables = document.querySelectorAll('.dt-input');
                 inputsDataTables.forEach(inputsDataTable => {
                   inputsDataTable.setAttribute('autocomplete', 'new-password');
-                  inputsDataTable.setAttribute('name', 'name' + new Date().getTime());
+                  inputsDataTable.setAttribute('type', 'text');
+                  inputsDataTable.setAttribute('name','n' + new Date().getTime());
                   console.log(inputsDataTable.value)
                   inputsDataTable.classList('form-input focus:ring ring-primary/50 !min-w-[1px]')
       
