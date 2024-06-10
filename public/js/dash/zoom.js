@@ -532,7 +532,7 @@ async function getRecordingsData(refresh = null) {
               });
 
               setTimeout(function () { 
-             
+            
                 const inputsDataTables = document.querySelectorAll('.dt-input');
                 inputsDataTables.forEach(inputsDataTable => {
                   inputsDataTable.setAttribute('autocomplete', 'new-password');
