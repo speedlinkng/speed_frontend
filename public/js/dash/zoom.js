@@ -520,7 +520,7 @@ async function getRecordingsData(refresh = null) {
                 ordering: true,
                 paging: true,
                 fixedHeader: true,
-                searching: false,    // Disable search functionality
+                // searching: false,    // Disable search functionality
                 lengthChange: false,  // Disable "entries per page" option
                 scrollY: '500px', // Vertical scrolling height
                 // scrollX: true, // Enable horizontal scrolling
