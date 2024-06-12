@@ -550,7 +550,7 @@ async function getRecordingsData(refresh = null) {
               
                     var filterSelect = document.getElementById('filter-select-wrapper');
                     var searchContainer = document.querySelector('.dt-search');
-  
+                    searchContainer.css('visibility', 'hidden')
                     if (searchContainer && filterSelect) {
                         // Insert filterSelect after the search container
                         searchContainer.appendChild(filterSelect);
