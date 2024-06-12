@@ -550,36 +550,45 @@ async function getRecordingsData(refresh = null) {
               
                     var filterSelect = document.getElementById('filter-select-wrapper');
                     var searchContainer = document.querySelector('.dt-search');
-                    searchContainer.css('visibility', 'hidden')
+                   
                     if (searchContainer && filterSelect) {
                         // Insert filterSelect after the search container
                         searchContainer.appendChild(filterSelect);
                         // Show the filterSelect element
-                        filterSelect.style.display = 'inline-block';
+                      filterSelect.style.display = 'inline-block';
+                      
+                      searchContainer.css('display', 'none')
                     }
   
-                        // Custom filtering function
-                        DataTable.ext.search.push(
-                          function(settings, data, dataIndex) {
-                              var selectedValue = document.getElementById('filterSelect').value;
+
+
+                          // Custom select filter for the first column (status column)
+                        $('#filterSelect').on('change', function() {
+                          var filterValue = $(this).val();
+                          table.column(0).search(filterValue).draw();
+                      });
+                      //   // Custom filtering function
+                      //   DataTable.ext.search.push(
+                      //     function(settings, data, dataIndex) {
+                      //         var selectedValue = document.getElementById('filterSelect').value;
                   
-                              // Array of column indexes to check
-                              var columnIndexes = [ 3];
+                      //         // Array of column indexes to check
+                      //         var columnIndexes = [ 3];
                   
-                              // Check each column for the selected value
-                              for (var i = 0; i < columnIndexes.length; i++) {
-                                  var columnIndex = columnIndexes[i];
-                                  var cellData = table.cell(dataIndex, columnIndex).node().querySelector('span').textContent;
+                      //         // Check each column for the selected value
+                      //         for (var i = 0; i < columnIndexes.length; i++) {
+                      //             var columnIndex = columnIndexes[i];
+                      //             var cellData = table.cell(dataIndex, columnIndex).node().querySelector('span').textContent;
                   
-                                  if (selectedValue === "" || cellData === selectedValue) {
-                                      return true;
-                                  }
-                              }
+                      //             if (selectedValue === "" || cellData === selectedValue) {
+                      //                 return true;
+                      //             }
+                      //         }
                   
-                              // If none of the columns match the filter, exclude the row
-                              return false;
-                          }
-                      );
+                      //         // If none of the columns match the filter, exclude the row
+                      //         return false;
+                      //     }
+                      // );
               }
               setTimeout(function () {
                 moveFilterSelect();
