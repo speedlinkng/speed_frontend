@@ -159,7 +159,6 @@ let Sub_staus = await fetchResponses.status
   let Sub_res = await fetchResponses.json();
   $('.no-submission').remove(); 
 
-  console.log('{{{{{{{{{{{{{{{{{{{{{{{{success}}}}}}}}}}}}}}}}}}}}}}}}')
   // console.log(RecordDataDashboard)
   const tableFieldValues = []
   // const filterById = await RecordDataDashboard.filter(record => record.record_id === record_id)
@@ -297,8 +296,7 @@ let Sub_staus = await fetchResponses.status
           }
           return false
         });
-        
-        // console.log('@@@@@@@@@@@@', fileLink)
+
 
         if (fileLink) {
           // Add the file link to the output
@@ -368,7 +366,7 @@ let Sub_staus = await fetchResponses.status
         `
         <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
-                ${No}
+                ${No+1}
               </td>
               <td class="whitespace-nowrap px-4 py-3 sm:px-5">
                 ${moment(rez.created_at).format('lll')}

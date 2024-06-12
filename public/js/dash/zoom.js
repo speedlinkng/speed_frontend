@@ -96,8 +96,7 @@ class="outline-none p-2 border rounded border-[#aaa] mx-2"
   <tbody class="bg-white" id="zoom_table_content"></tbody>
 </table>
 `
-async function tableConfig() {
-  
+async function tableConfig() {  
   // Get the "Select All" checkbox and all row checkboxes
   const selectAllCheckbox = document.getElementById("selectAllCheckbox");
   const rowCheckboxes = document.querySelectorAll(".row-checkbox");
@@ -550,14 +549,14 @@ async function getRecordingsData(refresh = null) {
               
                     var filterSelect = document.getElementById('filter-select-wrapper');
                     var searchContainer = document.querySelector('.dt-search');
-                   
+  
                     if (searchContainer && filterSelect) {
                         // Insert filterSelect after the search container
                         searchContainer.appendChild(filterSelect);
                         // Show the filterSelect element
                         filterSelect.style.display = 'inline-block';
                     }
-                    searchContainer.addClass('hidden')
+  
                         // Custom filtering function
                         DataTable.ext.search.push(
                           function(settings, data, dataIndex) {
@@ -663,7 +662,7 @@ async function getRecordingsData(refresh = null) {
     localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
     localStorage.setItem("backup_preferred", 1);
 
-    if (localStorage.getItem("my_goog_backup_storage") != 0) {
+    if (localStorage.getItem("my_goog_backup_storage") != '0') {
       // check if the my_goog_backup_storage is set
       // Show notification go ahead to select what he wants to backup
       backup()
