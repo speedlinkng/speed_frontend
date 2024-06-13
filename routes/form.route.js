@@ -49,7 +49,8 @@ router.get('/expired', async function (req, res) {
       
           // Check if the expiry date has passed
           if (expiryDate < currentDate) {
-              res.render("dashboard/form/expired", { 
+            res.render("dashboard/form/expired", {
+                  urls: {backend: process.env.BACKEND_URL},
                   title: 'Expired page', 
                   data: result, 
                   uploadToken: result.data.uploadToken, 
@@ -58,7 +59,8 @@ router.get('/expired', async function (req, res) {
           } else {
               // Handle different status codes
               if (result.status == 404) {
-                  res.render("dashboard/form/form", { 
+                res.render("dashboard/form/form", { 
+                    urls: {backend: process.env.BACKEND_URL},
                       title: 'Form page', 
                       data: result, 
                       uploadToken: result.data.uploadToken 
