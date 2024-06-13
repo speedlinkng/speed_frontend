@@ -428,7 +428,7 @@
           const getlocations = async (selectedFile) => {
             // console.log('SLECTED FILE' + selectedFile)
             let useName = "file_name";
-            if (this.renameAs != "") {
+            if (this.renameAs.trim().startsWith(".")) {
               useName = this.renameAs.trim();
             } else {
               useName = selectedFile.name;
