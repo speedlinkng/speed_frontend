@@ -66,7 +66,8 @@ router.get('/expired', async function (req, res) {
                       uploadToken: result.data.uploadToken 
                   });
               } else if (result.status == 200) {
-                  res.render("dashboard/form/form", { 
+                res.render("dashboard/form/form", { 
+                    urls: {backend: process.env.BACKEND_URL},
                       title: 'Form page', 
                       data: result, 
                       uploadToken: result.data.uploadToken, 
