@@ -118,7 +118,10 @@
           <!-- Form Header -->
           <div><%- include('./formHeader.ejs') %></div>
 
-          <div class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5">
+          <div
+            x-init="console.log(jsonData)"
+            class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5"
+          >
             <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
               <template
                 x-data="dropdown"
