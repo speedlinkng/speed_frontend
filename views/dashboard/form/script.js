@@ -535,9 +535,10 @@ document.addEventListener("alpine:init", () => {
         const parentFolderId = Folder_id; // Replace with the actual parent folder ID
         const subfolderNames = Group_by;
         console.log('Group_by', Group_by);
+        console.log('Group_by', Group_by.length);
 
         if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
-
+alert('Group_by is true')
           var result = Group_by.map(async (fieldName) => {
             // Check if replies.formReplies[0] exists and is an object
             if (
@@ -573,7 +574,7 @@ document.addEventListener("alpine:init", () => {
         } else {
           
 
-
+          alert(' is false')
           var result = Group_by.map(async (fieldName) => { 
 
             async function getCurrentFormattedDate() {
