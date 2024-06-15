@@ -536,7 +536,7 @@ document.addEventListener("alpine:init", () => {
         const subfolderNames = Group_by;
         console.log('Group_by', Group_by);
 
-        if (groupByArray.length > 0 && groupByArray.every(element => element === "")) { 
+        if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
 
           var result = Group_by.map(async (fieldName) => {
             // Check if replies.formReplies[0] exists and is an object
