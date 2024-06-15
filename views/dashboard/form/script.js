@@ -554,7 +554,7 @@ document.addEventListener("alpine:init", () => {
  
             return {
               fieldName: fieldName,
-              fieldValue: null,
+              fieldValue: fieldName,
             };
           })
 
