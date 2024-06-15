@@ -159,7 +159,7 @@ let Sub_staus = await fetchResponses.status
   let Sub_res = await fetchResponses.json();
   $('.no-submission').remove(); 
 
-  console.log(RecordDataDashboard)
+  console.log(Sub_res)
   const tableFieldValues = []
   // const filterById = await RecordDataDashboard.filter(record => record.record_id === record_id)
 

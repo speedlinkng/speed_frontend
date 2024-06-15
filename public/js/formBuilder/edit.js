@@ -1,6 +1,7 @@
 
 function callEdit(req_index) {
   localStorage.setItem('editting', true)
+  // MAKE this local storage change when not editing  
 
 
   
@@ -211,6 +212,7 @@ function callEdit(req_index) {
           <div x-data="{ inputEntered: false, inputHasValue:  window.submit_field }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
             <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false"
               class=" content_edit_submit_field${pageIndex} text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]" style="display: inline-block; border:0; outline:none;">
+              ${header.header[0].edit_submit_field}
             </span>
             <input x-model="inputHasValue" class=" hidden edit_submit_field${pageIndex} text-lg btn !p-0 border-0 bg-transparent !w-fit" value="${header.header[0].edit_submit_field}" />
             <div x-show="!inputEntered" class="grid place-content-center">
