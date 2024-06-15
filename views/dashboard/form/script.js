@@ -538,18 +538,18 @@ document.addEventListener("alpine:init", () => {
         console.log('Group_by', Group_by.length);
 
         if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
-          alert('yes implemented')
+         
           var result = Group_by.map(async (fieldName) => { 
 
-            function getCurrentFormattedDate() {
+       
               const date = new Date();
               const year = date.getFullYear();
               const month = ('0' + (date.getMonth() + 1)).slice(-2);
               const day = ('0' + date.getDate()).slice(-2);
-              return `${year}-${month}-${day}`;
-            }
+              let getCurrentFormattedDate = `${year}-${month}-${day}`;
             
-            fieldName = getCurrentFormattedDate() + "_DefaultSubmission";
+            
+            fieldName = getCurrentFormattedDate + "_DefaultSubmission";
  
             return {
               fieldName: fieldName,
@@ -560,7 +560,7 @@ document.addEventListener("alpine:init", () => {
   
         } else {
           
-          alert('not implemented')
+      
           var result = Group_by.map(async (fieldName) => {
             // Check if replies.formReplies[0] exists and is an object
             if (
