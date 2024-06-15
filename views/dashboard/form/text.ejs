@@ -26,14 +26,14 @@
           <div>
             <template x-if="con.selectorName === 'hide-show'">
               <div
-                class="hidden"
+                class=""
                 x-text="con.selectorValue"
                 x-init=" showLabel = con.selectorValue == 'Hide';"
               ></div>
             </template>
             <template x-if="con.selectorName === 'if'">
               <div
-                class="hidden"
+                class=""
                 x-text="con.selectorValue"
                 x-init=" _if = con.selectorValue;"
               ></div>
@@ -61,21 +61,21 @@
               <template x-if="con.SCL_selectorName === 'matches'">
                 <div
                   :class="con.SCL_selectorName+conIndex"
-                  class="hidden"
+                  class=""
                   x-init="_matches.push(con.SCL_selectorValue)"
                 ></div>
               </template>
               <template x-if="con.SCL_selectorName === 'condition'">
                 <div
                   :class="con.SCL_selectorName+conIndex"
-                  class="hidden"
+                  class=""
                   x-init="conditionPush(con.SCL_selectorValue, _conditions, _conditionsWord)"
                 ></div>
               </template>
               <template x-if="con.SCL_inputName === 'compared'">
                 <div
                   :class="con.SCL_inputName+conIndex"
-                  class="hidden"
+                  class=""
                   x-init="comparedPush(con.SCL_inputValue, _compared, _conditionsWord, countcondition)"
                 ></div>
               </template>
@@ -89,7 +89,7 @@
           </div>
         </template>
 
-        <div class="hidden">
+        <div class="">
           <div x-text="JSON.stringify(_matches)"></div>
           <div x-text="JSON.stringify(_conditions)"></div>
           <div x-text="JSON.stringify(_compared)"></div>
