@@ -538,7 +538,29 @@ document.addEventListener("alpine:init", () => {
         console.log('Group_by', Group_by.length);
 
         if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
-alert('Group_by is true')
+
+          var result = Group_by.map(async (fieldName) => { 
+
+            async function getCurrentFormattedDate() {
+              const date = new Date();
+              const year = date.getFullYear();
+              const month = ('0' + (date.getMonth() + 1)).slice(-2);
+              const day = ('0' + date.getDate()).slice(-2);
+              return `${year}-${month}-${day}`;
+            }
+            
+            fieldName = await getCurrentFormattedDate() + "_DefaultSubmission";
+ 
+            return {
+              fieldName: fieldName,
+              fieldValue: null,
+            };
+          })
+
+  
+        } else {
+          
+
           var result = Group_by.map(async (fieldName) => {
             // Check if replies.formReplies[0] exists and is an object
             if (
@@ -571,27 +593,7 @@ alert('Group_by is true')
               };
             }
           });
-        } else {
-          
-
-          alert(' is false')
-          var result = Group_by.map(async (fieldName) => { 
-
-            async function getCurrentFormattedDate() {
-              const date = new Date();
-              const year = date.getFullYear();
-              const month = ('0' + (date.getMonth() + 1)).slice(-2);
-              const day = ('0' + date.getDate()).slice(-2);
-              return `${year}-${month}-${day}`;
-            }
-            
-            fieldName = await getCurrentFormattedDate() + "_DefaultSubmission";
- 
-            return {
-              fieldName: fieldName,
-              fieldValue: null,
-            };
-          })
+      
         }
 
 
