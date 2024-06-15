@@ -1098,7 +1098,7 @@ document.addEventListener("alpine:init", () => {
             // alert(finalCondition)
           } else if (operand == ".includes") {
             finalCondition = `"${param3.toLowerCase()}"${operand}("${newParam1.toLowerCase()}")`;
-             alert(finalCondition)
+            //  alert(finalCondition)
           } else if (operand == `!.includes`) {
             finalCondition = `!"${param3.toLowerCase()}".includes("${newParam1.toLowerCase()}")`;
             // alert('includes')
