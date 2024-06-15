@@ -536,7 +536,7 @@ document.addEventListener("alpine:init", () => {
         const subfolderNames = Group_by;
         console.log('Group_by', Group_by);
 
-        var result = Group_by.map((fieldName) => {
+        var result = Group_by.map(async (fieldName) => {
           // Check if replies.formReplies[0] exists and is an object
           if (
             replies.formReplies[0] &&
@@ -561,7 +561,7 @@ document.addEventListener("alpine:init", () => {
             };
           } else {
             // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
-            function getCurrentFormattedDate() {
+            async function getCurrentFormattedDate() {
               const date = new Date();
               const year = date.getFullYear();
               const month = ('0' + (date.getMonth() + 1)).slice(-2);
@@ -569,7 +569,8 @@ document.addEventListener("alpine:init", () => {
               return `${year}-${month}-${day}`;
             }
             
-            let fieldName = getCurrentFormattedDate() + "_DefaultSubmission";
+            fieldName = await getCurrentFormattedDate() + "_DefaultSubmission";
+            alert(fieldName)
             return {
               fieldName: fieldName,
               fieldValue: null,
