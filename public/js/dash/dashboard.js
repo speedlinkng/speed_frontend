@@ -589,7 +589,7 @@ async function getRecordList() {
                 <td
                   class=" whitespace-nowrap px-4 py-3 max-h-8 text-slate-700 dark:text-navy-100 sm:px-5"
                 >
-                  <span>${submissionCount[req_index]}</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
+                  <span>${submissionCount[req_index].count}</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
                     rez.record_id
                   }', '${
               allres.otherData.page_name
