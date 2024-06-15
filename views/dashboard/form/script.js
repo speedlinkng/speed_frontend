@@ -555,7 +555,7 @@ document.addEventListener("alpine:init", () => {
             
             
             fieldName = getCurrentFormattedDate + "_DefaultSubmission";
-            alert(fieldName)
+           
  
             return {
               fieldName: fieldName,

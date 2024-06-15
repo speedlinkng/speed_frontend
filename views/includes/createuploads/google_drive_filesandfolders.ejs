@@ -535,6 +535,7 @@
         let json = await fetchResponses.json();
 
         if (json.status == 200) {
+          localStorage.setItem('editting', false)
           localStorage.removeItem('edit_preferred')
           localStorage.setItem("upload_id", json.id);
           showNoti(
