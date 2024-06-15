@@ -536,31 +536,46 @@ document.addEventListener("alpine:init", () => {
         const subfolderNames = Group_by;
         console.log('Group_by', Group_by);
 
-        var result = Group_by.map(async (fieldName) => {
-          // Check if replies.formReplies[0] exists and is an object
-          if (
-            replies.formReplies[0] &&
-            typeof replies.formReplies[0] === "object"
-          ) {
-            function capitalizeFirstLetter(str) {
-              return str.charAt(0).toUpperCase() + str.slice(1);
-            }
-            const capitalizedFieldName = capitalizeFirstLetter(fieldName);
-            console.log(capitalizedFieldName);
-            // Find the first matching fieldName in formReplies
-            var matchingField = Object.values(replies.formReplies[0]).find(
-              (field) => field.fieldName === capitalizedFieldName
-            );
+        if (groupByArray.length > 0 && groupByArray.every(element => element === "")) { 
 
-            console.log(capitalizedFieldName);
-            console.log("matching field" + matchingField);
-            // Return an object with fieldName and corresponding fieldValue
-            return {
-              fieldName: fieldName,
-              fieldValue: matchingField ? matchingField.fieldValue : null,
-            };
-          } else {
-            // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
+          var result = Group_by.map(async (fieldName) => {
+            // Check if replies.formReplies[0] exists and is an object
+            if (
+              replies.formReplies[0] &&
+              typeof replies.formReplies[0] === "object"
+            ) {
+              function capitalizeFirstLetter(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+              }
+              const capitalizedFieldName = capitalizeFirstLetter(fieldName);
+              console.log(capitalizedFieldName);
+              // Find the first matching fieldName in formReplies
+              var matchingField = Object.values(replies.formReplies[0]).find(
+                (field) => field.fieldName === capitalizedFieldName
+              );
+  
+              console.log(capitalizedFieldName);
+              console.log("matching field" + matchingField);
+              // Return an object with fieldName and corresponding fieldValue
+              return {
+                fieldName: fieldName,
+                fieldValue: matchingField ? matchingField.fieldValue : null,
+              };
+            } else {
+              // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
+             
+              return {
+                fieldName: fieldName,
+                fieldValue: null,
+              };
+            }
+          });
+        } else {
+          
+
+
+          var result = Group_by.map(async (fieldName) => { 
+
             async function getCurrentFormattedDate() {
               const date = new Date();
               const year = date.getFullYear();
@@ -570,13 +585,14 @@ document.addEventListener("alpine:init", () => {
             }
             
             fieldName = await getCurrentFormattedDate() + "_DefaultSubmission";
-            alert(fieldName)
+ 
             return {
               fieldName: fieldName,
               fieldValue: null,
             };
-          }
-        });
+          })
+        }
+
 
         console.log(' subfolder NAME',result);
 
