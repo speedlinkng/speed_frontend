@@ -44,7 +44,7 @@ router.get('/expired', async function (req, res) {
           console.log(result.data.recordData.expiry_date);
       
           // Parse the expiry_date
-          let expiryDate = new Date(result.data.expiry_date);
+          let expiryDate = new Date(result.data.recordData.expiry_date);
           let currentDate = new Date();
 
           console.log(currentDate);
