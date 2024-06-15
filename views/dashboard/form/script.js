@@ -539,7 +539,7 @@ document.addEventListener("alpine:init", () => {
 
         if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
          
-          var result = Group_by.map(async (fieldName) => { 
+          var result = Group_by.map((fieldName) => { 
 
        
               const date = new Date();
@@ -550,6 +550,7 @@ document.addEventListener("alpine:init", () => {
             
             
             fieldName = getCurrentFormattedDate + "_DefaultSubmission";
+            alert(fieldName)
  
             return {
               fieldName: fieldName,
