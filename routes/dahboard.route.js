@@ -71,19 +71,15 @@ async function fetchUser(token) {
     // ------------------------
 
     let userData;
-    console.log(req.session.token)
+    console.log("TOKEN SESSION : ",req.session.token)
     try {
       userData = await fetchUser(req.session.token)
-      // console.log('@@@@@@@@@@@@@@@')
-      // console.log(userData); // Do something with the response
-     
     } catch (error) {
       console.error(error);
     }
 
     const _data = decode1(req.session.token, res);
   
-    // console.log('&&&&&&&&&&&7')
 
       // console.log(_data)
       // console.log('_data')

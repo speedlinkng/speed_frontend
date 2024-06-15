@@ -37,15 +37,18 @@ router.get('/expired', async function (req, res) {
         }else {
           let bodyString = body;
           let result = JSON.parse(bodyString);
-      
-          console.log(result.data);
+     
+          console.log(result.data.recordData);
           console.log(result.data.allReplies);
           console.log('#####################');
-          console.log(result.data.expiry_date);
+          console.log(result.data.recordData.expiry_date);
       
           // Parse the expiry_date
           let expiryDate = new Date(result.data.expiry_date);
           let currentDate = new Date();
+
+          console.log(currentDate);
+          console.log(expiryDate);
       
           // Check if the expiry date has passed
           if (expiryDate < currentDate) {

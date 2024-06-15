@@ -534,7 +534,7 @@ document.addEventListener("alpine:init", () => {
         // Example usage with a parent folder ID and an array of subfolder names
         const parentFolderId = Folder_id; // Replace with the actual parent folder ID
         const subfolderNames = Group_by;
-        console.log(Group_by);
+        console.log('Group_by', Group_by);
 
         var result = Group_by.map((fieldName) => {
           // Check if replies.formReplies[0] exists and is an object
@@ -561,6 +561,15 @@ document.addEventListener("alpine:init", () => {
             };
           } else {
             // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
+            function getCurrentFormattedDate() {
+              const date = new Date();
+              const year = date.getFullYear();
+              const month = ('0' + (date.getMonth() + 1)).slice(-2);
+              const day = ('0' + date.getDate()).slice(-2);
+              return `${year}-${month}-${day}`;
+            }
+            
+            let fieldName = getCurrentFormattedDate() + "_DefaultSubmission";
             return {
               fieldName: fieldName,
               fieldValue: null,
@@ -568,7 +577,7 @@ document.addEventListener("alpine:init", () => {
           }
         });
 
-        console.log(result);
+        console.log(' subfolder NAME',result);
 
         await this.createSubFolders(parentFolderId, result);
 
@@ -1069,7 +1078,7 @@ document.addEventListener("alpine:init", () => {
             // alert(finalCondition)
           } else if (operand == ".includes") {
             finalCondition = `"${param3.toLowerCase()}"${operand}("${newParam1.toLowerCase()}")`;
-            // alert(finalCondition)
+             alert(finalCondition)
           } else if (operand == `!.includes`) {
             finalCondition = `!"${param3.toLowerCase()}".includes("${newParam1.toLowerCase()}")`;
             // alert('includes')

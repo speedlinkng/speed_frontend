@@ -449,6 +449,7 @@
         let json = await fetchResponses.json();
 
         if (json.status == 200) {
+          localStorage.setItem('editting', false)
           localStorage.setItem("upload_id", json.id);
           showNoti(
             "success",
