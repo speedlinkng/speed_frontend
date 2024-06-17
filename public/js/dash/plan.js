@@ -98,7 +98,7 @@
       startLoader();
 
       try {
-        let pay = await fetch(`http://localhost:5000/api/pay`, settings);
+        let pay = await fetch(`${backendUrl}/api/pay`, settings);
         let status = await pay.status
         let json = await pay.json();
         console.log(json)
