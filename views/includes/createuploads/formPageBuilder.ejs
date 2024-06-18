@@ -308,12 +308,12 @@
     adddefaultQ(addpage, _count);
 
     function dragNewPage2() {
-      const sortAll3 = document.querySelector(".use_drag2");
+      const sortAll23 = document.querySelector(".use_drag2");
       // const sortAll2 = document.querySelector('.showResult_')
-      let items = sortAll2.querySelectorAll(".item");
+      let items = sortAll23.querySelectorAll(".item");
       alert("sorted");
       console.log("ALL ITEMS", items);
-      console.log("sortAll2", sortAll23);
+      console.log("sortAll23", sortAll23);
       items.forEach((item) => {
         item.addEventListener("dragstart", () => {
           setTimeout(function () {
@@ -329,8 +329,8 @@
       });
       let initSortable3 = (e) => {
         e.preventDefault();
-        let draggingItem = sortAll2.querySelector(".dragging");
-        let siblings = [...sortAll2.querySelectorAll(".item:not(.dragging)")];
+        let draggingItem = sortAll23.querySelector(".dragging");
+        let siblings = [...sortAll23.querySelectorAll(".item:not(.dragging)")];
 
         let mouseY = e.clientY;
 
