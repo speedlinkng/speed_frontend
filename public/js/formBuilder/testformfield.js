@@ -54,7 +54,7 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
   // res_id is also pageIndex
   // console.log('BIG BOYS ARE FINE', JSON.parse(editSettings))
 
-  dragNewPage2()
+
   window.def = ''
   window.res_id = res_id
   // console.log(e)
