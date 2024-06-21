@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta tags  -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="frame-ancestors 'none';"
+    />
+    <title><%= title %></title>
+    <link rel="icon" type="image/png" href="../images/favicon.png" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../css/output.css" />
+    <link rel="stylesheet" href="../css/custom.css" />
+    <link rel="stylesheet" href="../css/app.css" />
+
+    <!-- Javascript Assets -->
+    <script src="../js/app.js" defer></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/w3.js"></script>
+
+    <!-- <script src="../js/checktoken.js"></script> -->
+    <script src="../js/module/global.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body
+    class="has-min-sidebar is-sidebar-open is-header-blur"
+    x-bind="$store.global.documentBody"
+  >
+    <!-- App preloader-->
+    <div
+      class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
+    >
+      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+    </div>
+
+    <!-- Page Wrapper -->
+    <div
+      id="root"
+      x-data=""
+      class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
+      x-cloak
+    >
+      <main class="relative w-full h-screen" x-data="{showModalError:true}">
+        <div class="relative m-auto">
+          <div x-data="{errMesg: window.zoomError}">
+            <template x-teleport="#x-teleport-target">
+              <div
+                class="fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5"
+                x-show="showModalError"
+                role="dialog"
+                @keydown.window.escape="showModalError = false"
+              >
+                <div
+                  class="absolute inset-0 bg-slate-900/60 transition-opacity duration-300"
+                  @click="showModalError = false"
+                  x-show="showModalError"
+                  x-transition:enter="ease-out"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="ease-in"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                ></div>
+                <div
+                  class="relative max-w-2xl sm:w-[400px] rounded-lg bg-white px-4 py-10 text-center transition-opacity duration-300 dark:bg-navy-700 sm:px-5"
+                  x-show="showModalError"
+                  x-transition:enter="ease-out"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="ease-in"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                >
+                  <div class="w-full flex justify-center items-center">
+                    <div
+                      class="w-28 h-28 rounded-full p-2 flex justify-center items-center bg-error/10 text-error"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-clock-history w-20 h-20"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="M8.515 1.019A7 7 0 0 0 8 1V0a8 8 0 0 1 .589.022zm2.004.45a7 7 0 0 0-.985-.299l.219-.976q.576.129 1.126.342zm1.37.71a7 7 0 0 0-.439-.27l.493-.87a8 8 0 0 1 .979.654l-.615.789a7 7 0 0 0-.418-.302zm1.834 1.79a7 7 0 0 0-.653-.796l.724-.69q.406.429.747.91zm.744 1.352a7 7 0 0 0-.214-.468l.893-.45a8 8 0 0 1 .45 1.088l-.95.313a7 7 0 0 0-.179-.483m.53 2.507a7 7 0 0 0-.1-1.025l.985-.17q.1.58.116 1.17zm-.131 1.538q.05-.254.081-.51l.993.123a8 8 0 0 1-.23 1.155l-.964-.267q.069-.247.12-.501m-.952 2.379q.276-.436.486-.908l.914.405q-.24.54-.555 1.038zm-.964 1.205q.183-.183.35-.378l.758.653a8 8 0 0 1-.401.432z"
+                        />
+                        <path
+                          d="M8 1a7 7 0 1 0 4.95 11.95l.707.707A8.001 8.001 0 1 1 8 0z"
+                        />
+                        <path
+                          d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="mt-4">
+                    <h2
+                      class="errMesg text-2xl text-slate-700 dark:text-navy-100"
+                      x-text=""
+                    >
+                      Opps..!
+                    </h2>
+                    <p class="mt-2 errMes">
+                      This form link has expired. Kindly request for another
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="x-teleport-target"></div>
+    <script>
+      window.addEventListener("DOMContentLoaded", () => Alpine.start());
+    </script>
+  </body>
+</html>

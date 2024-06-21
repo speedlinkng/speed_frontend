@@ -28,11 +28,15 @@ $(document).ready(function () {
 
           // unset all localstorage
 
-          localStorage.removeItem('access', 'Dashboard')
-          localStorage.removeItem('previewAllArray', {})
-          localStorage.removeItem('activeItemTimestamp', 0)
-          localStorage.removeItem('drive_email', '')
-          localStorage.removeItem('firstzoommodal', '')
+          localStorage.setItem('access', 'Dashboard')
+          localStorage.removeItem('previewAllArray')
+          localStorage.removeItem('activeItemTimestamp')
+          localStorage.removeItem('drive_email')
+          localStorage.removeItem('firstzoommodal')
+          localStorage.removeItem('my_goog_backup_storage')
+          localStorage.removeItem('backup_stroage')
+          localStorage.removeItem('backup_preferred')
+          localStorage.setItem('editting', false)
 
           // call backend
 

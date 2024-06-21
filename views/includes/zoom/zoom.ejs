@@ -137,20 +137,28 @@
           ></div>
         </div>
       </div>
-      <select id="filterSelect">
-        <option value="">Filter</option>
-        <option value="Backup pending">Backup pending</option>
-        <option value="Backup completed">Backup completed</option>
-        <option value="Backup in progress">Backup in progress</option>
-      </select>
+      <label class="flex w-fit relative hidden" id="filter-select-wrapper">
+       
+        <select id="filterSelect" class="hidden bg-slate-150 placeholder:text-slate-700 form-input peer focus:ring  ring-primary/50 pl-9 py-2 px-2">
+            <option value="">Filter</option>
+            <option value="Backup pending">Backup pending</option>
+            <option value="Backup completed">Backup completed</option>
+            <option value="Backup in progress">Backup in progress</option>
+        </select>
+        <span
+        class="hidden pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+      >
+        <i class="bi bi-funnel text-slate-700 peer-focus:text-primary transition-colors duration-200"></i>
+        </span>
+      </label>
       <table
         id="zoom_table"
-        class="allTable hover bg-tranparent w-full text-left poppin is-sc"
+        class="allTable hover order-column row-border bg-tranparent w-full text-left poppin is-sc"
       >
-        <thead class="bg-white">
+        <thead class="!bg-white">
           <tr>
             <th
-              class="rounded-tl-lg whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="rounded-tl-lg whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               <input
                 id="selectAllCheckbox"
@@ -159,53 +167,53 @@
               />
             </th>
             <th
-              class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               S/N
             </th>
             <th
-              class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="whitespace-normal bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               id
             </th>
             <th
-              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="min-w-fit whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               Status
             </th>
             <th
-              class="hidden whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="hidden whitespace-normal bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               count
             </th>
             <th
-              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="min-w-fit whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               Topic
             </th>
             <th
-              class="hidden whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="hidden whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               UUID
             </th>
             <th
-              class="min-w-fit whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="min-w-fit whitespace-nowrap bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               Start Time
             </th>
             <th
-              class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="min-w-fit whitespace-normal bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               files
             </th>
             <th
-              class="min-w-fit whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="min-w-fit whitespace-normal bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               raw_size
             </th>
 
             <th
-              class="whitespace-normal bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+              class="whitespace-normal bg-slate-150 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
             >
               Action
             </th>

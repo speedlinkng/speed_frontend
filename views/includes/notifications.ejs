@@ -8,11 +8,11 @@
 </div>
 
 <template id="show_success">
-  <div class="flex w-full bg-white shadow-md p-1 rounded-sm">
+  <div class="flex w-full bg-green-500 bg-opacity-30 shadow-md p-1 rounded-sm">
     <div
       class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-success text-white"
     >
-      <i class="bi bi-patch-check text-success"></i>
+      <i class="bi bi-patch-check text-white"></i>
     </div>
     <div
       x-text="window.noti"
@@ -25,10 +25,19 @@
 
 <template id="show_error">
   <div
-    x-text="window.noti"
-    class="flex max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 bg-red-200 bg-opacity- text-error font-normal"
+    class="flex w-full bg-white shadow-md p-1 rounded-sm border border-red-200"
   >
-    NOTI ERROR
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-error/10 text-error"
+    >
+      <i class="bi bi-exclamation-triangle-fill text-error"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex roboto max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 font-normal"
+    >
+      NOTI ERROR
+    </div>
   </div>
 </template>
 
@@ -56,6 +65,25 @@
     </div>
   </div>
 </template>
+
+<template id="show_redCard">
+  <div
+    class="flex w-full bg-white shadow-md p-1 rounded-sm border border-red-200"
+  >
+    <div
+      class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-error/10 text-error"
+    >
+      <i class="bi bi-exclamation-triangle-fill text-error"></i>
+    </div>
+    <div
+      x-text="window.noti"
+      class="flex roboto max-w-lg text-[#121212] text-xs sm:text-sm overflow-hidden rounded-md p-2 font-normal"
+    >
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
 <template id="show_whiteSlateCard">
   <div class="flex w-full bg-white shadow-sm p-1 rounded-sm">
     <div
@@ -95,6 +123,10 @@
     if (variant == "white-slate") {
       window.position = "center-top";
       window.content = "#show_whiteSlateCard";
+    }
+    if (variant == "red-slate") {
+      window.position = "center-top";
+      window.content = "#show_redCard";
     }
     noti.click();
   }

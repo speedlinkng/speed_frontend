@@ -534,41 +534,76 @@ document.addEventListener("alpine:init", () => {
         // Example usage with a parent folder ID and an array of subfolder names
         const parentFolderId = Folder_id; // Replace with the actual parent folder ID
         const subfolderNames = Group_by;
-        console.log(Group_by);
+        console.log('Group_by', Group_by);
+        console.log('Group_by', Group_by.length);
 
-        var result = Group_by.map((fieldName) => {
-          // Check if replies.formReplies[0] exists and is an object
-          if (
-            replies.formReplies[0] &&
-            typeof replies.formReplies[0] === "object"
-          ) {
-            function capitalizeFirstLetter(str) {
-              return str.charAt(0).toUpperCase() + str.slice(1);
+        if (Group_by.length > 0 && Group_by.every(element => element === "")) { 
+         
+          var result = Group_by.map((fieldName) => { 
+
+       
+            const date = new Date();
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2);
+            const day = ('0' + date.getDate()).slice(-2);
+            const hours = ('0' + date.getHours()).slice(-2);
+            const minutes = ('0' + date.getMinutes()).slice(-2);
+            const seconds = ('0' + date.getSeconds()).slice(-2);
+            
+            let getCurrentFormattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+            
+            
+            
+            fieldName = getCurrentFormattedDate + "_DefaultSubmission";
+           
+ 
+            return {
+              fieldName: fieldName,
+              fieldValue: fieldName,
+            };
+          })
+
+  
+        } else {
+          
+      
+          var result = Group_by.map(async (fieldName) => {
+            // Check if replies.formReplies[0] exists and is an object
+            if (
+              replies.formReplies[0] &&
+              typeof replies.formReplies[0] === "object"
+            ) {
+              function capitalizeFirstLetter(str) {
+                return str.charAt(0).toUpperCase() + str.slice(1);
+              }
+              const capitalizedFieldName = capitalizeFirstLetter(fieldName);
+              console.log(capitalizedFieldName);
+              // Find the first matching fieldName in formReplies
+              var matchingField = Object.values(replies.formReplies[0]).find(
+                (field) => field.fieldName === capitalizedFieldName
+              );
+  
+              console.log(capitalizedFieldName);
+              console.log("matching field" + matchingField);
+              // Return an object with fieldName and corresponding fieldValue
+              return {
+                fieldName: fieldName,
+                fieldValue: matchingField ? matchingField.fieldValue : null,
+              };
+            } else {
+              // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
+             
+              return {
+                fieldName: fieldName,
+                fieldValue: null,
+              };
             }
-            const capitalizedFieldName = capitalizeFirstLetter(fieldName);
-            console.log(capitalizedFieldName);
-            // Find the first matching fieldName in formReplies
-            var matchingField = Object.values(replies.formReplies[0]).find(
-              (field) => field.fieldName === capitalizedFieldName
-            );
+          });
+      
+        }
 
-            console.log(capitalizedFieldName);
-            console.log("matching field" + matchingField);
-            // Return an object with fieldName and corresponding fieldValue
-            return {
-              fieldName: fieldName,
-              fieldValue: matchingField ? matchingField.fieldValue : null,
-            };
-          } else {
-            // If replies.formReplies[0] does not exist or is not an object, return null for fieldValue
-            return {
-              fieldName: fieldName,
-              fieldValue: null,
-            };
-          }
-        });
 
-        console.log(result);
+        console.log(' subfolder NAME',result);
 
         await this.createSubFolders(parentFolderId, result);
 
@@ -1069,7 +1104,7 @@ document.addEventListener("alpine:init", () => {
             // alert(finalCondition)
           } else if (operand == ".includes") {
             finalCondition = `"${param3.toLowerCase()}"${operand}("${newParam1.toLowerCase()}")`;
-            // alert(finalCondition)
+            //  alert(finalCondition)
           } else if (operand == `!.includes`) {
             finalCondition = `!"${param3.toLowerCase()}".includes("${newParam1.toLowerCase()}")`;
             // alert('includes')

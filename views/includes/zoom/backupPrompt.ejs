@@ -38,14 +38,15 @@
           <div
             @click="chooseBackupDrive = false"
             onclick="bkup_speedlink()"
-            class="relative speedlink_storage_bk w-full card py-3 hover:border-4 hover:border-gray-100"
+            style="background: rgb(219 219 219 / 10%)"
+            class="relative speedlink_storage_bk w-full py-3 hover:shadow hover:text-primary"
           >
             <span class="absolute inset-0 rounded-md"></span>
             <div class="w-full flex justify-center items-center">
               <p
                 class="shrink-0 text-xs text p-[1px] px-2 bg-secondary/10 text-secondary w-fit rounded-lg"
               >
-                10Tb of storage
+                unlimited storage
               </p>
             </div>
             <div class="h-16 w-full flex items-center justify-center">
@@ -55,12 +56,13 @@
                 alt="logo"
               />
             </div>
-            <p class="shrink-0 te">Speedlink's storage</p>
+            <p class="shrink-0">Speedlink's storage</p>
           </div>
           <div
             @click="chooseBackupDrive = false"
             onclick="bkup_mygoogle()"
-            class="my_drive_bk w-full card py-3 hover:border-4 hover:border-gray-100"
+            style="background: rgb(219 219 219 / 10%)"
+            class="relative my_drive_bk w-full py-3 hover:shadow hover:text-primary"
           >
             <div class="w-full flex justify-center items-center">
               <p

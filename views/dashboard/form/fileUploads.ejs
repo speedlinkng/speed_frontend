@@ -427,11 +427,21 @@
           // GET GOOGLE LOCATION URL FOR THIS FILE UPLOAD
           const getlocations = async (selectedFile) => {
             // console.log('SLECTED FILE' + selectedFile)
+            let useName = "file_name";
+            if (this.renameAs.trim().startsWith(".")) {
+              useName = selectedFile.name;
+            } else {
+              useName = this.renameAs.trim();
+            }
+            console.log("useName", useName);
             let accssToken = "<%= uploadToken %>";
             try {
               const folderId = uploadFolderId_; // Replace with the actual folder ID
 
               let accssToken = "<%= uploadToken %>";
+              console.log(this.renameAs.trim(), "TRIM");
+              console.log(selectedFile.name, "select name");
+              console.log(preFileName, "pref name");
 
               // Step 1: Initiate the resumable session
               const initiateResponse = await fetch(
@@ -443,7 +453,7 @@
                     "Content-Type": "application/json; charset=UTF-8",
                   },
                   body: JSON.stringify({
-                    name: `${preFileName}${this.renameAs.trim()}`, // RENAME FILE HERE
+                    name: `${preFileName}${useName}`, // RENAME FILE HERE
                     mimeType: selectedFile.type,
                     parents: [folderId], // Place the folder ID in an array
                   }),
@@ -523,7 +533,7 @@
                   const uploadFile = async (header_res, selectedFile) => {
                     let progress = `
                     <div class="card shadow p-2 pb-3  talmabout${i_}${countDownUpload}${randomId}">
-                    
+
                       <span class="text-xs text-blue-700 text-left pl-1">${selectedFile.name}</span>
                       <div class="flex mt-1">
                         <div class="mr-3 font-medium dark:text-white  flex items-center text-slate-800 " id="upload_percentage${i_}${countDownUpload}${randomId}">0%</div>
@@ -532,10 +542,10 @@
                           <span>Seems you are offline, Dont leave this page </span>
                         </div>
                       </div>
-              
+
                       <div class="progress h-2 bg-slate-150 dark:bg-navy-500">
                         <div class="is-active relative overflow-hidden rounded-full bg-warning progress_bar${i_}${countDownUpload}${randomId}">
-              
+
                         </div>
                       </div>
                     </div><br>
@@ -842,8 +852,8 @@
           // this.submitAndUpdate()
 
           function _saveRepliesToDrive() {
-            /* 
-                  this handles clicking of the downloadToDOc button 
+            /*
+                  this handles clicking of the downloadToDOc button
                   its done here because it cant be accessed outside of this function from the holding function
                 */
             console.log("saveRepliesToDrive ss");

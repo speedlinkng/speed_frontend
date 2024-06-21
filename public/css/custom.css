@@ -188,3 +188,14 @@ button[disabled]::after {
 .dataTables_filter select {
     margin-left: 10px;
 }
+
+
+
+.icon-wrapper {
+  position: absolute;
+  top: 50%;
+  right: 0.75rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6b7280; /* Adjust the color if needed */
+}

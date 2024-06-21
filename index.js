@@ -40,7 +40,6 @@ app.use(express.static(path.join(__dirname, 'views/admin')));
 app.use('/auth', express.static(path.join(__dirname, 'public')));
 
 
-
 // app.use(cors(corsOptions))
 app.use(express.urlencoded({extended: true}));
 app.use(express.json()) 

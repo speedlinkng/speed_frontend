@@ -9,7 +9,7 @@ const {deTokenize} = require('../middlewars/FunctionsController');
 
 router.get('/test0', function(req, res) {
   console.log('its done')
-  res.render(`dashboard/testTable.ejs`, { totle: 'Test Tables' });
+  res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
   
 });
 
@@ -71,56 +71,52 @@ async function fetchUser(token) {
     // ------------------------
 
     let userData;
-    console.log(req.session.token)
+    console.log("TOKEN SESSION : ",req.session.token)
     try {
       userData = await fetchUser(req.session.token)
-      // console.log('@@@@@@@@@@@@@@@')
-      // console.log(userData); // Do something with the response
-     
     } catch (error) {
       console.error(error);
     }
 
     const _data = decode1(req.session.token, res);
   
-    // console.log('&&&&&&&&&&&7')
 
       // console.log(_data)
       // console.log('_data')
 
     if (_data !== null) {
         // Handle the decoded data and render the response in this route handler.
-        res.render("dashboard/home.ejs", { title: 'Home page', role: userData.role, data: userData });
+        res.render("dashboard/home.ejs", { urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, title: 'Home page', role: userData.role, data: userData });
     }
   });
 
   router.get('/bridge', function(req, res) {
-    res.render(`dashboard/bridge.ejs`, { totle: 'Share Link' });
+    res.render(`dashboard/bridge.ejs`, {urls: {backend: process.env.BACKEND_URL}, title: 'Bridge' });
   });
 
   router.get('/share', function(req, res) {
-    res.render(`dashboard/share.ejs`, { totle: 'Share Link' });
+    res.render(`dashboard/share.ejs`, {urls: {backend: process.env.BACKEND_URL}, title: 'Share Link' });
   });
 
   router.get('/create', function(req, res) {
-    res.render("dashboard/create.ejs", { title: 'Create page'});
+    res.render("dashboard/create.ejs", {urls: {backend: process.env.BACKEND_URL}, title: 'Create page'});
   });
 
   router.get('/todash/:pass', deTokenize, function(req, res) {
     console.log(res.decoded_access)
-    res.render("dashboard/home.ejs", { title: 'Home page' });
+    res.render("dashboard/home.ejs", {urls: {backend: process.env.BACKEND_URL}, title: 'Home page' });
   });
 
   router.get('/pricing', function(req, res) {
-    res.render(`dashboard/pricing.ejs`, { root: 'views/dashboard' });
+    res.render(`dashboard/pricing.ejs`, {urls: {backend: process.env.BACKEND_URL}, root: 'views/dashboard' });
   });
 
   router.get('/upload/:id', function(req, res) {
-    res.render(`dashboard/upload.ejs`, { root: 'views/dashboard' });
+    res.render(`dashboard/upload.ejs`, {urls: {backend: process.env.BACKEND_URL}, root: 'views/dashboard' });
   });
 
   router.get('/testt', function(req, res) {
-    res.render(`test/test1.ejs`, { root: 'views/dashoard' });
+    res.render(`test/test1.ejs`, {urls: {backend: process.env.BACKEND_URL}, root: 'views/dashoard' });
   });
 
   // router.post('/paystack', logout)

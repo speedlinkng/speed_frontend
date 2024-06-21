@@ -1,5 +1,5 @@
 async function getAllRecords() {
-
+  let table;
     let settings = {
       method: 'GET',
       headers: {
@@ -12,18 +12,19 @@ async function getAllRecords() {
       let status = await getAllRecords.status;
 
         if(status == 403 && res.message == 'invalid token'){
-            window.location.href = `${baseUrl}/auth`
+            // window.location.href = `${baseUrl}/auth`
         }
 
         if(status == 400 && res.message == 'invalid token'){
           console.log('invalid')
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
 
-        if (res.data != '') {
+        if (res.data != undefined) {
           let data = res.data
           let id = 1
           $('#all_records').html('') // EMPTY THE HTML DISPLAY HOLDER
+       
           console.log('record res', res)
           data.forEach(res => {
 
@@ -89,6 +90,32 @@ async function getAllRecords() {
 
               )
 
+              setTimeout(function () { 
+             
+                if (table) {
+                  table.search('').draw();
+                } else {
+                  table = new DataTable("#records_table", {
+                    info: false,
+                    ordering: true,
+                    paging: true,
+                    fixedHeader: true,
+                    // searching: false,    // Disable search functionality
+                    lengthChange: false,  // Disable "entries per page" option
+                    scrollY: '500px', // Vertical scrolling height
+                    // scrollX: true, // Enable horizontal scrolling
+                    scrollCollapse: true, // Allow DataTable to shrink to fit if needed
+                    columnDefs: [
+                      { orderable: false, targets: 0 }, // Disable ordering for the first column (index 0)
+                    //   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
+                    ]
+                  });
+          
+      
+           
+               }
+     
+              },500)
             })
 
           }else{

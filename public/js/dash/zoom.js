@@ -96,8 +96,7 @@ class="outline-none p-2 border rounded border-[#aaa] mx-2"
   <tbody class="bg-white" id="zoom_table_content"></tbody>
 </table>
 `
-async function tableConfig() {
-  
+async function tableConfig() {  
   // Get the "Select All" checkbox and all row checkboxes
   const selectAllCheckbox = document.getElementById("selectAllCheckbox");
   const rowCheckboxes = document.querySelectorAll(".row-checkbox");
@@ -361,7 +360,14 @@ async function getRecordingsData(refresh = null) {
       let fetchResponses = await fetch(`${backendUrl}/api/zoom/recordings`, settings);
       let status = await fetchResponses.status
       let res = await fetchResponses.json();
-      // console.log(status)
+      console.log(status)
+      if (status == 201) {
+        console.log(res.reason)
+        if (res?.reason == 'not_subscribed_to_zoom') {
+        
+          showNoti("error", res.message, 7000)
+        }
+       }
       if (res.success == 1 && status == 200) {
         // --------------------------------
         // Remove skeleton
@@ -381,6 +387,10 @@ async function getRecordingsData(refresh = null) {
           // -----------------------------
           // Also save fields like the id, etc in hidden columns
           let recordsDB = resDB.data
+          console.log(resDB.data , 'this db is...')
+          // if (recordsDB == '' || recordsDB == null || recordsDB == []) {
+          //   showNoti("error", res.message, 7000)
+          // }
           // -----------------------------
           // Clear or destroy the table before appending data again
           if (table) {
@@ -431,9 +441,9 @@ async function getRecordingsData(refresh = null) {
             /*html*/
           `
           <tr class="capitalize border-y border-transparent border-b-slate-200 !text-black dark:border-b-navy-500" style="color:black;">
-            <td class="border px-4 py-2">
+            <td class="px-4 py-2">
               <input
-                class="row-checkbox form-checkbox is-basic h-4 w-4 rounded border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
+                class="row-checkbox form-checkbox is-basic h-4 w-4 border-slate-400/70 checked:bg-primary checked:border-primary hover:border-primary focus:border-primary dark:border-navy-400 dark:checked:bg-accent dark:checked:border-accent dark:hover:border-accent dark:focus:border-accent"
                 type="checkbox"
               />
             </td>
@@ -502,6 +512,7 @@ async function getRecordingsData(refresh = null) {
             tableConfig()
             if (table) {
               table.search('').draw();
+              const inputField = document.querySelector(".dt-input");
             } else {
               table = new DataTable("#zoom_table", {
                 info: false,
@@ -518,9 +529,25 @@ async function getRecordingsData(refresh = null) {
                   { visible: false, targets: [ 2,4, 6, 9] } // Hide columns 2, 3, and 8
                 ]
               });
+
+              setTimeout(function () { 
+            
+                const inputsDataTables = document.querySelectorAll('.dt-input');
+                inputsDataTables.forEach(inputsDataTable => {
+                  inputsDataTable.setAttribute('autocomplete', 'new-password');
+                  inputsDataTable.setAttribute('type', 'text');
+                  inputsDataTable.setAttribute('name','n' + new Date().getTime());
+                  console.log(inputsDataTable.value)
+                  inputsDataTable.classList('form-input focus:ring ring-primary/50 !min-w-[1px]')
+      
+                  inputsDataTable.value = "d";
+                  alert('insert')
+                });
+              },1000)
+              
               function moveFilterSelect() {
               
-                    var filterSelect = document.getElementById('filterSelect');
+                    var filterSelect = document.getElementById('filter-select-wrapper');
                     var searchContainer = document.querySelector('.dt-search');
   
                     if (searchContainer && filterSelect) {
@@ -555,7 +582,7 @@ async function getRecordingsData(refresh = null) {
               }
               setTimeout(function () {
                 moveFilterSelect();
-               },200)
+               },1000)
               
               
         
@@ -570,14 +597,9 @@ async function getRecordingsData(refresh = null) {
 
         }
 
-
-  
-    
-
       }
       else if (status == 400) { 
-        console.log('nam')
-        console.log(res)
+        $('.backup_progress').hide()
        
         if (res?.reason == 'invalid_grant') {
           // ---------------------------------
@@ -639,14 +661,26 @@ async function getRecordingsData(refresh = null) {
   async function bkup_mygoogle() { 
     localStorage.setItem("backup_stroage", 2); // set a temporary storage which will be used to know the user clicked this option
     localStorage.setItem("backup_preferred", 1);
-    window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
-      "access"
-    )}`; 
+
+    if (localStorage.getItem("my_goog_backup_storage") != '0') {
+      // check if the my_goog_backup_storage is set
+      // Show notification go ahead to select what he wants to backup
+      backup()
+    } else {
+      window.location.href = `${backendUrl}/api/google/auth/${localStorage.getItem(
+        "access"
+      )}`; 
+    }
+  
   }
   
   async function bkup_speedlink() { 
     localStorage.setItem("backup_stroage", 1);
     localStorage.setItem("backup_preferred", 0);
+    // --------------------------------
+    // St this to 0 because onc you change option, you will be prompter to still signin again
+    // and select youe new storage account
+    localStorage.setItem("my_goog_backup_storage", 0);
     backup()
   }
   
@@ -691,7 +725,7 @@ var totalBackupSize = 0;
 var totalBytesTransferred = 0;
 let fileProgress = {};
 let socketId
-const socket = io('http://localhost:5000');
+const socket = io(backendUrl);
 socket.on('connect', () => {
   console.log('Connected to server');
   socketId = socket.id; // Get socket ID after connection
@@ -769,6 +803,12 @@ socket.on('error', (data) => {
 
 
 async function backup() {
+
+  if (selectedDataForBackup.length === 0) {
+    showNoti("red-slate", "Select the recording you wish to backup", 5000);
+    return;
+  }
+
   data = {
     selectedDataForBackup: selectedDataForBackup,
     preferred: localStorage.getItem("backup_preferred"),

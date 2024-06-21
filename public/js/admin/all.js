@@ -14,9 +14,9 @@
       let res = await searchUser.json();
       let status = await searchUser.status;
       console.log(status)
-      console.log(res.data[0])
+      // console.log(res.data[0])
       if(status == 305){
-        window.location.href = `${baseUrl}/auth`
+        // window.location.href = `${baseUrl}/auth`
       }
 
     }
@@ -46,9 +46,9 @@
             return 'record not found';
         }
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
-        console.log(res.data[0])
+        // console.log(res.data[0])
 
 
     }
@@ -72,7 +72,7 @@
         $('#total_users').text(res.data)
 
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // window.location.href = `${baseUrl}/auth`
         }
     }
     catch (err) {
@@ -94,7 +94,7 @@
       let res = await getTotalRecordCount.json();
         $('#record_count').text(res.data)
         if(status == 305){
-          window.location.href = `${baseUrl}/auth`
+          // // window.location.href = `${baseUrl}/auth`
         }
 
     }

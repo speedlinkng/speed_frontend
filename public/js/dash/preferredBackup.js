@@ -33,9 +33,8 @@ function getGoogleUrlData_bk() {
             window.location.href = `${baseUrl}/auth`;
           } else if (res.success == 1) {
             
-           
       
-          // localStorage.setItem("my_goog_acc", res.token); // google access token for users second time
+          localStorage.setItem("my_goog_backup_storage", res.token); // google access token for users second time
             endLoader();
             setActiveItem("Zoom");
             $(`#cancel_stroage_selec_modal`).trigger("click");
@@ -43,8 +42,8 @@ function getGoogleUrlData_bk() {
           }
       
           localStorage.setItem("backup_stroage", 0);
-          localStorage.setItem("backup_preferred", 0);
-          backup()
+          // localStorage.setItem("backup_preferred", 0); 
+        // Shownotification that the storage he chosed has been linked
         },
         error: function (xhr, status, error) {
           localStorage.setItem("backup_stroage", 0);

@@ -209,6 +209,65 @@
 
     const addpage = 1;
 
+    function dragNewPage2() {
+      const sortAll23 = document.querySelector(".use_drag2");
+      if (!sortAll23) {
+        console.error("Element with class 'use_drag2' not found.");
+        return;
+      }
+
+      let items = sortAll23.querySelectorAll(".item");
+      console.log("ALL ITEMS", items);
+      console.log("sortAll23", sortAll23);
+
+      items.forEach((item) => {
+        item.addEventListener("dragstart", () => {
+          setTimeout(function () {
+            item.classList.add("dragging");
+            item.classList.add("hoverDash");
+          }, 0);
+        });
+
+        item.addEventListener("dragend", () => {
+          item.classList.remove("hoverDash");
+          item.classList.remove("dragging");
+        });
+      });
+
+      let initSortable3 = (e) => {
+        e.preventDefault();
+        let draggingItem = sortAll23.querySelector(".dragging");
+        let siblings = [...sortAll23.querySelectorAll(".item:not(.dragging)")];
+
+        let mouseY = e.clientY;
+
+        let nextSibling = siblings.find((sibling) => {
+          let rect = sibling.getBoundingClientRect();
+          let offset = 12; // Adjust this value to control the trigger point
+          let direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
+          let siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
+          return mouseY <= siblingTriggerY;
+        });
+
+        console.log("NEXT SIBLING", nextSibling);
+        console.log("dragging Item", draggingItem);
+
+        if (!nextSibling) {
+          sortAll23.appendChild(draggingItem); // Append to the end if no next sibling found
+        } else {
+          sortAll23.insertBefore(draggingItem, nextSibling);
+        }
+        console.log(nextSibling);
+      };
+
+      sortAll23.addEventListener("dragover", initSortable3);
+      sortAll23.addEventListener("dragenter", (e) => e.preventDefault());
+    }
+
+    setTimeout(() => {
+      dragNewPage2();
+    }, 3000);
+
     // Get the HTML content of the wholePage element
     const wholePageHTML = `
             <div page-count="${_count}" class="EACHPAGE this_page${_count} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
@@ -306,63 +365,6 @@
     );
     // alert(count)
     adddefaultQ(addpage, _count);
-
-    function dragNewPage() {
-      const sortAll2 = document.querySelector(".use_drag2");
-      // const sortAll2 = document.querySelector('.showResult_')
-      let items = sortAll2.querySelectorAll(".item");
-      console.log("ALL ITEMS", items);
-      console.log("sortAll2", sortAll2);
-      items.forEach((item) => {
-        item.addEventListener("dragstart", () => {
-          setTimeout(function () {
-            item.classList.add("dragging");
-            item.classList.add("hoverDash");
-          }, 0);
-        });
-
-        item.addEventListener("dragend", () => {
-          item.classList.remove("hoverDash");
-          item.classList.remove("dragging");
-        });
-      });
-      let initSortable2 = (e) => {
-        e.preventDefault();
-        let draggingItem = sortAll2.querySelector(".dragging");
-        let siblings = [...sortAll2.querySelectorAll(".item:not(.dragging)")];
-
-        let mouseY = e.clientY;
-
-        let nextSibling = siblings.find((sibling) => {
-          // console.log(sibling)
-          let rect = sibling.getBoundingClientRect();
-          let offset = 12; // Adjust this value to control the trigger point
-          // Check if dragging upwards or downwards
-          let direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
-
-          // Calculate trigger point based on direction
-          let siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
-
-          // Trigger move when halfway into the next sibling regardless of direction
-          return mouseY <= siblingTriggerY;
-        });
-
-        console.log("NEXT SIBBLING", nextSibling);
-        console.log("dragging Item", draggingItem);
-        if (nextSibling === undefined) {
-          sortAll2.appendChild(draggingItem); // Append to the end if no next sibling found
-        } else {
-          sortAll2.insertBefore(draggingItem, nextSibling);
-        }
-        console.log(nextSibling);
-      };
-
-      sortAll2.addEventListener("dragover", initSortable2);
-      sortAll2.addEventListener("dragenter", (e) => e.preventDefault());
-    }
-    setTimeout(() => {
-      dragNewPage();
-    }, 3000);
   }
 
   function deletePage(e) {

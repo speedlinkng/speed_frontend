@@ -27,6 +27,9 @@
       rel="stylesheet"
     />
 
+    <script>
+      const backendUrl = "<%= urls.backend %>";
+    </script>
     <!-- Javascript Assets -->
     <script src="../js/app.js" defer></script>
     <script src="../js/jquery.js"></script>
@@ -115,7 +118,10 @@
           <!-- Form Header -->
           <div><%- include('./formHeader.ejs') %></div>
 
-          <div class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5">
+          <div
+            x-init="console.log(jsonData)"
+            class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5"
+          >
             <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
               <template
                 x-data="dropdown"
@@ -306,7 +312,7 @@
                                     </button>
                                   </template>
                                   <template
-                                    x-init="console.log('fucking init'+pageData[1][0].header[0].edit_submit_field)"
+                                    x-init="console.log(' init'+pageData[1][0].header[0].edit_submit_field)"
                                     x-if="pageKey >= 0 && pageKey < (Object.keys(pages).length-1) "
                                   >
                                     <button
