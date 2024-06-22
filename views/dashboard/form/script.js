@@ -161,7 +161,7 @@ document.addEventListener("alpine:init", () => {
           errorModal.click();
         }
       } catch (err) {
-        this.isLoading = true
+        this.isLoading = true 
         console.log(err);
         this.errorMesg = err;
         let errorModal = document.querySelector("#showModalError");
