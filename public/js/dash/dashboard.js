@@ -506,6 +506,9 @@ async function getSubmissionCount() {
       }
     const data = await response.json();
     console.log(data)
+    data.message.sort((a, b) => a.id - b.id);
+
+console.log(data);
       return data.message;
   } catch (error) {
       console.error('Error fetching data:', error);
