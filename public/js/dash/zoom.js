@@ -855,6 +855,9 @@ async function backup() {
       $('.backup_progress').hide()
     showNoti("error", "An error occured", 3000)
     localStorage.setItem('backupInProgress', false)
+    localStorage.setItem("backup_stroage", 0);
+    localStorage.setItem("backup_preferred", 0);
+    localStorage.setItem("my_goog_backup_storage", 0)
   }
 }
 
