@@ -63,7 +63,7 @@ app.get('/exchange', function(req, res, next) {
   //  const decodedToken = decode(token);
   //  console.log(decodedToken)
   const accessToken = sign({this_user_token : token}, process.env.REFRESH_TOK_SEC, {
-      expiresIn: "58m"
+      expiresIn: "30d"
   })
  //  console.log(accessToken)
   req.session.token = accessToken
