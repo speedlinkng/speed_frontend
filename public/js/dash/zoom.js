@@ -849,6 +849,7 @@ async function backup() {
   }
   catch (err) {
     // Show backup button
+    alert('dome')
     $('#backup_btn').show()
     $('#backingup_btn').show()
       // ----- SHOW PROGRESS----
