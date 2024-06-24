@@ -45,9 +45,14 @@
   ></body>
 </html>
 
-<script src="js/module/global.js"></script>
+<script src="js/module/global.js" defer></script>
 
 <script>
-  window.location.href = `${baseUrl}/dash`;
+  window.onload = function () {
+    setTimeout(function () {
+      window.location.href = `${baseUrl}/dash`;
+    }, 1000);
+  };
 </script>
+
 <!-- <script src="./js/home/text-image.js"></script> -->
