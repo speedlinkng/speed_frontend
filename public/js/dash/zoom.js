@@ -697,7 +697,7 @@ const fetchData = async () => {
         }
       };
       try {
-        const response = await fetch('http://localhost:5000/api/zoom/fetchBackupEvent', settings);
+        const response = await fetch(`${backendUrl}api/zoom/fetchBackupEvent`, settings);
         const data = await response.json();
         // Process the fetched data here (e.g., update UI)
         // console.log(data.data);
@@ -852,7 +852,14 @@ async function backup() {
     $('#backup_btn').show()
     $('#backingup_btn').show()
       // ----- SHOW PROGRESS----
-      $('.backup_progress').hide()
+    $('.backup_progress').hide()
+
+    // added New
+    $('.loader_skeleton').hide()
+    $('#integrate_zoom').show()
+    $('#display_zoom_table').hide()
+    // --------------------------------
+
     showNoti("error", "An error occured", 3000)
     localStorage.setItem('backupInProgress', false)
     localStorage.setItem("backup_stroage", 0);
