@@ -29,8 +29,6 @@ app.use(
 
 app.set('view engine', 'ejs');
 
-// app.set("views", process.cwd()+"/view")
-
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
@@ -65,7 +63,7 @@ app.get('/exchange', function(req, res, next) {
   const accessToken = sign({this_user_token : token}, process.env.REFRESH_TOK_SEC, {
       expiresIn: "30d"
   })
- //  console.log(accessToken)
+  // console.log(accessToken)
   req.session.token = accessToken
   // console.log(req.sessionID)
   // console.log('id up')
@@ -83,7 +81,9 @@ app.get('/', function(req, res, next) {
   // req.session.save()
   // console.log(req.sessionID)
   // console.log(req.session.token)
-  res.render("main.ejs");
+  // use redirect 
+  res.redirect(`${process.env.FRONTEND_URL}/dash`);
+  // res.render("dashboard/home.ejs");
 });
 
 // Port Number
