@@ -4,7 +4,7 @@
   class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
   x-cloak
 >
-  <div class="fixed top-0 hidden p-6 lg:block lg:px-12">
+  <div class="fixed top-0 hidden px-6 py-4 lg:block lg:px-12 border">
     <a href="#" class="flex items-center space-x-2">
       <img class="h-12 w-12" src="../images/sim/icon PNG2.png" alt="logo" />
       <p
@@ -15,19 +15,15 @@
     </a>
   </div>
   <div class="hidden w-full place-items-center lg:grid">
-    <div class="w-full max-w-lg p-6">
+    <div class="w-full max-w-full h-screen relative">
       <img
-        class="w-full"
-        x-show="!$store.global.isDarkModeEnabled"
-        src="../images/illustrations/dashboard-meet.svg"
+        class="w-full object-contain"
+        src="../images/sim/auth-image.jpg"
         alt="image"
       />
-      <img
-        class="w-[90%]"
-        x-show="$store.global.isDarkModeEnabled"
-        src="../images/illustrations/dashboard-meet-dark.svg"
-        alt="image"
-      />
+      <div
+        class="w-full max-w-full bg-[#00363D] bg-opacity-60 h-screen absolute top-0 left-0 right-0"
+      ></div>
     </div>
   </div>
   <main

@@ -77,7 +77,6 @@ app.get('/exchange', function(req, res, next) {
 })
 app.get('/', function(req, res, next) {
   // req.session.username = 'JohnDoe';
-
   // req.session.save()
   // console.log(req.sessionID)
   // console.log(req.session.token)
