@@ -105,7 +105,7 @@ router.get('/test0', function(req, res) {
 
   router.get('/todash/:pass', deTokenize, function(req, res) {
     console.log(res.decoded_access)
-    res.render("dashboard/home.ejs", {urls: {backend: process.env.BACKEND_URL}, title: 'Home page' });
+    res.render("dashboard/home.ejs", {urls: {backend: process.env.BACKEND_URL}, title: 'Dashboard' });
   });
 
   router.get('/pricing', function(req, res) {
