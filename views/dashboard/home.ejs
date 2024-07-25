@@ -219,8 +219,8 @@ https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
                   <a
                     onclick=" localStorage.setItem('activeItem', 'Dashboard'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     @click="activeItem = 'Dashboard'"
-                    :class="[activeItem === 'Dashboard' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="border-b duration-200 cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    :class="[activeItem === 'Dashboard' ? 'bg-side text-primary dark:text-accent-light hover:bg-side' : '']"
+                    class="border-b duration-200 cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-[#CDEED3] hover:text-primary focus:bg-side active:bg-side dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -244,8 +244,8 @@ https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
                   <a
                     onclick="localStorage.setItem('activeItem', 'Plan'), localStorage.setItem('activeItemTimestamp', Date.now());"
                     @click="activeItem = 'Plan'"
-                    :class="[activeItem === 'Plan' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
-                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    :class="[activeItem === 'Plan' ? 'bg-side text-primary dark:text-accent-light' : '']"
+                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-[#CDEED3] hover:text-primary focus:bg-side active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -268,7 +268,7 @@ https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
                   <a
                     :class="[activeItem === 'Zoom' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light ' : '']"
                     onclick=" refresh('refresh'),localStorage.setItem('activeItem', 'Zoom'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 hover:bg-[#CDEED3] hover:text-primary focus:bg-primary/20 active:bg-primary/25 outline-none transition-all dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i
@@ -297,7 +297,7 @@ https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
                   <a
                     :class="[activeItem === 'Settings' ? 'bg-[rgba(79,70,229,.1)] text-primary dark:text-accent-light' : '']"
                     onclick=" localStorage.setItem('activeItem', 'Settings'), localStorage.setItem('activeItemTimestamp', Date.now());"
-                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-primary/20 hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
+                    class="border-b cursor-pointer group flex items-center space-x-2 rounded-md p-2 tracking-wide text-slate-800 outline-none transition-all hover:bg-[#CDEED3] hover:text-primary focus:bg-primary/20 active:bg-primary/25 dark:text-navy-100 dark:hover:bg-navy-600 dark:focus:bg-navy-600"
                   >
                     <div class="flex p-1 w-7 h-7 justify-center items-center">
                       <i

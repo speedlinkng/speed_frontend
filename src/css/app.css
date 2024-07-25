@@ -81,10 +81,19 @@
 
 
 /* SIMEON TIWO'S DESIGNS */
-.bg-sim-primary {@apply bg-[#8A754A] text-white}
+.bg-sim-primary {@apply bg-[#826c42] text-white}
+.bg-sim-primary:focus {@apply bg-[#8A754A] text-white}
+.bg-sim-primary:hover {@apply bg-[#8A754A] text-white}
 .text-sim-lig{@apply text-[#00363D] text-opacity-75}
 .text-sim{@apply text-[#00363D]}
 .text-brand{@apply text-[#8A754A]}
+.text-brand:focus{@apply text-[#8A754A]}
+.text-brand-focus{@apply text-[#77633d]}
 .text-dash{@apply text-[#202632]}
 .border-brand {@apply border-[#8A754A] }
-.bg-plus {@apply bg-[#00363D] text-white}
+.bg-plus {@apply bg-[rgb(0,54,61)] text-white}
+.bg-side {@apply bg-[#CDEED3]
+
+}
+
+.bg-file {@apply bg-[rgba(0,54,61,0.5)]}

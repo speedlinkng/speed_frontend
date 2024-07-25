@@ -57,7 +57,7 @@
         />
         <div class="md:mt-0 mt-3 right-0 left-0 top-0">
           <h2
-            class="text-xl font-semibold capitalize text-slate-600 dark:text-navy-100"
+            class="text-xl font-semibold capitalize text-sim dark:text-navy-100"
           >
             Signin to continue
           </h2>
@@ -79,13 +79,13 @@
       <div class="mt-4 space-y-4">
         <label class="relative flex">
           <input
-            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-slate-700 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-sim hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
             placeholder="Email"
             type="email"
             id="signin_email"
           />
           <span
-            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-brand peer-focus:text-brand dark:text-navy-300 dark:peer-focus:text-accent"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +106,7 @@
         <label x-data="{ show: false }" class="relative flex">
           <input
             :type="show ? 'text' : 'password'"
-            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-slate-700 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-sim hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
             placeholder="Password"
             id="signin_password"
           />
@@ -117,7 +117,7 @@
             ></i>
           </div>
           <span
-            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-slate-700 peer-focus:text-primary dark:text-navy-300 dark:peer-focus:text-accent"
+            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-brand peer-focus:text-brand dark:text-navy-300 dark:peer-focus:text-accent"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -138,7 +138,7 @@
       </div>
       <button
         id="login_btn"
-        class="btn mt-10 h-10 w-full bg-sim-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+        class="btn mt-10 h-10 w-full bg-sim-primary font-medium text-white hover:bg-sim-primary focus:bg-sim-primary active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
       >
         Sign In
       </button>
@@ -146,14 +146,14 @@
         <p class="line-clamp-1">
           <span>Dont have an account? </span>
           <a
-            class="text-brand transition-colors cursor-pointer hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
+            class="text-brand transition-colors cursor-pointer hover:text-sim-focus dark:text-accent-light dark:hover:text-accent"
             onclick="w3.show('.signup'), w3.hide('.signin')"
             >Sign Up</a
           >
         </p>
         <p class="line-clamp-1">
           <a
-            class="text-brand transition-colors cursor-pointer hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
+            class="text-brand transition-colors cursor-pointer hover:text-sim-focus dark:text-accent-light dark:hover:text-accent"
             onclick="w3.show('.forgot'), w3.hide('.signin')"
             >Forgot password ?</a
           >

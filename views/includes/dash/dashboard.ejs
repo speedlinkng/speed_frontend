@@ -9,7 +9,7 @@
         x-data="{activeTab:'tab-recent'}"
       >
         <div x-show="activeItem === 'Dashboard'">
-          <h2 class="text-xl sm:text-3xl text-blue-600 font-semibold">
+          <h2 class="text-xl sm:text-3xl text-dash font-semibold">
             My Requests
           </h2>
         </div>
@@ -22,12 +22,12 @@
             @click="showModal = true"
             id=""
             style="display: block"
-            class="relative inline-block rounded-lg bg-slate-150 py-3 px-4 text-slate-700 focus:border-2 focus:border-slate-800 dark:bg-navy-700"
+            class="relative inline-block rounded-lg bg-brand py-3 px-4 text-white focus:border-2 focus:border-slate-800 dark:bg-navy-700"
           >
             <span
               class="absolute inset-0 border-1 border-[#f6f8fc] rounded-md"
             ></span>
-            Create Request
+            Create Project
           </button>
           <template x-teleport="#x-teleport-target">
             <div
@@ -58,12 +58,10 @@
                 x-transition:leave-end="opacity-0 [transform:translate3d(0,1rem,0)]"
               >
                 <div class="px-4 sm:px-12">
-                  <h3
-                    class="text-xl text-slate-800 dark:text-navy-50 font-semibold"
-                  >
+                  <h3 class="text-xl text-sim dark:text-navy-50 font-semibold">
                     Select a storage option
                   </h3>
-                  <p class="mt-1 text-slate-500 dark:text-navy-200">
+                  <p class="mt-1 text-sim dark:text-navy-200">
                     For larger files we recommend using
                     <b>speedlinks</b> storage storage
                   </p>
@@ -76,7 +74,7 @@
                     onclick="speedlinkAccess(`<%= data.plan %>`)"
                     id="another_storage"
                     style="background: rgb(219 219 219 / 10%)"
-                    class="cursor-pointer grid place-content-center col-span-1 rounded-md p-2 relative dark:bg-slate-200 hover:shadow hover:text-primary dark:text-navy-50 dark:bg-navy-500"
+                    class="cursor-pointer grid place-content-center col-span-1 rounded-md p-2 relative dark:bg-side hover:shadow hover:text-brand dark:text-navy-50 dark:bg-navy-500"
                   >
                     <div class="h-16 w-full flex items-center justify-center">
                       <img
@@ -99,7 +97,7 @@
                   <div
                     style="background: rgb(219 219 219 / 10%)"
                     onclick="newStorage()"
-                    class="cursor-pointer grid place-content-center col-span-1 rounded-md p-2 relative dark:bg-slate-200 hover:shadow dark:border-navy-450 hover:text-primary dark:text-navy-50 dark:bg-navy-500"
+                    class="cursor-pointer grid place-content-center col-span-1 rounded-md p-2 relative dark:bg-side hover:shadow dark:border-navy-450 hover:text-primary dark:text-navy-50 dark:bg-navy-500"
                   >
                     <div class="h-16 w-full flex items-center justify-center">
                       <svg
@@ -145,7 +143,7 @@
                   </div>
                   <div
                     style="background: rgb(219 219 219 / 10%)"
-                    class="grid place-content-center col-span-1 pb- rounded-md p-2 relative dark:bg-slate-200 dark:border-navy-450 hover:text-primary hover:shadow dark:bg-navy-500"
+                    class="grid place-content-center col-span-1 pb- rounded-md p-2 relative dark:bg-side dark:border-navy-450 hover:text-primary hover:shadow dark:bg-navy-500"
                   >
                     <div class="h-16 w-full flex items-center justify-center">
                       <svg
@@ -180,7 +178,7 @@
                   </div>
                   <div
                     style="background: rgb(219 219 219 / 10%)"
-                    class="grid place-content-center col-span-1 pb- rounded-md p-2 relative dark:bg-slate-200 hover:shadow hover:shadow-slate200/80 dark:border-navy-450 hover:text-primary dark:bg-navy-500"
+                    class="grid place-content-center col-span-1 pb- rounded-md p-2 relative dark:bg-side hover:shadow hover:shadow-slate200/80 dark:border-navy-450 hover:text-primary dark:bg-navy-500"
                   >
                     <div class="h-16 w-full flex items-center justify-center">
                       <svg
@@ -215,7 +213,7 @@
                   <button
                     style="display: block"
                     onclick="speedlinkAccess()"
-                    class="col-span-12 mb-2 mt-2 btn w-full bg-slate-150 font-medium text-slate-800 hover:bg-slate-200 hover:shadow-sm hover:shadow-slate-200/20 focus:bg-slate-200 focus:shadow-lg focus:shadow-slate-200/50 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90"
+                    class="col-span-12 mb-2 mt-2 btn w-full bg-slate-150 font-medium text-sim hover:bg-side hover:shadow-sm hover:shadow-slate-200/20 focus:bg-side focus:shadow-lg focus:shadow-slate-200/50 active:bg-side/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:hover:shadow-navy-450/50 dark:focus:bg-navy-450 dark:focus:shadow-navy-450/50 dark:active:bg-navy-450/90"
                   >
                     Use speedlink's storage
                   </button>
@@ -237,15 +235,13 @@
                   </button>
                 </div>
 
-                <div
-                  class="my-4 mt-16 h-px bg-slate-200 dark:bg-navy-500"
-                ></div>
+                <div class="my-4 mt-16 h-px bg-side dark:bg-navy-500"></div>
 
                 <div class="space-x-3">
                   <button
                     id="cancel_stroage_selec_modal"
                     @click="showModal = false"
-                    class="btn min-w-[7rem] rounded-full border border-slate-300 font-medium text-slate-800 hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90"
+                    class="btn min-w-[7rem] rounded-full border border-slate-300 font-medium text-sim hover:bg-slate-150 focus:bg-slate-150 active:bg-slate-150/80 dark:border-navy-450 dark:text-navy-50 dark:hover:bg-navy-500 dark:focus:bg-navy-500 dark:active:bg-navy-500/90"
                   >
                     Cancel
                   </button>
@@ -258,7 +254,7 @@
       <!-- end this -->
 
       <!-- <div class="mb-5 py-4">
-        <div class="text-3xl text-blue-600 font-semibold ">Zoom Recordings</div>
+        <div class="text-3xl text-dash font-semibold ">Zoom Recordings</div>
       </div> -->
       <div class="card bg-transparent shadow-none mt-3 dashboardTableHolder">
         <div
@@ -268,37 +264,37 @@
             <thead>
               <tr>
                 <th
-                  class="whitespace-nowrap rounded-tl-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap rounded-tl-lg bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Upload Name
                 </th>
                 <th
-                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Expiry Date
                 </th>
                 <th
-                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Submissions
                 </th>
                 <th
-                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Link
                 </th>
                 <th
-                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Action
                 </th>
                 <th
-                  class="whitespace-nowrap bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   Status
                 </th>
                 <th
-                  class="whitespace-nowrap rounded-tr-lg bg-slate-200 px-4 py-3 font-semibold capitalize text-slate-800 dark:bg-navy-800 dark:text-navy-100 lg:px-5"
+                  class="whitespace-nowrap rounded-tr-lg bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5"
                 >
                   More Action
                 </th>
@@ -354,21 +350,21 @@
                 <li>
                   <a
                     href="#"
-                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-sim focus:bg-slate-100 focus:text-sim dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
                     >Action</a
                   >
                 </li>
                 <li>
                   <a
                     href="#"
-                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-sim focus:bg-slate-100 focus:text-sim dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
                     >Another Action</a
                   >
                 </li>
                 <li>
                   <a
                     href="#"
-                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-sim focus:bg-slate-100 focus:text-sim dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
                     >Something else</a
                   >
                 </li>
@@ -378,7 +374,7 @@
                 <li>
                   <a
                     href="#"
-                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
+                    class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-sim focus:bg-slate-100 focus:text-sim dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100"
                     >Separated Link</a
                   >
                 </li>
