@@ -4,28 +4,41 @@
   class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
   x-cloak
 >
-  <div class="fixed top-0 hidden p-6 lg:block lg:px-12">
+  <div class="fixed top-0 hidden px-6 py-4 lg:block lg:px-12 z-50">
     <a href="#" class="flex items-center space-x-2">
-      <img class="h-12 w-12" src="../images/sim/icon PNG2.png" alt="logo" />
-      <p class="text-xl font-semibold uppercase text-sim dark:text-navy-100">
+      <img class="h-12 w-12" src="../images/sim/Icon PNG2.png" alt="logo" />
+      <p class="text-xl font-semibold uppercase text-white dark:text-navy-100">
         Blazzing Share
       </p>
     </a>
   </div>
   <div class="hidden w-full place-items-center lg:grid">
-    <div class="w-full max-w-lg p-6">
+    <div class="w-full max-w-full h- bg-red-500 relative">
       <img
-        class="w-full"
-        x-show="!$store.global.isDarkModeEnabled"
-        src="../images/illustrations/dashboard-meet.svg"
+        class="w-full object-cover h-screen relative"
+        src="../images/sim/auth-image.jpg"
         alt="image"
       />
-      <img
-        class="w-full"
-        x-show="$store.global.isDarkModeEnabled"
-        src="../images/illustrations/dashboard-meet-dark.svg"
-        alt="image"
-      />
+      <div
+        class="w-full max-w-full bg-[#00363D] bg-opacity-60 h-screen absolute top-0 left-0 right-0"
+      ></div>
+
+      <div
+        class="min-h-[70px] h-auto absolute top-[50%] mt-[-45px] text-white w-full margin-auto"
+      >
+        <div
+          class="flex min-h-[70px] left-5 h-auto relative w-[50%] margin-auto text-[35px] font-bold"
+        >
+          <p class="h-2 w-14 bg-white mt-5"></p>
+          <p class="ml-2">Start your journey now.</p>
+        </div>
+        <div
+          class="mt-2 min-h-[70px] left-5 h-auto relative w-[60%] margin-auto text-[20px] font-light"
+        >
+          Start creating your seamless surveys and sharing your files without
+          hassles.
+        </div>
+      </div>
     </div>
   </div>
   <main
