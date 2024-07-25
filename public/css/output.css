@@ -2199,12 +2199,12 @@ video {
   padding: 1.25rem;
 }
 
-.p-6 {
-  padding: 1.5rem;
-}
-
 .p-\[1px\] {
   padding: 1px;
+}
+
+.p-6 {
+  padding: 1.5rem;
 }
 
 .px-3 {
@@ -3000,6 +3000,20 @@ video {
 /* SIMEON TIWO'S DESIGNS */
 
 .bg-sim-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(130 108 66 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.bg-sim-primary:focus {
+  --tw-bg-opacity: 1;
+  background-color: rgb(138 117 74 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.bg-sim-primary:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(138 117 74 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
