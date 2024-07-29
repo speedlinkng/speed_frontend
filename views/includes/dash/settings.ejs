@@ -15,10 +15,12 @@
           x-data="accordionItem('item-1')"
           class="cursor-not-allowed flex flex-col"
         >
-          <span class="text-sm px-2 text-black font-semibold">Your name</span>
+          <span class="text-sm px-2 text-primary font-semibold">Your name</span>
           <div class="mt-1.5 flex relative w-full justify-between px-2">
-            <div class="left-0"><%= data.firstname %> <%= data.lastname %></div>
-            <div class="hidden cursor-pointer right-0 text-blue-400 text-xs">
+            <div class="left-0 text-sim">
+              <%= data.firstname %> <%= data.lastname %>
+            </div>
+            <div class="hidden cursor-pointer right-0 text-primary text-xs">
               change
             </div>
           </div>
@@ -53,12 +55,12 @@
           x-data="accordionItem('item-1')"
           class="cursor-not-allowed flex flex-col"
         >
-          <span class="text-sm px-2 text-black font-semibold"
+          <span class="text-sm px-2 text-primary font-semibold"
             >Your email address</span
           >
           <div class="mt-1.5 flex relative w-full justify-between px-2">
-            <div class="left-0"><%= data.email %></div>
-            <div class="hidden cursor-pointer right-0 text-blue-400 text-xs">
+            <div class="left-0 text-sim"><%= data.email %></div>
+            <div class="hidden cursor-pointer right-0 text-primary text-xs">
               change
             </div>
           </div>
@@ -93,14 +95,16 @@
           x-data="accordionItem('item-2')"
           class="cursor-pointer flex flex-col"
         >
-          <span class="text-sm px-2" @click="expanded = !expanded"
+          <span
+            class="text-primary text-sm px-2 font-semibold"
+            @click="expanded = !expanded"
             >Change your phone number</span
           >
           <div class="mt-1.5 flex relative w-full justify-between px-2">
-            <div class="left-0 user_phone"><%= data.number %></div>
+            <div class="left-0 user_phone text-sim"><%= data.number %></div>
             <div
               @click="expanded = !expanded"
-              class="cursor-pointer right-0 text-blue-400 text-xs"
+              class="cursor-pointer right-0 text-primary text-xs"
             >
               change
             </div>
@@ -140,14 +144,16 @@
           x-data="accordionItem('item-3')"
           class="cursor-pointer flex flex-col"
         >
-          <span class="text-sm px-2" @click="expanded = !expanded"
+          <span
+            class="text-sm text-primary px-2 font-semibold"
+            @click="expanded = !expanded"
             >Change your password</span
           >
           <div class="mt-1.5 flex relative w-full justify-between px-2">
             <div class="left-0">*******</div>
             <div
               @click="expanded = !expanded"
-              class="cursor-pointer right-0 text-blue-400 text-xs"
+              class="cursor-pointer right-0 text-primary text-xs"
             >
               change
             </div>
