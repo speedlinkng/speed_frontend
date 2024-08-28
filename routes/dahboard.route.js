@@ -9,7 +9,7 @@ const {deTokenize} = require('../middlewars/FunctionsController');
 
 router.get('/test0', function(req, res) {
   console.log('its done')
-  res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
+  // res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
   
 });
 
