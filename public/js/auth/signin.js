@@ -27,7 +27,7 @@ $(document).ready(function () {
         if (sta == 200) {
 
           // unset all localstorage
-
+      
           localStorage.setItem('access', 'Dashboard')
           localStorage.removeItem('previewAllArray')
           localStorage.removeItem('activeItemTimestamp')

@@ -17,16 +17,13 @@ router.get('/test0', function(req, res) {
     // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
     if (!token) {
       console.log('this process runs')
-      // res.redirect(`${process.env.BASE_URL}/auth/`);
-      res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},data: null, title: "Authorization"});
+      res.redirect(`${process.env.BASE_URL}/auth/`);
       return null;  // Return early if there's no token
     }
-    else {
-      const decodedToken = decode(token);
-      let this_user_token = decodedToken.this_user_token;
-      return decode2(this_user_token);  
-    }
 
+    const decodedToken = decode(token);
+    let this_user_token = decodedToken.this_user_token;
+    return decode2(this_user_token);
   }
 
   function decode2(this_user_token) {
