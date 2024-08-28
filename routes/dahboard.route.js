@@ -18,13 +18,15 @@ router.get('/test0', function(req, res) {
     if (!token) {
       console.log('this process runs')
       // res.redirect(`${process.env.BASE_URL}/auth/`);
-      res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id});
+      res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},data: null, title: "Authorization"});
       return null;  // Return early if there's no token
     }
+    else {
+      const decodedToken = decode(token);
+      let this_user_token = decodedToken.this_user_token;
+      return decode2(this_user_token);  
+    }
 
-    const decodedToken = decode(token);
-    let this_user_token = decodedToken.this_user_token;
-    return decode2(this_user_token);
   }
 
   function decode2(this_user_token) {
