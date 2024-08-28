@@ -17,7 +17,8 @@ router.get('/test0', function(req, res) {
     // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
     if (!token) {
       console.log('this process runs')
-      res.redirect(`${process.env.BASE_URL}/auth/`);
+      // res.redirect(`${process.env.BASE_URL}/auth/`);
+      res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id});
       return null;  // Return early if there's no token
     }
 
