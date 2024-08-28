@@ -47,7 +47,7 @@
   </style> -->
 
   <body x-data class="is-header-blur" x-bind="$store.global.documentBody">
-    <div class="h-screen w-full bg-">
+    <div class="h-screen w-full">
       <!-- App preloader-->
       <div
         class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
@@ -55,21 +55,15 @@
         <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
       </div>
 
-      <section
-        class="signin"
-        style="display: block"
-        w2-include-html="/auth/signin-include.ejs"
-      ></section>
-      <section
-        class="signup"
-        style="display: none"
-        w2-include-html="/auth/signup-include.ejs"
-      ></section>
-      <section
-        class="forgot"
-        style="display: none"
-        w2-include-html="/auth/forgot-include.ejs"
-      ></section>
+      <section class="signin" style="display: block">
+        <%- include('../includes/auth/signin-include.ejs') %>
+      </section>
+      <section class="signup" style="display: none">
+        <%- include('../includes/auth/signup-include.ejs') %>
+      </section>
+      <section class="forgot" style="display: none">
+        <%- include('../includes/auth/forgot-include.ejs') %>
+      </section>
       <% if (data !== null) { %>
       <section class="newPwd" style="display: none">
         <%- include('../includes/auth/newPassword-include.ejs') %>
