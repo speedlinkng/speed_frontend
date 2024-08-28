@@ -9,13 +9,14 @@ const {deTokenize} = require('../middlewars/FunctionsController');
 
 router.get('/test0', function(req, res) {
   console.log('its done')
-  // res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
+  res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
   
 });
 
   function decode1(token, res) {
     // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
     if (!token) {
+      console.log('this process runs')
       res.redirect(`${process.env.BASE_URL}/auth/`);
       return null;  // Return early if there's no token
     }
