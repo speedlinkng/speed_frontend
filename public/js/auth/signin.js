@@ -1,8 +1,8 @@
-alert(baseUrl)
+// alert(baseUrl)
 $(document).ready(function () {
     $("#login_btn").click(async function (e) {
       localStorage.setItem('drive_email', 'drrowly99@gmail.com');
-alert(baseUrl)
+// alert(baseUrl)
       let settings = {
         method: 'POST',
         headers: {
