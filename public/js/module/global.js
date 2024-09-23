@@ -1,5 +1,6 @@
 
-    const baseUrl = `${window.location.protocol}//${window.location.host}`;
+const baseUrl = `${window.location.protocol}//${window.location.host}`;
+    alert('1 is', baseUrl)
     // const backendUrl = `https://speedbankend-production.up.railway.app`;
     const backendUrl = `https://bapi.blazzingshare.com`
     // const backendUrl_ = `https://speedbankend-production.up.railway.app`; 
