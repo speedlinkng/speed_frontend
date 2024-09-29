@@ -4,6 +4,12 @@
 
 @layer components {
     /* SIMEON TIWO'S DESIGNS */
+    .border-primary {@apply border-[#00363D] }
+    .ring-sim {@apply bg-[#00363D]}
+    .bg-button{@apply bg-[#00363D] text-white}
+    .bg-button:hover {@apply bg-[#00363D] text-white}
+    .bordered-button{@apply bg-[#ffffff] text-[#00363D] border-[#00363D] }
+    .button-card{@apply bg-[#00363D] text-white}
     .bg-sim-primary {@apply bg-[#826c42] text-white}
     .bg-primary {@apply !bg-[#826c42] !text-white}
     .bg-primary:hover {@apply !bg-[#826c42] !text-white}
@@ -12,7 +18,7 @@
     .bg-sim-primary:focus {@apply bg-[#8A754A] text-white}
     .bg-slate-150 { @apply !bg-[#cbe8d0]}
     .bg-slate-100 { @apply !bg-[#cbe8d0]}
-    .bg-sim-primary:hover {@apply bg-[#836c3e] text-white}
+    .bg-sim-primary:hover {@apply bg-[#00363D] text-white}
     .text-sim-lig{@apply text-[#00363D] text-opacity-75}
     .text-sim{@apply !text-[#00171a]}
     .text-brand{@apply text-[#8A754A]}
