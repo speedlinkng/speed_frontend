@@ -13,7 +13,7 @@
     .bg-sim-primary {@apply bg-[#826c42] text-white}
     .bg-primary {@apply !bg-[#826c42] !text-white}
     .bg-primary:hover {@apply !bg-[#826c42] !text-white}
-    .bg-sim-primary:hover {@apply !bg-[#be7f0b] text-white}
+    .bg-sim-primary:hover {@apply bg-[#00363D] text-white}
     .text-primary {@apply !text-[#826c42] }
     .bg-sim-primary:focus {@apply bg-[#8A754A] text-white}
     .bg-slate-150 { @apply !bg-[#cbe8d0]}

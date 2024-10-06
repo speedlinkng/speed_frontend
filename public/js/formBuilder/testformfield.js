@@ -96,7 +96,7 @@ newInput = $(
   /*html*/
   `
   <div draggable="true" class="item mt-2 ">
-  <div  class="details">
+  <div class="details">
   <div class="grid grid-cols-12 gap-3 isOpenField${count}" x-data="{ isOpenField${count}: true }" :class="{ 'opacity-0': !isOpenField${count}, 'pointer-events-none': !isOpenField${count} }">
     <div class="col-span-12 eachField${count} text-sm eachField grid grid-cols-1 w-full mt-2 case-prime${count} rounded-lg border border-slate-200 p-3 py-4 dark:border-navy-600">
      <div class="cursor-move w-fit z-50" ondragstart="getPrevFields(${count}, ${addmore_count}, ${true})">

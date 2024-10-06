@@ -196,6 +196,7 @@
                                   >
                                     <button
                                       @click="submitForm_()"
+                                      x-text="pageData[1][0].header[0].edit_submit_field ? pageData[1][0].header[0].edit_submit_field : 'Submit'"
                                       x-bind:class="pageKey >= 0 && pageKey <pageData.length ? 'ml-2' : '' "
                                       class="bg-button inline-flex justify-center hover:bg-sim-primary focus:ring-2 focus:outline-none focus:ring-sim font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     >

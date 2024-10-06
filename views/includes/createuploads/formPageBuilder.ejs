@@ -127,14 +127,14 @@
           x-text="inputHasValue"
           x-on:keyup="inputEntered = true"
           @blur="inputEntered = false"
-          class="edit_submit_field1 text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"
+          class="tomButton1 text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"
           style="display: inline-block; border: 0; outline: none"
         ></span>
         <input
           x-model="inputHasValue"
           x-on:keyup="inputEntered = true"
           @blur="inputEntered = false"
-          class="hidden edit_submit_field1 text-lg btn !p-0 border-0 bg-transparent !w-fit"
+          class="edit_submit_field1 hidden text-lg btn !p-0 border-0 bg-transparent !w-fit"
           value=""
         />
         <div x-show="!inputEntered" class="grid place-content-center">
@@ -210,7 +210,7 @@
     const addpage = 1;
 
     function dragNewPage2() {
-      const sortAll23 = document.querySelector(".use_drag2");
+      const sortAll23 = document.querySelector(".use_drag");
       if (!sortAll23) {
         console.error("Element with class 'use_drag2' not found.");
         return;
@@ -264,17 +264,13 @@
       sortAll23.addEventListener("dragenter", (e) => e.preventDefault());
     }
 
-    setTimeout(() => {
-      dragNewPage2();
-    }, 3000);
-
     // Get the HTML content of the wholePage element
     const wholePageHTML = `
             <div page-count="${_count}" class="EACHPAGE this_page${_count} place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative dark:border-t dark:border-navy-450">
-    
+  
                 <div class="grid grid-cols-12 "  x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
                   <!-- INPUT TITLE -->
-                  <input class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Title" type="text" />    
+                  <input class="uph_${_count} form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Title" type="text" />    
                   <!-- EDIT BUTTON -->
                   <div class=" col-span-2 sm:col-span-2 p-2 mt-2 ">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-5 h-5">
@@ -307,27 +303,15 @@
                   
                 </div>
           
-              <div x-data class="showResult_${_count} use_drag2 formClass p-2 grid grid-cols-1 place-content-center w-full">
+              <div x-data class="showResult_${_count} use_drag formClass p-2 grid grid-cols-1 place-content-center w-full">
               
-              </div>
-              <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="hidden ml-2 flex border text-center justify-center rounded-lg px-2 w-[40%] sm:w-[40%] md:w-[40%] border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
-                <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class=" content_edit_submit_field${
-                  _count + 1
-                } text-base btn  py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"  style="display: inline-block; border:0; outline:none;">
-                </span>
-                <input x-model="inputHasValue" class=" hidden edit_submit_field${_count} hidden text-lg btn !p-0 border-0 bg-transparent !w-fit" />
-                <div x-show="!inputEntered" class="grid place-content-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-                  </svg>
-                </div>
               </div>
 
               <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90" >
               <span x-on:input="inputHasValue = $event.target.innerText"  contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class="content_edit_submit_field${
                 _count + 1
               } text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]" style="display: inline-block; border: 0; outline: none"></span>
-              <input x-model="inputHasValue" x-on:keyup="inputEntered = true"  @blur="inputEntered = false" class="hidden edit_submit_field${_count} text-lg btn !p-0 border-0 bg-transparent !w-fit"
+              <input x-model="inputHasValue" x-on:keyup="inputEntered = true"  @blur="inputEntered = false" class=" edit_submit_field${_count} hidden text-lg btn !p-0 border-0 bg-transparent !w-fit"
                 value=""
               />
               <div x-show="!inputEntered" class="grid place-content-center">
@@ -343,7 +327,7 @@
               <br>
               <div>
                 <div class="flex space-x-2">
-                  <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(${null},${_count})" id="add_question${_count}" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
+                  <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(${null},${_count}), drag()" id="add_question${_count}" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
                     Add Field
                   </button>
                   <button @click="deletePage(${_count})" id="delete_page" class="btn text-sm text-error border border-error hover:bg-error/20 font-medium focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:border-error">
@@ -365,6 +349,8 @@
     );
     // alert(count)
     adddefaultQ(addpage, _count);
+
+    drag();
   }
 
   function deletePage(e) {
@@ -797,7 +783,7 @@
 
           fieldType.fieldName = selectOptionValue;
           fieldType.fieldValue = fieldName;
-          /*  
+          /*
           fieldType.push({
               fieldName: selectOptionValue,
               fieldValue: fieldName
@@ -927,6 +913,7 @@
           }
           // JSON FIELDS
           else {
+            // alert($(`edit_submit_field${Number(pageInd) + 1}`).val());
             result.values["page" + (Number(pageInd) + 1)].push(
               {
                 header: [
@@ -940,6 +927,7 @@
                   },
                 ],
               },
+
               {
                 ["field" + ins]: {
                   other_data: otherData,
