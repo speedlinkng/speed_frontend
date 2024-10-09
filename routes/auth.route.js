@@ -36,7 +36,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
           if(status == 200){
             let result = JSON.parse(body);
             console.log(result.data.user_id)
-            res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id});
+            res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id,  title: "Authorization"});
           }
    
         }
