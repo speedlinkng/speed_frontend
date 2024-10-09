@@ -18,6 +18,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
   router.get('/verify/:verifyId', function(req, res) {
     console.log(req.params.verifyId) // also calld recovery_id
     // Check if this ID is accurate
+     console.log('doings................./////////////') 
     request(
       {
         method: "GET",
