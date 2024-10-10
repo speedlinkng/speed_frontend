@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer components {
+    input{@apply !text-[#00171a]}
     /* SIMEON TIWO'S DESIGNS */
     .border-primary {@apply border-[#00363D] }
     .ring-sim {@apply bg-[#00363D]}
