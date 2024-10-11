@@ -37,10 +37,10 @@ router.get('/expired', async function (req, res) {
           let bodyString = body;
           let result = JSON.parse(bodyString);
      
-          console.log(result);
-          console.log(result.data.allReplies);
-          console.log('#####################');
-          console.log(result.data.recordData.expiry_date);
+          // console.log(result);
+          // console.log(result.data.allReplies);
+          // console.log('#####################');
+          // console.log(result.data.recordData.expiry_date);
       
           // Parse the expiry_date
           let expiryDate = new Date(result.data.recordData.expiry_date);
