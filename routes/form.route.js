@@ -25,7 +25,6 @@ router.get('/expired', async function (req, res) {
     // check DB and gt the data record for form_id
     const http = require('http');
     request(
-
       {
         method: "GET",
         url:process.env.BACKEND_URL+`/api/app/getUploadRecordById/${record_id}`
@@ -38,7 +37,7 @@ router.get('/expired', async function (req, res) {
           let bodyString = body;
           let result = JSON.parse(bodyString);
      
-          console.log(result.data.recordData);
+          console.log(result);
           console.log(result.data.allReplies);
           console.log('#####################');
           console.log(result.data.recordData.expiry_date);
@@ -58,7 +57,7 @@ router.get('/expired', async function (req, res) {
                   data: result, 
                   uploadToken: result.data.uploadToken, 
                   allRepliesFolder: result.data.allReplies 
-              });
+            });
           } else {
               // Handle different status codes
               if (result.status == 404) {
