@@ -36,48 +36,46 @@ router.get('/expired', async function (req, res) {
         }else {
           let bodyString = body;
           let result = JSON.parse(bodyString);
-     
-          // console.log(result);
-          // console.log(result.data.allReplies);
-          // console.log('#####################');
-          // console.log(result.data.recordData.expiry_date);
       
           // Parse the expiry_date
           let expiryDate = new Date(result.data.recordData.expiry_date);
           let currentDate = new Date();
-
+      
           console.log(currentDate);
           console.log(expiryDate);
       
           // Check if the expiry date has passed
           if (expiryDate < currentDate) {
-            res.render("dashboard/form/expired", {
+              res.render("dashboard/form/expired", {
                   urls: {backend: process.env.BACKEND_URL},
                   title: 'Expired page', 
                   data: result, 
-                  uploadToken: result.data.uploadToken, 
-                  allRepliesFolder: result.data.allReplies 
-            });
+                  uploadToken: result.data.uploadToken,
+                  // Add check for allReplies before rendering
+                  allRepliesFolder: result.data.allReplies ? result.data.allReplies : []  // Fallback to empty array if undefined
+              });
           } else {
               // Handle different status codes
               if (result.status == 404) {
-                res.render("dashboard/form/form", { 
-                    urls: {backend: process.env.BACKEND_URL},
+                  res.render("dashboard/form/form", { 
+                      urls: {backend: process.env.BACKEND_URL},
                       title: 'Form page', 
                       data: result, 
-                      uploadToken: result.data.uploadToken 
+                      uploadToken: result.data.uploadToken
                   });
               } else if (result.status == 200) {
-                res.render("dashboard/form/form", { 
-                    urls: {backend: process.env.BACKEND_URL},
+                  res.render("dashboard/form/form", { 
+                      urls: {backend: process.env.BACKEND_URL},
                       title: 'Form page', 
                       data: result, 
-                      uploadToken: result.data.uploadToken, 
-                      allRepliesFolder: result.data.allReplies 
+                      uploadToken: result.data.uploadToken,
+                      // Add check for allReplies before rendering
+                      allRepliesFolder: result.data.allReplies ? result.data.allReplies : []  // Fallback to empty array if undefined
                   });
               }
           }
       }
+      
       
     })  
   
