@@ -10,14 +10,35 @@ const paystack = require('./routes/paystack.route');
 const session = require('express-session');
 const {sign, decode} = require("jsonwebtoken")
 const dotenv = require('dotenv');
-const cors=require("cors");
+const cors = require("cors");
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+
+
+
+const redisClient = redis.createClient({
+  host: 'localhost', // Redis host
+  port: 6379,        // Redis port
+});
+
+
 const corsOptions ={
    origin:'http://127.0.0.1:5502', 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
 }
+
+// app.use(session({
+//   store: new RedisStore({ client: redisClient }),
+//   secret: 'your_secret_key', 
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: false } 
+// }));
+
 app.use(
   session({
+    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION,
     resave: false,
     saveUninitialized: false,
@@ -27,8 +48,8 @@ app.use(
   })
 );
 
-app.set('view engine', 'ejs');
 
+app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
