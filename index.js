@@ -10,46 +10,25 @@ const paystack = require('./routes/paystack.route');
 const session = require('express-session');
 const {sign, decode} = require("jsonwebtoken")
 const dotenv = require('dotenv');
-const cors = require("cors");
-const RedisStore = require('connect-redis').default;
-const { createClient } = require('redis');
-
+const cors=require("cors");
 const corsOptions ={
-  origin:'http://127.0.0.1:5502', 
-  credentials:true,            //access-control-allow-credentials:true
-  optionSuccessStatus:200,
+   origin:'http://127.0.0.1:5502', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
 }
-
-const redisClient = createClient({
-  url: process.env.REDIS_URL || 'redis://localhost:6379' // Use environment variable or default
-});
-
-// Connect to Redis
-redisClient.connect().catch(console.error);
-
-redisClient.on('error', (err) => {
-  console.error('Redis error:', err);
-  
-});
-
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
     secret: process.env.SESSION,
     resave: false,
     saveUninitialized: false,
     cookie: {
       maxAge: 20 * 60 * 1000, // 2 minutes in milliseconds
-      secure: process.env.NODE_ENV === 'production', // Secure cookie in production
-      httpOnly: true,
-      // sameSite: 'strict' 
-  }
-
+    },
   })
 );
 
-
 app.set('view engine', 'ejs');
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
@@ -87,6 +66,7 @@ app.get('/exchange', function(req, res, next) {
   // console.log(accessToken)
   req.session.token = accessToken
   // console.log(req.sessionID)
+  // console.log('id up')
   // console.log(req.session.token)
   req.session.save()
   return res.status(200).json({
