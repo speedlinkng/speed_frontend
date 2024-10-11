@@ -13,82 +13,117 @@ router.get('/test0', function(req, res) {
   
 });
 
-  function decode1(token, res) {
-    // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
-    if (!token) {
-      console.log('this process runs')
+function decode1(token, res) {
+  // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
+  if (!token) {
+      console.log('Token is missing, redirecting...');
       res.redirect(`${process.env.BASE_URL}/auth/`);
       return null;  // Return early if there's no token
-    }
-
-    const decodedToken = decode(token);
-    let this_user_token = decodedToken.this_user_token;
-    return decode2(this_user_token);
   }
 
-  function decode2(this_user_token) {
-    const decodedToken = decode(this_user_token);
-    const data = decodedToken.result; // Use 'const' to declare variables
-    return data;
-    // Handle the decoded data as needed
+  let decodedToken;
+  try {
+      decodedToken = decode(token);
+  } catch (err) {
+      console.error('Error decoding token:', err);
+      res.redirect(`${process.env.BASE_URL}/auth/`);
+      return null;  // Return early on decoding error
   }
 
-  async function fetchUser(token) {
-    return new Promise((resolve, reject) => {
-      const decodedToken = decode(token);
+  let this_user_token = decodedToken.this_user_token;
+  if (!this_user_token) {
+      console.error('this_user_token is missing from decoded token.');
+      res.redirect(`${process.env.BASE_URL}/auth/`);
+      return null;
+  }
 
-      const decodedToken_ = decode(decodedToken.this_user_token);
-      const data = decodedToken_.result
-    
+  return decode2(this_user_token);
+}
+
+function decode2(this_user_token) {
+  let decodedToken;
+  try {
+      decodedToken = decode(this_user_token);
+  } catch (err) {
+      console.error('Error decoding this_user_token:', err);
+      return null;  // Return null on decoding error
+  }
+
+  const data = decodedToken.result;
+  return data;
+}
+
+
+async function fetchUser(token) {
+  console.log(`Token is: `, token);
+  return new Promise((resolve, reject) => {
+      let decodedToken;
+      try {
+          decodedToken = decode(token);
+      } catch (err) {
+          console.error('Error decoding token:', err);
+          return reject(err);  // Reject promise on error
+      }
+
+      let decodedToken_;
+      try {
+          decodedToken_ = decode(decodedToken.this_user_token);
+      } catch (err) {
+          console.error('Error decoding this_user_token:', err);
+          return reject(err);  // Reject promise on error
+      }
+
+      const data = decodedToken_.result;
+
       request(
-        {
-          method: "GET",
-          url: process.env.BACKEND_URL + `/api/app/checkonrefresh`,
-          headers: {
-            "Authorization": `Bearer ${decodedToken.this_user_token}`
-          }
-        },
-        (err, response, body) => {
-          if (err) {
-            reject(err);
-          } else {
-            let status = response.statusCode;
+          {
+              method: "GET",
+              url: `${process.env.BACKEND_URL}/api/app/checkonrefresh`,
+              headers: {
+                  "Authorization": `Bearer ${decodedToken.this_user_token}`
+              }
+          },
+          (err, response, body) => {
+              if (err) {
+                  return reject(err);
+              } else {
+                  let status = response.statusCode;
 
-            if (status == 200) {
-              const parsedBody = JSON.parse(body); 
-              console.log(parsedBody.results)
-              resolve(parsedBody.results);
-            } else {
-              reject(new Error(`Unexpected status code: ${status}`));
-            }
+                  if (status === 200) {
+                      const parsedBody = JSON.parse(body);
+                      console.log(parsedBody.results);
+                      resolve(parsedBody.results);
+                  } else {
+                      reject(new Error(`Unexpected status code: ${status}`));
+                  }
+              }
           }
-        }
       );
-    });
-  }
+  });
+}
 
   router.get('/', async function(req, res) {
-
-    // fetch data again
-    // ------------------------
-
     let userData;
-    console.log("TOKEN SESSION : ",req.session.token)
+
+    console.log("TOKEN SESSION: ", req.session.token);
+
     try {
-      userData = await fetchUser(req.session.token)
+        userData = await fetchUser(req.session.token);
     } catch (error) {
-      console.error(error);
+        console.error('Error fetching user:', error);
+        return res.status(500).send('Error fetching user data');  // Handle error and avoid crash
     }
 
     const _data = decode1(req.session.token, res);
-  
-
-      // console.log(_data)
-      // console.log('_data')
 
     if (_data !== null) {
-        // Handle the decoded data and render the response in this route handler.
-        res.render("dashboard/home.ejs", { urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, title: 'Home page', role: userData.role, data: userData });
+        // Handle the decoded data and render the response in this route handler
+        res.render("dashboard/home.ejs", { 
+            urls: { base: process.env.BASE_URL, backend: process.env.BACKEND_URL }, 
+            title: 'Home page', 
+            role: userData.role, 
+            data: userData 
+        });
     }
   });
 
