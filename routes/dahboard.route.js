@@ -111,7 +111,10 @@ async function fetchUser(token) {
         userData = await fetchUser(req.session.token);
     } catch (error) {
         console.error('Error fetching user:', error);
-        return res.status(500).send('Error fetching user data');  // Handle error and avoid crash
+         // Redirect to the authentication page if fetching the user fails
+      return res.redirect('/auth');
+      return res.status(500).send('Error fetching user data');  // Handle error and avoid crash
+     
     }
 
     const _data = decode1(req.session.token, res);
