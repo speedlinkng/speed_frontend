@@ -56,7 +56,7 @@
         <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
       </div>
 
-      <section class="signin" style="display: block">
+      <section class="signin" style="display: none">
         <%- include('../includes/auth/signin-include.ejs') %>
       </section>
       <section class="signup" style="display: none">
@@ -84,7 +84,19 @@
     </div>
   </body>
 </html>
-<% if (data !== null) { %>
+<% if (activeFile != null && activeFile == 'signup' ) { %>
+<script>
+  alert("sugn up");
+  document.querySelector(".signup").style.display = "block";
+  document.querySelector(".signin").style.display = "none";
+</script>
+<% }else{ %>
+<script>
+  alert("sign in");
+  document.querySelector(".signin").style.display = "block";
+  document.querySelector(".signup").style.display = "none";
+</script>
+<% } %> <% if (data !== null) { %>
 <script>
   const sections = document.querySelectorAll("section");
 
