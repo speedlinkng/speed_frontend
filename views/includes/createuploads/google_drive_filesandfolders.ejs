@@ -505,9 +505,7 @@
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
       let ex_time = expiryTimeElement?.value ?? null;
-      console.log("jsooooooooooooooooooooooooooon");
-      console.log(allArray);
-      alert(allArray.otherData.page_url.replace(/\s+/g, ""));
+
       let settings = {
         method: "PUT",
         headers: {
