@@ -507,6 +507,7 @@
       let ex_time = expiryTimeElement?.value ?? null;
       console.log("jsooooooooooooooooooooooooooon");
       console.log(allArray);
+      alert(allArray.otherData.page_url.replace(/\s+/g, ""));
       let settings = {
         method: "PUT",
         headers: {
@@ -515,7 +516,7 @@
         },
         body: JSON.stringify({
           allArray: allArray,
-          record_id: editFormRecordId,
+          record_id: allArray.otherData.page_url.replace(/\s+/g, ""),
           expiry_time: ex_time,
         }),
       };
