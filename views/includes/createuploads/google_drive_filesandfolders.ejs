@@ -508,6 +508,7 @@
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
       let ex_time = expiryTimeElement?.value ?? null;
+      alert(ex_time)
       let settings = {
         method: "PUT",
         headers: {

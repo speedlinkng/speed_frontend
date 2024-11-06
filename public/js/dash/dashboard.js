@@ -417,7 +417,7 @@ async function downloadZip(record_id, u, f, s) {
   async function createZipFile(accessToken) {
     // Create a zip file.
     const zip = new JSZip();
-    showNoti("white", `your zip file is being creted. This might take a while epending on how large the files submitted are`, 8000);
+    showNoti("white", `your zip file is being created. This might take a while, be patient.`, 8000);
     
     // Get the parent folder's ID.
     const folderId = f; // Assuming you want to start from the root folder

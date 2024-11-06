@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-
+  <head>
     <!-- CSS Assets -->
     <link rel="stylesheet" href="../css/output.css" />
     <link rel="stylesheet" href="../css/app.css" />
@@ -14,255 +12,114 @@
     <script src="../js/app.js" defer></script>
     <script src="../js/jquery.js"></script>
     <style>
-        .border {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            display: grid;
-            cursor: move;
-        }
-
-        .drop-area {
-            border: 2px dashed #ccc;
-            height: 50px;
-            margin-top: 10px;
-        }
-        .item.dragging :where(.details, i){
-        
-            opacity:0;
-        }
-        .hoverDash{
-            border-style: dashed;
-            border-width: 2px; /* Adjust the width of the border */
-            border-spacing: 6px; /* Adjust the spacing between dashes */
-          }
-        .draggable-container {
-    transition: transform 0.3s ease-in-out;
-}
-    </style>
-</head>
-
-<body class="w3-container">
-
-<div class="card convertToDoc">
-    <div style="border: 1px solid #000; padding: 10px; color: #000;">
-        <h1>Form Title</h1>
-        <hr>
-        <div ondragleave="console.log('it left here')" style="margin-top: 10px; margin-bottom: 10px;">
-            <h3 draggable="true" ondragstart="console.log('started')" ondrop="" >Page Title</h3>
-            <h5 style="font-size: 1rem;">Page Description</h5>
-        </div>
-
-        <div ondragenter="itEnt()"  class="border" style="margin-top: 10px; margin-bottom: 10px;">
-            <h3 draggable="true" ondragend="console.log('started')">Page Title 2</h3>
-            <h5 style="font-size: 1rem;">Page 2</h5>
-        </div>
-    
-    </div>
-<script>
-    function itEnt(e){
-        alert(this.id)
-        item.addEventListener("dragend", ()=>{
-            item.classList.remove("dragging")
-        })
-    }
-</script>
-    <div id="sort-all" class="card">
-        <div class="item card m-2 cursor-move p-2 text-sm" draggable="true" data-index="1">
-            <div class="details">
-                <div style="display: flex;">
-                    <p style="padding-left: 10px; font-weight: bold;">Q 2.</p>
-                    <p style="padding-left: 5px;">What is your first name</p>
-                </div>
-                <div style="display: flex;">
-                    <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
-                    <p style="padding-left: 5px;">Ny bane is is divine edet</p>
-                </div>
-            </div>
-        </div>
-
-        <div  draggable="true">
-            
-        </div>
-
-        <div draggable="true" data-index="2" class="item card m-2 cursor-move p-2 text-sm">
-            <div class="details">
-                <div style="display: flex;">
-                    <p style="padding-left: 10px; font-weight: bold;">Q 3.</p>
-                    <p style="padding-left: 5px;">What is your first name</p>
-                </div>
-                <div style="display: flex;">
-                    <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
-                    <p style="padding-left: 5px;">Ny bane is is divine edet</p>
-                </div>
-            </div>
- 
-        </div>
-    
-        <div draggable="true" data-index="3"  class="item card m-2 cursor-move p-2 text-sm">
-            <div class="details">
-                <div style="display: flex;">
-                    <p style="padding-left: 10px; font-weight: bold;">Q 4.</p>
-                    <p style="padding-left: 5px;">What is your first name</p>
-                </div>
-                <div style="display: flex;">
-                    <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
-                    <p style="padding-left: 5px;">Ny bane is is divine edet</p>
-                </div>
-            </div>
-        </div>
-    
-        <div draggable="true" data-index="4" class=" item card m-2 cursor-move p-2 text-sm hover">
-            <div class="details">
-                <div style="display: flex;">
-                    <p style="padding-left: 10px; font-weight: bold;">Q 5.</p>
-                    <p style="padding-left: 5px;">What is your first name</p>
-                </div>
-                <div style="display: flex;">
-                    <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
-                    <p style="padding-left: 5px;">Ny bane is is divine edet</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Repeat for other draggable elements -->
-
-    </div>
-
-    <div id="drop-area" onclick="addmore()" class="drop-area h-fit card border-dashed ">add more</div>
-
-    
-</div>
-</body>
-
-</html>
-
-<script>
-    function addmore(){
-        $('#sort-all').append(
-            `
-            <div draggable="true" data-index="5" class=" item card m-2 cursor-move p-2 text-sm hover">
-                <div class="details">
-                    <div style="display: flex;">
-                        <p style="padding-left: 10px; font-weight: bold;">Q 5.</p>
-                        <p style="padding-left: 5px;">ADDED</p>
-                    </div>
-                    <div style="display: flex;">
-                        <p style="padding-left: 40px; font-weight: bold;">Ans :</p>
-                        <p style="padding-left: 5px;">Ny bane is is divine edet</p>
-                    </div>
-                </div>
-            </div>
-            `
-        )
-        drag()
-    }
-    function drag(){
-
-        const sortAll = document.querySelector('#sort-all')
-        const items = document.querySelectorAll('.item')
-        console.log(items)
-        items.forEach(item => {
-                item.addEventListener("dragstart", ()=>{
-                    setTimeout(function(){
-                        item.classList.add("dragging")
-                        item.classList.add("hoverDash");
-                    },0) 
-                })
-
-                item.addEventListener("dragend", ()=>{
-                    item.classList.remove("hoverDash");
-                    item.classList.remove("dragging")
-                })
-        })
-            const initSortable = (e) => {
-            e.preventDefault();
-
-            const draggingItem = sortAll.querySelector(".dragging");
-            const siblings = [...sortAll.querySelectorAll(".item:not(.dragging)")];
-
-            const mouseY = e.clientY;
-
-            let nextSibling = siblings.find(sibling => {
-                const rect = sibling.getBoundingClientRect();
-                const offset = 12; // Adjust this value to control the trigger point
-               // Check if dragging upwards or downwards
-                const direction = mouseY > rect.top + rect.height / 2 ? 1 : -1;
-
-                // Calculate trigger point based on direction
-                const siblingTriggerY = rect.top + rect.height / 2 + direction * offset;
-
-                // Trigger move when halfway into the next sibling regardless of direction
-                return mouseY <= siblingTriggerY;
-            });
-
-            if (nextSibling === undefined) {
-                sortAll.appendChild(draggingItem); // Append to the end if no next sibling found
-            } else {
-                sortAll.insertBefore(draggingItem, nextSibling);
-            }
-
-            console.log(nextSibling);
-        };
-
-
-            sortAll.addEventListener("dragover", initSortable);
-            sortAll.addEventListener("dragenter", e => e.preventDefault());
-
-}
-drag()
-</script>
-   
-
-
-<!-- <script>
-function downloadDoc() {
-    var preHtml = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
-        var postHtml = "</body></html>";
-  // Get the HTML content of the div
-  var html = preHtml+document.querySelector(".convertToDoc").innerHTML+postHtml;;
-
-  // Create a new Blob object with the HTML content
-   var blob = new Blob(['\ufeff', html], { type: "application/msword" });
-
-  // var blob = new Blob([text], { type: "application/pdf" });
-    // var blob = new Blob([html], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
-
-  // Create a download link for the Blob object
-  var downloadLink = document.createElement("a");
-  downloadLink.href = URL.createObjectURL(blob);
-  downloadLink.download = "document.doc";
-
-  // Append the download link to the document
-  document.body.appendChild(downloadLink);
-
-  // Click the download link to start the download
-  downloadLink.click();
-
-  // Remove the download link from the document
-  document.body.removeChild(downloadLink);
-}
-
-function downloadDocs() {
-    // Get the HTML content of the div
-    var html = document.querySelector(".convertToDoc").innerText;
-  
-    // Create a new docx document
-    var docx = new Docx();
-  
-    // Set the page size to A5
-    docx.createDocument({
-      pageSize: {
-        width: 420.94,
-        height: 595.28
+      h2 {
+        font-weight: 800;
       }
-    });
-  
-    // Add the HTML content to the document
-    docx.addParagraph({
-      html: html
-    });
-  
-    // Save the document as a .docx file
-    docx.save('documents.docx');
-  }
-</script> -->
+      li {
+        margin-top: 5px;
+        padding-left: 5px;
+      }
+
+      .drop-area {
+        border: 2px dashed #ccc;
+        height: 50px;
+        margin-top: 10px;
+      }
+      .item.dragging :where(.details, i) {
+        opacity: 0;
+      }
+      .hoverDash {
+        border-style: dashed;
+        border-width: 2px; /* Adjust the width of the border */
+        border-spacing: 6px; /* Adjust the spacing between dashes */
+      }
+      .draggable-container {
+        transition: transform 0.3s ease-in-out;
+      }
+    </style>
+  </head>
+  <body class="min-h-100vh text-black bg-slate-50">
+    <div class="header bg-white px-2 py-6 border w-full rounded font-semibold">
+      Blazing Share Zoom Integration Guide
+    </div>
+
+    <div class="content px-3">
+      <h2>1. Introduction</h2>
+      <p>
+        Welcome to the Blazing Share Zoom Integration Guide! This guide will
+        walk you through adding, using, and removing the Blazing Share Zoom
+        integration.
+      </p>
+
+      <h2>2. Adding the Blazing Share Zoom App</h2>
+      <p>To add Blazing Share to Zoom:</p>
+      <ol>
+        <li>
+          Navigate to the Zoom App Marketplace and search for "Blazing Share".
+        </li>
+        <li>
+          Click on the Blazing Share app, select Install, review permissions,
+          and click Authorize.
+        </li>
+        <li>
+          After installation, sign in to Blazing Share to link it with Zoom.
+        </li>
+      </ol>
+
+      <h2>3. Using the Blazing Share App with Zoom</h2>
+      <h3>A. Setting Up Backups</h3>
+      <ul>
+        <li>
+          Enable Automatic Backup in Blazing Share under Settings > Integrations
+          > Zoom.
+        </li>
+        <li>
+          Manually Backup Zoom Recordings by selecting recordings and clicking
+          "Backup to Google Drive".
+        </li>
+        <li>Customize Backup Locations under Settings > Storage.</li>
+      </ul>
+
+      <h3>B. Viewing Backed Up Recordings</h3>
+      <p>
+        Access backed-up recordings through Blazing Share or your designated
+        Google Drive folder.
+      </p>
+
+      <h2>4. Removing the Blazing Share Zoom App</h2>
+      <ol>
+        <li>
+          Visit the Zoom App Marketplace, go to Installed Apps, and uninstall
+          Blazing Share.
+        </li>
+        <li>
+          In Blazing Share, disable permissions under Settings > Integrations >
+          Zoom if needed.
+        </li>
+      </ol>
+
+      <h2>5. Frequently Asked Questions</h2>
+      <div>
+        <div class="accordion-item" onclick="toggleAccordion(1)">
+          <p>Q: What permissions are required?</p>
+        </div>
+        <div id="accordion-content-1" class="accordion-content">
+          <p class="ml-4 text-gray-600">
+            A: Blazing Share requires access to your Zoom recordings and user
+            information to transfer files to Google Drive.
+          </p>
+        </div>
+
+        <div class="accordion-item" onclick="toggleAccordion(2)">
+          <p>Q: How do I contact support?</p>
+        </div>
+        <div id="accordion-content-2" class="accordion-content">
+          <p class="ml-4 text-gray-600">
+            A: For support, email support@yourdomain.com or visit our Support
+            Page.
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

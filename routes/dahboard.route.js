@@ -7,9 +7,9 @@ const {sign, decode} = require("jsonwebtoken")
 const serveStatic = require('serve-static'); 
 const {deTokenize} = require('../middlewars/FunctionsController');
 
-router.get('/test0', function(req, res) {
+router.get('/doc', function(req, res) {
   console.log('its done')
-  res.render(`dashboard/testTable.ejs`, {urls: {backend: process.env.BACKEND_URL}, totle: 'Test Tables' });
+  res.render(`test/test1.ejs`, {urls: {backend: process.env.BACKEND_URL}, title: 'Test Tables' });
   
 });
 
