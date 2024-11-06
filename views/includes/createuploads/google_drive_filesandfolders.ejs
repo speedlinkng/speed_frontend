@@ -95,7 +95,7 @@
             >
               <h4 class="!text-black font-semibold">Expiry Date</h4>
               <p class="text-xs">
-                Set the time with which you want this form link to expire. <p onclick="addTime()">test Add</p>
+                Set the time with which you want this form link to expire.
               </p>
               <label class="relative flex">
                 <input
@@ -184,7 +184,7 @@
               <button
                 @click="setOrganizedForm"
                 id="setOrganizedForm"
-                class="btn opa  h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
+                class="btn opa h-10 bg-primary hidden font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
               >
                 Set
               </button>
@@ -219,13 +219,11 @@
   onload="gisLoaded()"
 ></script>
 
-
-
 <script>
-  function addTime(){
-    alert('time added')
-    alert($("#expiry_time").val())
-    $("#expiry_time").val('05/26/2024 10:12 AM');
+  function addTime() {
+    alert("time added");
+    alert($("#expiry_time").val());
+    $("#expiry_time").val("05/26/2024 10:12 AM");
   }
 </script>
 
@@ -413,7 +411,6 @@
 
     // NOW SAVE TO DATABASE
     async function saveThisForm() {
-      
       let expiryTimeElement = document.querySelector("#expiry_time");
       let ex_time = expiryTimeElement?.value ?? null;
 
@@ -449,7 +446,7 @@
         let json = await fetchResponses.json();
 
         if (json.status == 200) {
-          localStorage.setItem('editting', false)
+          localStorage.setItem("editting", false);
           localStorage.setItem("upload_id", json.id);
           showNoti(
             "success",
@@ -508,7 +505,7 @@
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
       let ex_time = expiryTimeElement?.value ?? null;
-      alert(ex_time)
+
       let settings = {
         method: "PUT",
         headers: {
@@ -516,7 +513,6 @@
           "Content-Type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify({
-
           allArray: allArray,
           record_id: editFormRecordId,
           expiry_time: ex_time,
@@ -536,8 +532,8 @@
         let json = await fetchResponses.json();
 
         if (json.status == 200) {
-          localStorage.setItem('editting', false)
-          localStorage.removeItem('edit_preferred')
+          localStorage.setItem("editting", false);
+          localStorage.removeItem("edit_preferred");
           localStorage.setItem("upload_id", json.id);
           showNoti(
             "success",
