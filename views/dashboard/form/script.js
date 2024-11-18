@@ -377,6 +377,7 @@ document.addEventListener("alpine:init", () => {
 
       for (const subfolderName of subfolderNames) {
         var subfolderValue = subfolderName.fieldValue;
+        alert(subfolderValue)
 
         try {
           // 1. Check if subfolder exists
@@ -468,7 +469,9 @@ document.addEventListener("alpine:init", () => {
       this.allInputFields.forEach((field) => {
         const spanAbove = document.querySelector(`.Name${field}`);
         const fieldValue = document.querySelector(`.${field}`);
+        alert(`fieldvalue: ${fieldValue}`)
         const dataPointIdValue = fieldValue.getAttribute("data-pointId");
+        alert(`dataPointIdValue: ${dataPointIdValue}`)
  
         let isUploadError = false
         if (fieldValue.name === "file") {
