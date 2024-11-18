@@ -296,7 +296,7 @@ document.addEventListener("alpine:init", () => {
         }
       }
 
-      // alert(document.querySelector("#defaultParent").value)
+      alert(document.querySelector("#defaultParent").value)
       try {
         // Step 1: Initiate the resumable session
         const initiateResponse = await fetch(
@@ -310,7 +310,7 @@ document.addEventListener("alpine:init", () => {
               "Content-Type": "application/json; charset=UTF-8",
             },
             body: JSON.stringify({
-              name: `myDoc.doc`, // RENAME FILE HERE
+              name: `Form Replies.doc`, // RENAME FILE HERE
               mimeType: blob.type,
               parents: [document.querySelector("#defaultParent").value], // Place the folder ID in an array
             }),
