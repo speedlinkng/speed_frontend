@@ -374,62 +374,73 @@ document.addEventListener("alpine:init", () => {
     async createSubFolders(parentFolderId, subfolderNames) {
       const accessToken = document.getElementById("uploadToken").value;
       let currentParentFolderId = parentFolderId;
+      try {
+        const subfolderPromises = await subfolderNames; // Await the main promise
+  
+        const resolvedSubfolderNames = await Promise.all(subfolderPromises);
+        console.log(resolvedSubfolderNames)
 
-      for (const subfolderName of subfolderNames) {
-        var subfolderValue = subfolderName.fieldValue;
-        alert(subfolderValue)
+        for (const subfolderName of resolvedSubfolderNames) {
+          var subfolderValue = subfolderName.fieldValue;
+          alert(subfolderValue)
 
-        try {
-          // 1. Check if subfolder exists
-          const existingFolderId = await this.checkIfSubfolderExists(
-            currentParentFolderId,
-            subfolderValue,
-            accessToken
-          );
-
-          if (existingFolderId) {
-            // Subfolder exists, update currentParentFolderId for next iteration
-            console.log(
-              `Subfolder '${subfolderValue}' already exists. Using its ID ${existingFolderId}.`
-            );
-            currentParentFolderId = existingFolderId;
-            this.uploadFolderId = existingFolderId;
-          } else {
-            // Subfolder doesn't exist, create it
-            const fileMetadata = {
-              name: subfolderValue,
-              parents: [currentParentFolderId],
-              mimeType: "application/vnd.google-apps.folder",
-            };
-
-            const response = await fetch(
-              "https://www.googleapis.com/drive/v3/files",
-              {
-                method: "POST",
-                headers: {
-                  Authorization: `Bearer ${accessToken}`,
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(fileMetadata),
-              }
+          try {
+            // 1. Check if subfolder exists
+            const existingFolderId = await this.checkIfSubfolderExists(
+              currentParentFolderId,
+              subfolderValue,
+              accessToken
             );
 
-            const fileData = await response.json();
-            this.uploadFolderId = fileData.id;
-            console.log(
-              `Subfolder '${subfolderValue}' created with ID:`,
-              fileData.id
-            );
+            if (existingFolderId) {
+              // Subfolder exists, update currentParentFolderId for next iteration
+              console.log(
+                `Subfolder '${subfolderValue}' already exists. Using its ID ${existingFolderId}.`
+              );
+              currentParentFolderId = existingFolderId;
+              this.uploadFolderId = existingFolderId;
+            } else {
+              // Subfolder doesn't exist, create it
+              const fileMetadata = {
+                name: subfolderValue,
+                parents: [currentParentFolderId],
+                mimeType: "application/vnd.google-apps.folder",
+              };
 
-            // Update currentParentFolderId for next iteration
-            currentParentFolderId = fileData.id;
+              const response = await fetch(
+                "https://www.googleapis.com/drive/v3/files",
+                {
+                  method: "POST",
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(fileMetadata),
+                }
+              );
+
+              const fileData = await response.json();
+              this.uploadFolderId = fileData.id;
+              console.log(
+                `Subfolder '${subfolderValue}' created with ID:`,
+                fileData.id
+              );
+
+              // Update currentParentFolderId for next iteration
+              currentParentFolderId = fileData.id;
+            }
+          } catch (error) {
+            // Handle error for subfolder check or creation
+            this.errorMesg = error;
+            let errorModal = document.querySelector("#showModalError");
+            errorModal.click();
           }
-        } catch (error) {
-          // Handle error for subfolder check or creation
+        }
+      }catch (error) {
+          console.error("Error:", error);
           this.errorMesg = error;
           let errorModal = document.querySelector("#showModalError");
           errorModal.click();
-        }
       }
     },
 
