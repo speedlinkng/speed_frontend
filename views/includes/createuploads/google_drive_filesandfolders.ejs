@@ -508,8 +508,17 @@
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
       alert(expiryTimeElement);
+      var ed_time = localStorage.getItem("edit_data");
+      if (ed_time) {
+        ed_time = JSON.parse(ed_time); // Parse the string into an object
+        alert(ed_time.expiryTime); // Access the expiryTime property
+      }
+      let notUpgradedUsePreviousTime = ed_time?.expiryTime;
 
-      let ex_time = expiryTimeElement?.value ?? null;
+      // let ex_time = expiryTimeElement?.value ?? null;
+      let ex_time = expiryTimeElement?.value ?? notUpgradedUsePreviousTime;
+
+      alert(ex_time); // Final result
       console.log("jon");
       console.log(allArray);
       let settings = {
