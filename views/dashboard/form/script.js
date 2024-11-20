@@ -296,7 +296,7 @@ document.addEventListener("alpine:init", () => {
         }
       }
 
-      alert(document.querySelector("#defaultParent").value)
+      // alert(document.querySelector("#defaultParent").value)
       try {
         // Step 1: Initiate the resumable session
         const initiateResponse = await fetch(
@@ -382,7 +382,7 @@ document.addEventListener("alpine:init", () => {
 
         for (const subfolderName of resolvedSubfolderNames) {
           var subfolderValue = subfolderName.fieldValue;
-          alert(subfolderValue)
+          
 
           try {
             // 1. Check if subfolder exists
@@ -480,9 +480,9 @@ document.addEventListener("alpine:init", () => {
       this.allInputFields.forEach((field) => {
         const spanAbove = document.querySelector(`.Name${field}`);
         const fieldValue = document.querySelector(`.${field}`);
-        alert(`fieldvalue: ${fieldValue}`)
+        // alert(`fieldvalue: ${fieldValue}`)
         const dataPointIdValue = fieldValue.getAttribute("data-pointId");
-        alert(`dataPointIdValue: ${dataPointIdValue}`)
+        // alert(`dataPointIdValue: ${dataPointIdValue}`)
  
         let isUploadError = false
         if (fieldValue.name === "file") {
