@@ -130,11 +130,11 @@
             <br />
             <% }else{ %>
             <div
-              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-error p-2 !bg-red-500 !bg-opacity-70"
+              class="card border rounded-md border-slate-300 dark:border-navy-500 h-auto text-error p-2 !bg-red-600 !bg-opacity-70"
             >
               <h4 class="!text-slate-100 font-semibold">Expiry Date</h4>
               <p class="text-xs !text-slate-100">
-                This form link will automatically expire after 1 day.
+                This form link will automatically expire after 1 day. <% data %>
                 <a
                   class="border-b cursor-pointer"
                   onclick=" setActiveItem('Plan')"
@@ -144,6 +144,9 @@
               </p>
             </div>
             <br />
+            <script>
+              var SaveLoadedTime =
+            </script>
             <% } %>
             <div
               class="card border border-slate-300 dark:border-navy-500 h-auto text-sm p-2"
@@ -504,6 +507,8 @@
     // NOW SAVE TO DATABASE
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
+      alert(expiryTimeElement);
+
       let ex_time = expiryTimeElement?.value ?? null;
       console.log("jon");
       console.log(allArray);
