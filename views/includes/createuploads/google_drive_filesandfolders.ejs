@@ -84,6 +84,10 @@
                 note that the options available to you are options of fields
                 with mandatory/required option, to avoid errors.
               </p>
+              <p class="text-xs !text-red-500">
+                Do not add any subfolders not suggested to you, as you might
+                risk loosing your files
+              </p>
 
               <div class="gfb text-base mt-2"></div>
             </div>
@@ -224,8 +228,8 @@
 
 <script>
   function addTime() {
-    alert("time added");
-    alert($("#expiry_time").val());
+    // alert("time added");
+    // alert($("#expiry_time").val());
     $("#expiry_time").val("05/26/2024 10:12 AM");
   }
 </script>
@@ -507,20 +511,20 @@
     // NOW SAVE TO DATABASE
     async function updateThisForm() {
       let expiryTimeElement = document.querySelector("#expiry_time");
-      alert(expiryTimeElement);
+      // alert(expiryTimeElement);
       var ed_time = localStorage.getItem("edit_data");
       if (ed_time) {
         ed_time = JSON.parse(ed_time); // Parse the string into an object
-        alert(ed_time.expiryTime); // Access the expiryTime property
+        // alert(ed_time.expiryTime); // Access the expiryTime property
       }
       let notUpgradedUsePreviousTime = ed_time?.expiryTime;
 
       // let ex_time = expiryTimeElement?.value ?? null;
       console.log("storedEditData is...", storedEditData);
-      alert(`value is: ${expiryTimeElement?.value}`);
+      // alert(`value is: ${expiryTimeElement?.value}`);
       let ex_time = expiryTimeElement?.value ?? notUpgradedUsePreviousTime;
 
-      alert(ex_time); // Final result
+      // alert(ex_time); // Final result
       console.log("jon");
       console.log(allArray);
       let settings = {
