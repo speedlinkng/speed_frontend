@@ -610,10 +610,10 @@ video {
 }
 
 .form-input:focus {
-  outline-style: solid;
-  outline-width: 2px;
-  outline-offset: 2px;
-  outline-color: #3b82f6;
+  outline-style: solid !important;
+  outline-width: 2px !important;
+  outline-offset: 2px !important;
+  outline-color: #3b82f6 !important;
 }
 
 .form-input:-webkit-autofill,
