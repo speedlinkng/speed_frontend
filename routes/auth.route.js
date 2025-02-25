@@ -35,7 +35,6 @@ const {saveUserSession} = require('../handlers/Session_handler');
         );
 
         const status = response.status;
-        const body = await response.json(); // Parse the response body as JSON
 
         if (status === 404) {
             return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
