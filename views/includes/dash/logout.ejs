@@ -31,7 +31,7 @@
                   async function logMeOut() {
 
                     fetch(`https://bapi.blazzingshare.com/api/users/logout`, {
-                        method: 'GET',
+                        method: 'POST',
                         headers: {
                           'Authorization': `Bearer ${localStorage.getItem('access')}`,
                           'Content-Type': 'application/json',
