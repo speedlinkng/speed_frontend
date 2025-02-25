@@ -75,11 +75,19 @@
 <script>
   document.querySelector(".signup").style.display = "block";
   document.querySelector(".signin").style.display = "none";
+  document.querySelector(".forgot").style.display = "none";
 </script>
-<% }else{ %>
+<% } else if (activeFile != 'forgot' ) { %>
+<script>
+  document.querySelector(".signup").style.display = "none";
+  document.querySelector(".forgot").style.display = "block";
+  document.querySelector(".signin").style.display = "none";
+</script>
+<% } else{ %>
 <script>
   document.querySelector(".signin").style.display = "block";
   document.querySelector(".signup").style.display = "none";
+  document.querySelector(".forgot").style.display = "none";
 </script>
 <% } %> <% if (data == "newPwd") { %>
 <script>
