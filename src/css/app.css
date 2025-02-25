@@ -5,7 +5,7 @@
 @layer components {
   .form-input{ @apply !bg-transparent !text-gray-800 border !border-gray-900 ; }
 
-  .form-input:focus{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ; }
+  .form-input:focus{@apply !outline !outline-2 !outline-offset-2 !outline-blue-700 ; }
   .ring_blue{ @apply !bg-blue-700;}
   
   .form-input:-webkit-autofill,
