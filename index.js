@@ -65,9 +65,6 @@ app.get('/exchange', function(req, res, next) {
   })
   // console.log(accessToken)
   req.session.token = accessToken
-  // console.log(req.sessionID)
-  // console.log('id up')
-  // console.log(req.session.token)
   req.session.save()
   return res.status(200).json({
      token:accessToken
@@ -76,14 +73,23 @@ app.get('/exchange', function(req, res, next) {
 
 })
 app.get('/', function(req, res, next) {
-  // req.session.username = 'JohnDoe';
-  // req.session.save()
-  // console.log(req.sessionID)
-  // console.log(req.session.token)
-  // use redirect 
+
   res.redirect(`${process.env.FRONTEND_URL}/dash`);
   // res.render("dashboard/home.ejs");
 });
+
+// Catch-all route for unmatched URLs
+app.use((req, res, next) => {
+  // Redirect to home page
+  res.redirect("/home");
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send("Something went wrong!");
+});
+
 
 // Port Number
 const PORT = process.env.PORT ||4000;
