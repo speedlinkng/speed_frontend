@@ -37,24 +37,28 @@ const {saveUserSession} = require('../handlers/Session_handler');
         const status = response.status;
 
         if (status === 404) {
-            return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
+            return res.redirect(`/auth/signin?error=Recovery token not found or expired.`);
         } else if (status === 400) {
-            return res.redirect(`/auth/login?error=Invalid recovery token.`);
+            return res.redirect(`/auth/signin?error=Invalid recovery token.`);
         } else if (status === 200) {
             // If validation is successful, render the reset password page
-            return res.redirect(`/auth/login.`);
+            return res.redirect(`/auth`);
         } else {
             // Handle unexpected status codes
-            return res.redirect(`/auth/login?error=Unexpected response from the server.`);
+            return res.redirect(`/auth/signin?error=Unexpected response from the server.`);
         }
     } catch (err) {
         console.error("Error verifying recovery token:", err);
-        return res.redirect(`/auth/login?error=Internal server error`);
+        return res.redirect(`/auth/signin?error=Internal server error`);
     }
 });
 
 
 router.get('/', function(req, res) {
+  res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:null, data: null, title: "Authorization"});
+});
+
+router.get('/:data', function(req, res) {
   res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:null, data: null, title: "Authorization"});
 });
 
