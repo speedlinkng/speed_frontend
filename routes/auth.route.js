@@ -64,7 +64,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
     
 
       let activateToken = req.params.activateId
-      jwt.verify(activateToken, 'your_refresh_token_secret', (err, decoded) => {
+      jwt.verify(activateToken, process.env.REFRESH_TOK_SEC, (err, decoded) => {
         if (err) {
           // console.log(err)
           res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null, error: err, baseUrl: process.env.BASE_URL});
