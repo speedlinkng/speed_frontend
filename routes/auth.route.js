@@ -94,9 +94,9 @@ router.get('/activate/:data', function (req, res) {
 router.get('/forget', function (req, res) {
 
   const { error } = req.query
-  console.log(error)
+
   if (error) {
-    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:forgot, data: null,  error: error, baseUrl: process.env.BASE_URL});
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:'forgot', data: null,  error: error, baseUrl: process.env.BASE_URL});
   }
   res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:'forgot', data: null,  error:null , baseUrl: process.env.BASE_URL});
 
