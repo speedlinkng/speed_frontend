@@ -15,43 +15,46 @@ const {saveUserSession} = require('../handlers/Session_handler');
     res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:"signup", data: null, title: "Authorization"});
   });
 
-router.get("/verify", function (req, res) {
-    let recovery_id = req.query.recovery_id; // Get recovery_id from query params
-    let email = req.query.email; // Get email from query params
+  router.get("/verify", async function (req, res) {
+    const recovery_id = req.query.recovery_id; // Get recovery_id from query params
+    const email = req.query.email; // Get email from query params
 
     console.log("Recovery ID:", recovery_id); // Debugging
     console.log("Email:", email); // Debugging
 
-    // Make a request to the backend to verify the recovery_id and email
-    request(
-        {
-            method: "GET",
-            url: process.env.BACKEND_URL + `/api/users/verifyrecovery`,
-            qs: { recovery_id, email }, // Send recovery_id and email as query params
-        },
-      (err, response, body) => {
-          console.log(err, response, body)
-            if (err) {
-                console.log(err);
-                return res.redirect(`/auth/login?error=Internal server error`);
-            } else {
-                let status = response.statusCode;
-                if (status == 404) {
-                    return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
-                }
-                if (status == 400) {
-                    return res.redirect(`/auth/login?error=Invalid recovery token.`);
-                }
-                if (status == 200) {
-                    // If validation is successful, render the reset password page
-                    res.render(`auth/auth.ejs`, {
-                        urls: { backend: process.env.BACKEND_URL },
-                        title: "Reset Password",
-                    });
-                }
+    try {
+        // Make a request to the backend to verify the recovery_id and email
+        const response = await fetch(
+            `${process.env.BACKEND_URL}/api/users/verifyrecovery?recovery_id=${recovery_id}&email=${email}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
             }
+        );
+
+        const status = response.status;
+        const body = await response.json(); // Parse the response body as JSON
+
+        if (status === 404) {
+            return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
+        } else if (status === 400) {
+            return res.redirect(`/auth/login?error=Invalid recovery token.`);
+        } else if (status === 200) {
+            // If validation is successful, render the reset password page
+            return res.render("auth/auth.ejs", {
+                urls: { backend: process.env.BACKEND_URL },
+                title: "Reset Password",
+            });
+        } else {
+            // Handle unexpected status codes
+            return res.redirect(`/auth/login?error=Unexpected response from the server.`);
         }
-    );
+    } catch (err) {
+        console.error("Error verifying recovery token:", err);
+        return res.redirect(`/auth/login?error=Internal server error`);
+    }
 });
 
 
