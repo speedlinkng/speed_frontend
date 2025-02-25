@@ -67,9 +67,18 @@ router.get('/', function (req, res) {
   const { error } = req.query
   console.log(error)
   if (error) {
-    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: error, baseUrl: process.env.BASE_URL});
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: error, baseUrl: process.env.BASE_URL});
   }
   res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:null, data: null, title: "Authorization"});
+});
+
+router.get('/newpwd', function (req, res) {
+  const { error } = req.query
+  console.log(error)
+  if (error) {
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:'newPwd', data: null,  error: error, baseUrl: process.env.BASE_URL});
+  }
+  res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:newpwd, data: null, title: "Authorization"});
 });
 
 router.get('/activate/:data', function (req, res) {
@@ -78,7 +87,7 @@ router.get('/activate/:data', function (req, res) {
   console.log(error)
   console.log(data)
   if (error) {
-    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:data, data: data,  error: error, baseUrl: process.env.BASE_URL});
+    res.render(`auth/activate.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:data, data: data,  error: error, baseUrl: process.env.BASE_URL});
   }
 });
 
@@ -87,9 +96,9 @@ router.get('/forget', function (req, res) {
   const { error } = req.query
   console.log(error)
   if (error) {
-    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:data, data: null,  error: error, baseUrl: process.env.BASE_URL});
+    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:forgot, data: null,  error: error, baseUrl: process.env.BASE_URL});
   }
-  res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:'forgot', data: null,  error:null , baseUrl: process.env.BASE_URL});
+  res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:'forgot', data: null,  error:null , baseUrl: process.env.BASE_URL});
 
 });
   
@@ -97,9 +106,9 @@ router.get('/activate', function (req, res) {
   const { error } = req.query
   console.log(error)
   if (error) {
-    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: error, baseUrl: process.env.BASE_URL});
+    res.render(`auth/activate.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: error, baseUrl: process.env.BASE_URL});
   }
-    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: null, baseUrl: process.env.BASE_URL});
+    res.render(`auth/activate.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: null, baseUrl: process.env.BASE_URL});
   });
 
 

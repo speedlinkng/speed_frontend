@@ -89,11 +89,12 @@
   document.querySelector(".signup").style.display = "none";
   document.querySelector(".forgot").style.display = "none";
 </script>
-<% } %> <% if (data == "newPwd") { %>
+<% } %> <% if (activeFile == "newPwd") { %>
 <script>
   const sections = document.querySelectorAll("section");
   document.querySelector(".signin").style.display = "none";
   document.querySelector(".signup").style.display = "none";
+  document.querySelector(".forgot").style.display = "none";
   // Loop through each section
   sections.forEach((section) => {
     if (section.classList.contains("newPwd")) {
