@@ -29,7 +29,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
             } else {
                 let status = response.statusCode;
                 if (status == 404) {
-                    return res.render(`auth/error.ejs`, { message: "Recovery token not found or expired." });
+                  return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
                 }
                 if (status == 200) {
                     let result = JSON.parse(body);
