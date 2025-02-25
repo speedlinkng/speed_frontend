@@ -611,9 +611,9 @@ video {
 
 .form-input:focus {
   outline-style: solid !important;
-  outline-width: 2px !important;
+  outline-width: 4px !important;
   outline-offset: 2px !important;
-  outline-color: #3b82f6 !important;
+  outline-color: #1d4ed8 !important;
 }
 
 .form-input:-webkit-autofill,
@@ -627,6 +627,20 @@ video {
   -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   /* Prevents background change */
+}
+
+.form_button:hover {
+  outline-style: solid !important;
+  outline-width: 4px !important;
+  outline-offset: 2px !important;
+  outline-color: #1d4ed8 !important;
+}
+
+.form_button:focus {
+  outline-style: solid !important;
+  outline-width: 4px !important;
+  outline-offset: 2px !important;
+  outline-color: #1d4ed8 !important;
 }
 
 /* SIMEON TIWO'S DESIGNS */
@@ -2772,6 +2786,11 @@ tr.th {
   color: rgb(0 0 0 / var(--tw-text-opacity)) !important;
 }
 
+.\!text-gray-600 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(75 85 99 / var(--tw-text-opacity)) !important;
+}
+
 .\!text-red-500 {
   --tw-text-opacity: 1 !important;
   color: rgb(239 68 68 / var(--tw-text-opacity)) !important;
@@ -2820,6 +2839,11 @@ tr.th {
 .text-gray-600 {
   --tw-text-opacity: 1;
   color: rgb(75 85 99 / var(--tw-text-opacity));
+}
+
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .text-gray-900 {
