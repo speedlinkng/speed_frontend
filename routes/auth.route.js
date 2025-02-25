@@ -52,8 +52,12 @@ const {saveUserSession} = require('../handlers/Session_handler');
   });
 
   
-  router.get('/activate', function (req, res) {
-      res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: null, baseUrl: process.env.BASE_URL});
+router.get('/activate', function (req, res) {
+  const { error } = req.body
+  if (error) {
+    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: error, baseUrl: process.env.BASE_URL});
+  }
+    res.render(`auth/activate.ejs`, {urls: {backend: process.env.BACKEND_URL}, activeFile:null, data: null,  error: null, baseUrl: process.env.BASE_URL});
   });
 
 
@@ -72,6 +76,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
         let decodedToken = decoded
         const decodedUser = decodedToken.result.user_id;
         // check if user id exists in the database, if it does, set activated
+        console.log(decodedUser)
         request(
           {
             method: "GET",
