@@ -1400,6 +1400,14 @@ tr.th {
   min-height: 100vh;
 }
 
+.min-h-\[100px\] {
+  min-height: 100px;
+}
+
+.min-h-\[120px\] {
+  min-height: 120px;
+}
+
 .\!w-fit {
   width: -moz-fit-content !important;
   width: fit-content !important;
