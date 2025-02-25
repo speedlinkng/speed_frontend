@@ -47,7 +47,7 @@
     .bg-side {@apply !bg-[#CDEED3]
 
     }
-    tr.th {@apply  bg-slate-150 text-sim }
+    tr.th {@apply  bg-gray-100 text-sim }
 
     .bg-file {@apply bg-[rgba(0,54,61,0.5)]}
 

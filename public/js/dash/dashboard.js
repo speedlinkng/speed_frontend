@@ -517,320 +517,132 @@ console.log(data);
 }
 // GET LIS OF ALL RECORDS
 async function getRecordList() {
-  let submissionCount = await getSubmissionCount();
-  let settings = {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("access")}`,
-    },
-  };
   try {
-    let fetchResponses = await fetch(
-      `${backendUrl}/api/app/getrecords`,
-      settings
-    );
-    let staus = await fetchResponses.status;
-    let res = await fetchResponses.json();
-    let allres; // Hold the request json data
-    if (res.error == 1) {
-      // alert('wrong 1')
-    } else if (res.error == 2) {
-      // alert('wrong 2')
-      window.location.href = `${baseUrl}/auth`;
-    } else if (res.success == 1 && staus == 200) {
+    // Simulate loading state
+    $("#display").html(`
+      <tr>
+        <td colspan="7" class="text-center py-4">
+          <div class="flex justify-center items-center">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <span class="ml-2">Loading...</span>
+          </div>
+        </td>
+      </tr>
+    `);
 
-      if (res.data != "") {
-        let jsonString = JSON.stringify(res.data);
+    // Fetch data from the backend
+    const settings = {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access")}`,
+      },
+    };
+    const fetchResponses = await fetch(`${backendUrl}/api/app/getrecords`, settings);
+    const status = fetchResponses.status;
+    const res = await fetchResponses.json();
 
-        // console.log('jsonString', jsonString)
-        let data = res.data;
-        $("#display").html(""); // EMPTY THE HTML DISPLAY HOLDER
-        console.log(data);
+    // Handle errors
+    if (res.error === 1 || res.error === 2) {
+      if (res.error === 2) {
+        window.location.href = `${baseUrl}/auth`;
+      }
+      return;
+    }
 
-        data.forEach((rez, req_index) => {
-          // console.log(rez);
-          console.log(rez);
-          // console.log(rez.record_data.otherData);
-          // console.log(rez.record_data.otherData.page_url);
+    // Process data if successful
+    if (res.success === 1 && status === 200) {
+      const data = res.data;
 
-          RecordDataDashboard.push(rez); // this can be used when filtering in submission.js
-          allres = rez.record_data;
+      if (data && data.length > 0) {
+        let tableRows = "";
 
-          let res_status = "";
-          if (rez.status == "pending") {
-            res_status = `<div class=" badge border  rounded-full border-warning text-warning">${rez.status}</div>`;
-          } else if (rez.status == "completed") {
-            res_status = `<div class="badge border rounded-full border-success text-success">${rez.status}</div>`;
-          } else {
-            res_status = `<div class="badge border rounded-full border-error text-error">${rez.status}</div>`;
-          }
-          $("#display").append(
-            /*html*/
-            `
-              <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
-                <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
-                  <div class="flex items-center space-x-4">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-8 w-8 text-secondary"
-                      viewbox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
-                      />
-                    </svg>
-                    <span class="font-medium text-slate-700 dark:text-navy-100">${
-                      allres.otherData.page_name
-                    }</span
-                    >
-                  </div>
-                </td>
-                <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
-                  ${moment(rez.expiry_date).format("lll")} 
-                </td>
-                <td
-                  class=" whitespace-nowrap px-4 py-3 max-h-8 text-slate-700 dark:text-navy-100 sm:px-5"
-                >
-                  <span>${submissionCount[req_index].count}</span> <span @click="activeItem = 'Submissions'" onclick="viewAll('${
-                    rez.record_id
-                  }', '${
-              allres.otherData.page_name
-            }')" class="text-primary normal-case pl-3 cursor-pointer ">View all</span>
-                </td>
-                <td class="whitespace-nowrap normal-case px-4 py-3 max-h-8 sm:px-5">
-                  <div class="flex -space-x-2">
-                    <div class=""> <a id="clipboardContent${
-                      rez.record_id
-                    }" href="${baseUrl}/form/${rez.record_id.replace(
-              /\s/g,
-              ""
-            )}">${baseUrl}/form/${rez.record_id.replace(/\s/g, "")}</a></div>
-                  </div>
-                </td>
-                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
-                <div class="flex -space-x-2">
-                  <div class="flex space-x-4">
-                    <button onclick="customButtonClick('${
-                      allres.otherData.page_url
-                    }')" class="btn h-9 w-9 border border-success p-0 font-medium text-success hover:bg-success hover:text-white focus:bg-success focus:text-white active:bg-success-focus/90 ">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share " viewBox="0 0 16 16">
-                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
-                      </svg>
-                    </button>
+        data.forEach((record, index) => {
+          const recordData = record.record_data;
+          const statusBadge = getStatusBadge(record.status);
 
-                    <div
-                        x-data="usePopper({
-                          offset: 12,
-                          placement: 'right-start',
-                          modifiers: [
-                            {name: 'flip', options: {fallbackPlacements: ['bottom','top']}},
-                            {name: 'preventOverflow', options: {padding: 10}}
-                          ]
-                      })"
-                    @click.outside="if(isShowPopper) isShowPopper = false"
-                    class="flex">
-                      <button
-                        x-ref="popperRef"
-                        @click="isShowPopper = !isShowPopper"
-                        class="btn h-9 w-9 border border-black p-0 font-medium text-black hover:bg-black hover:text-white focus:bg-black focus:text-black active:bg-black">
-                     
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-code-slash " viewBox="0 0 16 16">
-                        <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0"/>
-                      </svg>
-                      </button>
-
-                      <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
-                      <div class="popper-box min-w-fit p-2 ">
-                        <div
-                          class="rounded-md border border-slate-150 bg-white p-4 dark:border-navy-600 dark:bg-navy-700"
-                        >
-                          <h4
-                            class="text-base font-medium tracking- text-slate-700 line-clamp- dark:text-navy-100"
-                          >
-                              Copy and embed in your own code base 
-                          </h4>
-                          <div>
-<pre class="mt-2"><code id="htmlCode" class="language-html normal-case code-block${req_index}">
-&lt;iframe
-style="width: 100%; height: 500px"
-frameborder="0"
-src='${baseUrl}/form/${rez.record_id}' &gt;
-&lt;/iframe&gt;</code></pre>
-
-                          <button
-                          class="btn mt-2 h-6 border shrink-0 rounded bg-white/20 px-2 text-xs text-black active:bg-white/25"
-                          @click="$clipboard({
-                            content:document.querySelector('.code-block${req_index}').innerText,
-                            success:()=>$notification({text:'Iframe Copied',variant:'success'}),
-                            error:()=>$notification({text:'Error',variant:'error'})
-                          })"
-                        >
-                          Copy
-                        </button>
-                          </div>
-
-                      
-                        </div>
-                      </div>
-                      </div>
-
-        
-                    </div>
-
-                    <button @click="$clipboard({
-                      content:'${baseUrl}/form/${rez.record_id.replace(/\s/g, "")}',
-                      success:()=>$notification({text:'Link copied',variant:'success'}),
-                      error:()=>$notification({text:'Error',variant:'error'})
-                    })" class="btn h-9 w-9 border border-primary p-0 font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-copy " viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+          tableRows += `
+            <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+                <div class="flex items-center space-x-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-secondary" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"/>
                   </svg>
-                    </button>
-
+                  <span class="font-medium text-slate-700 dark:text-navy-100">${recordData.otherData.page_name}</span>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+                ${moment(record.expiry_date).format("lll")}
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 text-slate-700 dark:text-navy-100 sm:px-5">
+                <span>${submissionCount[index].count}</span>
+                <span @click="activeItem = 'Submissions'" onclick="viewAll('${record.record_id}', '${recordData.otherData.page_name}')" class="text-primary normal-case pl-3 cursor-pointer">View all</span>
+              </td>
+              <td class="whitespace-nowrap normal-case px-4 py-3 max-h-8 sm:px-5">
+                <div class="flex -space-x-2">
+                  <div>
+                    <a id="clipboardContent${record.record_id}" href="${baseUrl}/form/${record.record_id.replace(/\s/g, "")}">${baseUrl}/form/${record.record_id.replace(/\s/g, "")}</a>
                   </div>
                 </div>
               </td>
-                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
-                    ${rez.status}
-                  </div>
-                </td>
-
-                <td class=" whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
-                  <div class="flex -space-x-2">
-                    <div>
-                    <div x-data="usePopper({placement:'bottom-end',offset:4})"
-                    @click.outside="if(isShowPopper) isShowPopper = false" class="inline-flex">
-                    <button x-ref="popperRef" @click="isShowPopper = !isShowPopper"
-                      class="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" fill="none" viewbox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                  <div class="flex space-x-4">
+                    <button onclick="customButtonClick('${recordData.otherData.page_url}')" class="btn h-9 w-9 border border-success p-0 font-medium text-success hover:bg-success hover:text-white focus:bg-success focus:text-white active:bg-success-focus/90">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
+                        <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
                       </svg>
                     </button>
-                    <div x-ref="popperRoot" class="popper-root" :class="isShowPopper && 'show'">
-                      <div
-                        class="!text-black popper-box rounded-md border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
-                        <ul>
-             
-                        
-                        <li onclick="downloadZip('${rez.record_id}', 
-                        '${ rez.user_google_id}', '${rez.folder_id}', '${rez.storage_email}')">
-                          <a href="#"
-                            class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
-                          Download record folder 
-                          </a>
-                        </li>
-                        </ul>
-                        <div class="my-1 h-px bg-slate-150 dark:bg-navy-500"></div>
-                        <ul>
-                          <li onclick="editThisForm('${req_index}')">
-                            <a href="#"
-                              class="text-primary flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100">
-                            Edit Request
-                            </a>
-                          </li>
-                          <li class="hidden jsonString${req_index}">
-                            ${jsonString}
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                    <!-- Add other buttons here -->
                   </div>
-                    </div>
-                  </div>
-                </td>
-
-              </tr>
-              <script>
-                
-                function editThisForm(req_index){
-               
-                  // call open the form editor by trigger-clicking the create button
-                   allArrayEdit = $('.jsonString'+req_index).text() // set this to the global reserve array for editing
-                   setActiveItem('Create')
-                   $('#cancel_stroage_selec_modal').trigger('click');
-                   
-                   callEdit(req_index)
-                 }
-              </script>
-              
-              <script>      
-
-
-                  function viewAll(e, subfor){
-                    // hide create button
-                
-                    $('.submission_for').text(subfor)
-                    $('#dashoard').hide()
-                    $('#submissions').show()
-                    // call to show submissions
-                    callSubmittedData(e)
-
-                  }
-
-
-                  function customButtonClick(e) {    
-                
-                      if (navigator.share) {
-                          navigator.share({
-                              title: 'Share Form link',
-                              text: 'shar this form link!',
-                            // url: "https://speedlink/form/"+${allres.otherData.page_url
-                              .replace(/\s/g, "")
-                              .toLowerCase()},
-                          })
-                          .then(() => console.log('Successful share'))
-                          .catch((error) => console.log('Error sharing:', error));
-                      } else {
-                          // Fallback for browsers that do not support the Web Share API
-                          alert('Sharing is not supported in this browser.');
-                      }
-                  }
-              </script>
-              `
-          );
-        });
-      } else {
-        $(".dashboardTableHolder").html(""); // set diaplay to empty
-        console.log($(".tReq").text());
-        $(".dashboardTableHolder").append(
-          /*html*/
-          `
-               <div class="border-y border-transparent border-b-slate-200 dark:border-b-navy-500 absolute w-[100%]">
-                <div class="whitespace-nowrap px-4 py-3 sm:px-5 w-[100%] dark:border-navy-500">
-                    <div class="flex items-center space-x-4 justify-center">
-                       
-                        <span class="font-medium text-slate-700 dark:text-navy-200">No Request Created Yet</span>
-                    </div>
                 </div>
-               </div>
-               `
-        );
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+                <div class="flex -space-x-2">
+                  ${statusBadge}
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+                <div class="flex -space-x-2">
+                  <div>
+                    <!-- Add dropdown menu here -->
+                  </div>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+
+        // Populate the table with data
+        $("#display").html(tableRows);
+      } else {
+        // Display "no records" message
+        $("#display").html(`
+          <tr>
+            <td colspan="7" class="text-center py-4">
+              <div class="text-gray-500">
+                No records found. <a href="#" class="text-primary hover:underline">Create your request now</a>.
+              </div>
+            </td>
+          </tr>
+        `);
       }
-
-
-   
-        var table = new DataTable(".allTable_req", {
-                info: false,
-                ordering: false,
-                paging: false,
-                fixedHeader: false,
-                scrollY: '300px', // Vertical scrolling height
-                scrollX: true, // Enable horizontal scrolling
-                scrollCollapse: true // Allow DataTable to shrink to fit if needed
-            });
-    
     } else {
-      console.log("something is wrong");
+      console.log("Something went wrong");
       window.location.href = `${baseUrl}/auth`;
     }
   } catch (err) {
-    console.log("internet error");
-    console.log(err);
+    console.error("Error fetching records:", err);
+    $("#display").html(`
+      <tr>
+        <td colspan="7" class="text-center py-4">
+          <div class="text-red-500">
+            Failed to load records. Please try again later.
+          </div>
+        </td>
+      </tr>
+    `);
   }
 }
 
+// Call the function
 getRecordList();
