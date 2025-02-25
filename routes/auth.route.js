@@ -29,7 +29,8 @@ router.get("/verify", function (req, res) {
             url: process.env.BACKEND_URL + `/api/users/verifyrecovery`,
             qs: { recovery_id, email }, // Send recovery_id and email as query params
         },
-        (err, response, body) => {
+      (err, response, body) => {
+          console.log(err, response, body)
             if (err) {
                 console.log(err);
                 return res.redirect(`/auth/login?error=Internal server error`);
