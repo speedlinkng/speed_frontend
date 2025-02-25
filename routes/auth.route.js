@@ -42,10 +42,7 @@ const {saveUserSession} = require('../handlers/Session_handler');
             return res.redirect(`/auth/login?error=Invalid recovery token.`);
         } else if (status === 200) {
             // If validation is successful, render the reset password page
-            return res.render("auth/auth.ejs", {
-                urls: { backend: process.env.BACKEND_URL },
-                title: "Reset Password",
-            });
+            return res.redirect(`/auth/login.`);
         } else {
             // Handle unexpected status codes
             return res.redirect(`/auth/login?error=Unexpected response from the server.`);
