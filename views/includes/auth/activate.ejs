@@ -38,7 +38,7 @@
             <% } %>
           </h2>
           <% if (error != null) {%>
-          <div class="my-5 bg-error/10 text-error dark:bg-error/15 dark:text-error rounded p-2">
+          <div class="my-5 bg-error/10 text-gray-800 dark:bg-error/15 dark:text-error rounded p-2">
             Activation token has expired, kindly <a style="outline:underline" class="underline text-red-500" href="<%= baseUrl %>/auth">signup</a> again.
           </div>
           <% } else{%>

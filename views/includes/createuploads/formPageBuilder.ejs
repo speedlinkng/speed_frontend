@@ -3,155 +3,51 @@
 <div><%- include('./rightPanel.ejs') %></div>
 <div x-data class="wholePage" id="sort-all">
   <div class="mt-5">
-    <div
-      page-count="1"
-      class="EACHPAGE place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative"
-    >
-      <div
-        class="grid grid-cols-12"
-        x-data="{ isOpenTitle: true }"
-        x-show="isOpenTitle"
-      >
+    <div page-count="1" class="EACHPAGE place-content-center p-2 sm:max-w-[900px] card bg-white rounded-md h-fit m-auto left-0 right-0 relative">
+      <div class="grid grid-cols-12" x-data="{ isOpenTitle: true }" x-show="isOpenTitle">
         <!-- INPUT TITLE -->
-        <input
-          class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-          placeholder="Upload Page Header"
-          type="text"
-        />
+        <input class="uph_1 form-input col-span-10 sm:col-span-8 text-[30px] rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Page Header" type="text" />
         <!-- EDIT PENCIL BUTTON -->
         <div class="col-span-2 sm:col-span-2 p-2 mt-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            data-slot="icon"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
           </svg>
         </div>
         <!-- DELETE BUTTON -->
-        <button
-          @click="isOpenTitle = false"
-          class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h4 w-4"
-            fill="none"
-            viewbox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            />
+        <button @click="isOpenTitle = false" class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
       </div>
 
-      <div
-        class="grid grid-cols-12 gap-[]"
-        x-data="{ isOpenDesc: true }"
-        x-show="isOpenDesc"
-      >
+      <div class="grid grid-cols-12 gap-[]" x-data="{ isOpenDesc: true }" x-show="isOpenDesc">
         <!-- INPUT DESCRIPTION -->
-        <input
-          class="upd_1 form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-          placeholder="Upload Page Description"
-          type="text"
-        />
+        <input class="upd_1 form-input col-span-10 sm:col-span-8 text-base rounded-lg border-slate-300 bg-transparent px-3 py-2 focus:border placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent" placeholder="Upload Page Description" type="text" />
         <!-- EDIT PENCIL BUTTON -->
         <div class="col-span-2 sm:col-span-2 p-2 mt-2">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            data-slot="icon"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
           </svg>
         </div>
         <!-- DELETE BUTTON -->
-        <button
-          @click="isOpenDesc = false"
-          class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h4 w-4"
-            fill="none"
-            viewbox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-            />
+        <button @click="isOpenDesc = false" class="col-span-3 sm:col-span-2 sm:mt-2 ml-[4px] btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h4 w-4" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
       </div>
 
-      <div
-        x-data
-        id="showResult_"
-        class="showResult_ use_drag formClass p-2 grid grid-cols-1 place-content-center w-[100%]"
-      >
+      <div x-data id="showResult_" class="showResult_ use_drag formClass p-2 grid grid-cols-1 place-content-center w-[100%]">
         <!-- Your existing code for showResult_ -->
       </div>
 
-      <div
-        x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }"
-        class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90"
-      >
-        <span
-          x-on:input="inputHasValue = $event.target.innerText"
-          contenteditable="true"
-          x-text="inputHasValue"
-          x-on:keyup="inputEntered = true"
-          @blur="inputEntered = false"
-          class="tomButton1 text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]"
-          style="display: inline-block; border: 0; outline: none"
-        ></span>
-        <input
-          x-model="inputHasValue"
-          x-on:keyup="inputEntered = true"
-          @blur="inputEntered = false"
-          class="edit_submit_field1 hidden text-lg btn !p-0 border-0 bg-transparent !w-fit"
-          value=""
-        />
+      <div x-data="{ inputEntered: false, inputHasValue: 'Submit Answers' }" class="ml-2 flex border text-center justify-center rounded-lg px-2 w-fit sm:w-[40%] md:w-fit border-primary font-medium text-primary hover:bg-primary hover:text-white focus:bg-primary focus:text-white active:bg-primary/90 dark:border-accent dark:text-accent-light dark:hover:bg-accent dark:hover:text-white dark:focus:bg-accent dark:focus:text-white dark:active:bg-accent/90">
+        <span x-on:input="inputHasValue = $event.target.innerText" contenteditable="true" x-text="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class="tomButton1 text-base py-2 px-2 border-0 bg-transparent min-w-[60px] max-w-[200px]" style="display: inline-block; border: 0; outline: none"></span>
+        <input x-model="inputHasValue" x-on:keyup="inputEntered = true" @blur="inputEntered = false" class="edit_submit_field1 hidden text-lg btn !p-0 border-0 bg-transparent !w-fit" value="" />
         <div x-show="!inputEntered" class="grid place-content-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            data-slot="icon"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125"
-            />
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
           </svg>
         </div>
       </div>
@@ -159,13 +55,7 @@
       <br />
       <div>
         <div class="flex">
-          <button
-            :class="$store.expanded_condition && 'border'"
-            @click="falsifyAllExpanded()"
-            onclick="addQ(), drag()"
-            id="add_question"
-            class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-          >
+          <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded()" onclick="addQ(), drag()" id="add_question" class="btn text-sm bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
             Add Field
           </button>
         </div>
@@ -177,18 +67,10 @@
 
 <br />
 <div class="w-full flex space-x-3 justify-center items-center">
-  <button
-    onclick="addPage()"
-    data-count=""
-    class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-  >
+  <button onclick="addPage()" data-count="" class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
     Add Page
   </button>
-  <button
-    onclick="getFieldValues('preview')"
-    data-count=""
-    class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90"
-  >
+  <button onclick="getFieldValues('preview')" data-count="" class="rounded-lg w-[90%] px-3 py-3 bg-gray-100 font-medium text-slate-800 hover:bg-slate-200 focus:bg-slate-200 active:bg-slate-200/80 dark:bg-navy-500 dark:text-navy-50 dark:hover:bg-navy-450 dark:focus:bg-navy-450 dark:active:bg-navy-450/90">
     Preview
   </button>
 </div>
@@ -222,7 +104,7 @@
 
       items.forEach((item) => {
         item.addEventListener("dragstart", () => {
-          setTimeout(function () {
+          setTimeout(function() {
             item.classList.add("dragging");
             item.classList.add("hoverDash");
           }, 0);
@@ -373,7 +255,9 @@
     const resultJsonString = JSON.stringify(result, null, 2);
 
     // Create a Blob with the JSON string
-    const blob = new Blob([resultJsonString], { type: "application/json" });
+    const blob = new Blob([resultJsonString], {
+      type: "application/json"
+    });
 
     // Create a download link
     const link = document.createElement("a");
@@ -460,8 +344,7 @@
     const formClassCount = formClassElements.length;
     const result = {
       values: {},
-      preferred:
-        localStorage.getItem("preferred") ||
+      preferred: localStorage.getItem("preferred") ||
         localStorage.getItem("edit_preferred"),
       b_token: localStorage.getItem("b_token"),
       otherData: otherData,
@@ -636,55 +519,45 @@
         }
         // JSON FIELDS
         else {
-          result.values["page1"].push(
-            {
-              header: [
-                {
-                  edit_submit_field: $(".edit_submit_field1").val(),
-                  page_header: $(".uph_1").val(),
-                  page_description: $(".upd_1").val(),
-                  // Add other properties as needed
-                },
-              ],
-            },
-            {
-              ["field" + ins]: {
-                other_data: otherData,
-                fieldType: fieldType,
-                fieldCount: fieldCount,
-                conditions: {
-                  firstCondition: firstCondition,
-                  secondCondition: secondCondition,
-                },
-                settings: settingsArray,
+          result.values["page1"].push({
+            header: [{
+              edit_submit_field: $(".edit_submit_field1").val(),
+              page_header: $(".uph_1").val(),
+              page_description: $(".upd_1").val(),
+              // Add other properties as needed
+            }, ],
+          }, {
+            ["field" + ins]: {
+              other_data: otherData,
+              fieldType: fieldType,
+              fieldCount: fieldCount,
+              conditions: {
+                firstCondition: firstCondition,
+                secondCondition: secondCondition,
               },
-            }
-          );
+              settings: settingsArray,
+            },
+          });
 
-          allArray.values["page1"].push(
-            {
-              header: [
-                {
-                  edit_submit_field: $(".edit_submit_field1").val(),
-                  page_header: $(".uph_1").val(),
-                  page_description: $(".upd_1").val(),
-                  // Add other properties as needed
-                },
-              ],
-            },
-            {
-              ["field" + ins]: {
-                other_data: otherData,
-                fieldType: fieldType,
-                fieldCount: fieldCount,
-                conditions: {
-                  firstCondition: firstCondition,
-                  secondCondition: secondCondition,
-                },
-                settings: settingsArray,
+          allArray.values["page1"].push({
+            header: [{
+              edit_submit_field: $(".edit_submit_field1").val(),
+              page_header: $(".uph_1").val(),
+              page_description: $(".upd_1").val(),
+              // Add other properties as needed
+            }, ],
+          }, {
+            ["field" + ins]: {
+              other_data: otherData,
+              fieldType: fieldType,
+              fieldCount: fieldCount,
+              conditions: {
+                firstCondition: firstCondition,
+                secondCondition: secondCondition,
               },
-            }
-          );
+              settings: settingsArray,
+            },
+          });
         }
       });
 
@@ -914,18 +787,15 @@
           // JSON FIELDS
           else {
             // alert($(`edit_submit_field${Number(pageInd) + 1}`).val());
-            result.values["page" + (Number(pageInd) + 1)].push(
-              {
-                header: [
-                  {
-                    edit_submit_field: $(
-                      `.edit_submit_field${Number(pageInd) + 1}`
-                    ).val(),
-                    page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
-                    page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
-                    // Add other properties as needed
-                  },
-                ],
+            result.values["page" + (Number(pageInd) + 1)].push({
+                header: [{
+                  edit_submit_field: $(
+                    `.edit_submit_field${Number(pageInd) + 1}`
+                  ).val(),
+                  page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
+                  page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
+                  // Add other properties as needed
+                }, ],
               },
 
               {
@@ -942,32 +812,27 @@
               }
             );
 
-            allArray.values["page" + (Number(pageInd) + 1)].push(
-              {
-                header: [
-                  {
-                    edit_submit_field: $(
-                      `.edit_submit_field${Number(pageInd) + 1}`
-                    ).val(),
-                    page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
-                    page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
-                    // Add other properties as needed
-                  },
-                ],
-              },
-              {
-                ["field" + ins]: {
-                  other_data: otherData,
-                  fieldType: fieldType,
-                  fieldCount: fieldCount,
-                  conditions: {
-                    firstCondition: firstCondition,
-                    secondCondition: secondCondition,
-                  },
-                  settings: settingsArray,
+            allArray.values["page" + (Number(pageInd) + 1)].push({
+              header: [{
+                edit_submit_field: $(
+                  `.edit_submit_field${Number(pageInd) + 1}`
+                ).val(),
+                page_header: $(`.uph_${Number(pageInd) + 1}`).val(),
+                page_description: $(`.upd_${Number(pageInd) + 1}`).val(),
+                // Add other properties as needed
+              }, ],
+            }, {
+              ["field" + ins]: {
+                other_data: otherData,
+                fieldType: fieldType,
+                fieldCount: fieldCount,
+                conditions: {
+                  firstCondition: firstCondition,
+                  secondCondition: secondCondition,
                 },
-              }
-            );
+                settings: settingsArray,
+              },
+            });
           }
 
           console.log(allArray);

@@ -15,36 +15,35 @@ const {saveUserSession} = require('../handlers/Session_handler');
     res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:"signup", data: null, title: "Authorization"});
   });
 
-  router.get('/verify/:verifyId', function(req, res) {
-    console.log(req.params.verifyId) // also calld recovery_id
-    // Check if this ID is accurate
-    
+  router.get("/verify/:verifyId", function (req, res) {
+    console.log(req.params.verifyId); // recovery_id
+
     request(
-      {
-        method: "GET",
-        url:process.env.BACKEND_URL+`/api/users/verifyrecovery/${req.params.verifyId}`
-      },
-      (err, response, body) => {
-        if (err) {
-          console.log(err);
-          
-        }else{
-          let status = response.statusCode
-          if(status == 301){
-            // then no match was found
-          }
-          if(status == 200){
-            let result = JSON.parse(body);
-            console.log(result.data.user_id)
-            res.render(`auth/auth.ejs`, {urls: {backend: process.env.BACKEND_URL},data: result.data.user_id, title: "Authorization"});
-          }
-   
+        {
+            method: "GET",
+            url: process.env.BACKEND_URL + `/api/users/verifyrecovery/${req.params.verifyId}`,
+        },
+        (err, response, body) => {
+            if (err) {
+                console.log(err);
+            } else {
+                let status = response.statusCode;
+                if (status == 404) {
+                    return res.render(`auth/error.ejs`, { message: "Recovery token not found or expired." });
+                }
+                if (status == 200) {
+                    let result = JSON.parse(body);
+                    console.log(result.email);
+                    res.render(`auth/auth.ejs`, { 
+                        urls: { backend: process.env.BACKEND_URL }, 
+                        data: result.email, 
+                        title: "Reset Password" 
+                    });
+                }
+            }
         }
-      })
-       
-          
-          
-  });
+    );
+});
 
 
   router.get('/', function(req, res) {

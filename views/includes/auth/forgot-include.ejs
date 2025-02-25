@@ -1,9 +1,5 @@
 <!-- Page Wrapper -->
-<div
-  id="root"
-  class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
-  x-cloak
->
+<div id="root" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
   <div class="fixed top-0 hidden px-6 py-4 lg:block lg:px-12 z-50">
     <a href="#" class="flex items-center space-x-2">
       <img class="h-12 w-12" src="../images/sim/Icon PNG2.png" alt="logo" />
@@ -14,112 +10,53 @@
   </div>
   <div class="hidden w-full place-items-center lg:grid">
     <div class="w-full max-w-full h- bg-red-500 relative">
-      <img
-        class="w-full object-cover h-screen relative"
-        src="../images/sim/auth-image.jpg"
-        alt="image"
-      />
-      <div
-        class="w-full max-w-full bg-[#00363D] bg-opacity-60 h-screen absolute top-0 left-0 right-0"
-      ></div>
+      <img class="w-full object-cover h-screen relative" src="../images/sim/auth-image.jpg" alt="image" />
+      <div class="w-full max-w-full bg-[#00363D] bg-opacity-60 h-screen absolute top-0 left-0 right-0"></div>
 
-      <div
-        class="min-h-[70px] h-auto absolute top-[50%] mt-[-45px] text-white w-full margin-auto"
-      >
-        <div
-          class="flex min-h-[70px] left-5 h-auto relative w-[50%] margin-auto text-[35px] font-bold"
-        >
+      <div class="min-h-[70px] h-auto absolute top-[50%] mt-[-45px] text-white w-full margin-auto">
+        <div class="flex min-h-[70px] left-5 h-auto relative w-[50%] margin-auto text-[35px] font-bold">
           <p class="h-2 w-14 bg-white mt-5"></p>
           <p class="ml-2">Start your journey now.</p>
         </div>
-        <div
-          class="mt-2 min-h-[70px] left-5 h-auto relative w-[60%] margin-auto text-[20px] font-light"
-        >
+        <div class="mt-2 min-h-[70px] left-5 h-auto relative w-[60%] margin-auto text-[20px] font-light">
           Start creating your seamless surveys and sharing your files without
           hassles.
         </div>
       </div>
     </div>
   </div>
-  <main
-    class="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-md"
-  >
-    <div
-      class="relative flex w-full max-w-sm grow flex-col justify-center p-5 bg-red-"
-    >
-      <div
-        class="text-center md:relative md:h-fit top-5 md:top-3 lg:top-2 left-0 right-0"
-      >
-        <img
-          class="mx-auto h-16 w-16 lg:hidden"
-          src="../images/sim/Icon PNG2.png"
-          alt="logo"
-        />
+  <main class="flex w-full flex-col items-center bg-white dark:bg-navy-700 lg:max-w-md">
+    <div class="relative flex w-full max-w-sm grow flex-col justify-center p-5 bg-red-">
+      <div class="text-center md:relative md:h-fit top-5 md:top-3 lg:top-2 left-0 right-0">
+        <img class="mx-auto h-16 w-16 lg:hidden" src="../images/sim/Icon PNG2.png" alt="logo" />
         <div class="md:mt-0 mt-3 right-0 left-0 top-0 px-2">
-          <h2
-            class="text-xl font-semibold capitalize text-sim dark:text-navy-100"
-          >
+          <h2 class="text-xl font-semibold capitalize text-sim dark:text-navy-100">
             Recover Password
           </h2>
-          <span class="text-sm"
-            >Kindly enter your email associated with this platform, we will send
-            you a recovery link</span
-          >
+          <span class="text-sm !text-gray-600">Kindly enter your email associated with this platform, we will send
+            you a recovery link</span>
         </div>
       </div>
 
-      <div
-        id="call_error"
-        class="bg-red-400/20 mt-3 p-2 py-4 text-red-700 w-full h-fit rounded-lg text-xs"
-        style="display: none"
-      ></div>
-      <div
-        id="forgot_success"
-        class="forgot_success mt-3 bg-success/10 border border-success p-4 text-success w-full h-fit rounded-lg text-xs"
-        style="display: none"
-      ></div>
+      <div id="call_error" class="bg-red-400/20 mt-3 p-2 py-4 text-red-700 w-full h-fit rounded-lg text-xs" style="display: none"></div>
+      <div id="forgot_success" class="forgot_success mt-3 bg-success/10 border border-success p-4 text-success w-full h-fit rounded-lg text-xs" style="display: none"></div>
       <div class="mt-4 md:mt-3 space-y-4">
         <label class="relative flex">
-          <input
-            class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
-            placeholder="Your Email Address"
-            type="email"
-            id="forgot_email"
-          />
-          <span
-            class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-brand peer-focus:text-brand dark:text-navy-300 dark:peer-focus:text-accent"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 transition-colors duration-200"
-              fill="none"
-              viewbox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
+          <input class="form-input peer w-full rounded-lg bg-slate-150 px-3 py-3 pl-9 -primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus: dark:bg-navy-900/90 dark:-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Your Email Address" type="email" id="forgot_email" />
+          <span class="pointer-events-none absolute flex h-full w-10 items-center justify-center text-brand peer-focus:text-brand dark:text-navy-300 dark:peer-focus:text-accent">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-colors duration-200" fill="none" viewbox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </span>
         </label>
       </div>
-      <button
-        id="forgot_btn"
-        class="btn mt-6 h-10 w-full bg-sim-primary font-medium text-white hover:bg-button focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90"
-      >
+      <button id="forgot_btn" class="btn mt-6 h-10 w-full bg-sim-primary font-medium text-white hover:bg-button focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
         Send Link
       </button>
       <div class="mt-4 text-center text-xs+">
         <p class="line-clamp-1">
           <span>Recalled your password? </span>
-          <a
-            class="text-brand cursor-pointer transition-colors hover:text-sim-focus dark:text-accent-light dark:hover:text-accent"
-            onclick="w3.show('.signin'), w3.hide('.forgot')"
-            >Sign In</a
-          >
+          <a class="text-brand cursor-pointer transition-colors hover:text-sim-focus dark:text-accent-light dark:hover:text-accent" onclick="w3.show('.signin'), w3.hide('.forgot')">Sign In</a>
         </p>
       </div>
     </div>

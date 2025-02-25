@@ -5,7 +5,7 @@
 @layer components {
   .form-input{ @apply !bg-transparent !text-gray-800 border !border-gray-900 ; }
 
-  .form-input:focus{@apply !outline !outline-2 !outline-offset-2 !outline-blue-500 ; }
+  .form-input:focus{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ; }
   .ring_blue{ @apply !bg-blue-700;}
   
   .form-input:-webkit-autofill,
@@ -16,6 +16,9 @@
     -webkit-text-fill-color: #1a202c !important; /* Text color override */
     transition: background-color 5000s ease-in-out 0s; /* Prevents background change */
   }
+
+  .form_button:hover{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ;}
+  .form_button:focus{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ;}
   
     /* SIMEON TIWO'S DESIGNS */
     .border-primary {@apply border-[#00363D] }
