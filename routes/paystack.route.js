@@ -12,9 +12,6 @@ const path = require('path'); // Import the path module
 router.use(bodyParser.raw({ type: 'application/json' }));
     
 
-
-
-
 router.get('/cancel', function(req, res){
 
      function cancel(){

@@ -10,9 +10,7 @@ dotenv.config();
 
 
 async function fetchAdminGoogle(token) {
-  return new Promise((resolve, reject) => {
-
-  
+  return new Promise((resolve, reject) => {  
     request(
       {
         method: "GET",
@@ -46,7 +44,7 @@ function decrypt(data, key) {
   decrypted += decipher.final('utf8');
   return decrypted;
 }
-  router.get('/:encryptData', async function(req, res) {
+router.get('/:encryptData', async function(req, res) {
     console.log('render admin panel')
     let adminData = ''
     const encryptData = req.params.encryptData;
@@ -70,7 +68,7 @@ function decrypt(data, key) {
 
 
     res.render("admin/admin.ejs", {urls: {backend: process.env.BACKEND_URL},title:'Speedlink Admin Panel', drive:adminData.admin_drive, data: data});
-  })
+})
 
   // router.get('/dash/:encryptData/:iv', function(req, res) {
     

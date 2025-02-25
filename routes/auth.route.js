@@ -15,29 +15,37 @@ const {saveUserSession} = require('../handlers/Session_handler');
     res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:"signup", data: null, title: "Authorization"});
   });
 
-  router.get("/verify/:verifyId", function (req, res) {
-    console.log(req.params.verifyId); // recovery_id
+router.get("/verify", function (req, res) {
+    let recovery_id = req.query.recovery_id; // Get recovery_id from query params
+    let email = req.query.email; // Get email from query params
 
+    console.log("Recovery ID:", recovery_id); // Debugging
+    console.log("Email:", email); // Debugging
+
+    // Make a request to the backend to verify the recovery_id and email
     request(
         {
             method: "GET",
-            url: process.env.BACKEND_URL + `/api/users/verifyrecovery/${req.params.verifyId}`,
+            url: process.env.BACKEND_URL + `/api/users/verifyrecovery`,
+            qs: { recovery_id, email }, // Send recovery_id and email as query params
         },
         (err, response, body) => {
             if (err) {
                 console.log(err);
+                return res.redirect(`/auth/login?error=Internal server error`);
             } else {
                 let status = response.statusCode;
                 if (status == 404) {
-                  return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
+                    return res.redirect(`/auth/login?error=Recovery token not found or expired.`);
+                }
+                if (status == 400) {
+                    return res.redirect(`/auth/login?error=Invalid recovery token.`);
                 }
                 if (status == 200) {
-                    let result = JSON.parse(body);
-                    console.log(result.email);
-                    res.render(`auth/auth.ejs`, { 
-                        urls: { backend: process.env.BACKEND_URL }, 
-                        data: result.email, 
-                        title: "Reset Password" 
+                    // If validation is successful, render the reset password page
+                    res.render(`auth/auth.ejs`, {
+                        urls: { backend: process.env.BACKEND_URL },
+                        title: "Reset Password",
                     });
                 }
             }
@@ -46,9 +54,9 @@ const {saveUserSession} = require('../handlers/Session_handler');
 });
 
 
-  router.get('/', function(req, res) {
-    res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:null, data: null, title: "Authorization"});
-  });
+router.get('/', function(req, res) {
+  res.render(`auth/auth.ejs`, {urls: {base: process.env.BASU_URL, backend: process.env.BACKEND_URL},activeFile:null, data: null, title: "Authorization"});
+});
 
   
 router.get('/activate', function (req, res) {
