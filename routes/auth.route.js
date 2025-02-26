@@ -23,7 +23,8 @@ const renderActivatePage = (res, data = null, error = null) => {
     activeFile: null,
     data,
     error,
-    baseUrl: process.env.BASE_URL
+    baseUrl: process.env.BASE_URL,
+     title: "Authorization"
   });
 };
 
