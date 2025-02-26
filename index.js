@@ -4,7 +4,7 @@ const path = require('path');
 const crypto = require('crypto');
 const session = require('express-session');
 const Redis = require('ioredis');
-const RedisStore = require('connect-redis')(session);
+const RedisStore = require('connect-redis').default;
 const dotenv = require('dotenv');
 const cors = require('cors');
 
