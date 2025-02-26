@@ -78,7 +78,9 @@ router.get('/', (req, res) => {
 // New password route
 router.get('/newpwd', (req, res) => {
   const { error } = req.query;
-  renderAuthPage(res, 'newPwd', error);
+  const { data } = req.query;
+  if(data = "access granted")
+  renderAuthPage(res, 'newPwd', error, data);
 });
 
 // Activate route with dynamic data
