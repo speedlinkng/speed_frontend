@@ -63,7 +63,7 @@ router.get("/verify", async (req, res) => {
     } else if (status === 400) {
       return res.redirect(`/auth/signin?error=Invalid recovery token.`);
     } else if (status === 200) {
-      return res.redirect(`/auth`);
+      return res.redirect(`/auth/new`);
     } else {
       return res.redirect(`/auth/signin?error=Unexpected response from the server.`);
     }

@@ -7,6 +7,7 @@ const Redis = require('ioredis');
 const RedisStore = require('connect-redis').default;
 const dotenv = require('dotenv');
 const cors = require('cors');
+const { sign } = require('jsonwebtoken'); // Import the sign function
 
 
 // Load environment variables

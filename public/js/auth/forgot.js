@@ -77,7 +77,7 @@ $(document).ready(function () {
       console.error(e);
     } finally {
       setTimeout(function () {
-        end_loading(myButton, 'Send Link');
+        // end_loading(myButton, 'Send Link');
       }, 1000);
     }
   }
@@ -88,6 +88,7 @@ $(document).ready(function () {
 
   $("#resend_btn").click(async function (e) {
     if ($('#countdown').text() == '0') {
+      alert('countdownlicked')
       forgot_btn();
     }
   });
