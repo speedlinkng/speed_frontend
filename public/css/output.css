@@ -631,14 +631,14 @@ video {
 
 .form_button:hover {
   outline-style: solid !important;
-  outline-width: 4px !important;
+  outline-width: 2px !important;
   outline-offset: 2px !important;
   outline-color: #1d4ed8 !important;
 }
 
 .form_button:focus {
   outline-style: solid !important;
-  outline-width: 4px !important;
+  outline-width: 2px !important;
   outline-offset: 2px !important;
   outline-color: #1d4ed8 !important;
 }

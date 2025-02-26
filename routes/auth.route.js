@@ -3,6 +3,9 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const fetch = require('node-fetch'); // Use fetch instead of request
 const { saveUserSession } = require('../handlers/Session_handler');
+const Redis = require('ioredis');
+
+const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
 
 // Helper function to render the auth page
 const renderAuthPage = (res, activeFile, error = null, data = null) => {
@@ -77,11 +80,51 @@ router.get('/', (req, res) => {
 });
 
 // New password route
-router.get('/newpwd', (req, res) => {
-  const { error } = req.query;
-  const { data } = req.query;
-  if(data = "access granted")
-  renderAuthPage(res, 'newPwd', error, data);
+router.get('/newpwd', async (req, res) => {
+  const { email } = req.query; // Get email from query params
+
+  if (!email) {
+      return res.status(400).render(`auth/auth.ejs`, {
+          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
+          activeFile: 'newPwd',
+          data: null,
+          error: "Email is required.",
+          baseUrl: process.env.BASE_URL,
+      });
+  }
+
+  try {
+      // Check if access is granted in Redis
+      const accessGranted = await redisClient.get(`access_granted:${email}`);
+
+      if (accessGranted !== "access granted") {
+          return res.status(403).render(`auth/auth.ejs`, {
+              urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
+              activeFile: 'newPwd',
+              data: null,
+              error: "Access denied. Please request a new recovery link.",
+              baseUrl: process.env.BASE_URL,
+          });
+      }
+
+      // Render the new password page with the email
+      return res.render(`auth/auth.ejs`, {
+          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
+          activeFile: 'newPwd',
+          data: { email },
+          error: null,
+          baseUrl: process.env.BASE_URL,
+      });
+  } catch (err) {
+      console.error(err);
+      return res.status(500).render(`auth/auth.ejs`, {
+          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
+          activeFile: 'newPwd',
+          data: null,
+          error: "Internal server error.",
+          baseUrl: process.env.BASE_URL,
+      });
+  }
 });
 
 // Activate route with dynamic data
