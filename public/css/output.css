@@ -613,7 +613,7 @@ video {
   outline-style: solid !important;
   outline-width: 2px !important;
   outline-offset: 2px;
-  outline-color: #1d4ed8 !important;
+  outline-color: #1d4ed8;
 }
 
 .form-input:-webkit-autofill,

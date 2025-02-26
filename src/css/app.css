@@ -17,8 +17,8 @@
     transition: background-color 5000s ease-in-out 0s; /* Prevents background change */
   }
 
-  .form_button:hover{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ;}
-  .form_button:focus{@apply !outline !outline-4 !outline-offset-2 !outline-blue-700 ;}
+  .form_button:hover{@apply !outline !outline-2 !outline-offset-2 !outline-blue-700 ;}
+  .form_button:focus{@apply !outline !outline-2 !outline-offset-2 !outline-blue-700 ;}
   
     /* SIMEON TIWO'S DESIGNS */
     .border-primary {@apply border-[#00363D] }
