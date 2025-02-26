@@ -8,12 +8,13 @@ const Redis = require('ioredis');
 const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
 
 // Helper function to render the auth page
-const renderAuthPage = (res, activeFile, error = null, data = null) => {
-  console.log(activeFile, data, error)
+const renderAuthPage = (res, activeFile, error = null, data = null, data2 = null) => {
+  console.log(activeFile, data, error, data2)
   res.render(`auth/auth.ejs`, {
     urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
     activeFile,
     data,
+    data2,
     error,
     baseUrl: process.env.BASE_URL,
     title: "Authorization"
@@ -112,7 +113,7 @@ router.get('/newpwd', async (req, res) => {
     console.log('200: Access granted');
 
     // Render the new password page with the email
-    renderAuthPage(res, "newPwd", null, "_050_");
+    renderAuthPage(res, "newPwd", null, "_050_", email);
   } catch (err) {
     console.error('Error verifying recovery token:', err);
     return res.redirect('/auth/signin?error=Internal server error');
