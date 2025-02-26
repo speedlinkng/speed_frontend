@@ -59,10 +59,13 @@ router.get("/verify", async (req, res) => {
     const status = response.status;
 
     if (status === 404) {
+      console.log('404 from frontend')
       return res.redirect(`/auth/signin?error=Recovery token not found or expired.`);
     } else if (status === 400) {
+      console.log('400 from frontend')
       return res.redirect(`/auth/signin?error=Invalid recovery token.`);
     } else if (status === 200) {
+      console.log('200 from frontend')
       return res.redirect(`/auth/new`);
     } else {
       return res.redirect(`/auth/signin?error=Unexpected response from the server.`);
