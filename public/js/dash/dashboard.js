@@ -522,13 +522,22 @@ async function getRecordList() {
     $("#display").html(`
       <tr>
         <td colspan="7" class="text-center py-4">
-          <div class="flex justify-center items-center">
-            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-            <span class="ml-2">Loading...</span>
+          <div class="w-full space-y-3">
+            <!-- Table Row Skeleton -->
+            ${[...Array(5)].map(() => `
+              <div class="flex space-x-4 animate-pulse">
+                <div class="h-6 w-6 rounded-full bg-gray-200"></div> <!-- Icon/Avatar -->
+                <div class="flex-1 space-y-2">
+                  <div class="h-4 w-3/4 bg-gray-200 rounded"></div> <!-- First Line -->
+                  <div class="h-4 w-1/2 bg-gray-200 rounded"></div> <!-- Second Line -->
+                </div>
+              </div>
+            `).join('')}
           </div>
         </td>
       </tr>
     `);
+    
 
     // Fetch data from the backend
     const settings = {
