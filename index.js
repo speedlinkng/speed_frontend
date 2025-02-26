@@ -2,34 +2,41 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const crypto = require('crypto');
-const dashboard = require('./routes/dahboard.route');
-const form = require('./routes/form.route');
-const admin = require('./routes/admin.route');
-const auth = require('./routes/auth.route');
-const paystack = require('./routes/paystack.route');
 const session = require('express-session');
-const {sign, decode} = require("jsonwebtoken")
+const Redis = require('ioredis');
+const RedisStore = require('connect-redis')(session);
 const dotenv = require('dotenv');
-const cors=require("cors");
-const corsOptions ={
-   origin:'http://127.0.0.1:5502', 
-   credentials:true,            //access-control-allow-credentials:true
-   optionSuccessStatus:200,
-}
+const cors = require('cors');
+
+// Load environment variables
+dotenv.config();
+
+// Create a Redis client
+const redisClient = new Redis({
+  host: process.env.REDIS_HOST || '127.0.0.1', // Redis server host
+  port: process.env.REDIS_PORT || 6379, // Redis server port
+  password: process.env.REDIS_PASSWORD || '', // Redis password (if any)
+});
+
+// Configure session middleware with Redis store
 app.use(
   session({
-    secret: process.env.SESSION,
-    resave: false,
-    saveUninitialized: false,
+    store: new RedisStore({ client: redisClient }), // Use Redis as the session store
+    secret: process.env.SESSION_SECRET || 'your-secret-key', // Session secret
+    resave: false, // Don't resave unchanged sessions
+    saveUninitialized: false, // Don't save uninitialized sessions
     cookie: {
-      maxAge: 20 * 60 * 1000, // 2 minutes in milliseconds
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
+      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
     },
   })
 );
 
+// Set view engine
 app.set('view engine', 'ejs');
 
-
+// Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'views/includes')));
@@ -37,50 +44,53 @@ app.use(express.static(path.join(__dirname, 'views/dashboard')));
 app.use(express.static(path.join(__dirname, 'views/admin')));
 app.use('/auth', express.static(path.join(__dirname, 'public')));
 
+// Middleware for parsing request bodies
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// app.use(cors(corsOptions))
-app.use(express.urlencoded({extended: true}));
-app.use(express.json()) 
+// CORS configuration
+app.use(cors({
+  origin: 'http://127.0.0.1:5502',
+  credentials: true,
+  optionsSuccessStatus: 200,
+}));
 
+// Routes
+const dashboard = require('./routes/dahboard.route');
+const form = require('./routes/form.route');
+const admin = require('./routes/admin.route');
+const auth = require('./routes/auth.route');
+const paystack = require('./routes/paystack.route');
 
-app.use("/dash/", dashboard)
-app.use("/form/", form)
-app.use("/auth/", auth)
-app.use("/admin/", admin)
-app.use("/paystack/", paystack)
+app.use("/dash/", dashboard);
+app.use("/form/", form);
+app.use("/auth/", auth);
+app.use("/admin/", admin);
+app.use("/paystack/", paystack);
 
-
-app.get('/exchange', function(req, res, next) {
-  console.log('exch')
-  // TOKENIZE BACKEN USER ACCESS TOKEN, FOR FRONTEND SERVERSIDE ACCESS
+// Token exchange endpoint
+app.get('/exchange', (req, res) => {
+  console.log('exch');
   let token = req.headers.authorization; // Assuming the token is in the request headers
   if (!token) {
-      return res.status(701).json({ message: 'Unauthorized' });
+    return res.status(701).json({ message: 'Unauthorized' });
   }
   token = token && token.split(' ')[1];
-  //  const decodedToken = decode(token);
-  //  console.log(decodedToken)
-  const accessToken = sign({this_user_token : token}, process.env.REFRESH_TOK_SEC, {
-      expiresIn: "30d"
-  })
-  // console.log(accessToken)
-  req.session.token = accessToken
-  req.session.save()
-  return res.status(200).json({
-     token:accessToken
-  })
+  const accessToken = sign({ this_user_token: token }, process.env.REFRESH_TOK_SEC, {
+    expiresIn: "30d",
+  });
+  req.session.token = accessToken;
+  req.session.save();
+  return res.status(200).json({ token: accessToken });
+});
 
-
-})
-app.get('/', function(req, res, next) {
-
+// Home route
+app.get('/', (req, res) => {
   res.redirect(`${process.env.FRONTEND_URL}/dash`);
-  // res.render("dashboard/home.ejs");
 });
 
 // Catch-all route for unmatched URLs
-app.use((req, res, next) => {
-  // Redirect to home page
+app.use((req, res) => {
   res.redirect("/home");
 });
 
@@ -90,10 +100,8 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something went wrong!");
 });
 
-
-// Port Number
-const PORT = process.env.PORT ||4000;
- 
-// Server Setup
-app.listen(PORT,console.log(
-  `Server started on port ${PORT}`));
+// Start the server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
