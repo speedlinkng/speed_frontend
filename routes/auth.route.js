@@ -28,7 +28,7 @@ const renderActivatePage = (res, data = null, error = null) => {
     data,
     error,
     baseUrl: process.env.BASE_URL,
-     title: "Authorization"
+    title: "Authorization"
   });
 };
 
@@ -66,7 +66,7 @@ router.get("/verify", async (req, res) => {
       return res.redirect(`/auth/signin?error=Invalid recovery token.`);
     } else if (status === 200) {
       console.log('200 from frontend')
-      return res.redirect(`/auth/new`);
+      return res.redirect(`/auth/newpwd`);
     } else {
       return res.redirect(`/auth/signin?error=Unexpected response from the server.`);
     }
@@ -93,6 +93,7 @@ router.get('/newpwd', async (req, res) => {
           data: null,
           error: "Email is required.",
           baseUrl: process.env.BASE_URL,
+          title: "Authorization"
       });
   }
 
@@ -107,6 +108,7 @@ router.get('/newpwd', async (req, res) => {
               data: null,
               error: "Access denied. Please request a new recovery link.",
               baseUrl: process.env.BASE_URL,
+              title: "Authorization"
           });
       }
 
@@ -117,6 +119,7 @@ router.get('/newpwd', async (req, res) => {
           data: { email },
           error: null,
           baseUrl: process.env.BASE_URL,
+          title: "Authorization"
       });
   } catch (err) {
       console.error(err);
@@ -126,6 +129,7 @@ router.get('/newpwd', async (req, res) => {
           data: null,
           error: "Internal server error.",
           baseUrl: process.env.BASE_URL,
+          title: "Authorization"
       });
   }
 });
