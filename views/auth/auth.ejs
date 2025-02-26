@@ -71,25 +71,19 @@
 </body>
 
 </html>
-<% if (activeFile != null && activeFile == 'signup' ) { %>
+<% if (activeFile == 'signup' ) { %>
 <script>
   document.querySelector(".signup").style.display = "block";
   document.querySelector(".signin").style.display = "none";
   document.querySelector(".forgot").style.display = "none";
 </script>
-<% } else if (activeFile != 'forgot' ) { %>
+<% } else if (activeFile == 'forgot' ) { %>
 <script>
   document.querySelector(".signup").style.display = "none";
   document.querySelector(".forgot").style.display = "block";
   document.querySelector(".signin").style.display = "none";
 </script>
-<% } else{ %>
-<script>
-  document.querySelector(".signin").style.display = "block";
-  document.querySelector(".signup").style.display = "none";
-  document.querySelector(".forgot").style.display = "none";
-</script>
-<% } %> <% if (activeFile == "newPwd") { %>
+<% } else if (activeFile == "newPwd") { %>
 <script>
   const sections = document.querySelectorAll("section");
   document.querySelector(".signin").style.display = "none";
@@ -105,6 +99,12 @@
       section.style.display = "none";
     }
   });
+</script>
+<% } else{ %>
+<script>
+  document.querySelector(".signin").style.display = "block";
+  document.querySelector(".signup").style.display = "none";
+  document.querySelector(".forgot").style.display = "none";
 </script>
 <% } %>
 <script src="../js/loading.js"></script>
