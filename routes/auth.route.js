@@ -6,6 +6,7 @@ const { saveUserSession } = require('../handlers/Session_handler');
 
 // Helper function to render the auth page
 const renderAuthPage = (res, activeFile, error = null, data = null) => {
+  console.log(activeFile, error)
   res.render(`auth/auth.ejs`, {
     urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
     activeFile,
