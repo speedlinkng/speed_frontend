@@ -72,7 +72,7 @@ router.get("/verify", async (req, res) => {
 // Home route
 router.get('/', (req, res) => {
   const { error } = req.query;
-  renderAuthPage(res, null, error);
+  renderAuthPage(res, 'signin', error);
 });
 
 // New password route
