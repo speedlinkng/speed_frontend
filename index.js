@@ -8,15 +8,11 @@ const RedisStore = require('connect-redis')(session);
 const dotenv = require('dotenv');
 const cors = require('cors');
 
+
 // Load environment variables
 dotenv.config();
 
-// Create a Redis client
-const redisClient = new Redis({
-  host: process.env.REDIS_HOST || '127.0.0.1', // Redis server host
-  port: process.env.REDIS_PORT || 6379, // Redis server port
-  password: process.env.REDIS_PASSWORD || '', // Redis password (if any)
-});
+const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
 
 // Configure session middleware with Redis store
 app.use(
