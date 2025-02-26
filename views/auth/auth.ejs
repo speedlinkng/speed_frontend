@@ -76,35 +76,30 @@
   document.querySelector(".signup").style.display = "block";
   document.querySelector(".signin").style.display = "none";
   document.querySelector(".forgot").style.display = "none";
+  document.querySelector(".newPwd").style.display = "none";
 </script>
 <% } else if (activeFile == 'forgot' ) { %>
 <script>
   document.querySelector(".signup").style.display = "none";
   document.querySelector(".forgot").style.display = "block";
   document.querySelector(".signin").style.display = "none";
+  document.querySelector(".newPwd").style.display = "none";
 </script>
-<% } else if (activeFile == "newPwd") { %>
+<% } else if (activeFile == "newPwd" && data == "_050_") { %>
 <script>
   const sections = document.querySelectorAll("section");
   document.querySelector(".signin").style.display = "none";
   document.querySelector(".signup").style.display = "none";
   document.querySelector(".forgot").style.display = "none";
-  // Loop through each section
-  sections.forEach((section) => {
-    if (section.classList.contains("newPwd")) {
-      // If it has the class 'privide', display it
-      section.style.display = "block"; // Or any other display value you prefer
-    } else {
-      // If it doesn't have the class 'privide', hide it
-      section.style.display = "none";
-    }
-  });
+  document.querySelector(".newPwd").style.display = "block";
 </script>
 <% } else{ %>
 <script>
   document.querySelector(".signin").style.display = "block";
   document.querySelector(".signup").style.display = "none";
   document.querySelector(".forgot").style.display = "none";
+
+  document.querySelector(".newPwd").style.display = "none";
 </script>
 <% } %>
 <script src="../js/loading.js"></script>

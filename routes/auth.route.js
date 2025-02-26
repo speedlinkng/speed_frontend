@@ -84,56 +84,40 @@ router.get('/', (req, res) => {
 
 // New password route
 router.get('/newpwd', async (req, res) => {
-  const { email } = req.query; // Get email from query params
+  const { recovery_id, email } = req.query;
 
-  if (!email) {
-      return res.status(400).render(`auth/auth.ejs`, {
-          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
-          activeFile: 'newPwd',
-          data: null,
-          error: "Email is required.",
-          baseUrl: process.env.BASE_URL,
-          title: "Authorization"
-      });
+  if (!recovery_id || !email) {
+    return res.redirect('/auth/signin?error=Recovery ID and email are required.');
   }
 
   try {
-      // Check if access is granted in Redis
-      const accessGranted = await redisClient.get(`access_granted:${email}`);
+    // Retrieve the stored recovery_id from Redis using the email as the key
+    const storedRecoveryId = await redisClient.get(`password_recovery:${email}`);
 
-      if (accessGranted !== "access granted") {
-          return res.status(403).render(`auth/auth.ejs`, {
-              urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
-              activeFile: 'newPwd',
-              data: null,
-              error: "Access denied. Please request a new recovery link.",
-              baseUrl: process.env.BASE_URL,
-              title: "Authorization"
-          });
-      }
+    console.log("Stored Recovery ID:", storedRecoveryId); // Debugging
 
-      // Render the new password page with the email
-      return res.render(`auth/auth.ejs`, {
-          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
-          activeFile: 'newPwd',
-          data: { email },
-          error: null,
-          baseUrl: process.env.BASE_URL,
-          title: "Authorization"
-      });
+    if (!storedRecoveryId) {
+      console.log('404: Recovery token not found or expired');
+      return res.redirect('/auth/signin?error=Recovery token not found or expired.');
+    }
+
+    // Compare the user-sent recovery_id with the stored recovery_id
+    if (recovery_id !== storedRecoveryId) {
+      console.log('400: Invalid recovery token');
+      return res.redirect('/auth/signin?error=Invalid recovery token.');
+    }
+
+    // Save "access granted" in Redis with a 5-minute expiration
+    // await redis.set(`access_granted:${email}`, "access granted", "EX", 300); // 300 seconds = 5 minutes
+    console.log('200: Access granted');
+
+    // Render the new password page with the email
+    renderAuthPage(res, "newpwd", null, "_050_");
   } catch (err) {
-      console.error(err);
-      return res.status(500).render(`auth/auth.ejs`, {
-          urls: { base: process.env.BASU_URL, backend: process.env.BACKEND_URL },
-          activeFile: 'newPwd',
-          data: null,
-          error: "Internal server error.",
-          baseUrl: process.env.BASE_URL,
-          title: "Authorization"
-      });
+    console.error('Error verifying recovery token:', err);
+    return res.redirect('/auth/signin?error=Internal server error');
   }
 });
-
 // Activate route with dynamic data
 router.get('/activate/:data', (req, res) => {
   const { error } = req.query;
