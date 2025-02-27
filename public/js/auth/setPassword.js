@@ -36,7 +36,7 @@ $(document).ready(function () {
         if (sta == 200) {
             $('#pwd_change_error').hide()
             $('#pwd_change_success').show()
-            $('#pwd_change_success').text('Password successfully changed, redirecting ...')
+            $('#pwd_change_success').text('Password successfully changed')
          setTimeout(function(){
             $('#pwd_change_success').text('')
             $('#pwd_change_success').hide()
