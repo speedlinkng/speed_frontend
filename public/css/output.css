@@ -929,6 +929,10 @@ tr.th {
   top: 0.5rem;
 }
 
+.top-3 {
+  top: 0.75rem;
+}
+
 .top-5 {
   top: 1.25rem;
 }
@@ -939,14 +943,6 @@ tr.th {
 
 .top-\[50\%\] {
   top: 50%;
-}
-
-.top-4 {
-  top: 1rem;
-}
-
-.top-3 {
-  top: 0.75rem;
 }
 
 .isolate {
@@ -3939,10 +3935,6 @@ tr.th {
 
   .md\:mt-0 {
     margin-top: 0px;
-  }
-
-  .md\:mt-3 {
-    margin-top: 0.75rem;
   }
 
   .md\:mt-5 {
