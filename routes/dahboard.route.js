@@ -19,6 +19,11 @@ async function fetchUser(email) { // Modified to accept email
   try {
     const token = await redisClient.get("userToken:" + email);
     console.log("Token from Redis for fetchUser:", token);
+    console.log("Token from Redis for fetchUser:", token);
+    console.log("Token from Redis for fetchUser:", token);
+    console.log("Token from Redis for fetchUser:", token);
+    console.log("Token from Redis for fetchUser:", token);
+    console.log("Token from Redis for fetchUser:", token);
     if (!token) {
       throw new Error("User token not found in Redis for this email.");
     }
@@ -26,11 +31,12 @@ async function fetchUser(email) { // Modified to accept email
       let decodedToken;
       try {
         decodedToken = decode(token);
+        console.log('decoded', decodedToken)
       } catch (err) {
         console.error('Error decoding token:', err);
         return reject(err);
       }
-console.log('decoded', decodedToken.this_user_token)
+
       let decodedToken_;
       try {
         decodedToken_ = decode(decodedToken.this_user_token);
