@@ -7,7 +7,7 @@ const crypto = require('crypto');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const path = require('path'); // Import the path module
-
+const redisClient = require('../redisClient'); // Import the Redis client
     
 router.use(bodyParser.raw({ type: 'application/json' }));
     

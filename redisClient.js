@@ -3,6 +3,6 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const redisClient = new Redis('redis://default:gWSYLKZdGRaLhedkjlOUmabtWIMDntxv@redis.railway.internal:6379');
+const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
 
 module.exports = redisClient;

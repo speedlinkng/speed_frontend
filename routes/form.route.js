@@ -4,7 +4,7 @@ const request = require("request");
 const axios = require('axios');
 const path = require('path');
 const {sign, decode} = require("jsonwebtoken")
-
+const redisClient = require('../redisClient'); // Import the Redis client
 
   router.get('/preview', async function(req, res) {
 

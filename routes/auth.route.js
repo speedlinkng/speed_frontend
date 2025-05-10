@@ -3,9 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const fetch = require('node-fetch'); // Use fetch instead of request
 const { saveUserSession } = require('../handlers/Session_handler');
-const Redis = require('ioredis');
-
-const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
+const redisClient = require('../redisClient'); // Import the Redis client
 
 // Helper function to render the auth page
 const renderAuthPage = (res, activeFile, error = null, data = null, data2 = null) => {

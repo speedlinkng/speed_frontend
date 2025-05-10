@@ -5,7 +5,8 @@ const request = require("request");
 const serveStatic = require('serve-static');
 const dotenv = require('dotenv');
 const crypto = require('crypto');
-const {sign, decode} = require("jsonwebtoken")
+const { sign, decode } = require("jsonwebtoken")
+const redisClient = require('../redisClient'); // Import the Redis client
 dotenv.config(); 
 
 
