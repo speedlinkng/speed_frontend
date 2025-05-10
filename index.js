@@ -48,27 +48,23 @@ app.use("/admin/", admin);
 app.use("/paystack/", paystack);
 
 // Token exchange endpoint
-app.get('/exchange', async (req, res) => {
+app.get('/exchange/:email', async (req, res) => {
   console.log('exch');
-  let token = req.headers.authorization;
-  if (!token) {
-    return res.status(701).json({ message: 'Unauthorized' });
+  const email = req.params.email;
+  if (!email) {
+    return res.status(400).json({ message: 'Email is required' });
   }
-  token = token && token.split(' ')[1];
-  const accessToken = sign({ this_user_token: token }, process.env.REFRESH_TOK_SEC, {
-    expiresIn: "30d",
-  });
 
-  // Store the access token in Redis, using the original token as the key.
-  //  Important:  Consider a more robust key naming strategy in a production environment.
+  // Store the user's email in Redis under the key "frontendlogin"
   try {
-    await redisClient.set(token, accessToken, 'EX', 30 * 24 * 60 * 60); // 30 days expiration
+    await redisClient.set("frontendlogin", email, 'EX', 60 * 60); // Short expiration (30 minutes?)
+    console.log(`Frontend login email stored in Redis: ${email}`);
   } catch (err) {
     console.error("Redis error:", err);
-    return res.status(500).json({ message: 'Failed to store token in Redis' }); //handle error
+    return res.status(500).json({ message: 'Failed to store login information' });
   }
 
-  return res.status(200).json({ token: accessToken });
+  return res.status(200).json({ message: 'Email stored successfully' });
 });
 
 // Home route
