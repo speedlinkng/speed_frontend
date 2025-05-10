@@ -30,7 +30,7 @@ async function fetchUser(email) { // Modified to accept email
         console.error('Error decoding token:', err);
         return reject(err);
       }
-
+console.log('decoded', decodedToken.this_user_token)
       let decodedToken_;
       try {
         decodedToken_ = decode(decodedToken.this_user_token);
@@ -39,7 +39,7 @@ async function fetchUser(email) { // Modified to accept email
         return reject(err);
       }
 
-      const data = decodedToken_.result;
+  
 
       request(
         {
