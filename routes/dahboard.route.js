@@ -52,7 +52,7 @@ async function fetchUser(email) { // Modified to accept email
           method: "GET",
           url: `${process.env.BACKEND_URL}/api/app/checkonrefresh`,
           headers: {
-            "Authorization": `Bearer ${decodedToken.this_user_token}`
+            "Authorization": `Bearer ${token}`
           }
         },
         (err, response, body) => {
