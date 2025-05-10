@@ -2,33 +2,15 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const crypto = require('crypto');
-const session = require('express-session');
-const Redis = require('ioredis');
-const RedisStore = require('connect-redis').default;
+const redisClient = require('./redisClient'); // Import the Redis client
 const dotenv = require('dotenv');
 const cors = require('cors');
-const { sign } = require('jsonwebtoken'); // Import the sign function
-
+const { sign } = require('jsonwebtoken');
 
 // Load environment variables
 dotenv.config();
 
-const redisClient = new Redis(process.env.REDIS_PUBLIC_URL);
-
-// Configure session middleware with Redis store
-app.use(
-  session({
-    store: new RedisStore({ client: redisClient }), // Use Redis as the session store
-    secret: process.env.SESSION_SECRET || 'your-secret-key', // Session secret
-    resave: false, // Don't resave unchanged sessions
-    saveUninitialized: false, // Don't save uninitialized sessions
-    cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
-      secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-      httpOnly: true, // Prevent client-side JavaScript from accessing the cookie
-    },
-  })
-);
+// No need for express-session or connect-redis
 
 // Set view engine
 app.set('view engine', 'ejs');
@@ -66,9 +48,9 @@ app.use("/admin/", admin);
 app.use("/paystack/", paystack);
 
 // Token exchange endpoint
-app.get('/exchange', (req, res) => {
+app.get('/exchange', async (req, res) => {
   console.log('exch');
-  let token = req.headers.authorization; // Assuming the token is in the request headers
+  let token = req.headers.authorization;
   if (!token) {
     return res.status(701).json({ message: 'Unauthorized' });
   }
@@ -76,8 +58,16 @@ app.get('/exchange', (req, res) => {
   const accessToken = sign({ this_user_token: token }, process.env.REFRESH_TOK_SEC, {
     expiresIn: "30d",
   });
-  req.session.token = accessToken;
-  req.session.save();
+
+  // Store the access token in Redis, using the original token as the key.
+  //  Important:  Consider a more robust key naming strategy in a production environment.
+  try {
+    await redisClient.set(token, accessToken, 'EX', 30 * 24 * 60 * 60); // 30 days expiration
+  } catch (err) {
+    console.error("Redis error:", err);
+    return res.status(500).json({ message: 'Failed to store token in Redis' }); //handle error
+  }
+
   return res.status(200).json({ token: accessToken });
 });
 

@@ -5,6 +5,7 @@ const request = require("request");
 const axios = require('axios');
 const {sign, decode} = require("jsonwebtoken")
 const serveStatic = require('serve-static'); 
+const redisClient = require('../redisClient'); // Import the Redis client
 const {deTokenize} = require('../middlewars/FunctionsController');
 
 router.get('/doc', function(req, res) {
@@ -13,28 +14,76 @@ router.get('/doc', function(req, res) {
   
 });
 
+async function fetchUser(token) {
+  console.log(`Token is: `, token);
+  return new Promise((resolve, reject) => {
+    let decodedToken;
+    try {
+      decodedToken = decode(token);
+    } catch (err) {
+      console.error('Error decoding token:', err);
+      return reject(err);
+    }
+
+    let decodedToken_;
+    try {
+      decodedToken_ = decode(decodedToken.this_user_token);
+    } catch (err) {
+      console.error('Error decoding this_user_token:', err);
+      return reject(err);
+    }
+
+    const data = decodedToken_.result;
+
+    request(
+      {
+        method: "GET",
+        url: `${process.env.BACKEND_URL}/api/app/checkonrefresh`,
+        headers: {
+          "Authorization": `Bearer ${decodedToken.this_user_token}`
+        }
+      },
+      (err, response, body) => {
+        if (err) {
+          return reject(err);
+        } else {
+          let status = response.statusCode;
+
+          if (status === 200) {
+            const parsedBody = JSON.parse(body);
+            console.log(parsedBody.results);
+            resolve(parsedBody.results);
+          } else {
+            reject(new Error(`Unexpected status code: ${status}`));
+          }
+        }
+      }
+    );
+  });
+}
+
 function decode1(token, res) {
   // TOKENIZE BACKEND USER ACCESS TOKEN, FOR FRONTEND SERVER-SIDE ACCESS
   if (!token) {
-      console.log('Token is missing, redirecting...');
-      res.redirect(`${process.env.BASE_URL}/auth/`);
-      return null;  // Return early if there's no token
+    console.log('Token is missing, redirecting...');
+    res.redirect(`${process.env.BASE_URL}/auth/`);
+    return null;
   }
 
   let decodedToken;
   try {
-      decodedToken = decode(token);
+    decodedToken = decode(token);
   } catch (err) {
-      console.error('Error decoding token:', err);
-      res.redirect(`${process.env.BASE_URL}/auth/`);
-      return null;  // Return early on decoding error
+    console.error('Error decoding token:', err);
+    res.redirect(`${process.env.BASE_URL}/auth/`);
+    return null;
   }
 
   let this_user_token = decodedToken.this_user_token;
   if (!this_user_token) {
-      console.error('this_user_token is missing from decoded token.');
-      res.redirect(`${process.env.BASE_URL}/auth/`);
-      return null;
+    console.error('this_user_token is missing from decoded token.');
+    res.redirect(`${process.env.BASE_URL}/auth/`);
+    return null;
   }
 
   return decode2(this_user_token);
@@ -43,92 +92,53 @@ function decode1(token, res) {
 function decode2(this_user_token) {
   let decodedToken;
   try {
-      decodedToken = decode(this_user_token);
+    decodedToken = decode(this_user_token);
   } catch (err) {
-      console.error('Error decoding this_user_token:', err);
-      return null;  // Return null on decoding error
+    console.error('Error decoding this_user_token:', err);
+    return null;
   }
 
   const data = decodedToken.result;
   return data;
 }
 
+router.get('/', async function (req, res) {
+  let userData;
+  let token;
 
-async function fetchUser(token) {
-  console.log(`Token is: `, token);
-  return new Promise((resolve, reject) => {
-      let decodedToken;
-      try {
-          decodedToken = decode(token);
-      } catch (err) {
-          console.error('Error decoding token:', err);
-          return reject(err);  // Reject promise on error
-      }
+  // 1. Get the token from Redis
+  try {
+    token = await redisClient.get('userToken:' + req.sessionID); // Use a key associated with the user, e.g., session ID
+    console.log("TOKEN FROM REDIS: ", token);
+  } catch (error) {
+    console.error('Error fetching token from Redis:', error);
+    return res.status(500).send('Error accessing Redis');
+  }
 
-      let decodedToken_;
-      try {
-          decodedToken_ = decode(decodedToken.this_user_token);
-      } catch (err) {
-          console.error('Error decoding this_user_token:', err);
-          return reject(err);  // Reject promise on error
-      }
+  if (!token) {
+    console.log("Token not found in Redis, redirecting to auth");
+    return res.redirect('/auth'); // Redirect if no token
+  }
 
-      const data = decodedToken_.result;
+  // 2. Fetch user data
+  try {
+    userData = await fetchUser(token);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return res.redirect('/auth');
+    //removed  return res.status(500).send('Error fetching user data');
+  }
+  const _data = decode1(token, res);
+  if (_data !== null) {
+    res.render("dashboard/home.ejs", {
+      urls: { base: process.env.BASE_URL, backend: process.env.BACKEND_URL },
+      title: 'Home page',
+      role: userData.role,
+      data: userData
+    });
+  }
+});
 
-      request(
-          {
-              method: "GET",
-              url: `${process.env.BACKEND_URL}/api/app/checkonrefresh`,
-              headers: {
-                  "Authorization": `Bearer ${decodedToken.this_user_token}`
-              }
-          },
-          (err, response, body) => {
-              if (err) {
-                  return reject(err);
-              } else {
-                  let status = response.statusCode;
-
-                  if (status === 200) {
-                      const parsedBody = JSON.parse(body);
-                      console.log(parsedBody.results);
-                      resolve(parsedBody.results);
-                  } else {
-                      reject(new Error(`Unexpected status code: ${status}`));
-                  }
-              }
-          }
-      );
-  });
-}
-
-  router.get('/', async function(req, res) {
-    let userData;
-
-    console.log("TOKEN SESSION: ", req.session.token);
-
-    try {
-        userData = await fetchUser(req.session.token);
-    } catch (error) {
-        console.error('Error fetching user:', error);
-         // Redirect to the authentication page if fetching the user fails
-      return res.redirect('/auth');
-      return res.status(500).send('Error fetching user data');  // Handle error and avoid crash
-     
-    }
-
-    const _data = decode1(req.session.token, res);
-
-    if (_data !== null) {
-        // Handle the decoded data and render the response in this route handler
-        res.render("dashboard/home.ejs", { 
-            urls: { base: process.env.BASE_URL, backend: process.env.BACKEND_URL }, 
-            title: 'Home page', 
-            role: userData.role, 
-            data: userData 
-        });
-    }
-  });
 
   router.get('/bridge', function(req, res) {
     res.render(`dashboard/bridge.ejs`, {urls: {backend: process.env.BACKEND_URL}, title: 'Bridge' });
