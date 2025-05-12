@@ -488,8 +488,33 @@ async function downloadZip(record_id, u, f, s) {
 } 
   
 }
+const viewAll = function(recordId, pageName) {
+  // Store the data for the submissions component to access
+  localStorage.setItem('currentSubmissionRecord', JSON.stringify({
+    id: recordId,
+    pageName: pageName
+  }));
+  
+  // Update the "Submissions For" text immediately
+  const submissionForEl = document.querySelector('.submission_for');
+  if (submissionForEl) {
+    submissionForEl.textContent = pageName;
+  }
+  
+  // Call the global function to fetch submissions
+  if (typeof window.callSubmittedData === 'function') {
+    window.callSubmittedData(recordId);
+  } else {
+    console.error('callSubmittedData function not found on window object');
+    // Fallback: You could trigger a custom event here as an alternative
+  }
+  
+  // Let Alpine.js handle the tab switching
+  return true;
+};
 
-
+// Make viewAll globally available if needed
+window.viewAll = viewAll;
 
 // GET COUNTS FOR EACH FILE RECORDS
 async function getSubmissionCount() {
@@ -519,11 +544,11 @@ console.log(data);
 function getStatusBadge(status) {
   switch (status) {
     case "active":
-      return `<span class="badge bg-success text-white">Active</span>`;
+      return `<span class="badge bg-success bg-opacity-25 text-success">Active</span>`;
     case "inactive":
-      return `<span class="badge bg-warning text-white">Inactive</span>`;
+      return `<span class="badge bg-warning bg-opacity-25 text-warning">Inactive</span>`;
     case "expired":
-      return `<span class="badge bg-danger text-white">Expired</span>`;
+      return `<span class="badge bg-danger bg-opacity-25 text-danger">Expired</span>`;
     default:
       return `<span class="badge bg-gray-300 text-black">Unknown</span>`;
   }
@@ -628,7 +653,35 @@ async function getRecordList() {
               <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
                   <div>
-                    <!-- Add dropdown menu here -->
+                    <!-- Dropdown menu -->
+                    <div class="dropdown inline-block">
+                      <button class="btn h-9 w-9 p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
+                        </svg>
+                      </button>
+                      <div class="dropdown-menu absolute z-10 hidden">
+                        <div class="mt-1 w-48 rounded-lg border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
+                          <ul>
+                            <li>
+                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="downloadZip('${record.record_id}', '${recordData.otherData.page_url}', '${recordData.otherData.folder_id}', '${recordData.otherData.sfolder_id}')">
+                                Download Files
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="editRecord('${record.record_id}')">
+                                Edit
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="deleteRecord('${record.record_id}')">
+                                Delete
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </td>

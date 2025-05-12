@@ -140,6 +140,10 @@ async function backToDashboard() {
   myRequestButton.click();
     
 }
+// In the script where callSubmittedData is defined
+window.callSubmittedData = async function(e) {
+  getSubmittedRecords(e);
+};
   
 // get submitted records
 async function getSubmittedRecords(record_id) {
@@ -437,11 +441,4 @@ console.log('internet error')
 console.log(err)
 }
 
-}
-
-
-
-async function callSubmittedData(e){
-
-getSubmittedRecords(e)
 }
