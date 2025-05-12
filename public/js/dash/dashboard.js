@@ -551,6 +551,8 @@ async function getRecordList() {
       </tr>
     `);
     
+      // First get the submission counts
+    const submissionCount = await getSubmissionCount();
 
     // Fetch data from the backend
     const settings = {
