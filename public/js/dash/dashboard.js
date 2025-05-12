@@ -516,6 +516,19 @@ console.log(data);
   }
 }
 // GET LIS OF ALL RECORDS
+function getStatusBadge(status) {
+  switch (status) {
+    case "active":
+      return `<span class="badge bg-success text-white">Active</span>`;
+    case "inactive":
+      return `<span class="badge bg-warning text-white">Inactive</span>`;
+    case "expired":
+      return `<span class="badge bg-danger text-white">Expired</span>`;
+    default:
+      return `<span class="badge bg-gray-300 text-black">Unknown</span>`;
+  }
+}
+
 async function getRecordList() {
   try {
     // Simulate loading state
