@@ -723,3 +723,40 @@ async function getRecordList() {
 
 // Call the function
 getRecordList();
+
+// Handle dropdown menu toggle
+document.addEventListener('click', function(e) {
+  // Close all dropdowns
+  document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+    menu.classList.add('hidden');
+  });
+  
+  // If click was on a dropdown button, toggle its menu
+  if (e.target.closest('.dropdown button')) {
+    const dropdown = e.target.closest('.dropdown');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    menu.classList.toggle('hidden');
+  }
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
+      menu.classList.add('hidden');
+    });
+  }
+});
+
+function editRecord(recordId) {
+  console.log('Edit record:', recordId);
+  // Implement edit functionality
+}
+
+function deleteRecord(recordId) {
+  console.log('Delete record:', recordId);
+  // Implement delete functionality
+  if (confirm('Are you sure you want to delete this record?')) {
+    // Add your delete logic here
+  }
+}
