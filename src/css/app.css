@@ -74,60 +74,9 @@
     .text-black-cus {
       @apply text-[#121212]
     }
-   /* Hide the default scrollbar */
-   ::-webkit-scrollbar {
-    width: 10px; /* Set the width of the scrollbar */
-    height: 10px; /* Set the height of the scrollbar */
-    @apply p-10/* Set the background color of the scrollbar track */
-  }
-  
-  /* Customize the scrollbar thumb (handle) */
-  ::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 /* Set the color of the scrollbar thumb */
-   rounded-md /* Set the border radius to make the thumb round */
-  }
-  
-  /* Customize the scrollbar track (container) */
-  ::-webkit-scrollbar-track {
-    @apply bg-gray-100 /* Set the background color of the scrollbar track */
-  }
-  
-  /* Show the scrollbar only when hovered */
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-400; /* Set the color of the scrollbar thumb on hover */
-  }
-  
-  /* Customize the scrollbar within the div with class is-sc */
-  .is-sc::-webkit-scrollbar {
-  @apply h-[5px] w-[2px]
-  }
-  
-  /* Customize the scrollbar thumb (handle) */
-  .is-sc::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 /* Set the color of the scrollbar thumb */
-   rounded-md /* Set the border radius to make the thumb round */
-  }
-  
-  .is-sc::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-500; /* Set the color of the scrollbar thumb on hover */
-  }
-  
-  
-  
 
-  
-  .filter-select-wrapper {
-    @apply relative inline-block;
-  }
-  .filter-select-icon {
-    @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500;
-  }
-  .filter-select {
-    @apply pl-10 pr-3 py-2 outline-none w-full text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-500 focus:ring focus:ring-blue-200;
-  }
-  
-  
-  
+    
+   
 
 
 

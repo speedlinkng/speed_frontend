@@ -1,62 +1,67 @@
-                <div>
-                  <template x-teleport="#x-teleport-target">
-                    <div class="border p-5 fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModal2" role="dialog" @keydown.window.escape="showModal2 = false">
-                      <div class="border p-3 absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300" @click="showModal2 = false" x-show="showModal2" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"></div>
-                      <div class="relative border h-fit max-w-3xl w-full rounded-lg bg-white px-4 pb-4 transition-all duration-300 dark:bg-navy-700 sm:px-5" x-show="showModal2" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]">
-                        <div class=" p-2">
-                          <div class="logging_out p-2">
-                            <p>Are you sure you want to log out now ?</p>
+<div>
+  <template x-teleport="#x-teleport-target">
+    <div class="border p-5 fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-hidden px-4 py-6 sm:px-5" x-show="showModal2" role="dialog" @keydown.window.escape="showModal2 = false" x-data="{ isLoggingOut: false }">
 
-                            <div class="w-full flex justify-start mt-2">
-                              <button @click="logMeOut()" class="btn font-medium text-primary hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:text-accent-light dark:hover:bg-accent-light/20 dark:focus:bg-accent-light/20 dark:active:bg-accent-light/25">
-                                Yes
-                              </button>
-                              <button @click="showModal2 = false" class="btn font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
-                                No
-                              </button>
-                            </div>
-                          </div>
+      <div class="border p-3 absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity duration-300" @click="showModal2 = false" x-show="showModal2" x-transition:enter="ease-out" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+      </div>
 
-                          <div>
+      <div class="relative border h-fit max-w-3xl w-full rounded-lg bg-white px-4 pb-4 transition-all duration-300 dark:bg-navy-700 sm:px-5" x-show="showModal2" x-transition:enter="easy-out" x-transition:enter-start="opacity-0 [transform:translate3d(0,-1rem,0)]" x-transition:enter-end="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave="easy-in" x-transition:leave-start="opacity-100 [transform:translate3d(0,0,0)]" x-transition:leave-end="opacity-0 [transform:translate3d(0,-1rem,0)]">
 
-                          </div>
-                        </div>
+        <div class="p-2">
+          <div class="logging_out p-2">
+            <p>Are you sure you want to log out now?</p>
 
-                      </div>
-                    </div>
-                  </template>
-                </div>
+            <div class="w-full flex justify-start mt-2">
+              <button @click="isLoggingOut = true; logMeOut()" class="btn font-medium text-indigo-600 hover:bg-indigo-100 flex items-center gap-2 disabled:opacity-50 disabled:pointer-events-none" :disabled="isLoggingOut">
+                <template x-if="isLoggingOut">
+                  <svg class="w-4 h-4 animate-spin text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                  </svg>
+                </template>
+                <span x-text="isLoggingOut ? 'Logging out...' : 'Yes'"></span>
+              </button>
 
-                <script>
-                  async function logMeOut() {
+              <button @click="showModal2 = false" class="btn font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
+                No
+              </button>
+            </div>
+          </div>
+        </div>
 
-                    fetch(`https://bapi.blazzingshare.com/api/users/logout`, {
-                        method: 'POST',
-                        headers: {
-                          'Authorization': `Bearer ${localStorage.getItem('access')}`,
-                          'Content-Type': 'application/json',
-                        },
-                      })
-                      .then(response => {
-                        console.log(response)
-                        if (!response.ok) {
-                          throw new Error(`HTTP error! Status: ${response.status}`);
-                        }
-                        // remove all sessions
-                        localStorage.removeItem('access')
-                        localStorage.removeItem('drive_email')
-                        localStorage.removeItem('submit_id')
-                        localStorage.removeItem('preferred')
-                        localStorage.removeItem('temp_newstore')
-                        localStorage.removeItem('my_goog_acc')
-                        // Handle successful logout
-                        window.location.href = `${baseUrl}/auth`
-                        console.log("Logout successful");
-                      })
-                      .catch(error => {
-                        console.log(error)
-                        // Handle errors during the fetch
-                        console.error('Fetch error:', error);
-                      });
-                  }
-                </script>
+      </div>
+    </div>
+  </template>
+</div>
+
+<script>
+  async function logMeOut() {
+    try {
+      const response = await fetch(`${backendUrl}/api/users/logout`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // Remove session data
+      localStorage.removeItem('access');
+      localStorage.removeItem('drive_email');
+      localStorage.removeItem('submit_id');
+      localStorage.removeItem('preferred');
+      localStorage.removeItem('temp_newstore');
+      localStorage.removeItem('my_goog_acc');
+
+      // Redirect
+      window.location.href = `${baseUrl}/auth`;
+      console.log("Logout successful");
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  }
+</script>

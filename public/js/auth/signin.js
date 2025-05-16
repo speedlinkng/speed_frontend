@@ -2,6 +2,8 @@
         $(document).ready(function () {
             $("#login_btn").click(async function (e) {
                 e.preventDefault();
+                 $('#call_error').hide();
+                 $('#call_success').hide();
                 localStorage.setItem('drive_email', 'drrowly99@gmail.com');
 
                 let settings = {

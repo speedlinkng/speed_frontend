@@ -9,7 +9,7 @@
           </h2>
         </div>
         <div x-data="{showModal:false}" class="flex space-x-3" x-show="activeItem === 'Dashboard'">
-          <button @click="showModal = true" id="" style="display: block" class="relative inline-block rounded-lg bg-button py-3 px-4 hover:bg-sim-primary focus:border-2 focus:border-slate-800 dark:bg-navy-700">
+          <button @click="showModal = true" id="create_project_button" style="display: block" class="relative inline-block rounded-lg bg-button py-3 px-4 hover:bg-sim-primary focus:border-2 focus:border-slate-800 dark:bg-navy-700">
             Create Project
           </button>
           <template x-teleport="#x-teleport-target">
@@ -115,34 +115,35 @@
         <div class="text-3xl text-dash font-semibold ">Zoom Recordings</div>
       </div> -->
       <div class="card bg-transparent shadow-none mt-3 dashboardTableHolder">
-        <div class="bg-white py-4 px-4 w-full h-fit text-sm is-sc overflow-x-scroll overflow-y-scroll !min-h-[250px]">
-          <table class="!text-black allTable_reqs hover w-full">
-            <thead>
+        <div class="bg-white pb-4 w-full h-fit text-sm is-sc overflow-x-scroll ">
+          <table class="allTable_reqs hover w-full">
+            <caption class="hidden">List of Uploads</caption>
+            <thead class="bg-side text-sim dark:bg-navy-800 dark:text-navy-100">
               <tr>
-                <th class="whitespace-nowrap rounded-tl-lg bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap rounded-tl-lg px-4 py-3 font-semibold capitalize lg:px-5">
                   Upload Name
                 </th>
-                <th class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap px-4 py-3 font-semibold capitalize lg:px-5">
                   Expiry Date
                 </th>
-                <th class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap px-4 py-3 font-semibold capitalize lg:px-5">
                   Submissions
                 </th>
-                <th class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap px-4 py-3 font-semibold capitalize lg:px-5">
                   Link
                 </th>
-                <th class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
-                  Action
+                <th scope="col" class="whitespace-nowrap px-4 py-3 font-semibold capitalize lg:px-5">
+                  Share
                 </th>
-                <th class="whitespace-nowrap bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap px-4 py-3 font-semibold capitalize lg:px-5">
                   Status
                 </th>
-                <th class="whitespace-nowrap rounded-tr-lg bg-side px-4 py-3 font-semibold capitalize text-sim dark:bg-navy-800 dark:text-navy-100 lg:px-5">
+                <th scope="col" class="whitespace-nowrap rounded-tr-lg px-4 py-3 font-semibold capitalize lg:px-5">
                   More Action
                 </th>
               </tr>
             </thead>
-            <tbody id="display" class="pt-10"></tbody>
+            <tbody id="display" class="pt-10 text-black"></tbody>
           </table>
         </div>
       </div>

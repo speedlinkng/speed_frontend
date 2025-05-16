@@ -13,14 +13,14 @@ async function speedlinkAccess(plan) {
   // If user is on freelan, dont nlet them access this, also
   // Block this access via server side
 
-  if (plan != 2) {
-    setTimeout(function () {
-      $(`#cancel_stroage_selec_modal`).trigger("click"); // close modal
-      setActiveItem("Plan");
-    }, 1000);
-    showNoti("primary", "Upgrade to a paid plan to access this feature", 4000);
-    return false;
-  }
+  // if (plan != 2) {
+  //   setTimeout(function () {
+  //     $(`#cancel_stroage_selec_modal`).trigger("click"); // close modal
+  //     setActiveItem("Plan");
+  //   }, 1000);
+  //   showNoti("primary", "Upgrade to a paid plan to access this feature", 4000);
+  //   return false;
+  // }
 
   setActiveItem("Create");
   $(`#cancel_stroage_selec_modal`).trigger("click");
@@ -496,11 +496,13 @@ const viewAll = function(recordId, pageName) {
   }));
   
   // Update the "Submissions For" text immediately
-  const submissionForEl = document.querySelector('.submission_for');
-  if (submissionForEl) {
-    submissionForEl.textContent = pageName;
+  const submissionForEls = document.querySelectorAll('.submission_for');
+  if (submissionForEls.length > 0) {
+    submissionForEls.forEach(el => {
+      el.textContent = pageName;
+    });
   }
-  
+    window.submission_for(pageName); // try this if the other doset wor
   // Call the global function to fetch submissions
   if (typeof window.callSubmittedData === 'function') {
     window.callSubmittedData(recordId);
@@ -544,13 +546,13 @@ console.log(data);
 function getStatusBadge(status) {
   switch (status) {
     case "active":
-      return `<span class="badge bg-success bg-opacity-25 text-success">Active</span>`;
+      return `<span class="badge  text-success">Active</span>`;
     case "inactive":
-      return `<span class="badge bg-warning bg-opacity-25 text-warning">Inactive</span>`;
+      return `<span class="badge text-warning">Inactive</span>`;
     case "expired":
-      return `<span class="badge bg-danger bg-opacity-25 text-danger">Expired</span>`;
+      return `<span class="badge  text-danger text-red-600">Expired</span>`;
     default:
-      return `<span class="badge bg-gray-300 text-black">Unknown</span>`;
+      return `<span class="badge  text-black">Unknown</span>`;
   }
 }
 
@@ -576,8 +578,6 @@ async function getRecordList() {
       </tr>
     `);
     
-      // First get the submission counts
-    const submissionCount = await getSubmissionCount();
 
     // Fetch data from the backend
     const settings = {
@@ -589,25 +589,66 @@ async function getRecordList() {
     const fetchResponses = await fetch(`${backendUrl}/api/app/getrecords`, settings);
     const status = fetchResponses.status;
     const res = await fetchResponses.json();
-
+    console.log(status)
+    console.log(res)
     // Handle errors
     if (res.error === 1 || res.error === 2) {
       if (res.error === 2) {
         window.location.href = `${baseUrl}/auth`;
+      }
+      if (res.error === 1) {
+        // No user data present
+     // In your getRecordList() function where you show "no records found":
+$("#display").html(`
+  <tr>
+    <td colspan="7" class="text-center py-4">
+      <div class="text-gray-500 dark:text-gray-400">
+        No records found. 
+        <span id="create_project_trigger" class="text-primary hover:underline cursor-pointer">Create your request now</span>.
+      </div>
+    </td>
+  </tr>
+`);
+
+// Add event listener after inserting the HTML
+document.getElementById('create_project_trigger').addEventListener('click', function() {
+  document.getElementById('create_project_button').click();
+});
       }
       return;
     }
 
     // Process data if successful
     if (res.success === 1 && status === 200) {
+      // First get the submission counts
+      const submissionCount = await getSubmissionCount();
       const data = res.data;
 
       if (data && data.length > 0) {
         let tableRows = "";
+        // Clear the existing allArrayEdit.values, but keep other properties
+        allArrayEdit.values = {};
 
         data.forEach((record, index) => {
           const recordData = record.record_data;
           const statusBadge = getStatusBadge(record.status);
+
+          // **Populate allArrayEdit here**
+          allArrayEdit[index] = { // changed from allArrayEdit.values[index]
+            record_id: record.record_id,
+            record_data: recordData,
+          };
+          // Populate allArrayEdit.values
+          if (recordData.values) {
+             for (const pageName in recordData.values) {
+                if (!allArrayEdit.values[pageName]) {
+                    allArrayEdit.values[pageName] = recordData.values[pageName];
+                }
+                else{
+                  allArrayEdit.values[pageName] = recordData.values[pageName];
+                }
+             }
+          }
 
           tableRows += `
             <tr class="capitalize border-y border-transparent border-b-slate-200 dark:border-b-navy-500">
@@ -624,25 +665,30 @@ async function getRecordList() {
               </td>
               <td class="whitespace-nowrap px-4 py-3 max-h-8 text-slate-700 dark:text-navy-100 sm:px-5">
                 <span>${submissionCount[index].count}</span>
-                <span @click="activeItem = 'Submissions'" onclick="viewAll('${record.record_id}', '${recordData.otherData.page_name}')" class="text-primary normal-case pl-3 cursor-pointer">View all</span>
+                <span @click="activeItem = 'Submissions'" onclick="viewAll('${record.record_id}', '${recordData.otherData.page_name}')" class="text-blue-500 normal-case pl-3 cursor-pointer">View all</span>
               </td>
               <td class="whitespace-nowrap normal-case px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
-                  <div>
-                    <a id="clipboardContent${record.record_id}" href="${baseUrl}/form/${record.record_id.replace(/\s/g, "")}">${baseUrl}/form/${record.record_id.replace(/\s/g, "")}</a>
+                  <div> <a 
+                          id="clipboardContent${record.record_id}" 
+                          href="${baseUrl}/form/${record.record_id.replace(/\s/g, "")}" 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                          ${baseUrl}/form/${record.record_id.replace(/\s/g, "")}
+                        </a>
                   </div>
                 </div>
               </td>
               <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
                 <div class="flex -space-x-2">
                   <div class="flex space-x-4">
-                    <button onclick="customButtonClick('${recordData.otherData.page_url}')" class="btn h-9 w-9 border border-success p-0 font-medium text-success hover:bg-success hover:text-white focus:bg-success focus:text-white active:bg-success-focus/90">
+                    <button onclick="customButtonClick('${recordData.otherData.page_url}')" class="btn h-8 w-8 p-1 font-medium text-slate-800 hover:text-blue-500 active:bg-success-focus/30">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16">
                         <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3"/>
                       </svg>
                     </button>
-                    <!-- Add other buttons here -->
-                  </div>
+                    </div>
                 </div>
               </td>
               <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
@@ -650,41 +696,37 @@ async function getRecordList() {
                   ${statusBadge}
                 </div>
               </td>
-              <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
-                <div class="flex -space-x-2">
-                  <div>
-                    <!-- Dropdown menu -->
-                    <div class="dropdown inline-block">
-                      <button class="btn h-9 w-9 p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"/>
-                        </svg>
-                      </button>
-                      <div class="dropdown-menu absolute z-10 hidden">
-                        <div class="mt-1 w-48 rounded-lg border border-slate-150 bg-white py-1.5 font-inter dark:border-navy-500 dark:bg-navy-700">
-                          <ul>
-                            <li>
-                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="downloadZip('${record.record_id}', '${recordData.otherData.page_url}', '${recordData.otherData.folder_id}', '${recordData.otherData.sfolder_id}')">
-                                Download Files
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="editRecord('${record.record_id}')">
-                                Edit
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" class="flex h-8 items-center px-3 pr-8 font-medium tracking-wide outline-none transition-all hover:bg-slate-100 hover:text-slate-800 focus:bg-slate-100 focus:text-slate-800 dark:hover:bg-navy-600 dark:hover:text-navy-100 dark:focus:bg-navy-600 dark:focus:text-navy-100" onclick="deleteRecord('${record.record_id}')">
-                                Delete
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </td>
+            <td class="whitespace-nowrap px-4 py-3 max-h-8 sm:px-5">
+              <div class="flex items-center space-x-2">
+                <button
+                  onclick="downloadZip('${record.record_id}', '${recordData.otherData.page_url}', '${recordData.otherData.folder_id}', '${recordData.otherData.sfolder_id}')"
+                  class="icon-btn bg-blue-50 hover:bg-blue-100 text-blue-500 active:bg-blue-200 transition-colors duration-200 transform hover:scale-110"
+                  title="Download Files"
+                  style="padding: 0.5rem;"
+                >
+                  <span class="material-icons" style="font-size: 1rem;">download</span>
+                </button>
+
+                <button
+                  onclick="editRecord('${record.record_id}', ${index})"
+                  class="icon-btn bg-green-50 hover:bg-green-100 text-green-500 active:bg-green-200 transition-colors duration-200 transform hover:scale-110"
+                  title="Edit"
+                  style="padding: 0.5rem;"
+                >
+                  <span class="material-icons" style="font-size: 1rem;">edit</span>
+                </button>
+
+                <button
+                  onclick="deleteRecord('${record.record_id}')"
+                  class="icon-btn bg-red-50 hover:bg-red-100 text-red-500 active:bg-red-200 transition-colors duration-200 transform hover:scale-110"
+                  title="Delete"
+                  style="padding: 0.5rem;"
+                >
+                  <span class="material-icons" style="font-size: 1rem;">delete</span>
+                </button>
+              </div>
+            </td>
+
             </tr>
           `;
         });
@@ -724,39 +766,24 @@ async function getRecordList() {
 // Call the function
 getRecordList();
 
-// Handle dropdown menu toggle
-document.addEventListener('click', function(e) {
-  // Close all dropdowns
-  document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
-    menu.classList.add('hidden');
-  });
-  
-  // If click was on a dropdown button, toggle its menu
-  if (e.target.closest('.dropdown button')) {
-    const dropdown = e.target.closest('.dropdown');
-    const menu = dropdown.querySelector('.dropdown-menu');
-    menu.classList.toggle('hidden');
-  }
-});
 
-// Close dropdown when clicking outside
-document.addEventListener('click', function(e) {
-  if (!e.target.closest('.dropdown')) {
-    document.querySelectorAll('.dropdown-menu').forEach(function(menu) {
-      menu.classList.add('hidden');
-    });
+function editRecord(recordId, index) { // Add index parameter
+  console.log('Edit record:', recordId, 'at index:', index);
+  setActiveItem("Create");
+  $(`#cancel_stroage_selec_modal`).trigger("click");
+  if (localStorage.getItem("preferred") == 1) {
+    localStorage.setItem("preferred", 0);
+    localStorage.removeItem("my_goog_acc");
   }
-});
-
-function editRecord(recordId) {
-  console.log('Edit record:', recordId);
-  // Implement edit functionality
+  window.callEdit(index); // Pass the index to window.callEdit
 }
 
 function deleteRecord(recordId) {
+  alert(recordId)
   console.log('Delete record:', recordId);
   // Implement delete functionality
   if (confirm('Are you sure you want to delete this record?')) {
     // Add your delete logic here
   }
 }
+

@@ -123,7 +123,7 @@ newInput = $(
 
         </label>
 
-        <input @blur="getPrevFields(${count}, ${addmore_count}, ${true})" class="fieldName form-input w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def" type="text" />
+        <input @blur="getPrevFields(${count}, ${addmore_count}, ${true})" class="fieldName outline-none w-[45%] rounded-lg prime${count} bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Field Label" x-model="window.def" x-bind:value="window.def" type="text" />
 
       </div>
 
@@ -191,17 +191,17 @@ newInput = $(
 
                         <template x-if="['greater', 'less', 'equal', 'less_equal', 'greater_equal'].includes(selectedCondition)">
                           <!-- Numeric input for numeric conditions -->
-                          <input name="compared" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
+                          <input name="compared" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
                         </template>
 
                         <template x-if="['empty', 'not_empty', 'checked', 'not_checked'].includes(selectedCondition)">
                           <!-- No need for an input for these conditions -->
-                          <input name="compared" value="0" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
+                          <input name="compared" value="0" class="hidden col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
                         </template>
 
                         <template x-if="['contains', 'does_not_contain'].includes(selectedCondition)">
                           <!-- Text input for 'contains' and 'does_not_contain' conditions -->
-                          <input name="compared" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="text" />
+                          <input name="compared" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="text" />
                         </template>
 
                       </label>
@@ -261,7 +261,7 @@ newInput = $(
                       </div>
                     </template>
                     <p class="col-span-4 ">Placeholder</p>
-                    <input name="Placeholder" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
+                    <input name="Placeholder" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
                   </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
                     <svg x-tooltip.placement.right.interactive.content="'#content9'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -273,7 +273,7 @@ newInput = $(
                       </div>
                     </template>
                     <p class="col-span-4">Validation Pattern</p>
-                    <input name="Validation Pattern" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
+                    <input name="Validation Pattern" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
                   </label><br>
                   <label class=" grid items-center grid-cols-9 mt-2">
                     <svg x-tooltip.placement.right.interactive.content="'#content10'" fill="none" stroke="currentColor" stroke-width="1.7" class="w-5 h-5 col-span-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -285,7 +285,7 @@ newInput = $(
                       </div>
                     </template>
                     <p class="col-span-4">Description</p>
-                    <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                    <input name="Description" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
                   </label>
                 </div>
 
@@ -314,7 +314,7 @@ newInput = $(
                     </svg>
                   
                     <p class="col-span-4 ">Description</p>
-                    <input name="Description" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                    <input name="Description" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
                   </label>
                   <br>
                   <label class=" grid grid-cols-9 mt-2">
@@ -346,7 +346,7 @@ newInput = $(
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Description</p>
-                    <input name="Description" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
+                    <input name="Description" class="col-span-4 lg:col-span-5 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Description" type="text" />
                   </label><br>
 
                   <!-- Rename File As -->
@@ -355,7 +355,7 @@ newInput = $(
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Rename File As</p>
-                    <input name="Rename File As" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
+                    <input name="Rename File As" class="col-span-4 lg:col-span-5 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Name" type="text" />
                   </label><br>
 
                   <!-- File Types -->
@@ -389,7 +389,7 @@ newInput = $(
                       <option value="xml">XML Document (.xml)</option>
                       <option value="svg">SVG Image (.svg)</option>
                     </select>
-                    <input name="File Types" :value="selectFileType${count}" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
+                    <input name="File Types" :value="selectFileType${count}" class="hidden col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Types" type="text" />
 
                   </label><br>
 
@@ -399,7 +399,7 @@ newInput = $(
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">Max File Size (MB)</p>
-                    <input name="Max File Size (MB)" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
+                    <input name="Max File Size (MB)" class="col-span-4 lg:col-span-5 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter Max File Size" type="text" />
                   </label><br>
 
                   <!-- File Quantity -->
@@ -408,7 +408,7 @@ newInput = $(
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"></path>
                     </svg>
                     <p class="col-span-4 lg:col-span-3">File Quantity</p>
-                    <input name="File Quantity" class="col-span-4 lg:col-span-5 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
+                    <input name="File Quantity" class="col-span-4 lg:col-span-5 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Enter File Quantity" type="text" />
                   </label>
 
                 </div>
@@ -427,16 +427,16 @@ newInput = $(
                   </label><br>
                   <label class=" grid items-center grid-cols-4">
                     <p class="col-span-2 ">Placeholder</p>
-                    <input name="Placeholder" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
+                    <input name="Placeholder" class="col-span-2 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Placeholder" type="text" />
                   </label><br>
 
                   <label class=" grid items-center grid-cols-4">
                     <p class="col-span-2 ">Validation Pattern</p>
-                    <input name="Validation Pattern" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
+                    <input name="Validation Pattern" class="col-span-2 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Validation Pattern" type="text" />
                   </label><br>
                   <label class=" grid items-center grid-cols-4">
                     <p class="col-span-2 ">Description</p>
-                    <input name="Description" class="col-span-2 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
+                    <input name="Description" class="col-span-2 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="Description" type="text" />
                   </label>
                 </div>
 
@@ -841,17 +841,17 @@ async function addMore(counted, con = null) {
 
             <template x-if="['greater', 'less', 'equal', 'less_equal', 'greater_equal'].includes(selectedCondition)">
                 <!-- Numeric input for numeric conditions -->
-                <input name="compared" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
+                <input name="compared" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
             </template>
 
             <template x-if="['empty', 'not_empty', 'checked', 'not_checked'].includes(selectedCondition)">
                 <!-- No need for an input for these conditions -->
-                <input name="compared" value="0" class="hidden col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
+                <input name="compared" value="0" class="hidden col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="number" />
             </template>
 
             <template x-if="['contains', 'does_not_contain'].includes(selectedCondition)">
                 <!-- Text input for 'contains' and 'does_not_contain' conditions -->
-                <input name="compared" class="col-span-4 form-input w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="text" />
+                <input name="compared" class="col-span-4 outline-none w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900" placeholder="" type="text" />
             </template>
 
             <button @click="isOpen = false" class="btn h-9 w-9 p-0 font-medium text-error hover:bg-error/20 focus:bg-error/20 active:bg-error/25">
