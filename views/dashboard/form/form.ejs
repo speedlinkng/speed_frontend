@@ -1,392 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Meta tags  -->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="frame-ancestors 'none';"
-    />
-    <title><%= title %></title>
-    <link rel="icon" type="image/png" href="../images/favicon.png" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="../css/output.css" />
-    <link rel="stylesheet" href="../css/custom.css" />
-    <link rel="stylesheet" href="../css/app.css" />
-    <link rel="stylesheet" href="../../css/pond.css" />
-    <link
-      href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css"
-      rel="stylesheet"
-    />
 
-    <script>
-      const backendUrl = "<%= urls.backend %>";
-    </script>
-    <!-- Javascript Assets -->
-    <script src="../js/app.js" defer></script>
-    <script src="../js/jquery.js"></script>
-    <script src="../js/w3.js"></script>
-    <script src="../js/moment.js"></script>
-    <!-- <script src="../js/checktoken.js"></script> -->
-    <script src="../js/module/global.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<head>
+  <!-- Meta tags  -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="frame-ancestors 'none';" />
+  <title><%= title %></title>
+  <link rel="icon" type="image/png" href="../images/favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="../css/output.css" />
+  <link rel="stylesheet" href="../css/custom.css" />
+  <link rel="stylesheet" href="../css/app.css" />
+  <link rel="stylesheet" href="../../css/pond.css" />
+  <link href="https://unpkg.com/filepond@5.0.12/dist/filepond.min.css" rel="stylesheet" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+  <script>
+    const backendUrl = "<%= urls.backend %>";
+  </script>
+  <!-- Javascript Assets -->
+  <script src="../js/app.js" defer></script>
+  <script src="../js/jquery.js"></script>
+  <script src="../js/w3.js"></script>
+  <script src="../js/moment.js"></script>
+  <!-- <script src="../js/checktoken.js"></script> -->
+  <script src="../js/module/global.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-  <body
-    x-data="yourComponent()"
-    x-init="initFilePond"
-    class="has-min-sidebar is-sidebar-open is-header-blur"
-    x-bind="$store.global.documentBody"
-  >
-    <!-- App preloader-->
-    <div
-      class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900"
-    >
-      <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+</head>
+
+<body x-data="yourComponent()" x-init="initFilePond" class="has-min-sidebar is-sidebar-open is-header-blur" x-bind="$store.global.documentBody">
+  <!-- App preloader-->
+  <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
+    <div class="flex justify-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
     </div>
+    <!-- <div class="app-preloader-inner relative inline-block h-48 w-48"></div> -->
+  </div>
 
-    <!-- Page Wrapper -->
-    <div
-      id="root"
-      x-data=""
-      class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900"
-      x-cloak
-    >
-      <% if(data.status == 200){ %> <% var jsonData = data.data.recordData; %>
-      <% var otherData = data.data.recordData; %> <% var uploadToken =
+  <!-- Page Wrapper -->
+  <div id="root" x-data="" class="min-h-100vh flex grow bg-slate-50 dark:bg-navy-900" x-cloak>
+    <% if(data.status == 200){ %> <% var jsonData = data.data.recordData; %>
+    <% var otherData = data.data.recordData; %> <% var uploadToken =
       data.data.uploadToken; %> <% var allRepliesFolder = allRepliesFolder; %>
 
-      <!-- Main Content Wrapper -->
-      <!-- <main x-data x-text="mainData.title" class=" filemanager-app w-full pb-6" > -->
+    <!-- Main Content Wrapper -->
+    <!-- <main x-data x-text="mainData.title" class=" filemanager-app w-full pb-6" > -->
 
-      <main
-        x-data="{ jsonData: <%=  JSON.stringify(jsonData.record_data, null, 2) %> }"
-        class="filemanager-app w-full pb-6"
-      >
-        <div><%- include('../../includes/notifications.ejs') %></div>
-        <%- include('./notifications/notification.ejs') %>
-        <!-- OTHR DATA -->
-        <div class="hidden">
-          <input id="defaultParent" value="<%= allRepliesFolder %>" class="" />
-          <input
-            id="error_page_text"
-            value="<%= otherData.record_data.otherData.error_page_text %>"
-            class=""
-          />
-          <input
-            id="success_page_text"
-            value="<%= otherData.record_data.otherData.success_page_text %>"
-            class=""
-          />
-          <input id="record_id" value="<%=  otherData.record_id %>" class="" />
-          <input
-            id="expiry_date"
-            value="<%= otherData.expiry_date %>"
-            class=""
-          />
-          <input id="status" value="<%= otherData.status %>" class="" />
-          <input id="folder_id" value="<%= otherData.folder_id %>" class="" />
-          <input id="user_id" value="<%= otherData.user_id %>" class="" />
-          <input id="uploadToken" value="<%= uploadToken %>" class="" />
-          <!--This will be updated as an array after each image upload-->
-          <input id="viewable_url" value="s" class="" />
-          <!--This will be updated as an array after each image upload-->
-          <input
-            id="drive_email"
-            value="<%= otherData.storage_email %>"
-            class=""
-          />
-        </div>
+    <main x-data="{ jsonData: <%=  JSON.stringify(jsonData.record_data, null, 2) %> }" class="filemanager-app w-full pb-6">
+      <div><%- include('../../includes/notifications.ejs') %></div>
+      <%- include('./notifications/notification.ejs') %>
+      <!-- OTHR DATA -->
+      <div class="hidden">
+        <input id="defaultParent" value="<%= allRepliesFolder %>" class="" />
+        <input id="error_page_text" value="<%= otherData.record_data.otherData.error_page_text %>" class="" />
+        <input id="success_page_text" value="<%= otherData.record_data.otherData.success_page_text %>" class="" />
+        <input id="record_id" value="<%=  otherData.record_id %>" class="" />
+        <input id="expiry_date" value="<%= otherData.expiry_date %>" class="" />
+        <input id="status" value="<%= otherData.status %>" class="" />
+        <input id="folder_id" value="<%= otherData.folder_id %>" class="" />
+        <input id="user_id" value="<%= otherData.user_id %>" class="" />
+        <input id="uploadToken" value="<%= uploadToken %>" class="" />
+        <!--This will be updated as an array after each image upload-->
+        <input id="viewable_url" value="s" class="" />
+        <!--This will be updated as an array after each image upload-->
+        <input id="drive_email" value="<%= otherData.storage_email %>" class="" />
+      </div>
 
-        <div class="prev_form pb-4 sm:px-5 grid place-content-center">
-          <!-- Form Header -->
-          <div><%- include('./formHeader.ejs') %></div>
+      <div class="prev_form pb-4 sm:px-5 grid place-content-center">
+        <!-- Form Header -->
+        <div><%- include('./formHeader.ejs') %></div>
 
-          <div
-            x-init="console.log(jsonData)"
-            class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5"
-          >
-            <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
-              <template
-                x-data="dropdown"
-                x-if="Object.keys(pages).length == 100"
-              >
-                <div x-init="alert('dropdown 1')">
-                  <div
-                    class="prev_form"
-                    x-init="console.log(Object.keys(pages).length)"
-                  >
-                    <div class="prev_form_ max-w-xl">
-                      <div class="mt-3 space-y-4">
-                        <!-- Nested Template -->
-                        <template x-for="(pageData, pageKey) in pages">
-                          <div x-init="">
-                            <!-- page header -->
-                            <div><%- include('./pageHeader.ejs') %></div>
+        <div x-init="console.log(jsonData)" class="max-w-2xl md:w-[600px] card shadow-none p-4 mt-5">
+          <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
+            <template x-data="dropdown" x-if="Object.keys(pages).length == 100">
+              <div x-init="alert('dropdown 1')">
+                <div class="prev_form" x-init="console.log(Object.keys(pages).length)">
+                  <div class="prev_form_ max-w-xl">
+                    <div class="mt-3 space-y-4">
+                      <!-- Nested Template -->
+                      <template x-for="(pageData, pageKey) in pages">
+                        <div x-init="">
+                          <!-- page header -->
+                          <div><%- include('./pageHeader.ejs') %></div>
 
-                            <template
-                              x-for="(item, fieldKey) in Object.entries(pageData)"
-                            >
-                              <div
-                                x-if="Array.isArray(item[1]) && item[1].length > 0"
-                              >
-                                <template x-if="fieldKey > 0">
-                                  <template
-                                    x-for="(field, fieldIndex) in item[1]"
-                                    :key="fieldIndex"
-                                  >
-                                    <div
-                                      x-init=""
-                                      x-data="{ conditionPointer: [], fieldType: field.fieldType, otherData: field.other_data, setting: field.settings, condition: field.conditions }"
-                                    >
-                                      <!-- if Text -->
-                                      <div x-data>
-                                        <%- include('./text.ejs') %>
-                                      </div>
-
-                                      <!-- if Email -->
-                                      <div x-data>
-                                        <%- include('./email.ejs') %>
-                                      </div>
-
-                                      <!-- if Dropdown -->
-                                      <div x-data>
-                                        <%- include('./dropdown.ejs') %>
-                                      </div>
-
-                                      <!-- if File Upload -->
-                                      <div x-data>
-                                        <%- include('./fileUploads.ejs') %>
-                                      </div>
+                          <template x-for="(item, fieldKey) in Object.entries(pageData)">
+                            <div x-if="Array.isArray(item[1]) && item[1].length > 0">
+                              <template x-if="fieldKey > 0">
+                                <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
+                                  <div x-init="" x-data="{ conditionPointer: [], fieldType: field.fieldType, otherData: field.other_data, setting: field.settings, condition: field.conditions }">
+                                    <!-- if Text -->
+                                    <div x-data>
+                                      <%- include('./text.ejs') %>
                                     </div>
-                                  </template>
-                                </template>
-                              </div>
-                            </template>
 
-                            <br /><br />
-                            <div class="relative mt-5 w-full">
-                              <button
-                                @click=""
-                                class="bg-sim-primary dark:text-blue-300 inline-flex justify-center bg-transparent border text-white dark:!border-blue-700 hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              >
-                                Prev
-                              </button>
-                              <button
-                                @click=""
-                                x-text="pageData[0].header[0].edit_submit_field"
-                                class="bg-sim-primary inline-flex justify-center text-white hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              >
-                                Next
-                              </button>
-                              <button
-                                onclick="previews()"
-                                x-text="pageData[0].header[0].edit_submit_field"
-                                class="hidden absolute bottom-0 bg-sim-primary inline-flex w-full justify-center text-white hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                              >
-                                Submit
-                              </button>
+                                    <!-- if Email -->
+                                    <div x-data>
+                                      <%- include('./email.ejs') %>
+                                    </div>
+
+                                    <!-- if Dropdown -->
+                                    <div x-data>
+                                      <%- include('./dropdown.ejs') %>
+                                    </div>
+
+                                    <!-- if File Upload -->
+                                    <div x-data>
+                                      <%- include('./fileUploads.ejs') %>
+                                    </div>
+                                  </div>
+                                </template>
+                              </template>
                             </div>
+                          </template>
+
+                          <br /><br />
+                          <div class="relative mt-5 w-full">
+                            <button @click="" class="bg-sim-primary dark:text-blue-300 inline-flex justify-center bg-transparent border text-white dark:!border-blue-700 hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              Prev
+                            </button>
+                            <button @click="" x-text="pageData[0].header[0].edit_submit_field" class="bg-sim-primary inline-flex justify-center text-white hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 ml-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              Next
+                            </button>
+                            <button onclick="previews()" x-text="pageData[0].header[0].edit_submit_field" class="hidden absolute bottom-0 bg-sim-primary inline-flex w-full justify-center text-white hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              Submit
+                            </button>
                           </div>
-                        </template>
-                        <!-- End of Nested Template -->
-                      </div>
+                        </div>
+                      </template>
+                      <!-- End of Nested Template -->
                     </div>
                   </div>
                 </div>
-              </template>
+              </div>
+            </template>
 
-              <template x-data="dropdown" x-if="Object.keys(pages).length >= 1">
-                <div
-                  x-init=""
-                  x-data="{allInputFields:[],submitForm_:false}"
-                  x-init="requestJson = jsonData"
-                >
-                  <!-- Content to be displayed if the condition is false -->
-                  <div class="hidden">
-                    <%- include('./message/success.ejs') %>
-                  </div>
-                  <div class="hidden">
-                    <%- include('./message/error.ejs') %>
-                  </div>
+            <template x-data="dropdown" x-if="Object.keys(pages).length >= 1">
+              <div x-init="" x-data="{allInputFields:[],submitForm_:false}" x-init="requestJson = jsonData">
+                <!-- Content to be displayed if the condition is false -->
+                <div class="hidden">
+                  <%- include('./message/success.ejs') %>
+                </div>
+                <div class="hidden">
+                  <%- include('./message/error.ejs') %>
+                </div>
 
-                  <template
-                    x-for="(pageData, pageKey) in Object.entries(pages)"
-                  >
-                    <div
-                      x-init="if(pageKey == 0) {}"
-                      :id="'pageId' + pageKey"
-                      :class="{ 'hidden': pageKey != 0 }"
-                    >
-                      <div x-init="">
-                        <div class="prev_form" x-init="console.log()">
-                          <div class="prev_form_ max-w-xl">
-                            <div class="mt-5 space-y-4">
-                              <div x-init="">
-                                <!-- page header -->
-                                <div><%- include('./pageHeader.ejs') %></div>
-                                <div class="hidden">
-                                  <%- include('./repliesToDoc.ejs') %>
-                                </div>
-                                <template
-                                  x-for="(item, fieldKey) in Object.entries(pageData[1])"
-                                >
-                                  <div
-                                    x-if="Array.isArray(item[1]) && item[1].length > 0"
-                                  >
-                                    <template x-if="fieldKey > 0">
-                                      <template
-                                        x-for="(field, fieldIndex) in item[1]"
-                                        :key="fieldIndex"
-                                      >
-                                        <div
-                                          x-data="{_keyComb:''+pageKey+''+fieldKey+'', conditionPointer: [], fieldType: field.fieldType, otherData: field.other_data, setting: field.settings, condition: field.conditions }"
-                                        >
-                                          <!-- Handle notification for error while submiting -->
-                                          <!-- <div x-data="{ onShowNoti: () => { $notification({ text: 'An error exists in some of the form fields', variant: 'warning', position: 'center-top', duration: 3000 }) } }" x-init="onShowNoti()"></div> -->
+                <template x-for="(pageData, pageKey) in Object.entries(pages)">
+                  <div x-init="if(pageKey == 0) {}" :id="'pageId' + pageKey" :class="{ 'hidden': pageKey != 0 }">
+                    <div x-init="">
+                      <div class="prev_form" x-init="console.log()">
+                        <div class="prev_form_ max-w-xl">
+                          <div class="mt-5 space-y-4">
+                            <div x-init="">
+                              <!-- page header -->
+                              <div><%- include('./pageHeader.ejs') %></div>
+                              <div class="hidden">
+                                <%- include('./repliesToDoc.ejs') %>
+                              </div>
+                              <template x-for="(item, fieldKey) in Object.entries(pageData[1])">
+                                <div x-if="Array.isArray(item[1]) && item[1].length > 0">
+                                  <template x-if="fieldKey > 0">
+                                    <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
+                                      <div x-data="{_keyComb:''+pageKey+''+fieldKey+'', conditionPointer: [], fieldType: field.fieldType, otherData: field.other_data, setting: field.settings, condition: field.conditions }">
+                                        <!-- Handle notification for error while submiting -->
+                                        <!-- <div x-data="{ onShowNoti: () => { $notification({ text: 'An error exists in some of the form fields', variant: 'warning', position: 'center-top', duration: 3000 }) } }" x-init="onShowNoti()"></div> -->
 
-                                          <!-- <div x-data><%- //include('./filesToField.ejs') %></div> -->
-                                          <!-- handle srtting all the fields name array -->
-                                          <template
-                                            x-for="(field, fieldIndex) in item[1]"
-                                            :key="fieldIndex"
-                                          >
-                                            <div
-                                              x-init="allInputFields.push('field'+_keyComb);console.log('field'+_keyComb)"
-                                            ></div>
-                                          </template>
+                                        <!-- <div x-data><%- //include('./filesToField.ejs') %></div> -->
+                                        <!-- handle srtting all the fields name array -->
+                                        <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
+                                          <div x-init="allInputFields.push('field'+_keyComb);console.log('field'+_keyComb)"></div>
+                                        </template>
 
-                                          <!-- if Text -->
-                                          <div x-data>
-                                            <%- include('./text.ejs') %>
-                                          </div>
-
-                                          <!-- if Email -->
-                                          <div x-data>
-                                            <%- include('./email.ejs') %>
-                                          </div>
-
-                                          <!-- if Dropdown -->
-                                          <div x-data>
-                                            <%- include('./dropdown.ejs') %>
-                                          </div>
-
-                                          <!-- if File Upload -->
-                                          <div x-data>
-                                            <%- include('./fileUploads.ejs') %>
-                                          </div>
+                                        <!-- if Text -->
+                                        <div x-data>
+                                          <%- include('./text.ejs') %>
                                         </div>
-                                      </template>
+
+                                        <!-- if Email -->
+                                        <div x-data>
+                                          <%- include('./email.ejs') %>
+                                        </div>
+
+                                        <!-- if Dropdown -->
+                                        <div x-data>
+                                          <%- include('./dropdown.ejs') %>
+                                        </div>
+
+                                        <!-- if File Upload -->
+                                        <div x-data>
+                                          <%- include('./fileUploads.ejs') %>
+                                        </div>
+                                      </div>
                                     </template>
-                                  </div>
+                                  </template>
+                                </div>
+                              </template>
+
+                              <br />
+
+                              <div class="relative mt-5 w-full" x-init="console.log (Object.keys(pages).length - 1) ">
+                                <template x-if="pageKey > 0">
+                                  <button @click="prev(pageKey)" class="text-primary hover:text-white dark:text-blue-300 inline-flex justify-center bg-transparent border border-primary dark:!border-blue-700 hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Prev
+                                  </button>
+                                </template>
+                                <template x-init="console.log(' init'+pageData[1][0].header[0].edit_submit_field)" x-if="pageKey >= 0 && pageKey < (Object.keys(pages).length-1) ">
+                                  <button @click="next(pageKey)" x-bind:class="pageKey >= 0 && pageKey < pageData.length ? 'ml-2' : '' " x-text="pageData[1][0].header[0].edit_submit_field ? pageData[1][0].header[0].edit_submit_field : 'Next'" class="bg-sim-primary text-white inline-flex justify-center hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"></button>
+                                </template>
+                                <template x-if="pageKey === (Object.keys(pages).length-1)">
+                                  <button @click="submitForm()" :disabled="isLoading" x-bind:class="pageKey >= 0 && pageKey < pageData.length ? 'ml-2' : ''" class="text-white inline-flex justify-center bg-sim-primary hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    <span x-show="!isLoading">Submit</span>
+                                    <span x-show="isLoading">Loading</span>
+                                  </button>
                                 </template>
 
-                                <br />
-
-                                <div
-                                  class="relative mt-5 w-full"
-                                  x-init="console.log (Object.keys(pages).length - 1) "
-                                >
-                                  <template x-if="pageKey > 0">
-                                    <button
-                                      @click="prev(pageKey)"
-                                      class="text-primary hover:text-white dark:text-blue-300 inline-flex justify-center bg-transparent border border-primary dark:!border-blue-700 hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                      Prev
-                                    </button>
-                                  </template>
-                                  <template
-                                    x-init="console.log(' init'+pageData[1][0].header[0].edit_submit_field)"
-                                    x-if="pageKey >= 0 && pageKey < (Object.keys(pages).length-1) "
-                                  >
-                                    <button
-                                      @click="next(pageKey)"
-                                      x-bind:class="pageKey >= 0 && pageKey < pageData.length ? 'ml-2' : '' "
-                                      x-text="pageData[1][0].header[0].edit_submit_field ? pageData[1][0].header[0].edit_submit_field : 'Next'"
-                                      class="bg-sim-primary text-white inline-flex justify-center hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    ></button>
-                                  </template>
-                                  <template
-                                    x-if="pageKey === (Object.keys(pages).length-1)"
-                                  >
-                                    <button
-                                      @click="submitForm()"
-                                      :disabled="isLoading"
-                                      x-bind:class="pageKey >= 0 && pageKey < pageData.length ? 'ml-2' : ''"
-                                      class="text-white inline-flex justify-center bg-sim-primary hover:bg-button focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                      <span x-show="!isLoading">Submit</span>
-                                      <span x-show="isLoading">Loading</span>
-                                    </button>
-                                  </template>
-
-                                  <template>
-                                    <button
-                                      onclick="submit()"
-                                      x-text="pageData[1][0].header[0].edit_submit_field"
-                                      class="hidden absolute bottom-0 bg-sim-primary text-white inline-flex w-full justify-center hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                    >
-                                      Submited
-                                    </button>
-                                  </template>
-                                </div>
+                                <template>
+                                  <button onclick="submit()" x-text="pageData[1][0].header[0].edit_submit_field" class="hidden absolute bottom-0 bg-sim-primary text-white inline-flex w-full justify-center hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Submited
+                                  </button>
+                                </template>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <script src="./script.js"></script>
-
-                        <script src="../../js/upload/uploadToDrive.js"></script>
                       </div>
+                      <script src="./script.js"></script>
+
+                      <script src="../../js/upload/uploadToDrive.js"></script>
                     </div>
-                  </template>
-                </div>
-              </template>
-            </div>
+                  </div>
+                </template>
+              </div>
+            </template>
           </div>
         </div>
+      </div>
 
-        <!-- PROGRESS BAR START -->
+      <!-- PROGRESS BAR START -->
 
-        <div x-data="{showModal:false}" id="progress_bar_section">
-          <div
-            @click="showModal = true"
-            id="show_progress"
-            class="hidden"
-          ></div>
-          <div
-            @click="showModal = false"
-            id="close_progress"
-            class="hidden"
-          ></div>
-          <div><%- include('./progress.ejs') %></div>
-        </div>
-      </main>
+      <div x-data="{showModal:false}" id="progress_bar_section">
+        <div @click="showModal = true" id="show_progress" class="hidden"></div>
+        <div @click="showModal = false" id="close_progress" class="hidden"></div>
+        <div><%- include('./progress.ejs') %></div>
+      </div>
+    </main>
 
-      <% }else{ %> <%=data.message %> <% }%>
-    </div>
+    <% }else{ %> <%=data.message %> <% }%>
+  </div>
 
-    <div id="x-teleport-target"></div>
-    <script>
-      window.addEventListener("DOMContentLoaded", () => Alpine.start());
-    </script>
-  </body>
+  <div id="x-teleport-target"></div>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => Alpine.start());
+  </script>
+</body>
+
 </html>
 
 <script src="./script.js"></script>
@@ -396,6 +268,7 @@
     $("#pageId" + e).addClass("hidden");
     $("#pageId" + (e + 1)).addClass("block");
   }
+
   function prev(e) {
     $("#pageId" + (e - 1)).removeClass("hidden");
     $("#pageId" + (e - 1)).addClass("block");
@@ -404,7 +277,7 @@
   }
 </script>
 <script>
-  $(document).ready(function () {
+  $(document).ready(function() {
     let filekey = $(".FU_filekey").val();
     let FU_Required = $(".FU_required").val();
     let FU_Description = $(".FU_Description").val();
@@ -427,7 +300,7 @@
         firstFile: null,
       }, // $store to store global data
 
-      initFilePond: function (fieldKey) {
+      initFilePond: function(fieldKey) {
         const inputElement = document.getElementById("filepond" + fieldKey);
 
         // Initialize FilePond
@@ -458,7 +331,7 @@
       },
 
       // Other methods or data properties can be added here
-      complexMethod: function () {
+      complexMethod: function() {
         // Access this.$store.firstFile or this.files as needed
         console.log(
           "Accessing firstFile in complexMethod:",

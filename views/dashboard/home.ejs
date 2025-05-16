@@ -110,7 +110,10 @@ https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
 <body x-data="{ activeItem: 'Dashboard', showModalLoading:false, bkupfile:0 }" class="has-min-sidebar is-sidebar-open is-header-blur" x-bind="$store.global.documentBody">
   <!-- App preloader-->
   <div class="app-preloader fixed z-50 grid h-full w-full place-content-center bg-slate-50 dark:bg-navy-900">
-    <div class="app-preloader-inner relative inline-block h-48 w-48"></div>
+    <!-- <div class="app-preloader-inner relative inline-block h-48 w-48"></div> -->
+    <div class="flex justify-center">
+      <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+    </div>
   </div>
 
   <!-- Page Wrapper -->
