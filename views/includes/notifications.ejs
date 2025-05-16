@@ -1,4 +1,4 @@
-<div x-data="{notificationText: 'hello there'}">
+<!-- <div x-data="{notificationText: 'hello there'}">
   <div
     x-data="{ onShowNoti: () => { $notification({ content:window.content,  position: window.position, duration: window.duration }) } }"
     @click
@@ -135,4 +135,118 @@
       showNoti('primary', 'how are you', 5000)
   }, 3000)
   */
+</script> -->
+
+
+
+
+<div x-data="{notificationText: 'hello there'}">
+  <div x-data="{ onShowNoti: () => { $notification({ content:window.content,  position: window.position, duration: window.duration }) } }" @click>
+    <p id="allNotifications" x-on:click="onShowNoti()"></p>
+  </div>
+</div>
+
+<!-- Success Notification -->
+<template id="show_success">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-green-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-green-500">
+      <i class="bi bi-check-circle text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-green-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<!-- Error Notification -->
+<template id="show_error">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-red-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-red-500">
+      <i class="bi bi-exclamation-triangle text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-red-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<!-- Warning Notification -->
+<template id="show_warning">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-yellow-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-yellow-500">
+      <i class="bi bi-exclamation-circle text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-yellow-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<!-- White Card Notification -->
+<template id="show_whiteCard">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-blue-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-blue-500">
+      <i class="bi bi-info-circle text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-blue-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<!-- Red Card Notification -->
+<template id="show_redCard">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-red-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-red-500">
+      <i class="bi bi-x-circle text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-red-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<!-- White Slate Card Notification -->
+<template id="show_whiteSlateCard">
+  <div class="flex w-full bg-gray-800 shadow-lg p-2 rounded-md border-l-4 border-indigo-500">
+    <div class="w-8 h-8 rounded-full p-2 flex justify-center items-center bg-indigo-500">
+      <i class="bi bi-bell text-white text-sm"></i>
+    </div>
+    <div x-text="window.noti" class="flex items-center ml-3 text-indigo-500 text-sm font-medium">
+      NOTI ERROR
+    </div>
+  </div>
+</template>
+
+<script>
+  function showNoti(variant, message, duration) {
+    window.variant = `${variant}`;
+    window.noti = `${message}`;
+    window.duration = duration;
+    window.position = "right-bottom";
+    let noti = document.querySelector("#allNotifications");
+
+    if (variant == "error") {
+      window.content = "#show_error";
+    }
+    if (variant == "warning") {
+      window.content = "#show_warning";
+    }
+    if (variant == "success") {
+      window.content = "#show_success";
+    }
+    if (variant == "white") {
+      window.position = "center-top";
+      window.content = "#show_whiteCard";
+    }
+    if (variant == "white-slate") {
+      window.position = "center-top";
+      window.content = "#show_whiteSlateCard";
+    }
+    if (variant == "red-slate") {
+      window.position = "center-top";
+      window.content = "#show_redCard";
+    }
+    noti.click();
+  }
 </script>
