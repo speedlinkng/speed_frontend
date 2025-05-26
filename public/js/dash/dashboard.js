@@ -790,10 +790,10 @@ async function deleteRecord(recordId) {
       },
       body: JSON.stringify({ recordId: recordId }) // Send the recordId in the body
     }
-
+console.log(settings)
     try {
       const response = await fetch(`${backendUrl}/api/app/deleteRecord`, settings);
-      
+      console.log(response)
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Failed to delete record');

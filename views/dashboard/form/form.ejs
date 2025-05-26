@@ -72,7 +72,7 @@
 
       <div class="prev_form pb-4 sm:px-5 grid place-content-center">
         <!-- Form Header -->
-        <div><%- include('./formHeader.ejs') %></div>
+        <div class="p-2"><%- include('./formHeader.ejs') %></div>
 
         <div class="max-w-3xl w-full bg-white shadow-md mt-5 rounded-md">
           <div x-data="{pages: jsonData.values ? jsonData.values : {} }">
@@ -85,9 +85,9 @@
                       <template x-for="(pageData, pageKey) in pages">
                         <div x-init="">
                           <!-- page header -->
-                          <div><%- include('./pageHeader.ejs') %></div>
+                          <div class=""><%- include('./pageHeader.ejs') %></div>
 
-                          <template x-for="(item, fieldKey) in Object.entries(pageData)" class="p-3">
+                          <template x-for="(item, fieldKey) in Object.entries(pageData)" class="px-3">
                             <div x-if="Array.isArray(item[1]) && item[1].length > 0">
                               <template x-if="fieldKey > 0">
                                 <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
@@ -158,7 +158,7 @@
                           <div class="mt-5 space-y-1">
                             <div x-init="" class="">
                               <!-- page header -->
-                              <div><%- include('./pageHeader.ejs') %></div>
+                              <div class="p-3"><%- include('./pageHeader.ejs') %></div>
                               <div class="hidden">
                                 <%- include('./repliesToDoc.ejs') %>
                               </div>
