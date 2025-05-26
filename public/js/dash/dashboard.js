@@ -778,12 +778,53 @@ function editRecord(recordId, index) { // Add index parameter
   window.callEdit(index); // Pass the index to window.callEdit
 }
 
-function deleteRecord(recordId) {
-  alert(recordId)
+async function deleteRecord(recordId) {
   console.log('Delete record:', recordId);
-  // Implement delete functionality
+  
   if (confirm('Are you sure you want to delete this record?')) {
-    // Add your delete logic here
+    let settings = {
+      method: 'POST', // Changed to POST since we're modifying data
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('access')}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ recordId: recordId }) // Send the recordId in the body
+    }
+
+    try {
+      const response = await fetch(`${backendUrl}/api/app/deleteRecord`, settings);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to delete record');
+      }
+
+      const data = await response.json();
+      
+      // Show success notification
+      showNoti(
+        "success", 
+        "Record deleted successfully",
+        5000
+      );
+      
+      // Refresh the record list
+      await getRecordList();
+      
+      return data;
+
+    } catch (error) {
+      console.error('Error deleting record:', error);
+      
+      // Show error notification
+      showNoti(
+        "error",
+        error.message || "Failed to delete record",
+        5000
+      );
+      
+      throw error;
+    }
   }
 }
 
