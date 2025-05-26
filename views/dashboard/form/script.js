@@ -379,11 +379,13 @@ document.addEventListener("alpine:init", () => {
         );
 
         if (!initRes.ok) {
-          throw new Error(`Failed to initiate upload: ${initRes.status} ${initRes.statusText}`);
+             this.isLoading = false;
+          throw new Error(`Failed to initiate upload: ${initRes.statusText}`);
         }
 
         const uploadUrl = initRes.headers.get("location");
         if (!uploadUrl) {
+            this.isLoading = false;
           throw new Error("Upload URL not found in response headers.");
         }
 
