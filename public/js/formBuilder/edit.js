@@ -170,7 +170,7 @@ console.log(allArrayEdit[req_index])
                 <input
                   x-show="isEditing"
                   type="text"
-                  class="flex-1 text-2xl font-bold border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white"
+                  class="uph_${pageIndex} flex-1 text-2xl font-bold border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white"
                   x-model="title"
                   @blur="isEditing = false"
                   @keyup.enter="isEditing = false"
@@ -199,7 +199,7 @@ console.log(allArrayEdit[req_index])
                 <input
                   x-show="isEditing"
                   type="text"
-                  class="flex-1 border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300"
+                  class="upd_${pageIndex} flex-1 border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300"
                   x-model="description"
                   @blur="isEditing = false"
                   @keyup.enter="isEditing = false"
@@ -247,7 +247,7 @@ console.log(allArrayEdit[req_index])
   >
     <input
       type="text"
-      class="bg-teal-500 text-white font-medium py-2 px-4 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 border border-teal-600 dark:border-teal-400 text-sm"
+      class=" edit_submit_field${pageIndex} bg-teal-500 text-white font-medium py-2 px-4 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-teal-300 focus:ring-offset-2 border border-teal-600 dark:border-teal-400 text-sm"
       x-model="buttonText"
       @blur="isEditing = false"
       @keydown.escape="isEditing = false"
