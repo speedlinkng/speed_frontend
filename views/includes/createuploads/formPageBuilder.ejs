@@ -6,8 +6,8 @@
     <div page-count="1" class="EACHPAGE place-content-center max-w-full mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
       <div class="space-y-4">
         <div class="flex items-center gap-2" x-data="{ isEditing: false, title: 'Upload Page Header' }">
-          <h1 x-show="!isEditing" class="text-2xl font-bold text-gray-900 dark:text-white" @click="isEditing = true" style="cursor:pointer;" x-text="title">Upload Page Header</h1>
-          <input x-show="isEditing" type="text" class="flex-1 text-2xl outline-none font-bold border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white" x-model="title" @blur="isEditing = false" @keyup.enter="isEditing = false" placeholder="Upload Page Header" x-init="$el.focus()" />
+          <h1 x-show="!isEditing" class=" text-2xl font-bold text-gray-900 dark:text-white" @click="isEditing = true" style="cursor:pointer;" x-text="title">Upload Page Header</h1>
+          <input x-show="isEditing" type="text" class="uph_1 flex-1 text-2xl outline-none font-bold border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white" x-model="title" @blur="isEditing = false" @keyup.enter="isEditing = false" placeholder="Upload Page Header" x-init="$el.focus()" />
           <div x-show="!isEditing" class="flex gap-2">
             <button @click="isEditing = true" class="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
@@ -24,7 +24,7 @@
 
         <div class="flex items-center gap-2" x-data="{ isEditing: false, description: 'Upload Page Description' }">
           <p x-show="!isEditing" class="text-gray-600 dark:text-gray-300" @click="isEditing = true" style="cursor:pointer;" x-text="description">Upload Page Description</p>
-          <input x-show="isEditing" type="text" class="flex-1 border-b outline-none border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300" x-model="description" @blur="isEditing = false" @keyup.enter="isEditing = false" placeholder="Upload Page Description" x-init="$el.focus()" />
+          <input x-show="isEditing" type="text" class="upd_1 flex-1 border-b outline-none border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300" x-model="description" @blur="isEditing = false" @keyup.enter="isEditing = false" placeholder="Upload Page Description" x-init="$el.focus()" />
           <div x-show="!isEditing" class="flex gap-2">
             <button @click="isEditing = true" class="text-gray-500 hover:text-blue-500 dark:text-gray-400 dark:hover:text-blue-400">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
@@ -42,18 +42,24 @@
         <div x-data id="showResult_" class="showResult_ use_drag formClass space-y-4">
         </div>
 
-        <div class="flex justify-center" x-data="{ isEditing: false, buttonText: 'Submit Answers' }">
-          <button x-show="!isEditing" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center gap-2" @click="isEditing = true">
-            <span x-text="buttonText">Submit Answers</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
-              <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-            </svg>
+        <div class="flex justify-start" x-data="{ isEditing: false, buttonText: 'Submit Answers' }">
+          <button x-show="!isEditing" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md flex items-center gap-1 transition-colors duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 text-sm" @click="isEditing = true" aria-label="Edit button text">
+            <span x-text="buttonText" class="whitespace-nowrap">Submit Answers</span>
+            <span class="material-icons text-sm" style="font-size: 16px;">edit</span>
           </button>
-          <input x-show="isEditing" type="text" class="bg-blue-500 outline-none hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 text-center" x-model="buttonText" @blur="isEditing = false" @keyup.enter="isEditing = false" x-init="$el.focus()" />
+
+          <div x-show="isEditing" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" class="relative">
+            <input type="text" class="bg-blue-500 text-white font-medium py-2 px-4 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 border border-blue-600 dark:border-blue-400 text-sm text-center" x-model="buttonText" @blur="isEditing = false" @keydown.escape="isEditing = false" @keyup.enter="isEditing = false" x-init="$el.focus(); $el.select()" value="Submit Answers" aria-label="Edit button text input" />
+            <span class="absolute inset-y-0 right-2 flex items-center pointer-events-none text-blue-200">
+              <span class="material-icons text-sm" style="font-size: 16px;">edit</span>
+            </span>
+          </div>
         </div>
+
         <br />
-        <div class="flex justify-center mt-4">
-          <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded(); addQ(); drag()" id="add_question" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white">
+        <div class="flex justify-left mt-4">
+          <button :class="$store.expanded_condition && 'border'" @click="falsifyAllExpanded(); addQ(); drag()" id="add_question" class="flex items-center gap-1 bg-slate-200 hover:bg-slate-400 text-primary font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 text-sm" aria-label="Add Field">
+            <span class="material-icons text-sm" style="font-size: 16px;">add</span>
             Add Field
           </button>
         </div>
@@ -153,7 +159,7 @@
         <input
           x-show="isEditing"
           type="text"
-          class="flex-1 text-2xl font-bold border-b outline-none border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white"
+          class="uph_${_count} flex-1 text-2xl font-bold border-b outline-none border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-900 dark:text-white"
           x-model="title"
           @blur="isEditing = false"
           @keyup.enter="isEditing = false"
@@ -179,7 +185,7 @@
         <input
           x-show="isEditing"
           type="text"
-          class="flex-1 outline-none border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300"
+          class="upd_${_count} flex-1 outline-none border-b border-blue-500 dark:border-blue-400 focus:ring-0 bg-transparent text-gray-600 dark:text-gray-300"
           x-model="description"
           @blur="isEditing = false"
           @keyup.enter="isEditing = false"
@@ -203,55 +209,62 @@
       <div x-data class="showResult_${_count} use_drag formClass space-y-4">
         </div>
 
-      <div class="flex justify-center" x-data="{ isEditing: false, buttonText: 'Submit Answers' }">
-          <button
-              x-show="!isEditing"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center gap-2"
-              @click="isEditing = true"
-          >
-              <span x-text="buttonText">Submit Answers</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
-              </svg>
-          </button>
-          <input
-              x-show="isEditing"
-              type="text"
-              class="bg-blue-500 outline-none hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 text-center"
-              x-model="buttonText"
-              @blur="isEditing = false"
-              @keyup.enter="isEditing = false"
-              x-init="$el.focus()"
-          />
-      </div>
+     <div class="flex justify-start" x-data="{ isEditing: false, buttonText: 'Submit Answers' }">
+  <button
+    x-show="!isEditing"
+    x-transition:enter="transition ease-out duration-100"
+    x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100"
+    class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md flex items-center gap-1 transition-colors duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 text-sm"
+    @click="isEditing = true"
+    aria-label="Edit button text"
+  >
+    <span x-text="buttonText" class="whitespace-nowrap">Submit Answers</span>
+    <span class="material-icons text-sm" style="font-size: 16px;">edit</span>
+  </button>
+
+  <div
+    x-show="isEditing"
+    x-transition:enter="transition ease-out duration-100"
+    x-transition:enter-start="opacity-0 scale-95"
+    x-transition:enter-end="opacity-100 scale-100"
+    class="relative"
+  >
+    <input
+      type="text"
+      class="bg-blue-500 text-white font-medium py-2 px-4 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 border border-blue-600 dark:border-blue-400 text-sm text-center"
+      x-model="buttonText"
+      @blur="isEditing = false"
+      @keydown.escape="isEditing = false"
+      @keyup.enter="isEditing = false"
+      x-init="$el.focus(); $el.select()"
+      value="Submit Answers"
+      aria-label="Edit button text input"
+    />
+    <span class="absolute inset-y-0 right-2 flex items-center pointer-events-none text-blue-200">
+      <span class="material-icons text-sm" style="font-size: 16px;">edit</span>
+    </span>
+  </div>
+</div>
+
       <br>
-      <div class="flex justify-center gap-4 mt-4">
+      <div class="flex justify-lfet gap-4 mt-4">
         <button
           :class="$store.expanded_condition && 'border'"
           @click="falsifyAllExpanded(); addQ(${null},${_count}); drag()"
           id="add_question${_count}"
-          class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-75 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-white"
-        >
-          Add Field
+          class="flex items-center gap-1 bg-slate-200 hover:bg-slate-400 text-primary font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2 text-sm" aria-label="Add Field">
+            <span class="material-icons text-sm" style="font-size: 16px;">add</span>
+            Add Field
         </button>
         <button
           @click="deletePage(${_count})"
           id="delete_page"
-          class="bg-red-100 hover:bg-red-200 text-red-700 font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-opacity-75 dark:bg-red-700 dark:hover:bg-red-600 dark:text-white"
-        >
-          Delete Page
+            class="flex items-center gap-1 bg-red-50 hover:bg-red-100 text-red-600 font-medium py-2 px-4 rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-red-300 focus:ring-offset-2 text-sm" aria-label="Delete Page">
+            <span class="material-icons text-sm" style="font-size: 16px;">delete</span>
+            Delete Page
         </button>
-        <button
-          @click="openPageSetings()"
-          id="page_settings"
-          class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-semibold py-2 px-4 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 dark:bg-yellow-700 dark:hover:bg-yellow-600 dark:text-white flex items-center gap-2"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-          </svg>
-          Settings
-        </button>
+       
       </div>
     </div>
   </div>

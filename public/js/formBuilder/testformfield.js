@@ -37,8 +37,8 @@ async function adddefaultQ(addpage, res_id = null){
 
 
 async function editAddDefaultQ(fieldValues, res_id, fieldTypes, fieldIndex, conditions, editSettings){
-  // console.log('inside the hosue', JSON.parse(editSettings))
-
+  console.log('inside the hosue', JSON.parse(editSettings))
+  // alert('click')
     await addQ(fieldValues, res_id, fieldTypes, fieldIndex, conditions, editSettings) 
 
 }
@@ -91,8 +91,8 @@ async function addQ(e = null, res_id = null, fieldTypes = null, fieldIndex = nul
       window.selCond = 'greater'
     }
 
-// alert(window.typ)
-newInput = $(
+  // alert(window.typ)
+  newInput = $(
   /*html*/
   `
   <div draggable="true" class="item mt-2 ">
@@ -538,7 +538,7 @@ function myComponent(initialValue) {
   };
 }
 async function editSet(count_ES, editSettings, fieldIndex, fieldTypes) {
-  
+
   let settings_ = JSON.parse(editSettings) // gotten from edit function
   let settArray = []
   settings_.forEach((setting_)=>{

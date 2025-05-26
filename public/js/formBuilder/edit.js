@@ -64,7 +64,7 @@ function initDragAndDrop(pageIndex) {
   // hide save button and show update button
   $('#create_save_').hide()
   $('#create_update_').show()
-
+console.log(allArrayEdit[req_index])
    editFormRecordId = allArrayEdit[req_index].record_id
    // console.log(allArrayEdit[req_index].record_data.values)
    // use this JSON data to edit and populate the main form Builder
@@ -284,6 +284,7 @@ function initDragAndDrop(pageIndex) {
     Delete Page
   </button>
 </div>
+<div class="holdbuttons"></div>
 
             </div>
           </div>
@@ -313,7 +314,7 @@ function initDragAndDrop(pageIndex) {
                 await editConditions(pageIndex, fieldIndex, JSON.stringify(fieldData.conditions), count)
                 await editSettings(pageIndex, fieldIndex, JSON.stringify(fieldData.settings), count, fieldTypes)
                 
-            }, 200)
+            }, 500)
          
 
             // Display field information
@@ -350,6 +351,8 @@ function initDragAndDrop(pageIndex) {
 
             if(fieldIndex !== null){
               let hide_show = conditions_.firstCondition[0].selectorValue
+              console.log('hide_show')
+              console.log(hide_show)
               let if_ = conditions_.firstCondition[1].selectorValue
               let matches_ = conditions_.secondCondition[0].SCL_selectorValue
               let selectedCondition_ = conditions_.secondCondition[1].SCL_selectorValue
@@ -357,7 +360,8 @@ function initDragAndDrop(pageIndex) {
               
           
               let getPage = document.querySelector(`[page-count = '${res_id}'] .eachField${count}`)
-            
+            console.log('getpage')
+            console.log(getPage)
               // {{{{{{{{{FIRST CONDITIONS DATA}}}}}}}}}
               getPage.querySelector(`[name="hide-show"] option[value='${hide_show}']`).selected = true
               getPage.querySelector(`[name="if"] option[value='${if_}']`).selected = true

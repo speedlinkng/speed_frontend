@@ -56,26 +56,52 @@
       @apply text-slate-700 dark:text-white
     }
     .select2-search {
-      @apply border border-gray-300 rounded;
+      @apply border border-gray-300 rounded
     }
     .select2-results__group {
-      @apply text-lg font-bold text-gray-900;
+      @apply text-lg font-bold text-gray-900
     }
     /* ... */
     .active-sidebar {
-      @apply bg-[rgb(176,172,242)] !text-white hover:!text-slate-800 ;
+      @apply bg-[rgb(176,172,242)] !text-white hover:!text-slate-800 
     }
     .active-text {
-      @apply hover:!text-slate-800 !text-white focus:text-slate-800 ;
+      @apply hover:!text-slate-800 !text-white focus:text-slate-800 
     }
-  
-   
-  
     .text-black-cus {
       @apply text-[#121212]
     }
 
-    
+    .form-field-group {
+      @apply space-y-2
+    }
+    .btn-primary {
+      @apply inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 transition-colors
+    }
+    .btn-secondary {
+      @apply inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg border border-gray-300 text-gray-700 hover: bg-gray-50 focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:ring-gray-700 transition-colors
+    }
+    .app-preloader {
+      backdrop-filter: blur(4px)
+    }
+
+
+    label {
+      @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1
+    }
+
+    /* FilePond custom styles */
+    .filepond--root {
+      @apply mb-2
+    }
+
+    .filepond--panel-root {
+      @apply bg-gray-50 dark: bg-navy-700 border border-gray-300 dark:border-navy-600 rounded-lg
+    }
+
+    .filepond--drop-label {
+      @apply text-gray-500 dark:text-gray-400
+    }
    
 
 

@@ -169,7 +169,7 @@ document.addEventListener("alpine:init", () => {
       }
     },
 
-    async downloadDoc() {
+    async olddownloadDoc() {
       var _allReplyLink = this.allReplyLink;
       var preHtml =
         "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
@@ -339,6 +339,138 @@ document.addEventListener("alpine:init", () => {
         this.errorMesg = err;
         let errorModal = document.querySelector("#showModalError");
         errorModal.click();
+      }
+    },
+
+    async downloadDoc() {
+      var _allReplyLink = this.allReplyLink;
+      var preHtml =
+        "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Export HTML To Doc</title></head><body>";
+      var postHtml = "</body></html>";
+      // Get the HTML content of the div
+      var html =
+        preHtml + document.querySelector(".convertToDoc").innerHTML + postHtml;
+
+      // Create a new Blob object with the HTML content
+      var blob = new Blob(["\ufeff", html], { type: "application/msword" });
+
+
+      const uploadToken = document.querySelector("#uploadToken").value;
+      const defaultParentFolder = document.querySelector("#defaultParent").value;
+      const fileName = 'Form Replies.doc'; // Consistent filename
+
+
+      try {
+        // 1. Initiate Resumable Upload
+        const initRes = await fetch(
+          "https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${uploadToken}`,
+              "Content-Type": "application/json; charset=UTF-8",
+            },
+            body: JSON.stringify({
+              name: fileName,
+              mimeType: blob.type,
+              parents: [defaultParentFolder],
+            }),
+          }
+        );
+
+        if (!initRes.ok) {
+          throw new Error(`Failed to initiate upload: ${initRes.status} ${initRes.statusText}`);
+        }
+
+        const uploadUrl = initRes.headers.get("location");
+        if (!uploadUrl) {
+          throw new Error("Upload URL not found in response headers.");
+        }
+
+        // 2. Upload the Blob Data
+        const uploadRes = await fetch(uploadUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Length": blob.size.toString(),
+            "Content-Type": blob.type,
+          },
+          body: blob,
+        });
+
+        if (!uploadRes.ok) {
+          throw new Error(`Upload failed: ${uploadRes.status} ${uploadRes.statusText}`);
+        }
+
+        const fileData = await uploadRes.json();
+        const fileId = fileData.id;
+
+
+        // 3. Get Metadata and Download Link
+        const links = await getMeta(fileId, uploadToken);  // Pass the token!
+        _allReplyLink.push(links);
+        console.log(_allReplyLink);
+
+        this.submitAndUpdate(_allReplyLink); //  Call this.submitAndUpdate(res);
+
+      } catch (error) {
+        console.error("Error in upload process:", error);
+        this.errorMesg = error.message;
+        let errorModal = document.querySelector("#showModalError");
+        if (errorModal) {
+            errorModal.click();
+        }
+
+      }
+
+
+      async function getMeta(fileId, token) {
+          const webLinkUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
+          const contentLinkUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webContentLink`;
+
+          try {
+              const [webRes, contentRes] = await Promise.all([
+                  fetch(webLinkUrl, {
+                      method: 'GET',
+                      headers: {
+                          Authorization: `Bearer ${token}`, // Use the token!
+                          Accept: 'application/json',
+                      },
+                  }),
+                  fetch(contentLinkUrl, {
+                      method: 'GET',
+                      headers: {
+                          Authorization: `Bearer ${token}`, // Use the token!
+                          Accept: 'application/json',
+                      },
+                  }),
+              ]);
+
+              if (!webRes.ok) {
+                  console.error("Error fetching webLink:", webRes);
+                  throw new Error(`Failed to fetch webLink: ${webRes.status} ${webRes.statusText}`);
+              }
+              if (!contentRes.ok) {
+                    console.error("Error fetching contentLink:", contentRes);
+                    throw new Error(`Failed to fetch contentLink: ${contentRes.status} ${contentRes.statusText}`);
+              }
+
+              const webData = await webRes.json();
+              const contentData = await contentRes.json();
+
+              const webViewLink = webData.webViewLink;
+              const downloadLink = contentData.webContentLink
+                ? contentData.webContentLink.replace(/&authuser=\d+/, '')
+                : null;
+
+              return {
+                  name: "Form Reply",  //  set a meaningful name
+                  webViewLink,
+                  downloadLink,
+              };
+          } catch (error) {
+              console.error("Error fetching metadata:", error);
+              throw error; // Re-throw to be caught in the main function
+          }
       }
     },
 
