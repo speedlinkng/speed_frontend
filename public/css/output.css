@@ -2450,6 +2450,11 @@ label:is(.dark *) {
   background-color: rgb(234 179 8 / var(--tw-bg-opacity));
 }
 
+.bg-green-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(22 163 74 / var(--tw-bg-opacity));
+}
+
 .\!bg-opacity-70 {
   --tw-bg-opacity: 0.7 !important;
 }
@@ -2628,6 +2633,10 @@ label:is(.dark *) {
 
 .p-px {
   padding: 1px;
+}
+
+.p-20 {
+  padding: 5rem;
 }
 
 .px-0 {

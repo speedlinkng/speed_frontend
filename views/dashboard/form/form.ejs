@@ -87,7 +87,7 @@
                           <!-- page header -->
                           <div class=""><%- include('./pageHeader.ejs') %></div>
 
-                          <template x-for="(item, fieldKey) in Object.entries(pageData)" class="px-3">
+                          <template x-for="(item, fieldKey) in Object.entries(pageData)" class="px-3 ">
                             <div x-if="Array.isArray(item[1]) && item[1].length > 0">
                               <template x-if="fieldKey > 0">
                                 <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
@@ -143,12 +143,7 @@
             <template x-data="dropdown" x-if="Object.keys(pages).length >= 1">
               <div x-init="" x-data="{allInputFields:[],submitForm_:false}" class="" x-init="requestJson = jsonData">
                 <!-- Content to be displayed if the condition is false -->
-                <div class="hidden">
-                  <%- include('./message/success.ejs') %>
-                </div>
-                <div class="hidden">
-                  <%- include('./message/error.ejs') %>
-                </div>
+
 
                 <template x-for="(pageData, pageKey) in Object.entries(pages)">
                   <div x-init="if(pageKey == 0) {}" :id="'pageId' + pageKey" :class="{ 'hidden': pageKey != 0 }">
@@ -158,12 +153,12 @@
                           <div class="mt-5 space-y-1">
                             <div x-init="" class="">
                               <!-- page header -->
-                              <div class="p-3"><%- include('./pageHeader.ejs') %></div>
+                              <div><%- include('./pageHeader.ejs') %></div>
                               <div class="hidden">
                                 <%- include('./repliesToDoc.ejs') %>
                               </div>
                               <template x-for="(item, fieldKey) in Object.entries(pageData[1])">
-                                <div x-if="Array.isArray(item[1]) && item[1].length > 0" class="p-3">
+                                <div x-if="Array.isArray(item[1]) && item[1].length > 0" class="px-3">
                                   <template x-if="fieldKey > 0">
                                     <template x-for="(field, fieldIndex) in item[1]" :key="fieldIndex">
                                       <div x-data="{_keyComb:''+pageKey+''+fieldKey+'', conditionPointer: [], fieldType: field.fieldType, otherData: field.other_data, setting: field.settings, condition: field.conditions }">

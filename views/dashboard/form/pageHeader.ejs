@@ -1,6 +1,21 @@
-<div class="h-auto my-2 p-3">
-  <h3 x-text="pageData[1][0].header[0].page_header" class="lowercase text-2xl" :class="'capitalize' ">Your Form Preview</h3>
-  <h6 x-text="(pageData[1][0].header[0].page_description).charAt(0).toUpperCase() + (pageData[1][0].header[0].page_description).slice(1)" class=" text-sm">Your Form Preview</h6>
-  <h3 x-text="pageKey" class="hidden"></h3>
-</div>
-<br>
+<template class="h-auto" x-data="{ 
+       headerData: pageData[1][0].header[0],
+       get hasContent() {
+         const h = this.headerData?.page_header?.trim();
+         const d = this.headerData?.page_description?.trim();
+         return (h && h.length > 0) || (d && d.length > 0);
+       },
+       init() {
+         const header = this.headerData?.page_header?.trim() || '';
+         const desc = this.headerData?.page_description?.trim() || '';
+         console.log('Page Header (trimmed) length:', header.length);
+         console.log('Page Description (trimmed) length:', desc.length);
+       }
+     }" x-if="hasContent">
+  <div class="h-auto p-3">
+
+    <h3 x-text="headerData.page_header" class="lowercase text-2xl font-semibold capitalize"></h3>
+    <h6 x-text="(headerData.page_description).charAt(0).toUpperCase() + (headerData.page_description).slice(1)" class="text-sm"></h6>
+    <h3 x-text="pageKey" class="hidden"></h3>
+  </div>
+</template>
