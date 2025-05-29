@@ -129,13 +129,13 @@ document.addEventListener("alpine:init", () => {
         }),
       };
 
-      console.log('backendUrl is' ,backendUrl)
 
       try {
         let submitResponse = await fetch(
-          `${backendUrl}/api/app/submitAndUpdate`,
+          `https://bapi.blazzingshare.com/api/app/submitAndUpdate`,
           settings
         );
+     
         // let head = await fetchResponses.headers
         let sta = await submitResponse.status;
         let json = await submitResponse.json();
