@@ -575,7 +575,7 @@
                   uploadFile(header_res, selectedFile);
                 };
 
-                const gogetMetadata = async (res, selectedFile) => {
+                const gogetMetadataold = async (res, selectedFile) => {
                   let links = [];
                   let web = "";
                   let down = "";
@@ -618,8 +618,8 @@
                     });
 
                     let content = await linkContent.json();
-                    // console.log(content.webContentLink)
-                    // console.log(content)
+                    console.log(content.webContentLink)
+                    console.log(content)
 
                     // Remove the "&authuser=0" part from the URL.
                     const newUrl = content.webContentLink.replace(
@@ -633,7 +633,7 @@
                     // Construct the desired URL by injecting the extracted ID
                     const desiredUrl = `https://drive.usercontent.google.com/u/1/uc?id=${id}&export=download`;
 
-                    // console.log('desiredUrl', desiredUrl);
+                    console.log('desiredUrl', desiredUrl);
                     down = desiredUrl;
                   } catch (error) {
                     // console.error('Error fetching webViewContent:', error);
@@ -647,6 +647,85 @@
                   });
                 };
 
+
+                const gogetMetadata = async (res, selectedFile) => {
+                  let links = [];
+                  let web = "";
+                  let down = "";
+                  let accessToken = "<%= uploadToken %>"; // Replace with your actual access token
+                  const fileId = res.id;
+
+                  // Step 1: Set Public Permission (if needed)
+                  try {
+                    const permissionResponse = await fetch(
+                      `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`, {
+                        method: "POST",
+                        headers: {
+                          Authorization: `Bearer ${accessToken}`,
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          role: "reader",
+                          type: "anyone", // Makes the file accessible to anyone with the link
+                        }),
+                      }
+                    );
+
+                    if (permissionResponse.status === 200) {
+                      console.log("File is now publicly accessible");
+                    }
+                  } catch (error) {
+                    console.error("Error setting permission:", error);
+                  }
+
+                  // Step 2: Get the WebViewLink (preview link)
+                  const webLink = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
+                  try {
+                    const linkResponse = await fetch(webLink, {
+                      method: "GET",
+                      headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                      },
+                    });
+                    if (linkResponse.status == 200) {
+                      const link = await linkResponse.json();
+                      web = link.webViewLink;
+                    }
+                  } catch (error) {
+                    console.error("Error fetching webViewLink:", error);
+                  }
+
+                  // Step 3: Get the Direct Download Link
+                  // Option 1: Use webContentLink (requires public permission)
+                  const webContent = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webContentLink`;
+                  try {
+                    const linkContent = await fetch(webContent, {
+                      method: "GET",
+                      headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                      },
+                    });
+                    const content = await linkContent.json();
+                    down = content.webContentLink?.replace(/&authuser=0/, "") || "";
+                  } catch (error) {
+                    console.error("Error fetching webContentLink:", error);
+                  }
+
+                  // Option 2: Use the export endpoint (for Google Docs files)
+                  // down = `https://www.googleapis.com/drive/v3/files/${fileId}/export?mimeType=application/pdf`;
+                  console.log({
+                    name: selectedFile.name,
+                    time: selectedFile.lastModified,
+                    webViewLink: web,
+                    downloadLink: down,
+                  })
+                  resolve({
+                    name: selectedFile.name,
+                    time: selectedFile.lastModified,
+                    webViewLink: web,
+                    downloadLink: down,
+                  });
+                };
                 // Function to update the progress bar and text
 
                 // Check if file size is less than 256 of equal to 256 kb
