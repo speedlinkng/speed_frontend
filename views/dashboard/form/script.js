@@ -483,7 +483,8 @@ document.addEventListener("alpine:init", () => {
 
               const webData = await webRes.json();
               const contentData = await contentRes.json();
-
+console.log('webData', webData)
+console.log('contentData', contentData)
               const webViewLink = webData.webViewLink;
               const downloadLink = contentData.webContentLink
                 ? contentData.webContentLink.replace(/&authuser=\d+/, '')
