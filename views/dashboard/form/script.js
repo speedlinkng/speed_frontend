@@ -406,6 +406,9 @@ document.addEventListener("alpine:init", () => {
         const fileData = await uploadRes.json();
         const fileId = fileData.id;
 
+      // 3. Make the file publicly accessible (read-only)
+        await makeFilePublic(fileId, uploadToken);
+        console.log("File permissions set to public.");
 
         // 3. Get Metadata and Download Link
         const links = await getMeta(fileId, uploadToken);  // Pass the token!
@@ -413,6 +416,8 @@ document.addEventListener("alpine:init", () => {
         console.log(_allReplyLink);
 
         this.submitAndUpdate(_allReplyLink); //  Call this.submitAndUpdate(res);
+
+
 
       } catch (error) {
         console.error("Error in upload process:", error);
@@ -423,7 +428,27 @@ document.addEventListener("alpine:init", () => {
         }
 
       }
+      async function makeFilePublic(fileId, token) {
+          const response = await fetch(
+              `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`,
+              {
+                  method: 'POST',
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                      'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                      role: 'reader',
+                      type: 'anyone',
+                  }),
+              }
+          );
 
+          if (!response.ok) {
+              throw new Error(`Failed to set public permissions: ${response.status} ${response.statusText}`);
+          }
+          return await response.json();
+      }
 
       async function getMeta(fileId, token) {
           const webLinkUrl = `https://www.googleapis.com/drive/v3/files/${fileId}?fields=webViewLink`;
