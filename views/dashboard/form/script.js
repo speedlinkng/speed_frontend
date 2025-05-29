@@ -129,7 +129,7 @@ document.addEventListener("alpine:init", () => {
         }),
       };
 
-      // console.log(settings)
+      console.log('backendUrl is' ,backendUrl)
 
       try {
         let submitResponse = await fetch(
